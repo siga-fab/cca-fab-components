@@ -1,5 +1,5 @@
 {
-  "name": "common",
+  "name": "@siga-fab/siga-components-common",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^10.0.6",

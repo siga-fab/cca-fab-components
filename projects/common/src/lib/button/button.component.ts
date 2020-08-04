@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'common-button',
+  selector: 'sc-common-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss']
 })
