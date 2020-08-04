@@ -32,12 +32,12 @@ jobs:
           npm ci
           npm run test:ci
 
-      - name: npm ci and npm run build
+      - name: Build deps
         if: ${{ success() }}
         run: |
           npm run build:ci
 
-      - name: npm ci and npm run build
+      - name: Release libs
         if: ${{ success() }}
         run: |
           npm ci

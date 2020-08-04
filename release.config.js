@@ -11,5 +11,6 @@ module.exports = {
     }],
     "@semantic-release/git"
   ],
-  "preset": "eslint"
+  "preset": "eslint",
+  "extends": "semantic-release-monorepo"
 }
