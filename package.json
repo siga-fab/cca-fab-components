@@ -9,7 +9,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "build:prod": "ng build --prod",
+    "build:ci": "npm run clean && npm run test && npm run build:prod"
   },
   "private": true,
   "dependencies": {
@@ -50,8 +52,10 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~3.3.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "karma-mocha-reporter": "^2.2.5",
     "ng-packagr": "^10.0.0",
     "protractor": "~7.0.0",
+    "puppeteer": "^5.2.1",
     "to-string-loader": "^1.1.6",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
