@@ -27,10 +27,21 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: npm ci and npm run build
+      - name: Run tests
         run: |
           npm ci
+          npm run test:ci
+
+      - name: npm ci and npm run build
+        if: ${{ success() }}
+        run: |
           npm run build:ci
+
+      - name: npm ci and npm run build
+        if: ${{ success() }}
+        run: |
+          npm ci
+          npm run release:ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

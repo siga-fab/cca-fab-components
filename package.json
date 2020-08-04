@@ -12,7 +12,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build:prod": "ng build --prod",
-    "build:ci": "npm run clean && npm run test && npm run build:prod && lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo"
+    "test:ci": "npm run clean && npm run test",
+    "build:ci": "npm run build:prod",
+    "release:ci": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo"
   },
   "private": true,
   "dependencies": {
