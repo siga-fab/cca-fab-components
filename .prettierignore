@@ -1,0 +1,10 @@
+# Ignore artifacts:
+build
+coverage
+
+# Ignore files
+package.json
+package-lock.json
+package.json
+tsconfig.*
+tslint.*
