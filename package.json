@@ -21,7 +21,7 @@
     "build:ci": "npm run build:prod",
     "release:ci": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo"
   },
-  "private": true,
+  "private": false,
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
