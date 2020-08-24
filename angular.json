@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/common",
       "sourceRoot": "projects/common/src",
-      "prefix": "sc-common",
+      "prefix": "common",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

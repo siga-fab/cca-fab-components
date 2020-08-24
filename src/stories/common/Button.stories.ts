@@ -10,6 +10,6 @@ export const WithSomeEmojiAndAction = () => ({
   component: ButtonComponent,
   props: {
     text: '😀 😎 👍 💯',
-    click: action('This was clicked OMG'),
+    buttonClick: action('This was clicked OMG'),
   },
 });

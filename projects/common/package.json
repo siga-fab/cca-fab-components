@@ -1,5 +1,5 @@
 {
-  "name": "@siga-fab/siga-components-common",
+  "name": "@cca-fab/cca-fab-components-common",
   "version": "0.0.0",
   "private": false,
   "peerDependencies": {
