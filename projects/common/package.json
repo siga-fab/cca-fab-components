@@ -1,6 +1,6 @@
 {
   "name": "@cca-fab/cca-fab-components-common",
-  "version": "0.0.0",
+  "version": "0.0.0-semantically-released",
   "private": false,
   "peerDependencies": {
     "@angular/common": "~9.1.12",
@@ -8,5 +8,9 @@
   },
   "dependencies": {
     "tslib": "^2.0.0"
+  },
+  "release": "dist/common",
+  "publishConfig": {
+    "access": "public"
   }
 }
