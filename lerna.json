@@ -1,4 +1,4 @@
 {
-  "packages": ["dist/*"],
+  "packages": ["projects/*"],
   "version": "independent"
 }
