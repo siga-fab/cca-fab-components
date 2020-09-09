@@ -62,7 +62,7 @@
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "",
+          "data": "@import '~assets/scss/colors.scss';\n\n.button {\n  background-color: $primary;\n}\n",
           "styleUrl": "./button.component.scss"
         }
       ],
