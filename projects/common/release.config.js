@@ -1,3 +1,3 @@
 module.exports = {
-  pkgRoot: 'dist/common',
+  pkgRoot: '../../dist/common',
 };
