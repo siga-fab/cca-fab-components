@@ -9,7 +9,6 @@
   "dependencies": {
     "tslib": "^2.0.0"
   },
-  "release": "dist/common",
   "publishConfig": {
     "access": "public"
   }
