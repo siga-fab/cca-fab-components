@@ -7,7 +7,7 @@
   "components": [
     {
       "name": "ButtonComponent",
-      "id": "component-ButtonComponent-b50b2f8a631f76a5f7d2d716f58cc001",
+      "id": "component-ButtonComponent-a31b1cfa4fadfd66d2bc49babcc8fb7c",
       "file": "projects/common/src/lib/button/button.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -45,7 +45,7 @@
           "line": 14
         },
         {
-          "name": "onclick",
+          "name": "onClick",
           "args": [],
           "optional": false,
           "returnType": "void",
@@ -58,11 +58,11 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'common-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent implements OnInit {\n  @Input() text: string;\n  @Output() buttonClick: EventEmitter<void> = new EventEmitter();\n\n  constructor() {}\n\n  ngOnInit() {}\n\n  onclick() {\n    this.buttonClick.emit();\n  }\n}\n",
+      "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'common-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent implements OnInit {\n  @Input() text: string;\n  @Output() buttonClick: EventEmitter<void> = new EventEmitter();\n\n  constructor() {}\n\n  ngOnInit() {}\n\n  onClick() {\n    this.buttonClick.emit();\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "",
+          "data": "@import '~assets/scss/colors.scss';\n\n.button {\n  background-color: $primary;\n}\n",
           "styleUrl": "./button.component.scss"
         }
       ],
@@ -74,7 +74,7 @@
         "line": 10
       },
       "implements": ["OnInit"],
-      "templateData": "<button (click)=\"onclick()\">\n  {{ text }}\n</button>\n"
+      "templateData": "<button (click)=\"onClick()\">\n  {{ text }}\n</button>\n"
     }
   ],
   "modules": [],
