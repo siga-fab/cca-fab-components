@@ -62,7 +62,7 @@
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "@import '../../assets/scss/colors.scss';\n\n.cca-common-button {\n  display: flex;\n  flex-flow: row wrap;\n  align-items: center;\n  height: 3.6rem;\n  padding: 0 1.3rem;\n\n  color: $primary;\n\n  appearance: none;\n  border-radius: 2rem;\n  cursor: pointer;\n  outline: none;\n\n  &,\n  span,\n  p {\n    font-size: 1.6rem;\n    line-height: 1.9rem;\n    text-transform: uppercase;\n  }\n\n  .material-icons {\n    margin-right: 2.6rem;\n  }\n\n  &.primary {\n    background-color: transparent;\n    border: 2px solid $primary;\n  }\n}\n",
+          "data": "@import '../../assets/scss/colors.scss';\n\nbutton {\n  display: flex;\n  flex-flow: row wrap;\n  align-items: center;\n  height: 3.6rem;\n  padding: 0 1.3rem;\n\n  color: $primary;\n\n  appearance: none;\n  border-radius: 2rem;\n  cursor: pointer;\n  outline: none;\n\n  &,\n  span,\n  p {\n    font-size: 1.6rem;\n    line-height: 1.9rem;\n    text-transform: uppercase;\n  }\n\n  .button-icon {\n    margin-right: 2.6rem;\n  }\n\n  &.primary {\n    background-color: transparent;\n    border: 2px solid $primary;\n  }\n}\n",
           "styleUrl": "./button.component.scss"
         }
       ],
@@ -74,7 +74,7 @@
         "line": 10
       },
       "implements": ["OnInit"],
-      "templateData": "<button\n  (click)=\"onClick()\"\n  [ngClass]=\"{ 'cca-common-button': true, primary: !type, '[type]': type }\"\n>\n  <ng-content></ng-content>\n</button>\n"
+      "templateData": "<button (click)=\"onClick()\" [ngClass]=\"{ primary: !type, '[type]': type }\">\n  <div class=\"button-icon\">\n    <ng-content select=\"[slot='icon']\"></ng-content>\n  </div>\n  <span><ng-content select=\"[slot='text']\"></ng-content></span>\n</button>\n"
     },
     {
       "name": "CardComponent",
@@ -175,6 +175,106 @@
       },
       "implements": ["OnInit"],
       "templateData": "<span class=\"material-icons\"><ng-content></ng-content></span>\n"
+    },
+    {
+      "name": "InputComponent",
+      "id": "component-InputComponent-be683a3dd7a82d971cef1a0f9a8369c6",
+      "file": "projects/common/src/lib/input/input.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "cca-common-input",
+      "styleUrls": ["./input.component.scss"],
+      "styles": [],
+      "templateUrl": ["./input.component.html"],
+      "viewProviders": [],
+      "inputsClass": [],
+      "outputsClass": [],
+      "propertiesClass": [],
+      "methodsClass": [
+        {
+          "name": "ngOnInit",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 11
+        }
+      ],
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "",
+      "type": "component",
+      "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n})\nexport class InputComponent implements OnInit {\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+      "assetsDirs": [],
+      "styleUrlsData": [
+        {
+          "data": "",
+          "styleUrl": "./input.component.scss"
+        }
+      ],
+      "stylesData": "",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "args": [],
+        "line": 8
+      },
+      "implements": ["OnInit"],
+      "templateData": "<p>input works!</p>\n"
+    },
+    {
+      "name": "TableComponent",
+      "id": "component-TableComponent-2029f1f02a0dd2ab24dafd35bab7e1b2",
+      "file": "projects/common/src/lib/table/table.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "cca-common-table",
+      "styleUrls": ["./table.component.scss"],
+      "styles": [],
+      "templateUrl": ["./table.component.html"],
+      "viewProviders": [],
+      "inputsClass": [],
+      "outputsClass": [],
+      "propertiesClass": [],
+      "methodsClass": [
+        {
+          "name": "ngOnInit",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 11
+        }
+      ],
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "",
+      "type": "component",
+      "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-table',\n  templateUrl: './table.component.html',\n  styleUrls: ['./table.component.scss'],\n})\nexport class TableComponent implements OnInit {\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+      "assetsDirs": [],
+      "styleUrlsData": [
+        {
+          "data": "@import '~flexboxgrid/dist/flexboxgrid.min.css';\n@import '../../assets/scss/colors.scss';\n\n.table {\n  position: relative;\n\n  background: $white;\n  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);\n  border: 1px solid $border-grey;\n  border-radius: 0.5rem;\n\n  /* For testing only */\n  width: 80vw;\n  margin: auto;\n  /*------------------*/\n\n  font-family: Cabin;\n  font-size: 1.4rem;\n\n  .header,\n  .footer {\n    padding: 2rem;\n  }\n\n  .header {\n    color: $grey;\n    font-weight: bold;\n\n    border-bottom: 2px solid $light-grey;\n  }\n\n  .body {\n    color: $black;\n\n    padding: 0 2rem;\n    margin: 0 -0.5rem;\n\n    > .row {\n      margin: 0 -2rem;\n      padding: 0 2rem;\n\n      &:nth-child(2n) {\n        background: $lighter-grey;\n      }\n\n      > .col-xs {\n        padding: 2rem 0.5rem;\n      }\n    }\n  }\n\n  .footer {\n    border-top: 2px solid $light-grey;\n  }\n}\n",
+          "styleUrl": "./table.component.scss"
+        }
+      ],
+      "stylesData": "",
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "args": [],
+        "line": 8
+      },
+      "implements": ["OnInit"],
+      "templateData": "<div class=\"table col-xs\">\n  <div class=\"header row\">\n    <div class=\"col-xs\">\n      Coluna 1\n    </div>\n    <div class=\"col-xs\">\n      Coluna 2\n    </div>\n    <div class=\"col-xs\">\n      Coluna 3\n    </div>\n    <div class=\"col-xs\">\n      Coluna 4\n    </div>\n  </div>\n  <div class=\"body\">\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n  </div>\n  <div class=\"footer row between-xs\">\n    <div>\n      Left\n    </div>\n    <div>\n      Right\n    </div>\n  </div>\n</div>\n"
     }
   ],
   "modules": [
@@ -288,23 +388,107 @@
           "elements": []
         }
       ]
+    },
+    {
+      "name": "InputModule",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": [
+            {
+              "name": "InputComponent"
+            }
+          ]
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    },
+    {
+      "name": "TableModule",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": [
+            {
+              "name": "TableComponent"
+            }
+          ]
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": []
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
     }
   ],
   "miscellaneous": {
     "variables": [
+      {
+        "name": "Default",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/common/Table.stories.ts",
+        "type": "",
+        "defaultValue": "() => ({\n  component: TableComponent,\n})"
+      },
       {
         "name": "Primary",
         "ctype": "miscellaneous",
         "subtype": "variable",
         "file": "src/stories/common/Button.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon>add</cca-common-icon>\n      <span>nova</span>\n    </cca-common-button>\n  `,\n})"
+        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n  `,\n})"
       }
     ],
     "functions": [],
     "typealiases": [],
     "enumerations": [],
     "groupedVariables": {
+      "src/stories/common/Table.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/common/Table.stories.ts",
+          "type": "",
+          "defaultValue": "() => ({\n  component: TableComponent,\n})"
+        }
+      ],
       "src/stories/common/Button.stories.ts": [
         {
           "name": "Primary",
@@ -312,7 +496,7 @@
           "subtype": "variable",
           "file": "src/stories/common/Button.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon>add</cca-common-icon>\n      <span>nova</span>\n    </cca-common-button>\n  `,\n})"
+          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n  `,\n})"
         }
       ]
     },
@@ -353,11 +537,39 @@
         "status": "low"
       },
       {
+        "filePath": "projects/common/src/lib/input/input.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "InputComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
+        "filePath": "projects/common/src/lib/table/table.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "TableComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/3",
+        "status": "low"
+      },
+      {
         "filePath": "src/stories/common/Button.stories.ts",
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
         "name": "Primary",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/common/Table.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Default",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"
