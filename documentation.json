@@ -62,7 +62,7 @@
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "@import '../../assets/scss/colors.scss';\n\n.cca-common-button {\n  display: flex;\n  flex-flow: row wrap;\n  align-items: center;\n  height: 3.6rem;\n  padding: 0 1.3rem;\n\n  color: $primary;\n\n  appearance: none;\n  border-radius: 2rem;\n  cursor: pointer;\n  outline: none;\n\n  &,\n  span,\n  p {\n    font-size: 1.6rem;\n    line-height: 1.9rem;\n    text-transform: uppercase;\n  }\n\n  .material-icons {\n    margin-right: 2.6rem;\n  }\n\n  &.primary {\n    background-color: transparent;\n    border: 2px solid $primary;\n  }\n}\n",
+          "data": "@import '../../assets/scss/colors.scss';\n\nbutton {\n  display: flex;\n  flex-flow: row wrap;\n  align-items: center;\n  height: 3.6rem;\n  padding: 0 1.3rem;\n\n  color: $primary;\n\n  appearance: none;\n  border-radius: 2rem;\n  cursor: pointer;\n  outline: none;\n\n  &,\n  span,\n  p {\n    font-size: 1.6rem;\n    line-height: 1.9rem;\n    text-transform: uppercase;\n  }\n\n  .button-icon {\n    margin-right: 2.6rem;\n  }\n\n  &.primary {\n    background-color: transparent;\n    border: 2px solid $primary;\n  }\n}\n",
           "styleUrl": "./button.component.scss"
         }
       ],
@@ -74,7 +74,7 @@
         "line": 10
       },
       "implements": ["OnInit"],
-      "templateData": "<button\n  (click)=\"onClick()\"\n  [ngClass]=\"{ 'cca-common-button': true, primary: !type, '[type]': type }\"\n>\n  <ng-content></ng-content>\n</button>\n"
+      "templateData": "<button (click)=\"onClick()\" [ngClass]=\"{ primary: !type, '[type]': type }\">\n  <div class=\"button-icon\">\n    <ng-content select=\"[slot='icon']\"></ng-content>\n  </div>\n  <span><ng-content select=\"[slot='text']\"></ng-content></span>\n</button>\n"
     },
     {
       "name": "CardComponent",
@@ -298,7 +298,7 @@
         "subtype": "variable",
         "file": "src/stories/common/Button.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon>add</cca-common-icon>\n      <span>nova</span>\n    </cca-common-button>\n  `,\n})"
+        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n  `,\n})"
       }
     ],
     "functions": [],
@@ -312,7 +312,7 @@
           "subtype": "variable",
           "file": "src/stories/common/Button.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon>add</cca-common-icon>\n      <span>nova</span>\n    </cca-common-button>\n  `,\n})"
+          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n  `,\n})"
         }
       ]
     },

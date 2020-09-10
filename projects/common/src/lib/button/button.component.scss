@@ -1,6 +1,19 @@
 @import '../../assets/scss/colors.scss';
 
+@keyframes wave {
+  from {
+    box-shadow: 0 0 0 5px #{$tertiary}AA;
+  }
+
+  to {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+  }
+}
+
 button {
+  position: relative;
+
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -13,6 +26,7 @@ button {
   border-radius: 2rem;
   cursor: pointer;
   outline: none;
+  transition: box-shadow 80ms ease-in-out, color 150ms ease-in-out;
 
   &,
   span,
@@ -23,11 +37,35 @@ button {
   }
 
   .button-icon {
-    margin-right: 2.6rem;
+    margin-right: 2rem;
   }
 
   &.primary {
-    background-color: transparent;
+    background: transparent;
     border: 2px solid $primary;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 3px #{$tertiary}AA;
+    }
+  }
+
+  &:active::after {
+    animation: wave 1s;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+
+    border-radius: 10rem;
+    background: transparent;
+    content: '';
   }
 }
