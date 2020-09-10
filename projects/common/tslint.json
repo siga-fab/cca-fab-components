@@ -4,13 +4,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "common",
+      "cca-common",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "common",
+      "cca-common",
       "kebab-case"
     ]
   }

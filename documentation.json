@@ -62,7 +62,7 @@
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "@import '~assets/scss/colors.scss';\n\n.button {\n  background-color: $primary;\n}\n",
+          "data": "@import '../../../../../assets/scss/colors.scss';\n\n.button {\n  background-color: $primary;\n}\n",
           "styleUrl": "./button.component.scss"
         }
       ],
@@ -74,10 +74,48 @@
         "line": 10
       },
       "implements": ["OnInit"],
-      "templateData": "<button (click)=\"onClick()\">\n  {{ text }}\n</button>\n"
+      "templateData": "<button (click)=\"onClick()\" class=\"button\">{{ text }} - Button2</button>\n"
     }
   ],
-  "modules": [],
+  "modules": [
+    {
+      "name": "CommonModule",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": [
+            {
+              "name": "ButtonComponent"
+            }
+          ]
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": [
+            {
+              "name": "ButtonComponent"
+            }
+          ]
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    }
+  ],
   "miscellaneous": {
     "variables": [
       {
