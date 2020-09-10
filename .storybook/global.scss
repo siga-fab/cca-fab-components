@@ -1,10 +1,14 @@
 :root {
   font-size: 62.5%;
   box-sizing: border-box;
-  background-color: #fafafa;
-}
 
-* {
-  font-family: 'Cabin';
-  font-size: 1.4rem; // Let's define the default font-size to 14px
+  body,
+  * {
+    box-sizing: inherit;
+  }
+
+  body {
+    font-family: 'Cabin';
+    font-size: 1.4rem; // Let's define the default font-size to 14px
+  }
 }
