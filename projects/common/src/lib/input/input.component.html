@@ -1,1 +1,37 @@
-<p>input works!</p>
+<div
+  [@fadeInOut]
+  (mouseleave)="onMouseUp()"
+  (mousedown)="updateValue($event, 'add')"
+  (mouseup)="onMouseUp()"
+  class="number-plus"
+  *ngIf="type === 'number' && focus"
+>
+  <cca-common-icon>expand_less</cca-common-icon>
+</div>
+
+<input
+  [min]="min"
+  [max]="max"
+  [step]="step"
+  [type]="type"
+  [value]="value"
+  [ngClass]="{ center: textCenter, slim: slim }"
+  [disabled]="disabled"
+  (focus)="isFocused(true)"
+  (blur)="isFocused(false)"
+  (change)="onChange()"
+  (keyup)="rangedValue($event)"
+  (keydown)="onKeyDown($event)"
+/>
+
+<div
+  [@fadeInOut]
+  (mouseleave)="onMouseUp()"
+  (mousedown)="updateValue($event, 'sub')"
+  (mouseup)="onMouseUp()"
+  class="number-minus"
+  [ngClass]="{ slim: slim }"
+  *ngIf="type === 'number' && focus"
+>
+  <cca-common-icon>expand_more</cca-common-icon>
+</div>

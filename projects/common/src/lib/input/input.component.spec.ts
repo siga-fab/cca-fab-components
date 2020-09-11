@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputComponent } from './input.component';
+import { IconComponent } from '../icon/icon.component';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -8,7 +9,7 @@ describe('InputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [InputComponent],
+      declarations: [InputComponent, IconComponent],
     }).compileComponents();
   }));
 

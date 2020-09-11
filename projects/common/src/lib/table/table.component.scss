@@ -1,6 +1,16 @@
 @import '~flexboxgrid/dist/flexboxgrid.min.css';
 @import '../../assets/scss/colors.scss';
 
+@keyframes rotate {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 .table {
   position: relative;
 
@@ -51,5 +61,44 @@
 
   .footer {
     border-top: 2px solid $light-grey;
+
+    .button {
+      cursor: pointer;
+      transition: color 0.1s ease-in-out;
+
+      &.light {
+        color: #dadada;
+      }
+    }
+
+    .button:hover {
+      color: rgba(0, 0, 0, 0.75);
+    }
+
+    .input {
+      margin-left: 0.2rem;
+      display: inline-block;
+      width: 3rem;
+    }
+
+    > .left {
+      color: $grey;
+
+      .button:hover {
+        animation: rotate 2s ease-in-out infinite;
+      }
+
+      & > div:last-child {
+        margin-left: 1.2rem;
+      }
+    }
+
+    > .right {
+      color: $grey;
+
+      .label {
+        margin: 0 1rem;
+      }
+    }
   }
 }

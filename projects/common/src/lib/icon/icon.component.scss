@@ -3,4 +3,5 @@ $material-icons-font-path: '../../assets/fonts/';
 
 .material-icons {
   display: flex;
+  user-select: none;
 }

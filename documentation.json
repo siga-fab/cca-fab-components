@@ -7,7 +7,7 @@
   "components": [
     {
       "name": "ButtonComponent",
-      "id": "component-ButtonComponent-96982d0df3a79678e4c098ca4e637871",
+      "id": "component-ButtonComponent-bb6e84a0ab74d015cc39e86ec727a61f",
       "file": "projects/common/src/lib/button/button.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -50,7 +50,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 16
+          "line": 18
         }
       ],
       "hostBindings": [],
@@ -58,7 +58,7 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent implements OnInit {\n  @Input() type: string;\n  @Output() buttonClick: EventEmitter<void> = new EventEmitter();\n\n  constructor() {}\n\n  ngOnInit() {}\n\n  onClick() {\n    this.buttonClick.emit();\n  }\n}\n",
+      "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent implements OnInit {\n  @Input() type: string;\n  @Output() buttonClick: EventEmitter<void> = new EventEmitter();\n\n  constructor() {}\n\n  ngOnInit() {\n\n  }\n\n  onClick() {\n    this.buttonClick.emit();\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
@@ -162,7 +162,7 @@
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "$material-icons-font-path: '../../assets/fonts/';\n@import '~material-icons/iconfont/material-icons.scss';\n\n.material-icons {\n  display: flex;\n}\n",
+          "data": "$material-icons-font-path: '../../assets/fonts/';\n@import '~material-icons/iconfont/material-icons.scss';\n\n.material-icons {\n  display: flex;\n  user-select: none;\n}\n",
           "styleUrl": "./icon.component.scss"
         }
       ],
@@ -178,7 +178,7 @@
     },
     {
       "name": "InputComponent",
-      "id": "component-InputComponent-be683a3dd7a82d971cef1a0f9a8369c6",
+      "id": "component-InputComponent-1230ed361e96551d8abb993c6695216d",
       "file": "projects/common/src/lib/input/input.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -190,17 +190,162 @@
       "styles": [],
       "templateUrl": ["./input.component.html"],
       "viewProviders": [],
-      "inputsClass": [],
-      "outputsClass": [],
-      "propertiesClass": [],
+      "inputsClass": [
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "line": 35,
+          "type": "boolean"
+        },
+        {
+          "name": "type",
+          "defaultValue": "'text'",
+          "line": 34,
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "defaultValue": "''",
+          "line": 33,
+          "type": "string"
+        }
+      ],
+      "outputsClass": [
+        {
+          "name": "focus",
+          "defaultValue": "false",
+          "line": 37,
+          "type": "boolean"
+        }
+      ],
+      "propertiesClass": [
+        {
+          "name": "numberInterval",
+          "type": "any",
+          "optional": false,
+          "description": "",
+          "line": 39,
+          "modifierKind": [112]
+        },
+        {
+          "name": "slim",
+          "type": "any",
+          "optional": false,
+          "description": "",
+          "line": 43,
+          "decorators": [
+            {
+              "name": "Optional",
+              "stringifiedArguments": ""
+            },
+            {
+              "name": "Attribute",
+              "stringifiedArguments": "'slim'"
+            }
+          ],
+          "modifierKind": [114]
+        },
+        {
+          "name": "textCenter",
+          "type": "any",
+          "optional": false,
+          "description": "",
+          "line": 42,
+          "decorators": [
+            {
+              "name": "Optional",
+              "stringifiedArguments": ""
+            },
+            {
+              "name": "Attribute",
+              "stringifiedArguments": "'textCenter'"
+            }
+          ],
+          "modifierKind": [114]
+        }
+      ],
       "methodsClass": [
+        {
+          "name": "add",
+          "args": [
+            {
+              "name": "event",
+              "type": "Event"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 60,
+          "jsdoctags": [
+            {
+              "name": "event",
+              "type": "Event",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
+        {
+          "name": "isFocused",
+          "args": [
+            {
+              "name": "value",
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 51,
+          "jsdoctags": [
+            {
+              "name": "value",
+              "type": "boolean",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
         {
           "name": "ngOnInit",
           "args": [],
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 11
+          "line": 49
+        },
+        {
+          "name": "onMouseUp",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 55
+        },
+        {
+          "name": "sub",
+          "args": [
+            {
+              "name": "event",
+              "type": "Event"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 67,
+          "jsdoctags": [
+            {
+              "name": "event",
+              "type": "Event",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
         }
       ],
       "hostBindings": [],
@@ -208,11 +353,11 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n})\nexport class InputComponent implements OnInit {\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+      "sourceCode": "import { trigger, transition, animate, style } from '@angular/animations';\nimport { Attribute, Component, Input, OnInit, Optional, Output } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n  animations: [\n    trigger('fadeInOut', [\n\n      transition(':enter', [\n        style({\n          opacity: 0\n        }),\n        animate('.1s ease-in-out', style({\n          opacity: 1\n        }))\n      ]),\n\n      transition(':leave', [\n        style({\n          opacity: 1\n        }),\n        animate('.1s ease-in-out', style({\n          opacity: 0\n        }))\n      ])\n    ])\n  ]\n})\nexport class InputComponent implements OnInit {\n\n  @Input() value: string = '';\n  @Input() type: string = 'text';\n  @Input() disabled: boolean = false;\n\n  @Output() focus: boolean = false;\n\n  private numberInterval: any;\n\n  constructor(\n    @Optional() @Attribute('textCenter') public textCenter: any,\n    @Optional() @Attribute('slim') public slim: any\n  ) {\n    this.textCenter = textCenter !== null\n    this.slim = slim !== null\n  }\n\n  ngOnInit(): void {}\n\n  isFocused(value: boolean) {\n    this.focus = value\n  }\n\n  onMouseUp(){\n    clearInterval(this.numberInterval);\n    this.numberInterval = null;\n  }\n\n  add(event: Event){\n    event.preventDefault();\n    this.numberInterval = setInterval( () => {\n      this.value = String(parseInt(this.value) + 1)\n    }, 100)\n  }\n\n  sub(event: Event){\n    event.preventDefault();\n    this.numberInterval = setInterval( () => {\n      this.value = String(parseInt(this.value) - 1)\n    }, 100)\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "",
+          "data": "@import '../../assets/scss/colors.scss';\n\n:host {\n  position: relative;\n  display: inline-block;\n\n  input[type] {\n    color: $grey;\n    font-family: Cabin;\n    font-size: 1.4rem;\n\n    width: 100%;\n    min-width: 4rem;\n\n    border-radius: 0.5rem;\n    border: 1px solid $light-grey;\n    padding: 1rem;\n\n    &.center {\n      text-align: center;\n    }\n\n    &.slim {\n      padding-top: 0;\n      padding-bottom: 0;\n    }\n\n    transition: box-shadow 0.1s ease-in-out;\n\n    &:focus {\n      box-shadow: $focus-shadow;\n      outline: 0;\n    }\n\n    &[type=number]::-webkit-outer-spin-button,\n    &[type=number]::-webkit-inner-spin-button {\n      -webkit-appearance: none;\n      margin: 0;\n    }\n\n    &[type=number] {\n      -moz-appearance: textfield;\n    }\n  }\n\n  .number-minus, .number-plus {\n    position: absolute;\n    left: calc(50% - 12px);\n    cursor: pointer;\n  }\n\n  .number-minus {\n    top: 4rem;\n\n    &.slim {\n      top: 2rem;\n    }\n  }\n\n  .number-plus {\n    top: -2.5rem;\n  }\n}\n",
           "styleUrl": "./input.component.scss"
         }
       ],
@@ -220,11 +365,36 @@
       "constructorObj": {
         "name": "constructor",
         "description": "",
-        "args": [],
-        "line": 8
+        "args": [
+          {
+            "name": "textCenter",
+            "type": "any"
+          },
+          {
+            "name": "slim",
+            "type": "any"
+          }
+        ],
+        "line": 39,
+        "jsdoctags": [
+          {
+            "name": "textCenter",
+            "type": "any",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "slim",
+            "type": "any",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
       },
       "implements": ["OnInit"],
-      "templateData": "<p>input works!</p>\n"
+      "templateData": "<div [@fadeInOut] (mousedown)=\"add($event)\" (mouseup)=\"onMouseUp()\" class=\"number-plus\" *ngIf=\"type === 'number' && focus\">\n  <cca-common-icon>expand_less</cca-common-icon>\n</div>\n\n<input\n  [type]=\"type\"\n  [value]=\"value\"\n  [ngClass]=\"{center: textCenter, slim: slim}\"\n  [disabled]=\"disabled\"\n  (focus)=\"isFocused(true)\"\n  (blur)=\"isFocused(false)\"\n/>\n<div [@fadeInOut] (mousedown)=\"sub($event)\" (mouseup)=\"onMouseUp()\" class=\"number-minus\" [ngClass]=\"{slim: slim}\" *ngIf=\"type === 'number' && focus\">\n  <cca-common-icon>expand_more</cca-common-icon>\n</div>\n"
     },
     {
       "name": "TableComponent",
@@ -262,7 +432,7 @@
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "@import '~flexboxgrid/dist/flexboxgrid.min.css';\n@import '../../assets/scss/colors.scss';\n\n.table {\n  position: relative;\n\n  background: $white;\n  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);\n  border: 1px solid $border-grey;\n  border-radius: 0.5rem;\n\n  /* For testing only */\n  width: 80vw;\n  margin: auto;\n  /*------------------*/\n\n  font-family: Cabin;\n  font-size: 1.4rem;\n\n  .header,\n  .footer {\n    padding: 2rem;\n  }\n\n  .header {\n    color: $grey;\n    font-weight: bold;\n\n    border-bottom: 2px solid $light-grey;\n  }\n\n  .body {\n    color: $black;\n\n    padding: 0 2rem;\n    margin: 0 -0.5rem;\n\n    > .row {\n      margin: 0 -2rem;\n      padding: 0 2rem;\n\n      &:nth-child(2n) {\n        background: $lighter-grey;\n      }\n\n      > .col-xs {\n        padding: 2rem 0.5rem;\n      }\n    }\n  }\n\n  .footer {\n    border-top: 2px solid $light-grey;\n  }\n}\n",
+          "data": "@import '~flexboxgrid/dist/flexboxgrid.min.css';\n@import '../../assets/scss/colors.scss';\n\n.table {\n  position: relative;\n\n  background: $white;\n  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);\n  border: 1px solid $border-grey;\n  border-radius: 0.5rem;\n\n  /* For testing only */\n  width: 80vw;\n  margin: auto;\n  /*------------------*/\n\n  font-family: Cabin;\n  font-size: 1.4rem;\n\n  .header,\n  .footer {\n    padding: 2rem;\n  }\n\n  .header {\n    color: $grey;\n    font-weight: bold;\n\n    border-bottom: 2px solid $light-grey;\n  }\n\n  .body {\n    color: $black;\n\n    padding: 0 2rem;\n    margin: 0 -0.5rem;\n\n    > .row {\n      margin: 0 -2rem;\n      padding: 0 2rem;\n\n      &:nth-child(2n) {\n        background: $lighter-grey;\n      }\n\n      > .col-xs {\n        padding: 2rem 0.5rem;\n      }\n    }\n  }\n\n  .footer {\n    border-top: 2px solid $light-grey;\n\n    .button {\n      cursor: pointer;\n      transition: color 0.1s ease-in-out;\n    }\n\n    .button:hover {\n      color: rgba(0, 0, 0, 0.75);\n    }\n\n    > .left {\n      color: $grey;\n\n      .input {\n        margin-left: .2rem;\n        display: inline-block;\n        width: 7rem;\n      }\n\n      & > div:last-child {\n        margin-left: 1.2rem;\n      }\n    }\n\n    > .right {\n      color: $grey;\n\n      .label {\n        margin: 0 1rem;\n      }\n\n      .input {\n        margin-left: .2rem;\n        display: inline-block;\n        width: 7rem;\n      }\n    }\n  }\n}\n",
           "styleUrl": "./table.component.scss"
         }
       ],
@@ -274,7 +444,7 @@
         "line": 8
       },
       "implements": ["OnInit"],
-      "templateData": "<div class=\"table col-xs\">\n  <div class=\"header row\">\n    <div class=\"col-xs\">\n      Coluna 1\n    </div>\n    <div class=\"col-xs\">\n      Coluna 2\n    </div>\n    <div class=\"col-xs\">\n      Coluna 3\n    </div>\n    <div class=\"col-xs\">\n      Coluna 4\n    </div>\n  </div>\n  <div class=\"body\">\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n  </div>\n  <div class=\"footer row between-xs\">\n    <div>\n      Left\n    </div>\n    <div>\n      Right\n    </div>\n  </div>\n</div>\n"
+      "templateData": "<div class=\"table col-xs\">\n  <div class=\"header row\">\n    <div class=\"col-xs\">\n      Cabeçalho 1\n    </div>\n    <div class=\"col-xs\">\n      Cabeçalho 2\n    </div>\n    <div class=\"col-xs\">\n      Cabeçalho 3\n    </div>\n    <div class=\"col-xs\">\n      Cabeçalho 4\n    </div>\n  </div>\n  <div class=\"body\">\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs\">\n        Coluna 1\n      </div>\n      <div class=\"col-xs\">\n        Coluna 2\n      </div>\n      <div class=\"col-xs\">\n        Coluna 3\n      </div>\n      <div class=\"col-xs\">\n        Coluna 4\n      </div>\n    </div>\n  </div>\n  <div class=\"footer row between-xs\">\n    <div class=\"row left middle-xs\">\n      <div class=\"button\">\n        <cca-common-icon>refresh</cca-common-icon>\n      </div>\n      <div>\n        Itens por página:\n        <span class=\"input\">\n          <cca-common-input type=\"number\" value=\"10\" textCenter></cca-common-input>\n        </span>\n      </div>\n    </div>\n    <div class=\"row right middle-xs\">\n      <div class=\"button\">\n        <cca-common-icon>first_page</cca-common-icon>\n      </div>\n      <div class=\"button\">\n        <cca-common-icon>chevron_left</cca-common-icon>\n      </div>\n\n      <div class=\"label\">\n        Página:\n        <span class=\"input\">\n          <cca-common-input type=\"number\" value=\"1\" slim textCenter></cca-common-input>\n        </span>\n        / 10\n      </div>\n\n      <div class=\"button\">\n        <cca-common-icon>last_page</cca-common-icon>\n      </div>\n      <div class=\"button\">\n        <cca-common-icon>chevron_right</cca-common-icon>\n      </div>\n    </div>\n  </div>\n</div>\n"
     }
   ],
   "modules": [
@@ -406,11 +576,19 @@
         },
         {
           "type": "imports",
-          "elements": []
+          "elements": [
+            {
+              "name": "IconModule"
+            }
+          ]
         },
         {
           "type": "exports",
-          "elements": []
+          "elements": [
+            {
+              "name": "InputComponent"
+            }
+          ]
         },
         {
           "type": "bootstrap",
@@ -439,11 +617,22 @@
         },
         {
           "type": "imports",
-          "elements": []
+          "elements": [
+            {
+              "name": "IconModule"
+            },
+            {
+              "name": "InputModule"
+            }
+          ]
         },
         {
           "type": "exports",
-          "elements": []
+          "elements": [
+            {
+              "name": "TableComponent"
+            }
+          ]
         },
         {
           "type": "bootstrap",
@@ -458,6 +647,14 @@
   ],
   "miscellaneous": {
     "variables": [
+      {
+        "name": "Default",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/common/Input.stories.ts",
+        "type": "",
+        "defaultValue": "() => ({\n  component: InputComponent,\n})"
+      },
       {
         "name": "Default",
         "ctype": "miscellaneous",
@@ -479,6 +676,16 @@
     "typealiases": [],
     "enumerations": [],
     "groupedVariables": {
+      "src/stories/common/Input.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/common/Input.stories.ts",
+          "type": "",
+          "defaultValue": "() => ({\n  component: InputComponent,\n})"
+        }
+      ],
       "src/stories/common/Table.stories.ts": [
         {
           "name": "Default",
@@ -542,7 +749,7 @@
         "linktype": "component",
         "name": "InputComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/3",
+        "coverageCount": "0/14",
         "status": "low"
       },
       {
@@ -560,6 +767,16 @@
         "linktype": "miscellaneous",
         "linksubtype": "variable",
         "name": "Primary",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/common/Input.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Default",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"
