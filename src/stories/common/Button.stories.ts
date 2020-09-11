@@ -23,88 +23,105 @@ export const Styles = () => ({
     click: action('This was clicked OMG'),
   },
   template: `
-    <div style="display: flex; flex-flow: row wrap">
+    <ul style="display: flex; flex-flow: row wrap; max-width: 80rem; list-style-type: none;">
 
       <!--Primary-->
-      <section style="padding: 1rem;">
-        <cca-common-button (buttonClick)="click($event)">
+      <li style="padding: .5rem">
+        <cca-common-button (click)="click($event)">
           <cca-common-icon slot="icon">add</cca-common-icon>
           <ng-container slot="text">primary</ng-container>
         </cca-common-button>
-        <br>
-        <cca-common-button type="fill" (buttonClick)="click($event)">
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button type="fill" (click)="click($event)">
           <ng-container slot="text">primary</ng-container>
         </cca-common-button>
-        <br>
-        <cca-common-button type="transparent" (buttonClick)="click($event)">
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button type="transparent" (click)="click($event)">
           <cca-common-icon slot="icon">add</cca-common-icon>
         </cca-common-button>
-      </section>
+      </li>
 
       <!--Secondary-->
-      <section style="padding: 1rem;">
-        <cca-common-button secondary (buttonClick)="click($event)">
+      <li style="padding: .5rem">
+        <cca-common-button secondary (click)="click($event)">
           <cca-common-icon slot="icon">add</cca-common-icon>
           <ng-container slot="text">secondary</ng-container>
         </cca-common-button>
-        <br>
-        <cca-common-button secondary type="fill" (buttonClick)="click($event)">
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button secondary type="fill" (click)="click($event)">
           <ng-container slot="text">secondary</ng-container>
         </cca-common-button>
-        <br>
-        <cca-common-button secondary type="transparent" (buttonClick)="click($event)">
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button secondary type="transparent" (click)="click($event)">
           <cca-common-icon slot="icon">add</cca-common-icon>
         </cca-common-button>
-      </section>
+      </li>
+
 
       <!--Flat-->
-      <section style="padding: 1rem;">
-        <cca-common-button flat (buttonClick)="click($event)">
+      <li style="padding: .5rem">
+        <cca-common-button flat (click)="click($event)">
           <cca-common-icon slot="icon">add</cca-common-icon>
-          <ng-container slot="text">flat</ng-container>
+          <ng-container slot="text">nova</ng-container>
         </cca-common-button>
-        <br>
-        <cca-common-button flat type="fill" (buttonClick)="click($event)">
-          <ng-container slot="text">flat</ng-container>
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button flat type="fill" (click)="click($event)">
+          <ng-container slot="text">nova</ng-container>
         </cca-common-button>
-        <br>
-        <cca-common-button flat type="transparent" (buttonClick)="click($event)">
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button flat type="transparent" (click)="click($event)">
           <cca-common-icon slot="icon">add</cca-common-icon>
         </cca-common-button>
-      </section>
+      </li>
 
       <!--Warning-->
-      <section style="padding: 1rem;">
-        <cca-common-button warning (buttonClick)="click($event)">
+      <li style="padding: .5rem">
+        <cca-common-button warning (click)="click($event)">
           <cca-common-icon slot="icon">add</cca-common-icon>
           <ng-container slot="text">warning</ng-container>
         </cca-common-button>
-        <br>
-        <cca-common-button warning type="fill" (buttonClick)="click($event)">
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button warning type="fill" (click)="click($event)">
           <ng-container slot="text">warning</ng-container>
         </cca-common-button>
-        <br>
-        <cca-common-button warning type="transparent" (buttonClick)="click($event)">
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button warning type="transparent" (click)="click($event)">
           <cca-common-icon slot="icon">add</cca-common-icon>
         </cca-common-button>
-      </section>
+      </li>
 
       <!--Negative-->
-      <section style="padding: 1rem; background-color: #234B90; border-radius: .5rem">
-        <cca-common-button negative (buttonClick)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
-          <ng-container slot="text">negative</ng-container>
-        </cca-common-button>
-        <br>
-        <cca-common-button negative type="fill" (buttonClick)="click($event)">
-          <ng-container slot="text">negative</ng-container>
-        </cca-common-button>
-        <br>
-        <cca-common-button negative type="transparent" (buttonClick)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
-        </cca-common-button>
-      </section>
-    </div>
+      <li style="padding: .5rem">
+        <div style="padding: 1rem; background-color: #234B90;">
+          <cca-common-button negative (click)="click($event)">
+            <cca-common-icon slot="icon">add</cca-common-icon>
+            <ng-container slot="text">negative</ng-container>
+          </cca-common-button>
+        </div>
+      </li>
+      <li style="padding: .5rem">
+        <div style="padding: 1rem; background-color: #234B90;">
+          <cca-common-button negative type="fill" (click)="click($event)">
+            <ng-container slot="text">negative</ng-container>
+          </cca-common-button>
+        </div>
+      </li>
+      <li style="padding: .5rem">
+        <div style="padding: 1rem; background-color: #234B90;">
+          <cca-common-button negative type="transparent" (click)="click($event)">
+            <cca-common-icon slot="icon">add</cca-common-icon>
+          </cca-common-button>
+        </div>
+      </li>
+    </ul>
 `,
 });
 
@@ -113,18 +130,24 @@ export const Outline = () => ({
     click: action('This was clicked OMG'),
   },
   template: `
-    <cca-common-button (buttonClick)="click($event)">
-      <cca-common-icon slot="icon">add</cca-common-icon>
-      <ng-container slot="text">nova</ng-container>
-    </cca-common-button>
-    <br>
-    <cca-common-button (buttonClick)="click($event)">
-      <ng-container slot="text">nova</ng-container>
-    </cca-common-button>
-    <br>
-    <cca-common-button (buttonClick)="click($event)">
-      <cca-common-icon slot="icon">add</cca-common-icon>
-    </cca-common-button>
+    <ul style="display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;">
+      <li style="padding: .5rem">
+        <cca-common-button (click)="click($event)">
+          <cca-common-icon slot="icon">add</cca-common-icon>
+          <ng-container slot="text">outline</ng-container>
+        </cca-common-button>
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button (click)="click($event)">
+          <ng-container slot="text">outline</ng-container>
+        </cca-common-button>
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button (click)="click($event)">
+          <cca-common-icon slot="icon">add</cca-common-icon>
+        </cca-common-button>
+      </li>
+    </ul>
   `,
 });
 
@@ -133,18 +156,24 @@ export const Fill = () => ({
     click: action('This was clicked OMG'),
   },
   template: `
-    <cca-common-button type="fill" (buttonClick)="click($event)">
-      <cca-common-icon slot="icon">add</cca-common-icon>
-      <ng-container slot="text">nova</ng-container>
-    </cca-common-button>
-    <br>
-    <cca-common-button type="fill" (buttonClick)="click($event)">
-      <ng-container slot="text">nova</ng-container>
-    </cca-common-button>
-    <br>
-    <cca-common-button type ="fill" (buttonClick)="click($event)">
-      <cca-common-icon slot="icon">add</cca-common-icon>
-    </cca-common-button>
+    <ul style="display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;">
+      <li style="padding: .5rem">
+        <cca-common-button type="fill" (click)="click($event)">
+          <cca-common-icon slot="icon">add</cca-common-icon>
+          <ng-container slot="text">fill</ng-container>
+        </cca-common-button>
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button type="fill" (click)="click($event)">
+          <ng-container slot="text">fill</ng-container>
+        </cca-common-button>
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button type ="fill" (click)="click($event)">
+          <cca-common-icon slot="icon">add</cca-common-icon>
+        </cca-common-button>
+      </li>
+    </ul>
   `,
 });
 
@@ -153,59 +182,49 @@ export const Transparent = () => ({
     click: action('This was clicked OMG'),
   },
   template: `
-    <cca-common-button type="transparent" (buttonClick)="click($event)">
-      <cca-common-icon slot="icon">add</cca-common-icon>
-      <ng-container slot="text">nova</ng-container>
-    </cca-common-button>
-    <br>
-    <cca-common-button type="transparent" (buttonClick)="click($event)">
-      <ng-container slot="text">nova</ng-container>
-    </cca-common-button>
-    <br>
-    <cca-common-button type="transparent" (buttonClick)="click($event)">
-      <cca-common-icon slot="icon">add</cca-common-icon>
-    </cca-common-button>
+    <ul style="display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;">
+      <li style="padding: .5rem">
+        <cca-common-button type="transparent" (click)="click($event)">
+          <cca-common-icon slot="icon">add</cca-common-icon>
+          <ng-container slot="text">transparent</ng-container>
+        </cca-common-button>
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button type="transparent" (click)="click($event)">
+          <ng-container slot="text">transparent</ng-container>
+        </cca-common-button>
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button type="transparent" (click)="click($event)">
+          <cca-common-icon slot="icon">add</cca-common-icon>
+        </cca-common-button>
+      </li>
+    </ul>
   `,
 });
 
-export const Warning = () => ({
+export const Notification = () => ({
   props: {
     click: action('This was clicked OMG'),
   },
   template: `
-    <cca-common-button warning (buttonClick)="click($event)">
-      <cca-common-icon slot="icon">add</cca-common-icon>
-      <ng-container slot="text">warning</ng-container>
-    </cca-common-button>
-    <br>
-    <cca-common-button warning type="fill" (buttonClick)="click($event)">
-      <ng-container slot="text">warning</ng-container>
-    </cca-common-button>
-    <br>
-    <cca-common-button warning type="transparent" (buttonClick)="click($event)">
-      <cca-common-icon slot="icon">add</cca-common-icon>
-    </cca-common-button>
-  `,
-});
-
-export const Negative = () => ({
-  props: {
-    click: action('This was clicked OMG'),
-  },
-  template: `
-    <section style="background-color: #234B90; padding: 1rem; height: 100vh">
-      <cca-common-button negative (buttonClick)="click($event)">
-        <cca-common-icon slot="icon">add</cca-common-icon>
-        <ng-container slot="text">negative</ng-container>
-      </cca-common-button>
-      <br>
-      <cca-common-button negative type="fill" (buttonClick)="click($event)">
-        <ng-container slot="text">negative</ng-container>
-      </cca-common-button>
-      <br>
-      <cca-common-button negative type="transparent" (buttonClick)="click($event)">
-        <cca-common-icon slot="icon">add</cca-common-icon>
-      </cca-common-button>
-    </section>
+    <ul style="display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;">
+      <li style="padding: .5rem">
+        <cca-common-button badged="true" (click)="click($event)">
+          <cca-common-icon slot="icon">error_outline</cca-common-icon>
+          <ng-container slot="text">notification</ng-container>
+        </cca-common-button>
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button badged="true" type="fill" (click)="click($event)">
+          <ng-container slot="text">notification</ng-container>
+        </cca-common-button>
+      </li>
+      <li style="padding: .5rem">
+        <cca-common-button badged="true" type="transparent" (click)="click($event)">
+          <cca-common-icon slot="icon">error_outline</cca-common-icon>
+        </cca-common-button>
+      </li>
+    </ul>
   `,
 });

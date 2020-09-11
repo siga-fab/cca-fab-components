@@ -21,11 +21,9 @@ export class ButtonComponent implements OnInit, AfterViewInit {
   @ViewChild('textRef') text!: ElementRef;
 
   @Input() type?: 'outline' | 'fill';
-  @Input() disabled?: boolean;
-  @Output() buttonClick?: EventEmitter<void> = new EventEmitter();
+  @Input() badged?: boolean;
 
   protected animate = false;
-
   protected hasIcon = false;
   protected hasText = false;
 
@@ -33,7 +31,8 @@ export class ButtonComponent implements OnInit, AfterViewInit {
     @Optional() @Attribute('secondary') public secondary,
     @Optional() @Attribute('flat') public flat,
     @Optional() @Attribute('warning') public warning,
-    @Optional() @Attribute('negative') public negative
+    @Optional() @Attribute('negative') public negative,
+    @Optional() @Attribute('disabled') public disabled
   ) {}
 
   ngOnInit() {}
@@ -44,8 +43,6 @@ export class ButtonComponent implements OnInit, AfterViewInit {
   }
 
   onClick() {
-    this.buttonClick.emit();
-
     if (!this.animate) {
       this.animate = true;
 
