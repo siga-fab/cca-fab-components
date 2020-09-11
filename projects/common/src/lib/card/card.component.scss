@@ -1,0 +1,12 @@
+@import '../../assets/scss/variables.scss';
+
+.card {
+  width: 100%;
+  height: 100%;
+  padding: $padding;
+
+  background: #ffffff;
+  border: 1px solid #edeff1;
+  box-shadow: $box-shadow;
+  border-radius: 5px;
+}
