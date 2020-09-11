@@ -1,1 +1,3 @@
-<span class="material-icons"><ng-content></ng-content></span>
+<span class="material-icons" [ngStyle]="{ 'font-size.px': size, color: color }">
+  <ng-content></ng-content>
+</span>
