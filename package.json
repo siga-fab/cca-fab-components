@@ -15,7 +15,7 @@
     "lint:prettier": "prettier \"projects/**/*.{html,md,scss,json,ts}\" \"src/**/*.{html,md,scss,json,ts}\" --write",
     "e2e": "ng e2e",
     "docs:json": "compodoc -p ./tsconfig.base.json -e json -d .",
-    "storybook": "npm run docs:json && start-storybook -p 6006",
+    "storybook": "npm run docs:json && start-storybook -p 6006 -s ./projects/common/fonts",
     "build:storybook": "build-storybook",
     "build:prod": "ng build --prod",
     "build:ci": "npm run build:prod",

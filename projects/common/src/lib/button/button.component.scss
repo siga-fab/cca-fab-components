@@ -1,4 +1,5 @@
 @import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
 
 @keyframes wave {
   from {
@@ -11,47 +12,70 @@
   }
 }
 
+@keyframes wave-icon {
+  from {
+    box-shadow: 0 0 0 5px #{$tertiary}AA;
+  }
+
+  to {
+    transform: scaleX(1.8) scaleY(1.8);
+    opacity: 0;
+  }
+}
+
 button {
+  // Default styles
   position: relative;
 
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   height: 3.6rem;
-  padding: 0 1.3rem;
 
   color: $primary;
 
   appearance: none;
   border-radius: 2rem;
-  cursor: pointer;
   outline: none;
-  transition: box-shadow 80ms ease-in-out, color 150ms ease-in-out;
+  cursor: pointer;
+  user-select: none;
+  transition: box-shadow 100ms ease-in-out, color 150ms ease-in-out,
+    background 150ms ease-in-out, border 150ms ease-in-out;
 
-  &,
-  span,
-  p {
+  // Behavior
+  &.icon-btn.text-btn {
+    padding: 0 1.3rem;
+
+    .button-icon {
+      margin-right: 2rem;
+    }
+  }
+
+  &.icon-btn:not(.text-btn) {
+    padding: 0 0.4rem;
+  }
+
+  &.text-btn:not(.icon-btn) {
+    padding: 0 2rem;
+  }
+
+  .button-text:not(:empty) {
     font-size: 1.6rem;
     line-height: 1.9rem;
     text-transform: uppercase;
   }
 
-  .button-icon {
-    margin-right: 2rem;
+  &:hover:not(.transparent),
+  &:focus {
+    box-shadow: $focus-shadow;
   }
 
-  &.primary {
-    background: transparent;
-    border: 2px solid $primary;
-
-    &:hover,
-    &:focus {
-      box-shadow: 0 0 0 3px #{$tertiary}AA;
-    }
+  &.clicked::after {
+    animation: wave 850ms;
   }
 
-  &:active::after {
-    animation: wave 1s;
+  &.icon-btn:not(.text-btn).clicked::after {
+    animation: wave-icon 850ms;
   }
 
   &::after {
@@ -64,8 +88,86 @@ button {
     height: 100%;
     width: 100%;
 
-    border-radius: 10rem;
+    border-radius: 2rem;
     background: transparent;
     content: '';
+  }
+
+  // Themes
+  &.secondary {
+    color: $black;
+  }
+
+  &.secondary:not(.transparent) {
+    border-color: $black;
+  }
+
+  &.secondary.fill {
+    color: $white;
+    background: $black;
+  }
+
+  &.flat {
+    color: $grey;
+  }
+
+  &.flat:not(.transparent) {
+    border-color: $grey;
+  }
+
+  &.flat.fill {
+    background: $grey;
+  }
+
+  &.warning {
+    color: $warning;
+  }
+
+  &.warning:not(.transparent) {
+    border-color: $warning;
+  }
+
+  &.warning.fill {
+    background: $warning;
+  }
+
+  &.negative {
+    color: $white;
+  }
+
+  &.negative:not(.transparent) {
+    border-color: $white;
+  }
+
+  &.negative.fill {
+    background: $white;
+    color: $primary;
+  }
+
+  &.negative.transparent {
+    &:hover {
+      background: #{$light-grey}33;
+      border: 0.2rem solid transparent;
+    }
+  }
+
+  &.outline {
+    background: transparent;
+    border: 0.2rem solid $primary;
+  }
+
+  &.fill {
+    background: $primary;
+    border: 0.2rem solid $primary;
+    color: $white;
+  }
+
+  &.transparent {
+    background: transparent;
+    border: 0.2rem solid transparent;
+
+    &:hover {
+      background: $light-grey;
+    }
   }
 }

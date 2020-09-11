@@ -1,6 +1,22 @@
-<button (click)="onClick()" [ngClass]="{ primary: !type, '[type]': type }">
-  <div class="button-icon">
+<button
+  (click)="onClick()"
+  [ngClass]="{
+    'icon-btn': hasIcon,
+    'text-btn': hasText,
+    outline: !type || type === 'outline',
+    fill: type === 'fill',
+    transparent: type === 'transparent',
+    clicked: animate,
+    secondary: secondary === '',
+    flat: flat === '',
+    warning: warning === '',
+    negative: negative === ''
+  }"
+>
+  <div #iconRef class="button-icon">
     <ng-content select="[slot='icon']"></ng-content>
   </div>
-  <span><ng-content select="[slot='text']"></ng-content></span>
+  <span #textRef class="button-text"
+    ><ng-content #text select="[slot='text']"></ng-content
+  ></span>
 </button>
