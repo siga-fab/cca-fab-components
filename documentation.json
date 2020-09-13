@@ -7,7 +7,7 @@
   "components": [
     {
       "name": "ButtonComponent",
-      "id": "component-ButtonComponent-310522681f0228b854dc5ed5a7697ecc",
+      "id": "component-ButtonComponent-7c0d94c543ffa6ba7af47186d73c3cb1",
       "file": "projects/common/src/lib/button/button.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -21,7 +21,7 @@
       "viewProviders": [],
       "inputsClass": [
         {
-          "name": "disabled",
+          "name": "badged",
           "line": 24,
           "type": "boolean"
         },
@@ -31,14 +31,7 @@
           "type": "\"outline\" | \"fill\""
         }
       ],
-      "outputsClass": [
-        {
-          "name": "buttonClick",
-          "defaultValue": "new EventEmitter()",
-          "line": 25,
-          "type": "EventEmitter<void>"
-        }
-      ],
+      "outputsClass": [],
       "propertiesClass": [
         {
           "name": "animate",
@@ -46,15 +39,33 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 27,
+          "line": 26,
           "modifierKind": [113]
+        },
+        {
+          "name": "disabled",
+          "type": "",
+          "optional": false,
+          "description": "",
+          "line": 35,
+          "decorators": [
+            {
+              "name": "Optional",
+              "stringifiedArguments": ""
+            },
+            {
+              "name": "Attribute",
+              "stringifiedArguments": "'disabled'"
+            }
+          ],
+          "modifierKind": [114]
         },
         {
           "name": "flat",
           "type": "",
           "optional": false,
           "description": "",
-          "line": 34,
+          "line": 32,
           "decorators": [
             {
               "name": "Optional",
@@ -73,7 +84,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 29,
+          "line": 27,
           "modifierKind": [113]
         },
         {
@@ -82,7 +93,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 30,
+          "line": 28,
           "modifierKind": [113]
         },
         {
@@ -103,7 +114,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 36,
+          "line": 34,
           "decorators": [
             {
               "name": "Optional",
@@ -121,7 +132,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 33,
+          "line": 31,
           "decorators": [
             {
               "name": "Optional",
@@ -152,7 +163,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 35,
+          "line": 33,
           "decorators": [
             {
               "name": "Optional",
@@ -173,7 +184,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 41
+          "line": 40
         },
         {
           "name": "ngOnInit",
@@ -181,7 +192,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 39
+          "line": 38
         },
         {
           "name": "onClick",
@@ -189,7 +200,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 46
+          "line": 45
         }
       ],
       "hostBindings": [],
@@ -197,11 +208,11 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  Output,\n  EventEmitter,\n  ViewChild,\n  AfterViewInit,\n  ElementRef,\n  Optional,\n  Attribute,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent implements OnInit, AfterViewInit {\n  @ViewChild('iconRef') icon!: ElementRef;\n  @ViewChild('textRef') text!: ElementRef;\n\n  @Input() type?: 'outline' | 'fill';\n  @Input() disabled?: boolean;\n  @Output() buttonClick?: EventEmitter<void> = new EventEmitter();\n\n  protected animate = false;\n\n  protected hasIcon = false;\n  protected hasText = false;\n\n  constructor(\n    @Optional() @Attribute('secondary') public secondary,\n    @Optional() @Attribute('flat') public flat,\n    @Optional() @Attribute('warning') public warning,\n    @Optional() @Attribute('negative') public negative\n  ) {}\n\n  ngOnInit() {}\n\n  ngAfterViewInit() {\n    this.hasIcon = this.icon.nativeElement.children.length > 0;\n    this.hasText = this.text.nativeElement.textContent !== '';\n  }\n\n  onClick() {\n    this.buttonClick.emit();\n\n    if (!this.animate) {\n      this.animate = true;\n\n      setTimeout(() => {\n        this.animate = false;\n      }, 850);\n    }\n  }\n}\n",
+      "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  Output,\n  EventEmitter,\n  ViewChild,\n  AfterViewInit,\n  ElementRef,\n  Optional,\n  Attribute,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent implements OnInit, AfterViewInit {\n  @ViewChild('iconRef') icon!: ElementRef;\n  @ViewChild('textRef') text!: ElementRef;\n\n  @Input() type?: 'outline' | 'fill';\n  @Input() badged?: boolean;\n\n  protected animate = false;\n  protected hasIcon = false;\n  protected hasText = false;\n\n  constructor(\n    @Optional() @Attribute('secondary') public secondary,\n    @Optional() @Attribute('flat') public flat,\n    @Optional() @Attribute('warning') public warning,\n    @Optional() @Attribute('negative') public negative,\n    @Optional() @Attribute('disabled') public disabled\n  ) {}\n\n  ngOnInit() {}\n\n  ngAfterViewInit() {\n    this.hasIcon = this.icon.nativeElement.children.length > 0;\n    this.hasText = this.text.nativeElement.textContent !== '';\n  }\n\n  onClick() {\n    if (!this.animate) {\n      this.animate = true;\n\n      setTimeout(() => {\n        this.animate = false;\n      }, 850);\n    }\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "@import '../../assets/scss/colors.scss';\n@import '../../assets/scss/variables.scss';\n\n@keyframes wave {\n  from {\n    box-shadow: 0 0 0 5px #{$tertiary}AA;\n  }\n\n  to {\n    transform: scaleX(1.4) scaleY(1.6);\n    opacity: 0;\n  }\n}\n\n@keyframes wave-icon {\n  from {\n    box-shadow: 0 0 0 5px #{$tertiary}AA;\n  }\n\n  to {\n    transform: scaleX(1.8) scaleY(1.8);\n    opacity: 0;\n  }\n}\n\nbutton {\n  // Default styles\n  position: relative;\n\n  display: flex;\n  flex-flow: row wrap;\n  align-items: center;\n  height: 3.6rem;\n\n  color: $primary;\n\n  appearance: none;\n  border-radius: 2rem;\n  outline: none;\n  cursor: pointer;\n  user-select: none;\n  transition: box-shadow 100ms ease-in-out, color 150ms ease-in-out,\n    background 150ms ease-in-out, border 150ms ease-in-out;\n\n  // Behavior\n  &.icon-btn.text-btn {\n    padding: 0 1.3rem;\n\n    .button-icon {\n      margin-right: 2rem;\n    }\n  }\n\n  &.icon-btn:not(.text-btn) {\n    padding: 0 0.4rem;\n  }\n\n  &.text-btn:not(.icon-btn) {\n    padding: 0 2rem;\n  }\n\n  .button-text:not(:empty) {\n    font-size: 1.6rem;\n    line-height: 1.9rem;\n    text-transform: uppercase;\n  }\n\n  &:hover:not(.transparent),\n  &:focus {\n    box-shadow: $focus-shadow;\n  }\n\n  &.clicked::after {\n    animation: wave 850ms;\n  }\n\n  &.icon-btn:not(.text-btn).clicked::after {\n    animation: wave-icon 850ms;\n  }\n\n  &::after {\n    position: absolute;\n    top: 0;\n    left: 0;\n    z-index: -1;\n\n    display: inline-flex;\n    height: 100%;\n    width: 100%;\n\n    border-radius: 2rem;\n    background: transparent;\n    content: '';\n  }\n\n  // Themes\n  &.secondary {\n    color: $black;\n  }\n\n  &.secondary:not(.transparent) {\n    border-color: $black;\n  }\n\n  &.secondary.fill {\n    color: $white;\n    background: $black;\n  }\n\n  &.flat {\n    color: $grey;\n  }\n\n  &.flat:not(.transparent) {\n    border-color: $grey;\n  }\n\n  &.flat.fill {\n    background: $grey;\n  }\n\n  &.warning {\n    color: $warning;\n  }\n\n  &.warning:not(.transparent) {\n    border-color: $warning;\n  }\n\n  &.warning.fill {\n    background: $warning;\n  }\n\n  &.negative {\n    color: $white;\n  }\n\n  &.negative:not(.transparent) {\n    border-color: $white;\n  }\n\n  &.negative.fill {\n    background: $white;\n    color: $primary;\n  }\n\n  &.negative.transparent {\n    &:hover {\n      background: #{$light-grey}33;\n      border: 0.2rem solid transparent;\n    }\n  }\n\n  &.outline {\n    background: transparent;\n    border: 0.2rem solid $primary;\n  }\n\n  &.fill {\n    background: $primary;\n    border: 0.2rem solid $primary;\n    color: $white;\n  }\n\n  &.transparent {\n    background: transparent;\n    border: 0.2rem solid transparent;\n\n    &:hover {\n      background: $light-grey;\n    }\n  }\n}\n",
+          "data": "@import '../../assets/scss/colors.scss';\n@import '../../assets/scss/variables.scss';\n\n@keyframes wave {\n  from {\n    box-shadow: 0 0 0 5px #{$tertiary}AA;\n  }\n\n  to {\n    transform: scaleX(1.4) scaleY(1.6);\n    opacity: 0;\n  }\n}\n\n@keyframes wave-icon {\n  from {\n    box-shadow: 0 0 0 5px #{$tertiary}AA;\n  }\n\n  to {\n    transform: scaleX(1.8) scaleY(1.8);\n    opacity: 0;\n  }\n}\n\n.button {\n  // Container styles\n  position: relative;\n\n  display: flex;\n  flex-flow: row wrap;\n  align-items: center;\n  height: 3.6rem;\n\n  color: $primary;\n\n  appearance: none;\n  border-radius: 2rem;\n  outline: none;\n  cursor: pointer;\n  user-select: none;\n\n  &::after {\n    content: '';\n\n    position: absolute;\n    top: 0;\n    left: 0;\n    z-index: -1;\n\n    display: inline-flex;\n    height: 100%;\n    width: 100%;\n\n    border-radius: 2rem;\n    background: transparent;\n  }\n\n  // Behavior\n  transition: box-shadow 100ms ease-in-out, color 150ms ease-in-out,\n    background 150ms ease-in-out, border 150ms ease-in-out;\n\n  &.clicked-btn::after {\n    animation: wave 850ms;\n  }\n\n  &.icon-btn:not(.text-btn).clicked-btn::after {\n    animation: wave-icon 850ms;\n  }\n\n  &:disabled {\n    opacity: 0.5;\n  }\n\n  &:hover:not(.transparent-btn):not(:disabled),\n  &:focus {\n    box-shadow: $focus-shadow;\n  }\n\n  // Elements display\n  &.icon-btn.text-btn {\n    padding: 0 1.3rem;\n\n    .button-icon {\n      margin-right: 2rem;\n    }\n  }\n\n  &.icon-btn:not(.text-btn) {\n    padding: 0 0.4rem;\n  }\n\n  &.text-btn:not(.icon-btn) {\n    padding: 0 2rem;\n  }\n\n  .button-text:not(:empty) {\n    font-size: 1.6rem;\n    line-height: 1.9rem;\n    text-transform: uppercase;\n  }\n\n  // Badge\n  .button-icon:not(:empty) {\n    position: relative;\n  }\n\n  &.badged-btn > .button-icon::after {\n    content: '';\n\n    position: absolute;\n    top: 0;\n    right: 0;\n    z-index: 1;\n\n    display: inline-flex;\n    height: 1.4rem;\n    width: 1.4rem;\n    margin-right: -0.2rem;\n    margin-top: -0.2rem;\n\n    border-radius: 50%;\n    background: $warning;\n  }\n\n  // Themes\n  &.secondary-btn {\n    color: $black;\n  }\n\n  &.secondary-btn:not(.transparent-btn) {\n    border-color: $black;\n  }\n\n  &.secondary-btn.fill-btn {\n    color: $white;\n    background: $black;\n  }\n\n  &.flat-btn {\n    color: $grey;\n  }\n\n  &.flat-btn:not(.transparent-btn) {\n    border-color: $grey;\n  }\n\n  &.flat-btn.fill-btn {\n    background: $grey;\n  }\n\n  &.warning-btn {\n    color: $warning;\n  }\n\n  &.warning-btn:not(.transparent-btn) {\n    border-color: $warning;\n  }\n\n  &.warning-btn.fill-btn {\n    background: $warning;\n  }\n\n  &.negative-btn {\n    color: $white;\n  }\n\n  &.negative-btn:not(.transparent-btn) {\n    border-color: $white;\n  }\n\n  &.negative-btn.fill-btn {\n    background: $white;\n    color: $primary;\n  }\n\n  &.negative-btn.transparent-btn {\n    &:hover {\n      background: #{$light-grey}33;\n      border: 0.2rem solid transparent;\n    }\n  }\n\n  // Default themes\n  &.outline-btn {\n    background: transparent;\n    border: 0.2rem solid $primary;\n  }\n\n  &.fill-btn {\n    background: $primary;\n    border: 0.2rem solid $primary;\n    color: $white;\n  }\n\n  &.transparent-btn {\n    background: transparent;\n    border: 0.2rem solid transparent;\n\n    &:hover:not(:disabled):not(.negative-btn) {\n      background: $light-grey;\n    }\n  }\n}\n",
           "styleUrl": "./button.component.scss"
         }
       ],
@@ -225,9 +236,13 @@
           {
             "name": "negative",
             "type": ""
+          },
+          {
+            "name": "disabled",
+            "type": ""
           }
         ],
-        "line": 30,
+        "line": 28,
         "jsdoctags": [
           {
             "name": "secondary",
@@ -256,11 +271,18 @@
             "tagName": {
               "text": "param"
             }
+          },
+          {
+            "name": "disabled",
+            "type": "",
+            "tagName": {
+              "text": "param"
+            }
           }
         ]
       },
       "implements": ["OnInit", "AfterViewInit"],
-      "templateData": "<button\n  (click)=\"onClick()\"\n  [ngClass]=\"{\n    'icon-btn': hasIcon,\n    'text-btn': hasText,\n    outline: !type || type === 'outline',\n    fill: type === 'fill',\n    transparent: type === 'transparent',\n    clicked: animate,\n    secondary: secondary === '',\n    flat: flat === '',\n    warning: warning === '',\n    negative: negative === ''\n  }\"\n>\n  <div #iconRef class=\"button-icon\">\n    <ng-content select=\"[slot='icon']\"></ng-content>\n  </div>\n  <span #textRef class=\"button-text\"\n    ><ng-content #text select=\"[slot='text']\"></ng-content\n  ></span>\n</button>\n"
+      "templateData": "<button\n  class=\"button\"\n  (click)=\"onClick()\"\n  [disabled]=\"disabled === ''\"\n  [ngClass]=\"{\n    'icon-btn': hasIcon,\n    'text-btn': hasText,\n    'badged-btn': badged,\n    'outline-btn': !type || type === 'outline',\n    'fill-btn': type === 'fill',\n    'transparent-btn': type === 'transparent',\n    'clicked-btn': animate,\n    'secondary-btn': secondary === '',\n    'flat-btn': flat === '',\n    'warning-btn': warning === '',\n    'negative-btn': negative === ''\n  }\"\n>\n  <div #iconRef class=\"button-icon\">\n    <ng-content select=\"[slot='icon']\"></ng-content>\n  </div>\n  <span #textRef class=\"button-text\"\n    ><ng-content #text select=\"[slot='text']\"></ng-content\n  ></span>\n</button>\n"
     },
     {
       "name": "CardComponent",
@@ -298,7 +320,7 @@
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "",
+          "data": "@import '../../assets/scss/variables.scss';\n\n.card {\n  width: 100%;\n  height: 100%;\n  padding: $padding;\n\n  background: #ffffff;\n  border: 1px solid #edeff1;\n  box-shadow: $box-shadow;\n  border-radius: 5px;\n}\n",
           "styleUrl": "./card.component.scss"
         }
       ],
@@ -310,11 +332,11 @@
         "line": 8
       },
       "implements": ["OnInit"],
-      "templateData": "<p>card works!</p>\n"
+      "templateData": "<div class=\"card\"><ng-content></ng-content></div>\n"
     },
     {
       "name": "IconComponent",
-      "id": "component-IconComponent-5db80df6850b5faa47466094622cab74",
+      "id": "component-IconComponent-bec01d3f1c856ad03182d635bd631f3e",
       "file": "projects/common/src/lib/icon/icon.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -326,7 +348,18 @@
       "styles": [],
       "templateUrl": ["./icon.component.html"],
       "viewProviders": [],
-      "inputsClass": [],
+      "inputsClass": [
+        {
+          "name": "color",
+          "line": 10,
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "line": 9,
+          "type": "number"
+        }
+      ],
       "outputsClass": [],
       "propertiesClass": [],
       "methodsClass": [
@@ -336,7 +369,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 11
+          "line": 14
         }
       ],
       "hostBindings": [],
@@ -344,7 +377,7 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-icon',\n  templateUrl: './icon.component.html',\n  styleUrls: ['./icon.component.scss'],\n})\nexport class IconComponent implements OnInit {\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+      "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-icon',\n  templateUrl: './icon.component.html',\n  styleUrls: ['./icon.component.scss'],\n})\nexport class IconComponent implements OnInit {\n  @Input() size?: number;\n  @Input() color?: string;\n\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
@@ -357,10 +390,10 @@
         "name": "constructor",
         "description": "",
         "args": [],
-        "line": 8
+        "line": 10
       },
       "implements": ["OnInit"],
-      "templateData": "<span class=\"material-icons\"><ng-content></ng-content></span>\n"
+      "templateData": "<span class=\"material-icons\" [ngStyle]=\"{ 'font-size.px': size, color: color }\">\n  <ng-content></ng-content>\n</span>\n"
     }
   ],
   "modules": [
@@ -484,15 +517,15 @@
         "subtype": "variable",
         "file": "src/stories/common/Button.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button type=\"fill\" (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button type=\"fill\" (buttonClick)=\"click($event)\">\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button type =\"fill\" (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n    </cca-common-button>\n  `,\n})"
+        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;\">\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"fill\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">fill</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">fill</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type =\"fill\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n    </ul>\n  `,\n})"
       },
       {
-        "name": "Negative",
+        "name": "Notification",
         "ctype": "miscellaneous",
         "subtype": "variable",
         "file": "src/stories/common/Button.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  parameters: {\n    backgrounds: [{ name: 'dark background', value: '#000', default: true }],\n  },\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <section style=\"background-color: #234B90;\">\n      <cca-common-button negative (buttonClick)=\"click($event)\">\n        <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        <ng-container slot=\"text\">negative</ng-container>\n      </cca-common-button>\n      <br>\n      <cca-common-button negative type=\"fill\" (buttonClick)=\"click($event)\">\n        <ng-container slot=\"text\">negative</ng-container>\n      </cca-common-button>\n      <br>\n      <cca-common-button negative type=\"transparent\" (buttonClick)=\"click($event)\">\n        <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      </cca-common-button>\n    </section>\n  `,\n})"
+        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;\">\n      <li style=\"padding: .5rem\">\n        <cca-common-button badged=\"true\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">error_outline</cca-common-icon>\n          <ng-container slot=\"text\">notification</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button badged=\"true\" type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">notification</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button badged=\"true\" type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">error_outline</cca-common-icon>\n        </cca-common-button>\n      </li>\n    </ul>\n  `,\n})"
       },
       {
         "name": "Outline",
@@ -500,7 +533,7 @@
         "subtype": "variable",
         "file": "src/stories/common/Button.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n    </cca-common-button>\n  `,\n})"
+        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;\">\n      <li style=\"padding: .5rem\">\n        <cca-common-button (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">outline</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button (click)=\"click($event)\">\n          <ng-container slot=\"text\">outline</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n    </ul>\n  `,\n})"
       },
       {
         "name": "Styles",
@@ -508,8 +541,23 @@
         "subtype": "variable",
         "file": "src/stories/common/Button.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <div style=\"display: flex; flex-flow: row wrap\">\n\n      <!--Primary-->\n      <section style=\"padding: 1rem;\">\n        <cca-common-button (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">primary</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button type=\"fill\" (buttonClick)=\"click($event)\">\n          <ng-container slot=\"text\">primary</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button type=\"transparent\" (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </section>\n\n      <!--Secondary-->\n      <section style=\"padding: 1rem;\">\n        <cca-common-button secondary (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">secondary</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button secondary type=\"fill\" (buttonClick)=\"click($event)\">\n          <ng-container slot=\"text\">secondary</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button secondary type=\"transparent\" (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </section>\n\n      <!--Flat-->\n      <section style=\"padding: 1rem;\">\n        <cca-common-button flat (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">flat</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button flat type=\"fill\" (buttonClick)=\"click($event)\">\n          <ng-container slot=\"text\">flat</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button flat type=\"transparent\" (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </section>\n\n      <!--Warning-->\n      <section style=\"padding: 1rem;\">\n        <cca-common-button warning (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">warning</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button warning type=\"fill\" (buttonClick)=\"click($event)\">\n          <ng-container slot=\"text\">warning</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button warning type=\"transparent\" (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </section>\n\n      <!--Negative-->\n      <section style=\"padding: 1rem; background-color: #234B90; border-radius: .5rem\">\n        <cca-common-button negative (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">negative</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button negative type=\"fill\" (buttonClick)=\"click($event)\">\n          <ng-container slot=\"text\">negative</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button negative type=\"transparent\" (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </section>\n    </div>\n`,\n})",
-        "description": "<p>dsfadsfadfasdfasdf</p>\n"
+        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 80rem; list-style-type: none;\">\n\n      <!--Primary-->\n      <li style=\"padding: .5rem\">\n        <cca-common-button (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">primary</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">primary</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n\n      <!--Secondary-->\n      <li style=\"padding: .5rem\">\n        <cca-common-button secondary (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">secondary</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button secondary type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">secondary</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button secondary type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n\n\n      <!--Flat-->\n      <li style=\"padding: .5rem\">\n        <cca-common-button flat (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">nova</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button flat type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">nova</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button flat type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n\n      <!--Warning-->\n      <li style=\"padding: .5rem\">\n        <cca-common-button warning (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">warning</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button warning type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">warning</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button warning type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n\n      <!--Negative-->\n      <li style=\"padding: .5rem\">\n        <div style=\"padding: 1rem; background-color: #234B90;\">\n          <cca-common-button negative (click)=\"click($event)\">\n            <cca-common-icon slot=\"icon\">add</cca-common-icon>\n            <ng-container slot=\"text\">negative</ng-container>\n          </cca-common-button>\n        </div>\n      </li>\n      <li style=\"padding: .5rem\">\n        <div style=\"padding: 1rem; background-color: #234B90;\">\n          <cca-common-button negative type=\"fill\" (click)=\"click($event)\">\n            <ng-container slot=\"text\">negative</ng-container>\n          </cca-common-button>\n        </div>\n      </li>\n      <li style=\"padding: .5rem\">\n        <div style=\"padding: 1rem; background-color: #234B90;\">\n          <cca-common-button negative type=\"transparent\" (click)=\"click($event)\">\n            <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          </cca-common-button>\n        </div>\n      </li>\n    </ul>\n`,\n})"
+      },
+      {
+        "name": "Styles",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/common/Card.stories.ts",
+        "type": "",
+        "defaultValue": "() => ({\n  template: `\n    <div style=\"width: 30rem; height: 40rem;\">\n      <cca-common-card>\n        <span>This is a card!</span>\n      </cca-common-card>\n    </div>\n  `,\n})"
+      },
+      {
+        "name": "Styles",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/common/Icon.stories.ts",
+        "type": "",
+        "defaultValue": "() => ({\n  template: `\n    <div style=\"display: flex; flex-flow: row wrap\">\n      <!--Default-->\n      <section style=\"padding: 1rem;\">\n        <cca-common-icon>face</cca-common-icon>\n      </section>\n      <section style=\"padding: 1rem;\">\n        <cca-common-icon size=\"32\" color=\"red\">face</cca-common-icon>\n      </section>\n      <section style=\"padding: 1rem;\">\n        <cca-common-icon size=\"48\" color=\"rgb(120, 0, 0)\">face</cca-common-icon>\n      </section>\n      <section style=\"padding: 1rem;\">\n        <cca-common-icon size=\"64\" color=\"#567700\">face</cca-common-icon>\n      </section>\n    </div>\n  `,\n})"
       },
       {
         "name": "Transparent",
@@ -517,15 +565,7 @@
         "subtype": "variable",
         "file": "src/stories/common/Button.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button type=\"transparent\" (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button type=\"transparent\" (buttonClick)=\"click($event)\">\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button type=\"transparent\" (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n    </cca-common-button>\n  `,\n})"
-      },
-      {
-        "name": "Warning",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/common/Button.stories.ts",
-        "type": "",
-        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button warning (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">warning</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button warning type=\"fill\" (buttonClick)=\"click($event)\">\n      <ng-container slot=\"text\">warning</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button warning type=\"transparent\" (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n    </cca-common-button>\n  `,\n})"
+        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;\">\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">transparent</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"transparent\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">transparent</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n    </ul>\n  `,\n})"
       }
     ],
     "functions": [],
@@ -539,15 +579,15 @@
           "subtype": "variable",
           "file": "src/stories/common/Button.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button type=\"fill\" (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button type=\"fill\" (buttonClick)=\"click($event)\">\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button type =\"fill\" (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n    </cca-common-button>\n  `,\n})"
+          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;\">\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"fill\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">fill</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">fill</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type =\"fill\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n    </ul>\n  `,\n})"
         },
         {
-          "name": "Negative",
+          "name": "Notification",
           "ctype": "miscellaneous",
           "subtype": "variable",
           "file": "src/stories/common/Button.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  parameters: {\n    backgrounds: [{ name: 'dark background', value: '#000', default: true }],\n  },\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <section style=\"background-color: #234B90;\">\n      <cca-common-button negative (buttonClick)=\"click($event)\">\n        <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        <ng-container slot=\"text\">negative</ng-container>\n      </cca-common-button>\n      <br>\n      <cca-common-button negative type=\"fill\" (buttonClick)=\"click($event)\">\n        <ng-container slot=\"text\">negative</ng-container>\n      </cca-common-button>\n      <br>\n      <cca-common-button negative type=\"transparent\" (buttonClick)=\"click($event)\">\n        <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      </cca-common-button>\n    </section>\n  `,\n})"
+          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;\">\n      <li style=\"padding: .5rem\">\n        <cca-common-button badged=\"true\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">error_outline</cca-common-icon>\n          <ng-container slot=\"text\">notification</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button badged=\"true\" type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">notification</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button badged=\"true\" type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">error_outline</cca-common-icon>\n        </cca-common-button>\n      </li>\n    </ul>\n  `,\n})"
         },
         {
           "name": "Outline",
@@ -555,7 +595,7 @@
           "subtype": "variable",
           "file": "src/stories/common/Button.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n    </cca-common-button>\n  `,\n})"
+          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;\">\n      <li style=\"padding: .5rem\">\n        <cca-common-button (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">outline</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button (click)=\"click($event)\">\n          <ng-container slot=\"text\">outline</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n    </ul>\n  `,\n})"
         },
         {
           "name": "Styles",
@@ -563,8 +603,7 @@
           "subtype": "variable",
           "file": "src/stories/common/Button.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <div style=\"display: flex; flex-flow: row wrap\">\n\n      <!--Primary-->\n      <section style=\"padding: 1rem;\">\n        <cca-common-button (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">primary</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button type=\"fill\" (buttonClick)=\"click($event)\">\n          <ng-container slot=\"text\">primary</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button type=\"transparent\" (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </section>\n\n      <!--Secondary-->\n      <section style=\"padding: 1rem;\">\n        <cca-common-button secondary (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">secondary</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button secondary type=\"fill\" (buttonClick)=\"click($event)\">\n          <ng-container slot=\"text\">secondary</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button secondary type=\"transparent\" (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </section>\n\n      <!--Flat-->\n      <section style=\"padding: 1rem;\">\n        <cca-common-button flat (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">flat</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button flat type=\"fill\" (buttonClick)=\"click($event)\">\n          <ng-container slot=\"text\">flat</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button flat type=\"transparent\" (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </section>\n\n      <!--Warning-->\n      <section style=\"padding: 1rem;\">\n        <cca-common-button warning (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">warning</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button warning type=\"fill\" (buttonClick)=\"click($event)\">\n          <ng-container slot=\"text\">warning</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button warning type=\"transparent\" (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </section>\n\n      <!--Negative-->\n      <section style=\"padding: 1rem; background-color: #234B90; border-radius: .5rem\">\n        <cca-common-button negative (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">negative</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button negative type=\"fill\" (buttonClick)=\"click($event)\">\n          <ng-container slot=\"text\">negative</ng-container>\n        </cca-common-button>\n        <br>\n        <cca-common-button negative type=\"transparent\" (buttonClick)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </section>\n    </div>\n`,\n})",
-          "description": "<p>dsfadsfadfasdfasdf</p>\n"
+          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 80rem; list-style-type: none;\">\n\n      <!--Primary-->\n      <li style=\"padding: .5rem\">\n        <cca-common-button (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">primary</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">primary</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n\n      <!--Secondary-->\n      <li style=\"padding: .5rem\">\n        <cca-common-button secondary (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">secondary</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button secondary type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">secondary</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button secondary type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n\n\n      <!--Flat-->\n      <li style=\"padding: .5rem\">\n        <cca-common-button flat (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">nova</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button flat type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">nova</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button flat type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n\n      <!--Warning-->\n      <li style=\"padding: .5rem\">\n        <cca-common-button warning (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">warning</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button warning type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">warning</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button warning type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n\n      <!--Negative-->\n      <li style=\"padding: .5rem\">\n        <div style=\"padding: 1rem; background-color: #234B90;\">\n          <cca-common-button negative (click)=\"click($event)\">\n            <cca-common-icon slot=\"icon\">add</cca-common-icon>\n            <ng-container slot=\"text\">negative</ng-container>\n          </cca-common-button>\n        </div>\n      </li>\n      <li style=\"padding: .5rem\">\n        <div style=\"padding: 1rem; background-color: #234B90;\">\n          <cca-common-button negative type=\"fill\" (click)=\"click($event)\">\n            <ng-container slot=\"text\">negative</ng-container>\n          </cca-common-button>\n        </div>\n      </li>\n      <li style=\"padding: .5rem\">\n        <div style=\"padding: 1rem; background-color: #234B90;\">\n          <cca-common-button negative type=\"transparent\" (click)=\"click($event)\">\n            <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          </cca-common-button>\n        </div>\n      </li>\n    </ul>\n`,\n})"
         },
         {
           "name": "Transparent",
@@ -572,15 +611,27 @@
           "subtype": "variable",
           "file": "src/stories/common/Button.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button type=\"transparent\" (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button type=\"transparent\" (buttonClick)=\"click($event)\">\n      <ng-container slot=\"text\">nova</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button type=\"transparent\" (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n    </cca-common-button>\n  `,\n})"
-        },
+          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;\">\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n          <ng-container slot=\"text\">transparent</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"transparent\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">transparent</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        </cca-common-button>\n      </li>\n    </ul>\n  `,\n})"
+        }
+      ],
+      "src/stories/common/Card.stories.ts": [
         {
-          "name": "Warning",
+          "name": "Styles",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/stories/common/Button.stories.ts",
+          "file": "src/stories/common/Card.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <cca-common-button warning (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n      <ng-container slot=\"text\">warning</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button warning type=\"fill\" (buttonClick)=\"click($event)\">\n      <ng-container slot=\"text\">warning</ng-container>\n    </cca-common-button>\n    <br>\n    <cca-common-button warning type=\"transparent\" (buttonClick)=\"click($event)\">\n      <cca-common-icon slot=\"icon\">add</cca-common-icon>\n    </cca-common-button>\n  `,\n})"
+          "defaultValue": "() => ({\n  template: `\n    <div style=\"width: 30rem; height: 40rem;\">\n      <cca-common-card>\n        <span>This is a card!</span>\n      </cca-common-card>\n    </div>\n  `,\n})"
+        }
+      ],
+      "src/stories/common/Icon.stories.ts": [
+        {
+          "name": "Styles",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/common/Icon.stories.ts",
+          "type": "",
+          "defaultValue": "() => ({\n  template: `\n    <div style=\"display: flex; flex-flow: row wrap\">\n      <!--Default-->\n      <section style=\"padding: 1rem;\">\n        <cca-common-icon>face</cca-common-icon>\n      </section>\n      <section style=\"padding: 1rem;\">\n        <cca-common-icon size=\"32\" color=\"red\">face</cca-common-icon>\n      </section>\n      <section style=\"padding: 1rem;\">\n        <cca-common-icon size=\"48\" color=\"rgb(120, 0, 0)\">face</cca-common-icon>\n      </section>\n      <section style=\"padding: 1rem;\">\n        <cca-common-icon size=\"64\" color=\"#567700\">face</cca-common-icon>\n      </section>\n    </div>\n  `,\n})"
         }
       ]
     },
@@ -590,7 +641,7 @@
   },
   "routes": [],
   "coverage": {
-    "count": 11,
+    "count": 0,
     "status": "low",
     "files": [
       {
@@ -617,7 +668,7 @@
         "linktype": "component",
         "name": "IconComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/3",
+        "coverageCount": "0/5",
         "status": "low"
       },
       {
@@ -635,7 +686,7 @@
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
-        "name": "Negative",
+        "name": "Notification",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"
@@ -656,9 +707,9 @@
         "linktype": "miscellaneous",
         "linksubtype": "variable",
         "name": "Styles",
-        "coveragePercent": 100,
-        "coverageCount": "1/1",
-        "status": "very-good"
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
       },
       {
         "filePath": "src/stories/common/Button.stories.ts",
@@ -671,11 +722,21 @@
         "status": "low"
       },
       {
-        "filePath": "src/stories/common/Button.stories.ts",
+        "filePath": "src/stories/common/Card.stories.ts",
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
-        "name": "Warning",
+        "name": "Styles",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/common/Icon.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Styles",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"

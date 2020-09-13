@@ -2,8 +2,6 @@ import {
   Component,
   OnInit,
   Input,
-  Output,
-  EventEmitter,
   ViewChild,
   AfterViewInit,
   ElementRef,
@@ -20,12 +18,14 @@ export class ButtonComponent implements OnInit, AfterViewInit {
   @ViewChild('iconRef') icon!: ElementRef;
   @ViewChild('textRef') text!: ElementRef;
 
-  @Input() type?: 'outline' | 'fill';
+  @Input() type?: 'outline' | 'fill' | 'transparent';
   @Input() badged?: boolean;
 
-  protected animate = false;
-  protected hasIcon = false;
-  protected hasText = false;
+  animate = false;
+  animateMsTime = 850;
+
+  hasIcon = false;
+  hasText = false;
 
   constructor(
     @Optional() @Attribute('secondary') public secondary,
@@ -48,7 +48,7 @@ export class ButtonComponent implements OnInit, AfterViewInit {
 
       setTimeout(() => {
         this.animate = false;
-      }, 850);
+      }, this.animateMsTime);
     }
   }
 }
