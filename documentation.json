@@ -7,7 +7,7 @@
   "components": [
     {
       "name": "ButtonComponent",
-      "id": "component-ButtonComponent-7c0d94c543ffa6ba7af47186d73c3cb1",
+      "id": "component-ButtonComponent-2c138878b26c9f508b8841f7edc1a9ce",
       "file": "projects/common/src/lib/button/button.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -22,13 +22,13 @@
       "inputsClass": [
         {
           "name": "badged",
-          "line": 24,
+          "line": 22,
           "type": "boolean"
         },
         {
           "name": "type",
-          "line": 23,
-          "type": "\"outline\" | \"fill\""
+          "line": 21,
+          "type": "\"outline\" | \"fill\" | \"transparent\""
         }
       ],
       "outputsClass": [],
@@ -39,8 +39,15 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 26,
-          "modifierKind": [113]
+          "line": 24
+        },
+        {
+          "name": "animateMsTime",
+          "defaultValue": "850",
+          "type": "number",
+          "optional": false,
+          "description": "",
+          "line": 25
         },
         {
           "name": "disabled",
@@ -84,8 +91,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 27,
-          "modifierKind": [113]
+          "line": 27
         },
         {
           "name": "hasText",
@@ -93,15 +99,14 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 28,
-          "modifierKind": [113]
+          "line": 28
         },
         {
           "name": "icon",
           "type": "ElementRef",
           "optional": false,
           "description": "",
-          "line": 20,
+          "line": 18,
           "decorators": [
             {
               "name": "ViewChild",
@@ -150,7 +155,7 @@
           "type": "ElementRef",
           "optional": false,
           "description": "",
-          "line": 21,
+          "line": 19,
           "decorators": [
             {
               "name": "ViewChild",
@@ -208,7 +213,7 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  Output,\n  EventEmitter,\n  ViewChild,\n  AfterViewInit,\n  ElementRef,\n  Optional,\n  Attribute,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent implements OnInit, AfterViewInit {\n  @ViewChild('iconRef') icon!: ElementRef;\n  @ViewChild('textRef') text!: ElementRef;\n\n  @Input() type?: 'outline' | 'fill';\n  @Input() badged?: boolean;\n\n  protected animate = false;\n  protected hasIcon = false;\n  protected hasText = false;\n\n  constructor(\n    @Optional() @Attribute('secondary') public secondary,\n    @Optional() @Attribute('flat') public flat,\n    @Optional() @Attribute('warning') public warning,\n    @Optional() @Attribute('negative') public negative,\n    @Optional() @Attribute('disabled') public disabled\n  ) {}\n\n  ngOnInit() {}\n\n  ngAfterViewInit() {\n    this.hasIcon = this.icon.nativeElement.children.length > 0;\n    this.hasText = this.text.nativeElement.textContent !== '';\n  }\n\n  onClick() {\n    if (!this.animate) {\n      this.animate = true;\n\n      setTimeout(() => {\n        this.animate = false;\n      }, 850);\n    }\n  }\n}\n",
+      "sourceCode": "import {\n  Component,\n  OnInit,\n  Input,\n  ViewChild,\n  AfterViewInit,\n  ElementRef,\n  Optional,\n  Attribute,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent implements OnInit, AfterViewInit {\n  @ViewChild('iconRef') icon!: ElementRef;\n  @ViewChild('textRef') text!: ElementRef;\n\n  @Input() type?: 'outline' | 'fill' | 'transparent';\n  @Input() badged?: boolean;\n\n  animate = false;\n  animateMsTime = 850;\n\n  hasIcon = false;\n  hasText = false;\n\n  constructor(\n    @Optional() @Attribute('secondary') public secondary,\n    @Optional() @Attribute('flat') public flat,\n    @Optional() @Attribute('warning') public warning,\n    @Optional() @Attribute('negative') public negative,\n    @Optional() @Attribute('disabled') public disabled\n  ) {}\n\n  ngOnInit() {}\n\n  ngAfterViewInit() {\n    this.hasIcon = this.icon.nativeElement.children.length > 0;\n    this.hasText = this.text.nativeElement.textContent !== '';\n  }\n\n  onClick() {\n    if (!this.animate) {\n      this.animate = true;\n\n      setTimeout(() => {\n        this.animate = false;\n      }, this.animateMsTime);\n    }\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
@@ -650,7 +655,7 @@
         "linktype": "component",
         "name": "ButtonComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/17",
+        "coverageCount": "0/18",
         "status": "low"
       },
       {
