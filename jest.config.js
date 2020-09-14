@@ -4,6 +4,7 @@ module.exports = {
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/**/index.ts',
     '!<rootDir>/src/**/*.module.ts',
+    '!<rootDir>/src/public-api.ts',
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['lcov', 'text-summary'],

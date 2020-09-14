@@ -1,6 +1,25 @@
-<button (click)="onClick()" [ngClass]="{ primary: !type, '[type]': type }">
-  <div class="button-icon">
+<button
+  class="button"
+  (click)="onClick()"
+  [disabled]="disabled === ''"
+  [ngClass]="{
+    'icon-btn': hasIcon,
+    'text-btn': hasText,
+    'badged-btn': badged,
+    'outline-btn': !type || type === 'outline',
+    'fill-btn': type === 'fill',
+    'transparent-btn': type === 'transparent',
+    'clicked-btn': animate,
+    'secondary-btn': secondary === '',
+    'flat-btn': flat === '',
+    'warning-btn': warning === '',
+    'negative-btn': negative === ''
+  }"
+>
+  <div #iconRef class="button-icon">
     <ng-content select="[slot='icon']"></ng-content>
   </div>
-  <span><ng-content select="[slot='text']"></ng-content></span>
+  <span #textRef class="button-text"
+    ><ng-content #text select="[slot='text']"></ng-content
+  ></span>
 </button>

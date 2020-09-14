@@ -1,33 +1,204 @@
 @import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
 
-button {
+@keyframes wave {
+  from {
+    box-shadow: 0 0 0 5px #{$tertiary}AA;
+  }
+
+  to {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes wave-icon {
+  from {
+    box-shadow: 0 0 0 5px #{$tertiary}AA;
+  }
+
+  to {
+    transform: scaleX(1.8) scaleY(1.8);
+    opacity: 0;
+  }
+}
+
+.button {
+  // Container styles
+  position: relative;
+
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   height: 3.6rem;
-  padding: 0 1.3rem;
 
   color: $primary;
 
   appearance: none;
   border-radius: 2rem;
-  cursor: pointer;
   outline: none;
+  cursor: pointer;
+  user-select: none;
 
-  &,
-  span,
-  p {
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+
+    border-radius: 2rem;
+    background: transparent;
+  }
+
+  // Behavior
+  transition: box-shadow 100ms ease-in-out, color 150ms ease-in-out,
+    background 150ms ease-in-out, border 150ms ease-in-out;
+
+  &.clicked-btn::after {
+    animation: wave 850ms;
+  }
+
+  &.icon-btn:not(.text-btn).clicked-btn::after {
+    animation: wave-icon 850ms;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &:hover:not(.transparent-btn):not(:disabled),
+  &:focus {
+    box-shadow: $focus-shadow;
+  }
+
+  // Elements display
+  &.icon-btn.text-btn {
+    padding: 0 1.3rem;
+
+    .button-icon {
+      margin-right: 2rem;
+    }
+  }
+
+  &.icon-btn:not(.text-btn) {
+    padding: 0 0.4rem;
+  }
+
+  &.text-btn:not(.icon-btn) {
+    padding: 0 2rem;
+  }
+
+  .button-text:not(:empty) {
     font-size: 1.6rem;
     line-height: 1.9rem;
     text-transform: uppercase;
   }
 
-  .button-icon {
-    margin-right: 2.6rem;
+  // Badge
+  .button-icon:not(:empty) {
+    position: relative;
   }
 
-  &.primary {
-    background-color: transparent;
-    border: 2px solid $primary;
+  &.badged-btn > .button-icon::after {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+
+    display: inline-flex;
+    height: 1.4rem;
+    width: 1.4rem;
+    margin-right: -0.2rem;
+    margin-top: -0.2rem;
+
+    border-radius: 50%;
+    background: $warning;
+  }
+
+  // Themes
+  &.secondary-btn {
+    color: $black;
+  }
+
+  &.secondary-btn:not(.transparent-btn) {
+    border-color: $black;
+  }
+
+  &.secondary-btn.fill-btn {
+    color: $white;
+    background: $black;
+  }
+
+  &.flat-btn {
+    color: $grey;
+  }
+
+  &.flat-btn:not(.transparent-btn) {
+    border-color: $grey;
+  }
+
+  &.flat-btn.fill-btn {
+    background: $grey;
+  }
+
+  &.warning-btn {
+    color: $warning;
+  }
+
+  &.warning-btn:not(.transparent-btn) {
+    border-color: $warning;
+  }
+
+  &.warning-btn.fill-btn {
+    background: $warning;
+  }
+
+  &.negative-btn {
+    color: $white;
+  }
+
+  &.negative-btn:not(.transparent-btn) {
+    border-color: $white;
+  }
+
+  &.negative-btn.fill-btn {
+    background: $white;
+    color: $primary;
+  }
+
+  &.negative-btn.transparent-btn {
+    &:hover {
+      background: #{$light-grey}33;
+      border: 0.2rem solid transparent;
+    }
+  }
+
+  // Default themes
+  &.outline-btn {
+    background: transparent;
+    border: 0.2rem solid $primary;
+  }
+
+  &.fill-btn {
+    background: $primary;
+    border: 0.2rem solid $primary;
+    color: $white;
+  }
+
+  &.transparent-btn {
+    background: transparent;
+    border: 0.2rem solid transparent;
+
+    &:hover:not(:disabled):not(.negative-btn) {
+      background: $light-grey;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'cca-common-icon',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./icon.component.scss'],
 })
 export class IconComponent implements OnInit {
+  @Input() size?: number;
+  @Input() color?: string;
+
   constructor() {}
 
   ngOnInit(): void {}
