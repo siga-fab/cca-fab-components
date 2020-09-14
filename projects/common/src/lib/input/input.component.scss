@@ -1,0 +1,58 @@
+@import '../../assets/scss/colors.scss';
+
+:host {
+  position: relative;
+  display: inline-block;
+
+  input[type] {
+    color: $grey;
+    font-family: Cabin;
+    font-size: 1.4rem;
+
+    width: 100%;
+
+    border-radius: 0.5rem;
+    border: 1px solid $light-grey;
+    height: 3.6rem;
+
+    &.center {
+      text-align: center;
+    }
+
+    &.slim {
+      height: 2.4rem;
+    }
+
+    transition: box-shadow 0.1s ease-in-out;
+
+    &:focus {
+      box-shadow: $focus-shadow;
+      outline: 0;
+    }
+
+    &[type='number']::-webkit-outer-spin-button,
+    &[type='number']::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
+  }
+
+  .number-minus,
+  .number-plus {
+    position: absolute;
+    left: calc(50% - 12px);
+    cursor: pointer;
+  }
+
+  .number-minus {
+    bottom: -2.5rem;
+  }
+
+  .number-plus {
+    top: -2.5rem;
+  }
+}

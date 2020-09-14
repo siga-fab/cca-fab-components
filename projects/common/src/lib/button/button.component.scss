@@ -1,5 +1,33 @@
-@import '../../../../../assets/scss/colors.scss';
+@import '../../assets/scss/colors.scss';
 
-.button {
-  background-color: $primary;
+button {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  height: 3.6rem;
+  padding: 0 1.3rem;
+
+  color: $primary;
+
+  appearance: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  outline: none;
+
+  &,
+  span,
+  p {
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    text-transform: uppercase;
+  }
+
+  .button-icon {
+    margin-right: 2.6rem;
+  }
+
+  &.primary {
+    background-color: transparent;
+    border: 2px solid $primary;
+  }
 }

@@ -1,5 +1,5 @@
 const path = require('path');
-const includePath = path.resolve(__dirname, '..')
+const includePath = path.resolve(__dirname, '..');
 module.exports = {
   module: {
     rules: [
@@ -9,18 +9,18 @@ module.exports = {
           {
             loader: require.resolve('@storybook/addon-storysource/loader'),
             options: {
-              parser: 'typescript'
-            }
-          }
+              parser: 'typescript',
+            },
+          },
         ],
         include: [path.resolve(__dirname, '../src')],
-        enforce: 'pre'
+        enforce: 'pre',
       },
       {
-        test: /\.css$/,
+        test: [/\.css$/],
         include: includePath,
-        use: ['to-string-loader', 'css-loader']
-      }
-    ]
-  }
+        use: ['to-string-loader', 'css-loader'],
+      },
+    ],
+  },
 };

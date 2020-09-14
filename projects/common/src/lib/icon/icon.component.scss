@@ -1,0 +1,7 @@
+$material-icons-font-path: '../../assets/fonts/';
+@import '~material-icons/iconfont/material-icons.scss';
+
+.material-icons {
+  display: flex;
+  user-select: none;
+}

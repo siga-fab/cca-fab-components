@@ -1,1 +1,6 @@
-<button (click)="onClick()" class="button">{{ text }} - Button2</button>
+<button (click)="onClick()" [ngClass]="{ primary: !type, '[type]': type }">
+  <div class="button-icon">
+    <ng-content select="[slot='icon']"></ng-content>
+  </div>
+  <span><ng-content select="[slot='text']"></ng-content></span>
+</button>

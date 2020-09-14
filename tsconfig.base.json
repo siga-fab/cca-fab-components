@@ -17,7 +17,6 @@
     ],
     "paths": {
       "common": [
-        "dist/common/common",
         "dist/common"
       ]
     }

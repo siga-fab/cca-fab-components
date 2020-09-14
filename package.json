@@ -39,8 +39,6 @@
     "@angular/platform-browser": "~9.1.12",
     "@angular/platform-browser-dynamic": "~9.1.12",
     "@angular/router": "~9.1.12",
-    "flexboxgrid": "^6.3.1",
-    "material-icons": "^0.3.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -62,6 +60,7 @@
     "@semantic-release/npm": "^7.0.5",
     "@semantic-release/release-notes-generator": "^9.0.1",
     "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-backgrounds": "^6.0.21",
     "@storybook/addon-console": "^1.2.1",
     "@storybook/addon-docs": "^5.3.19",
     "@storybook/addon-links": "^5.3.19",
@@ -94,7 +93,9 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "flexboxgrid": "^6.3.1",
+    "material-icons": "^0.3.1"
   },
   "config": {
     "commitizen": {
