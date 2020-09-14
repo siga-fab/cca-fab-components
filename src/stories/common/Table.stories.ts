@@ -36,8 +36,9 @@ export const Default = () => ({
     refresh: action('refresh'),
     pageSizeChange: action('pageSizeChange'),
     pageIndexChange: action('pageIndexChange'),
-    pageSize: 5,
+    pageSize: 10,
     pageIndex: 1,
+    totalEntries: 200,
     dataSource: [
       {
         'Cabeçalho 1': 'Coluna 1',

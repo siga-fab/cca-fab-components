@@ -18,9 +18,12 @@ export class TableComponent implements OnInit {
   @Output() pageIndexChange = new EventEmitter();
 
   @Input() pageSize: number;
+  @Input() maxPageSize: number;
   @Input() pageIndex = 1;
+  @Input() totalEntries: number;
   @Input() dataSource = [{ default: 'default' }];
 
+  totalPages: number;
   headers: string[] = [];
 
   constructor() {}
@@ -34,14 +37,15 @@ export class TableComponent implements OnInit {
       }
     }
 
+    this.totalPages = Math.ceil(this.totalEntries / this.pageSize);
     this.headers = [...headers] as string[];
 
     console.log(this.headers);
   }
 
   onLastPage() {
-    this.pageIndex = this.pageSize;
-    this.lastPage.emit(this.pageSize);
+    this.pageIndex = this.totalPages;
+    this.lastPage.emit(this.totalPages);
   }
 
   onFirstPage() {
@@ -51,7 +55,7 @@ export class TableComponent implements OnInit {
 
   onNextPage() {
     this.nextPage.emit(
-      this.pageIndex < this.pageSize ? ++this.pageIndex : this.pageIndex
+      this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex
     );
   }
 
@@ -70,6 +74,7 @@ export class TableComponent implements OnInit {
   }
 
   onPageSizeChange(pageSize: number) {
+    this.totalPages = Math.ceil(this.totalEntries / pageSize);
     this.pageSizeChange.emit(pageSize);
   }
 }

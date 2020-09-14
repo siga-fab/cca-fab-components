@@ -91,19 +91,16 @@ export class InputComponent implements OnInit {
     }
   }
 
-  onChange() {
-    // Desabilitado para permitir que atualização de informação ocorra apenas ao apertar ENTER
-    // this.confirm.emit(this.value)
-  }
-
   rangedValue(event: Event) {
     const el = event.target as HTMLInputElement;
     const value = parseInt(el.value, 10);
 
-    this.value = el.value =
-      this.max && this.min
-        ? String(Math.max(Math.min(this.max, value), this.min))
-        : el.value;
+    if (this.type === 'number') {
+      this.value = el.value =
+        this.max && this.min
+          ? String(Math.max(Math.min(this.max, value), this.min))
+          : el.value;
+    }
   }
 
   updateValue(event: Event, operation: 'add' | 'sub') {
