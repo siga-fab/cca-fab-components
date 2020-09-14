@@ -57,7 +57,7 @@
   }
 
   // Behavior
-  transition: box-shadow 100ms ease-in-out, color 150ms ease-in-out,
+  transition: box-shadow 150ms ease-in-out, color 150ms ease-in-out,
     background 150ms ease-in-out, border 150ms ease-in-out;
 
   &.clicked-btn::after {
@@ -176,7 +176,7 @@
 
   &.negative-btn.transparent-btn {
     &:hover {
-      background: #{$light-grey}33;
+      background: #{$light-grey}99;
       border: 0.2rem solid transparent;
     }
   }

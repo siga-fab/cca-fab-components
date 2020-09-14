@@ -1,0 +1,32 @@
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+
+.tag {
+  height: 2.4rem;
+  padding: 0 2.2rem;
+  display: inline-flex;
+  flex-flow: row wrap;
+  align-content: center;
+  align-items: center;
+
+  color: $grey;
+  font-size: 1.4rem;
+
+  border: 0.1rem solid $light-grey;
+  border-radius: 2.4rem;
+  background-color: transparent;
+  outline: none;
+  transition: background-color $transition-defs, color $transition-defs,
+    box-shadow $transition-defs;
+
+  &.clickable-tag:hover,
+  &.selected-tag {
+    cursor: pointer;
+    background-color: $black;
+    color: $white;
+  }
+
+  &:focus {
+    box-shadow: $focus-shadow;
+  }
+}

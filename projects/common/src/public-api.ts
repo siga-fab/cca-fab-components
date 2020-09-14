@@ -21,3 +21,7 @@ export * from './lib/table/table.module';
 // Input
 export * from './lib/input/input.component';
 export * from './lib/input/input.module';
+
+// Tag
+export * from './lib/tag/tag.module';
+export * from './lib/tag/tag.component';
