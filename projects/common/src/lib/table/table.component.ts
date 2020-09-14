@@ -40,7 +40,7 @@ export class TableComponent implements OnInit {
     this.totalPages = Math.ceil(this.totalEntries / this.pageSize);
     this.headers = [...headers] as string[];
 
-    console.log(this.headers);
+    // console.log(this.headers);
   }
 
   onLastPage() {

@@ -42,6 +42,6 @@ describe('ButtonComponent', () => {
     tick(component.animateMsTime);
     expect(component.animate).toBeFalsy();
 
-    expect(onClickSpy).toBeCalledTimes(2);
+    expect(onClickSpy).toHaveBeenCalledTimes(2);
   }));
 });
