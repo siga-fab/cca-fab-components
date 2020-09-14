@@ -9,11 +9,19 @@
       <div class="col-xs" *ngFor="let header of headers">
         {{ data[header] }}
       </div>
+      <!-- <div class="col-xs">
+        Ações
+      </div> -->
     </div>
   </div>
   <div class="footer row between-xs">
     <div class="row left middle-xs">
-      <div class="button" (click)="onRefresh()">
+      <div
+        tabindex="0"
+        class="button"
+        (keydown)="onRefresh($event)"
+        (click)="onRefresh($event)"
+      >
         <cca-common-icon>loop</cca-common-icon>
       </div>
       <div>
@@ -33,10 +41,20 @@
       </div>
     </div>
     <div class="row right middle-xs">
-      <div class="button light" (click)="onFirstPage()">
+      <div
+        tabindex="0"
+        class="button"
+        [ngClass]="{ disabled: disableMap['firstPage'] }"
+        (click)="!disableMap['firstPage'] ? onFirstPage() : null"
+      >
         <cca-common-icon>first_page</cca-common-icon>
       </div>
-      <div class="button" (click)="onPreviousPage()">
+      <div
+        tabindex="0"
+        class="button"
+        [ngClass]="{ disabled: disableMap['previous'] }"
+        (click)="!disableMap['previous'] ? onPreviousPage() : null"
+      >
         <cca-common-icon>chevron_left</cca-common-icon>
       </div>
 
@@ -56,11 +74,21 @@
         / {{ totalPages }}
       </div>
 
-      <div class="button" (click)="onNextPage()">
+      <div
+        tabindex="0"
+        class="button"
+        [ngClass]="{ disabled: disableMap['next'] }"
+        (click)="!disableMap['next'] ? onNextPage() : null"
+      >
         <cca-common-icon>chevron_right</cca-common-icon>
       </div>
 
-      <div class="button light" (click)="onLastPage()">
+      <div
+        tabindex="0"
+        class="button"
+        [ngClass]="{ disabled: disableMap['lastPage'] }"
+        (click)="!disableMap['lastPage'] ? onLastPage() : null"
+      >
         <cca-common-icon>last_page</cca-common-icon>
       </div>
     </div>

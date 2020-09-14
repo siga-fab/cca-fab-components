@@ -102,18 +102,31 @@ describe('TableComponent', () => {
     });
 
     component.onFirstPage();
-    expect(onFirstPageSpy).toBeCalled();
+    expect(onFirstPageSpy).toHaveBeenCalled();
   });
 
   it('should emit refresh', () => {
+    const MOCK_EVENT = new Event(null);
     const onRefreshSpy = jest.spyOn(component, 'onRefresh');
 
     component.refresh.subscribe((res) => {
       expect(res).toBe(component.pageIndex);
     });
 
-    component.onRefresh();
-    expect(onRefreshSpy).toBeCalled();
+    component.onRefresh(MOCK_EVENT);
+    expect(onRefreshSpy).toHaveBeenCalled();
+  });
+
+  it('should emit refresh with a keyboard event', () => {
+    const MOCK_EVENT = new KeyboardEvent(null, { key: 'Enter' });
+    const onRefreshSpy = jest.spyOn(component, 'onRefresh');
+
+    component.refresh.subscribe((res) => {
+      expect(res).toBe(component.pageIndex);
+    });
+
+    component.onRefresh(MOCK_EVENT);
+    expect(onRefreshSpy).toHaveBeenCalled();
   });
 
   it('should emit pageIndexChange', () => {
@@ -125,7 +138,7 @@ describe('TableComponent', () => {
     });
 
     component.onPageIndexChange(NEW_INDEX);
-    expect(onPageIndexChangeSpy).toBeCalled();
+    expect(onPageIndexChangeSpy).toHaveBeenCalled();
   });
 
   it('should emit pageSizeChange', () => {
@@ -137,6 +150,6 @@ describe('TableComponent', () => {
     });
 
     component.onPageSizeChange(NEW_PAGE_SIZE);
-    expect(onPageSizeChangeSpy).toBeCalled();
+    expect(onPageSizeChangeSpy).toHaveBeenCalled();
   });
 });

@@ -44,14 +44,14 @@ describe('InputComponent', () => {
     component.isFocused(false);
 
     expect(component.focus).toBe(false);
-    expect(isFocusedSpy).toBeCalled();
+    expect(isFocusedSpy).toHaveBeenCalled();
   });
 
   it('should call onMouseUp', () => {
     const onMouseUpSpy = jest.spyOn(component, 'onMouseUp');
 
     component.onMouseUp();
-    expect(onMouseUpSpy).toBeCalled();
+    expect(onMouseUpSpy).toHaveBeenCalled();
   });
 
   it('should call onKeyDown and emit confirm', () => {
@@ -65,7 +65,7 @@ describe('InputComponent', () => {
     });
 
     component.onKeyDown(MOCK_KEYBOARD_EVENT);
-    expect(onKeyDownSpy).toBeCalled();
+    expect(onKeyDownSpy).toHaveBeenCalled();
   });
 
   it('should call onKeyDown and do nothing', () => {
@@ -75,7 +75,7 @@ describe('InputComponent', () => {
     });
 
     component.onKeyDown(MOCK_KEYBOARD_EVENT);
-    expect(onKeyDownSpy).toBeCalled();
+    expect(onKeyDownSpy).toHaveBeenCalled();
   });
 
   // it('should call rangedValue', () => {

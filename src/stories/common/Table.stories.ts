@@ -37,6 +37,7 @@ export const Default = () => ({
     pageSizeChange: action('pageSizeChange'),
     pageIndexChange: action('pageIndexChange'),
     pageSize: 10,
+    maxPageSize: 200,
     pageIndex: 1,
     totalEntries: 200,
     dataSource: [

@@ -26,6 +26,13 @@ export class TableComponent implements OnInit {
   totalPages: number;
   headers: string[] = [];
 
+  disableMap = {
+    firstPage: false,
+    lastPage: false,
+    previous: false,
+    next: false,
+  };
+
   constructor() {}
 
   ngOnInit(): void {
@@ -43,29 +50,66 @@ export class TableComponent implements OnInit {
     // console.log(this.headers);
   }
 
+  private updateButtons(
+    buttonList: Array<'lastPage' | 'firstPage' | 'previous' | 'next'>,
+    value: boolean
+  ) {
+    for (const button of buttonList) {
+      this.disableMap[button] = value;
+    }
+  }
+
   onLastPage() {
     this.pageIndex = this.totalPages;
     this.lastPage.emit(this.totalPages);
+
+    this.updateButtons(['lastPage', 'next'], true);
+    this.updateButtons(['firstPage', 'previous'], false);
   }
 
   onFirstPage() {
     this.pageIndex = 1;
     this.firstPage.emit(1);
+    this.disableMap.firstPage = true;
+
+    this.updateButtons(['lastPage', 'next'], false);
+    this.updateButtons(['firstPage', 'previous'], true);
   }
 
   onNextPage() {
     this.nextPage.emit(
       this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex
     );
+
+    if (this.pageIndex === this.totalPages) {
+      this.updateButtons(['lastPage', 'next'], true);
+    }
+
+    if (this.pageIndex !== this.totalPages) {
+      this.updateButtons(['firstPage', 'previous'], false);
+    }
   }
 
   onPreviousPage() {
     this.previousPage.emit(
       this.pageIndex > 1 ? --this.pageIndex : this.pageIndex
     );
+
+    if (this.pageIndex === 1 && this.totalPages > 1) {
+      this.updateButtons(['firstPage', 'previous'], true);
+    }
+
+    if (this.pageIndex !== this.totalPages) {
+      this.updateButtons(['lastPage', 'next'], false);
+    }
   }
 
-  onRefresh() {
+  onRefresh(event: Event | KeyboardEvent) {
+    if (event instanceof KeyboardEvent) {
+      if (event.key !== 'Enter') {
+        return;
+      }
+    }
     this.refresh.emit(this.pageIndex);
   }
 
@@ -75,6 +119,10 @@ export class TableComponent implements OnInit {
 
   onPageSizeChange(pageSize: number) {
     this.totalPages = Math.ceil(this.totalEntries / pageSize);
+    // if(this.pageIndex > this.totalPages){
+    //   this.pageIndex = this.totalPages
+    // }
+    this.pageIndex = 1;
     this.pageSizeChange.emit(pageSize);
   }
 }
