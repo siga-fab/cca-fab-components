@@ -19,7 +19,7 @@ module.exports = {
       {
         test: '/.css$/',
         include: includePath,
-        use: ['to-string-loader', 'sass-loader'],
+        use: ['to-string-loader', 'css-loader'],
       },
     ],
   },
