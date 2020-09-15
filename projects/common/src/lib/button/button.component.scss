@@ -1,5 +1,6 @@
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
+@import '../../assets/scss/reset.scss';
 
 @keyframes wave {
   from {
@@ -81,7 +82,7 @@
   &.icon-btn.text-btn {
     padding: 0 1.3rem;
 
-    .button-icon {
+    .btn-icon {
       margin-right: 2rem;
     }
   }
@@ -94,18 +95,18 @@
     padding: 0 2rem;
   }
 
-  .button-text:not(:empty) {
+  .btn-text:not(:empty) {
     font-size: 1.6rem;
     line-height: 1.9rem;
     text-transform: uppercase;
   }
 
   // Badge
-  .button-icon:not(:empty) {
+  .btn-icon:not(:empty) {
     position: relative;
   }
 
-  &.badged-btn > .button-icon::after {
+  &.badged-btn > .btn-icon::after {
     content: '';
 
     position: absolute;

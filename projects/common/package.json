@@ -6,8 +6,7 @@
     "@angular/common": "~9.1.12",
     "@angular/core": "~9.1.12",
     "@angular/animations": "~9.1.12",
-    "@angular/platform-browser": "~9.1.12",
-    "material-icons": "^0.3.1"
+    "@angular/platform-browser": "~9.1.12"
   },
   "dependencies": {
     "tslib": "^2.0.0"
