@@ -6,7 +6,7 @@
     'selected-bc': selected === ''
   }"
 >
-  <a tabindex="0" class="bc-link box" [href]="href">
+  <a class="bc-link box" [href]="href ? href : '/'">
     <ng-content></ng-content>
   </a>
 </li>

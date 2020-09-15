@@ -2,13 +2,13 @@ import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
 import {
-  BreadcrumbComponent,
+  BreadcrumbItemComponent,
   BreadcrumbModule,
 } from '../../../projects/common/src/public-api';
 
 export default {
   title: 'Common | Breadcrumb',
-  component: BreadcrumbComponent,
+  component: BreadcrumbItemComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, BreadcrumbModule],
@@ -19,9 +19,9 @@ export default {
 export const Default = () => ({
   template: `
     <cca-common-breadcrumb>
-      <cca-common-breadcrumb-item href="/">rota 1</cca-common-breadcrumb-item>
-      <cca-common-breadcrumb-item href="/">rota 2</cca-common-breadcrumb-item>
-      <cca-common-breadcrumb-item selected href="/">rota atual</cca-common-breadcrumb-item>
+      <cca-common-breadcrumb-item href="/">1st route</cca-common-breadcrumb-item>
+      <cca-common-breadcrumb-item href="/">2nd route</cca-common-breadcrumb-item>
+      <cca-common-breadcrumb-item selected href="/">actual route</cca-common-breadcrumb-item>
     </cca-common-breadcrumb>
   `,
 });
