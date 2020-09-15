@@ -1,0 +1,12 @@
+<li
+  #ref
+  class="breadcrumb-item col-xs"
+  [ngClass]="{
+    'last-bc': ref.parentElement.nextElementSibling === null,
+    'selected-bc': selected === ''
+  }"
+>
+  <a tabindex="0" class="bc-link box" [href]="href">
+    <ng-content></ng-content>
+  </a>
+</li>

@@ -1,0 +1,8 @@
+@import '~flexboxgrid/dist/flexboxgrid.min.css';
+@import '../../assets/scss/reset.scss';
+
+ol {
+  &::ng-deep li:last-child() {
+    opacity: 0.5;
+  }
+}
