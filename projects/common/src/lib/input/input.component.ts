@@ -44,7 +44,7 @@ import {
   ],
 })
 export class InputComponent implements OnInit, AfterViewInit {
-  @Input() value = '';
+  @Input() value: number;
   @Input() type = 'text';
   @Input() disabled = false;
   @Input() step = 1;
@@ -105,10 +105,12 @@ export class InputComponent implements OnInit, AfterViewInit {
     const value = parseInt(el.value, 10);
 
     if (this.type === 'number') {
-      this.value = el.value =
+      this.value =
         this.max && this.min
-          ? String(Math.max(Math.min(this.max, value), this.min))
-          : el.value;
+          ? Math.max(Math.min(this.max, value), this.min)
+          : parseInt(el.value, 10);
+
+      el.value = String(this.value);
     }
   }
 
@@ -120,13 +122,8 @@ export class InputComponent implements OnInit, AfterViewInit {
     // Atualiza o valor imediatamente
     this.value =
       this.max && this.min
-        ? String(
-            Math.max(
-              Math.min(this.max, parseInt(this.value, 10) + step),
-              this.min
-            )
-          )
-        : String(parseInt(this.value, 10) + step);
+        ? Math.max(Math.min(this.max, this.value + step), this.min)
+        : this.value + step;
 
     // Cria intervalo onde (depois de um delay de 500ms) atualiza o valor do input a cada 50ms
     this.numberInterval = setInterval(() => {
@@ -134,13 +131,8 @@ export class InputComponent implements OnInit, AfterViewInit {
         // Garante o delay de 500ms (50 do intervalo, e 10 das iterações com contador menor que 10)
         this.value =
           this.max && this.min
-            ? String(
-                Math.max(
-                  Math.min(this.max, parseInt(this.value, 10) + step),
-                  this.min
-                )
-              )
-            : String(parseInt(this.value, 10) + step);
+            ? Math.max(Math.min(this.max, this.value + step), this.min)
+            : this.value + step;
       }
       ++this.numberIntervalCounter;
     }, 50);

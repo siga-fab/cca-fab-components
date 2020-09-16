@@ -140,6 +140,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   onPageIndexChange(pageIndex: number) {
+    console.log(pageIndex);
     this.pageIndex = pageIndex;
     this.toggleButtons();
     this.pageIndexChange.emit(pageIndex);
