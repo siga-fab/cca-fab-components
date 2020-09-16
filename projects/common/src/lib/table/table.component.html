@@ -3,15 +3,23 @@
     <div class="col-xs" *ngFor="let header of headers">
       {{ header }}
     </div>
+    <div class="col-xs end-xs" [hidden]="!showActions"></div>
   </div>
   <div class="body">
-    <div class="row" *ngFor="let data of dataSource">
+    <div class="row" *ngFor="let data of dataSource; let i = index">
       <div class="col-xs" *ngFor="let header of headers">
         {{ data[header] }}
       </div>
-      <!-- <div class="col-xs">
-        Ações
-      </div> -->
+      <div class="col-xs end-xs" [hidden]="!showActions" #actionWrapper>
+        <ng-container
+          *ngIf="actionTemplateRef"
+          [ngTemplateOutlet]="actionTemplateRef"
+          [ngTemplateOutletContext]="{
+            $implicit: { data: data, index: i, dataSource: dataSource }
+          }"
+        >
+        </ng-container>
+      </div>
     </div>
   </div>
   <div class="footer row between-xs">
@@ -42,7 +50,7 @@
     </div>
     <div class="row right middle-xs">
       <div
-        tabindex="0"
+        [tabindex]="!disableMap['firstPage'] ? '0' : '-1'"
         class="button"
         [ngClass]="{ disabled: disableMap['firstPage'] }"
         (click)="!disableMap['firstPage'] ? onFirstPage() : null"
@@ -50,7 +58,7 @@
         <cca-common-icon>first_page</cca-common-icon>
       </div>
       <div
-        tabindex="0"
+        [tabindex]="!disableMap['previous'] ? '0' : '-1'"
         class="button"
         [ngClass]="{ disabled: disableMap['previous'] }"
         (click)="!disableMap['previous'] ? onPreviousPage() : null"
@@ -75,7 +83,7 @@
       </div>
 
       <div
-        tabindex="0"
+        [tabindex]="!disableMap['next'] ? '0' : '-1'"
         class="button"
         [ngClass]="{ disabled: disableMap['next'] }"
         (click)="!disableMap['next'] ? onNextPage() : null"
@@ -84,7 +92,7 @@
       </div>
 
       <div
-        tabindex="0"
+        [tabindex]="!disableMap['lastPage'] ? '0' : '-1'"
         class="button"
         [ngClass]="{ disabled: disableMap['lastPage'] }"
         (click)="!disableMap['lastPage'] ? onLastPage() : null"

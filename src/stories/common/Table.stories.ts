@@ -6,13 +6,14 @@ import {
 } from '../../../projects/common/src/public-api';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
+import { IconModule } from '../../../projects/common/src/lib/icon/icon.module';
 
 export default {
   title: 'Common | Table',
   component: TableComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, TableModule, InputModule],
+      imports: [CommonModule, TableModule, InputModule, IconModule],
     }),
   ],
   parameters: {
@@ -28,6 +29,31 @@ export default {
 
 export const Default = () => ({
   component: TableComponent,
+  template: `<cca-common-table
+    [dataSource]="dataSource"
+    [pageSize]="pageSize"
+    [maxPageSize]="maxPageSize"
+    [pageIndex]="pageIndex"
+    [totalEntries]="totalEntries"
+    (firstPage)="firstPage"
+    (nextPage)="nextPage"
+    (previousPage)="previousPage"
+    (refresh)="refresh"
+    (pageSizeChange)="pageSizeChange"
+    (pageIndexChange)="pageIndexChange"
+  >
+    <ng-template let-content #action>
+      <div style="display: flex; justify-content: flex-end;">
+        <div>
+          <cca-common-icon>edit</cca-common-icon>
+        </div>
+        <div>
+          <cca-common-icon>delete</cca-common-icon>
+        </div>
+      </div>
+    </ng-template>
+  </cca-common-table>
+  `,
   props: {
     firstPage: action('firstPage'),
     lastPage: action('lastPage'),
@@ -38,7 +64,7 @@ export const Default = () => ({
     pageIndexChange: action('pageIndexChange'),
     pageSize: 10,
     maxPageSize: 200,
-    pageIndex: 1,
+    pageIndex: 20,
     totalEntries: 200,
     dataSource: [
       {

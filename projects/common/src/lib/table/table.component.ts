@@ -1,12 +1,23 @@
-import { TitleCasePipe } from '@angular/common';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ViewChild,
+  ComponentFactoryResolver,
+  ContentChild,
+  TemplateRef,
+  ElementRef,
+} from '@angular/core';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'cca-common-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, AfterViewInit {
   @Output() lastPage = new EventEmitter();
   @Output() firstPage = new EventEmitter();
   @Output() nextPage = new EventEmitter();
@@ -23,8 +34,14 @@ export class TableComponent implements OnInit {
   @Input() totalEntries: number;
   @Input() dataSource = [{ default: 'default' }];
 
+  @ViewChild('actionWrapper') actionWrapper: ElementRef;
+  @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<
+    any
+  >;
+
   totalPages: number;
   headers: string[] = [];
+  showActions = false;
 
   disableMap = {
     firstPage: false,
@@ -33,7 +50,7 @@ export class TableComponent implements OnInit {
     next: false,
   };
 
-  constructor() {}
+  constructor(public resolver: ComponentFactoryResolver) {}
 
   ngOnInit(): void {
     const headers = new Set();
@@ -47,11 +64,15 @@ export class TableComponent implements OnInit {
     this.totalPages = Math.ceil(this.totalEntries / this.pageSize);
     this.headers = [...headers] as string[];
 
-    // console.log(this.headers);
+    this.toggleButtons();
   }
 
-  private updateButtons(
-    buttonList: Array<'lastPage' | 'firstPage' | 'previous' | 'next'>,
+  ngAfterViewInit(): void {
+    this.showActions = !!this.actionWrapper.nativeElement.children.length;
+  }
+
+  private updateButtonsState(
+    buttonList: Array<'next' | 'previous' | 'lastPage' | 'firstPage'>,
     value: boolean
   ) {
     for (const button of buttonList) {
@@ -59,12 +80,29 @@ export class TableComponent implements OnInit {
     }
   }
 
+  private toggleButtons() {
+    if (this.pageIndex > this.totalPages) {
+      this.pageIndex = this.totalPages;
+    }
+
+    if (this.pageIndex === 1) {
+      this.updateButtonsState(['previous', 'firstPage'], true);
+    } else {
+      this.updateButtonsState(['previous', 'firstPage'], false);
+    }
+
+    if (this.pageIndex === this.totalPages) {
+      this.updateButtonsState(['next', 'lastPage'], true);
+    } else {
+      this.updateButtonsState(['next', 'lastPage'], false);
+    }
+  }
+
   onLastPage() {
     this.pageIndex = this.totalPages;
     this.lastPage.emit(this.totalPages);
 
-    this.updateButtons(['lastPage', 'next'], true);
-    this.updateButtons(['firstPage', 'previous'], false);
+    this.toggleButtons();
   }
 
   onFirstPage() {
@@ -72,8 +110,7 @@ export class TableComponent implements OnInit {
     this.firstPage.emit(1);
     this.disableMap.firstPage = true;
 
-    this.updateButtons(['lastPage', 'next'], false);
-    this.updateButtons(['firstPage', 'previous'], true);
+    this.toggleButtons();
   }
 
   onNextPage() {
@@ -81,13 +118,7 @@ export class TableComponent implements OnInit {
       this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex
     );
 
-    if (this.pageIndex === this.totalPages) {
-      this.updateButtons(['lastPage', 'next'], true);
-    }
-
-    if (this.pageIndex !== this.totalPages) {
-      this.updateButtons(['firstPage', 'previous'], false);
-    }
+    this.toggleButtons();
   }
 
   onPreviousPage() {
@@ -95,13 +126,7 @@ export class TableComponent implements OnInit {
       this.pageIndex > 1 ? --this.pageIndex : this.pageIndex
     );
 
-    if (this.pageIndex === 1 && this.totalPages > 1) {
-      this.updateButtons(['firstPage', 'previous'], true);
-    }
-
-    if (this.pageIndex !== this.totalPages) {
-      this.updateButtons(['lastPage', 'next'], false);
-    }
+    this.toggleButtons();
   }
 
   onRefresh(event: Event | KeyboardEvent) {
@@ -110,19 +135,20 @@ export class TableComponent implements OnInit {
         return;
       }
     }
+
     this.refresh.emit(this.pageIndex);
   }
 
   onPageIndexChange(pageIndex: number) {
+    this.pageIndex = pageIndex;
+    this.toggleButtons();
     this.pageIndexChange.emit(pageIndex);
   }
 
   onPageSizeChange(pageSize: number) {
+    this.pageSize = pageSize;
     this.totalPages = Math.ceil(this.totalEntries / pageSize);
-    // if(this.pageIndex > this.totalPages){
-    //   this.pageIndex = this.totalPages
-    // }
-    this.pageIndex = 1;
+    this.toggleButtons();
     this.pageSizeChange.emit(pageSize);
   }
 }

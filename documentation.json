@@ -402,7 +402,7 @@
     },
     {
       "name": "InputComponent",
-      "id": "component-InputComponent-d5ee05a89f7d3055975d5bb03f0d8465",
+      "id": "component-InputComponent-a8eaf17ef8b08797ccfb718ecfcde5d6",
       "file": "projects/common/src/lib/input/input.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -418,54 +418,73 @@
         {
           "name": "disabled",
           "defaultValue": "false",
-          "line": 47
+          "line": 49
         },
         {
           "name": "focus",
           "defaultValue": "false",
-          "line": 51
+          "line": 53
         },
         {
           "name": "max",
-          "line": 50,
+          "line": 52,
           "type": "number"
         },
         {
           "name": "min",
-          "line": 49,
+          "line": 51,
           "type": "number"
         },
         {
           "name": "step",
           "defaultValue": "1",
-          "line": 48
+          "line": 50
         },
         {
           "name": "type",
           "defaultValue": "'text'",
-          "line": 46
+          "line": 48
         },
         {
           "name": "value",
           "defaultValue": "''",
-          "line": 45
+          "line": 47
         }
       ],
       "outputsClass": [
         {
           "name": "confirm",
           "defaultValue": "new EventEmitter()",
-          "line": 53,
+          "line": 55,
+          "type": "EventEmitter"
+        },
+        {
+          "name": "ref",
+          "defaultValue": "new EventEmitter()",
+          "line": 56,
           "type": "EventEmitter"
         }
       ],
       "propertiesClass": [
         {
+          "name": "input",
+          "type": "",
+          "optional": false,
+          "description": "",
+          "line": 58,
+          "decorators": [
+            {
+              "name": "ViewChild",
+              "stringifiedArguments": "'input'"
+            }
+          ]
+        },
+        {
           "name": "numberInterval",
           "type": "any",
           "optional": false,
           "description": "",
-          "line": 55,
+          "line": 60,
           "modifierKind": [112]
         },
         {
@@ -474,7 +493,7 @@
           "type": "number",
           "optional": false,
           "description": "",
-          "line": 56,
+          "line": 61,
           "modifierKind": [112]
         },
         {
@@ -482,7 +501,7 @@
           "type": "any",
           "optional": false,
           "description": "",
-          "line": 60,
+          "line": 65,
           "decorators": [
             {
               "name": "Optional",
@@ -500,7 +519,7 @@
           "type": "any",
           "optional": false,
           "description": "",
-          "line": 59,
+          "line": 64,
           "decorators": [
             {
               "name": "Optional",
@@ -521,7 +540,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 78,
+          "line": 87,
           "modifierKind": [112]
         },
         {
@@ -535,7 +554,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 68,
+          "line": 77,
           "jsdoctags": [
             {
               "name": "value",
@@ -547,12 +566,20 @@
           ]
         },
         {
+          "name": "ngAfterViewInit",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 73
+        },
+        {
           "name": "ngOnInit",
           "args": [],
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 66
+          "line": 71
         },
         {
           "name": "onKeyDown",
@@ -565,7 +592,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 88,
+          "line": 97,
           "jsdoctags": [
             {
               "name": "event",
@@ -582,7 +609,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 84
+          "line": 93
         },
         {
           "name": "rangedValue",
@@ -595,7 +622,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 94,
+          "line": 103,
           "jsdoctags": [
             {
               "name": "event",
@@ -621,7 +648,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 106,
+          "line": 115,
           "jsdoctags": [
             {
               "name": "event",
@@ -645,7 +672,7 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import { trigger, transition, animate, style } from '@angular/animations';\nimport {\n  Attribute,\n  Component,\n  Input,\n  OnInit,\n  Optional,\n  Output,\n  EventEmitter,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n  animations: [\n    trigger('fadeInOut', [\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 1,\n          })\n        ),\n      ]),\n\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 0,\n          })\n        ),\n      ]),\n    ]),\n  ],\n})\nexport class InputComponent implements OnInit {\n  @Input() value = '';\n  @Input() type = 'text';\n  @Input() disabled = false;\n  @Input() step = 1;\n  @Input() min: number;\n  @Input() max: number;\n  @Input() focus = false;\n\n  @Output() confirm = new EventEmitter();\n\n  private numberInterval: any;\n  private numberIntervalCounter = 1;\n\n  constructor(\n    @Optional() @Attribute('textCenter') public textCenter: any,\n    @Optional() @Attribute('slim') public slim: any\n  ) {\n    this.textCenter = textCenter !== null;\n    this.slim = slim !== null;\n  }\n\n  ngOnInit(): void {}\n\n  isFocused(value: boolean) {\n    this.focus = value;\n    if (!value) {\n      this.confirm.emit(this.value);\n      if (this.numberInterval) {\n        this.clearNumberInterval();\n      }\n    }\n  }\n\n  private clearNumberInterval() {\n    clearInterval(this.numberInterval);\n    this.numberInterval = null;\n    this.numberIntervalCounter = 1;\n  }\n\n  onMouseUp() {\n    this.clearNumberInterval();\n  }\n\n  onKeyDown(event: KeyboardEvent) {\n    if (event.key === 'Enter') {\n      this.confirm.emit(this.value);\n    }\n  }\n\n  rangedValue(event: Event) {\n    const el = event.target as HTMLInputElement;\n    const value = parseInt(el.value, 10);\n\n    if (this.type === 'number') {\n      this.value = el.value =\n        this.max && this.min\n          ? String(Math.max(Math.min(this.max, value), this.min))\n          : el.value;\n    }\n  }\n\n  updateValue(event: Event, operation: 'add' | 'sub') {\n    // Impede remoção do foco do input\n    event.preventDefault();\n    const step = operation === 'add' ? +this.step : -this.step;\n\n    // Atualiza o valor imediatamente\n    this.value =\n      this.max && this.min\n        ? String(\n            Math.max(\n              Math.min(this.max, parseInt(this.value, 10) + step),\n              this.min\n            )\n          )\n        : String(parseInt(this.value, 10) + step);\n\n    // Cria intervalo onde (depois de um delay de 500ms) atualiza o valor do input a cada 50ms\n    this.numberInterval = setInterval(() => {\n      if (this.numberIntervalCounter > 10) {\n        // Garante o delay de 500ms (50 do intervalo, e 10 das iterações com contador menor que 10)\n        this.value =\n          this.max && this.min\n            ? String(\n                Math.max(\n                  Math.min(this.max, parseInt(this.value, 10) + step),\n                  this.min\n                )\n              )\n            : String(parseInt(this.value, 10) + step);\n      }\n      ++this.numberIntervalCounter;\n    }, 50);\n  }\n}\n",
+      "sourceCode": "import { trigger, transition, animate, style } from '@angular/animations';\nimport { AfterViewInit } from '@angular/core';\nimport {\n  Attribute,\n  Component,\n  Input,\n  OnInit,\n  Optional,\n  Output,\n  EventEmitter,\n  ViewChild,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n  animations: [\n    trigger('fadeInOut', [\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 1,\n          })\n        ),\n      ]),\n\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 0,\n          })\n        ),\n      ]),\n    ]),\n  ],\n})\nexport class InputComponent implements OnInit, AfterViewInit {\n  @Input() value = '';\n  @Input() type = 'text';\n  @Input() disabled = false;\n  @Input() step = 1;\n  @Input() min: number;\n  @Input() max: number;\n  @Input() focus = false;\n\n  @Output() confirm = new EventEmitter();\n  @Output() ref = new EventEmitter();\n\n  @ViewChild('input') input;\n\n  private numberInterval: any;\n  private numberIntervalCounter = 1;\n\n  constructor(\n    @Optional() @Attribute('textCenter') public textCenter: any,\n    @Optional() @Attribute('slim') public slim: any\n  ) {\n    this.textCenter = textCenter !== null;\n    this.slim = slim !== null;\n  }\n\n  ngOnInit(): void {}\n\n  ngAfterViewInit(): void {\n    this.ref.emit(this.input.nativeElement);\n  }\n\n  isFocused(value: boolean) {\n    this.focus = value;\n    if (!value) {\n      this.confirm.emit(this.value);\n      if (this.numberInterval) {\n        this.clearNumberInterval();\n      }\n    }\n  }\n\n  private clearNumberInterval() {\n    clearInterval(this.numberInterval);\n    this.numberInterval = null;\n    this.numberIntervalCounter = 1;\n  }\n\n  onMouseUp() {\n    this.clearNumberInterval();\n  }\n\n  onKeyDown(event: KeyboardEvent) {\n    if (event.key === 'Enter') {\n      this.confirm.emit(this.value);\n    }\n  }\n\n  rangedValue(event: Event) {\n    const el = event.target as HTMLInputElement;\n    const value = parseInt(el.value, 10);\n\n    if (this.type === 'number') {\n      this.value = el.value =\n        this.max && this.min\n          ? String(Math.max(Math.min(this.max, value), this.min))\n          : el.value;\n    }\n  }\n\n  updateValue(event: Event, operation: 'add' | 'sub') {\n    // Impede remoção do foco do input\n    event.preventDefault();\n    const step = operation === 'add' ? +this.step : -this.step;\n\n    // Atualiza o valor imediatamente\n    this.value =\n      this.max && this.min\n        ? String(\n            Math.max(\n              Math.min(this.max, parseInt(this.value, 10) + step),\n              this.min\n            )\n          )\n        : String(parseInt(this.value, 10) + step);\n\n    // Cria intervalo onde (depois de um delay de 500ms) atualiza o valor do input a cada 50ms\n    this.numberInterval = setInterval(() => {\n      if (this.numberIntervalCounter > 10) {\n        // Garante o delay de 500ms (50 do intervalo, e 10 das iterações com contador menor que 10)\n        this.value =\n          this.max && this.min\n            ? String(\n                Math.max(\n                  Math.min(this.max, parseInt(this.value, 10) + step),\n                  this.min\n                )\n              )\n            : String(parseInt(this.value, 10) + step);\n      }\n      ++this.numberIntervalCounter;\n    }, 50);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
@@ -667,7 +694,7 @@
             "type": "any"
           }
         ],
-        "line": 56,
+        "line": 61,
         "jsdoctags": [
           {
             "name": "textCenter",
@@ -685,12 +712,12 @@
           }
         ]
       },
-      "implements": ["OnInit"],
-      "templateData": "<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateValue($event, 'add')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-plus\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon>expand_less</cca-common-icon>\n</div>\n\n<input\n  [min]=\"min\"\n  [max]=\"max\"\n  [step]=\"step\"\n  [type]=\"type\"\n  [value]=\"value\"\n  [ngClass]=\"{ center: textCenter, slim: slim }\"\n  [disabled]=\"disabled\"\n  (focus)=\"isFocused(true)\"\n  (blur)=\"isFocused(false)\"\n  (keyup)=\"rangedValue($event)\"\n  (keydown)=\"onKeyDown($event)\"\n/>\n\n<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateValue($event, 'sub')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-minus\"\n  [ngClass]=\"{ slim: slim }\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon>expand_more</cca-common-icon>\n</div>\n"
+      "implements": ["OnInit", "AfterViewInit"],
+      "templateData": "<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateValue($event, 'add')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-plus\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon>expand_less</cca-common-icon>\n</div>\n\n<input\n  #input\n  tabindex=\"0\"\n  [min]=\"min\"\n  [max]=\"max\"\n  [step]=\"step\"\n  [type]=\"type\"\n  [value]=\"value\"\n  [ngClass]=\"{ center: textCenter, slim: slim }\"\n  [disabled]=\"disabled\"\n  (focus)=\"isFocused(true)\"\n  (blur)=\"isFocused(false)\"\n  (keyup)=\"rangedValue($event)\"\n  (keydown)=\"onKeyDown($event)\"\n/>\n\n<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateValue($event, 'sub')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-minus\"\n  [ngClass]=\"{ slim: slim }\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon>expand_more</cca-common-icon>\n</div>\n"
     },
     {
       "name": "TableComponent",
-      "id": "component-TableComponent-51c61214136dc842251fbd1903e3772a",
+      "id": "component-TableComponent-9ccf0c7c8e6970e97ffc901596c8a0dd",
       "file": "projects/common/src/lib/table/table.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -706,26 +733,26 @@
         {
           "name": "dataSource",
           "defaultValue": "[{ default: 'default' }]",
-          "line": 24
+          "line": 35
         },
         {
           "name": "maxPageSize",
-          "line": 21,
+          "line": 32,
           "type": "number"
         },
         {
           "name": "pageIndex",
           "defaultValue": "1",
-          "line": 22
+          "line": 33
         },
         {
           "name": "pageSize",
-          "line": 20,
+          "line": 31,
           "type": "number"
         },
         {
           "name": "totalEntries",
-          "line": 23,
+          "line": 34,
           "type": "number"
         }
       ],
@@ -733,71 +760,129 @@
         {
           "name": "firstPage",
           "defaultValue": "new EventEmitter()",
-          "line": 11,
+          "line": 22,
           "type": "EventEmitter"
         },
         {
           "name": "lastPage",
           "defaultValue": "new EventEmitter()",
-          "line": 10,
+          "line": 21,
           "type": "EventEmitter"
         },
         {
           "name": "nextPage",
           "defaultValue": "new EventEmitter()",
-          "line": 12,
+          "line": 23,
           "type": "EventEmitter"
         },
         {
           "name": "pageIndexChange",
           "defaultValue": "new EventEmitter()",
-          "line": 18,
+          "line": 29,
           "type": "EventEmitter"
         },
         {
           "name": "pageSizeChange",
           "defaultValue": "new EventEmitter()",
-          "line": 17,
+          "line": 28,
           "type": "EventEmitter"
         },
         {
           "name": "previousPage",
           "defaultValue": "new EventEmitter()",
-          "line": 13,
+          "line": 24,
           "type": "EventEmitter"
         },
         {
           "name": "refresh",
           "defaultValue": "new EventEmitter()",
-          "line": 15,
+          "line": 26,
           "type": "EventEmitter"
         }
       ],
       "propertiesClass": [
+        {
+          "name": "actionTemplateRef",
+          "type": "TemplateRef<any>",
+          "optional": false,
+          "description": "",
+          "line": 38,
+          "decorators": [
+            {
+              "name": "ContentChild",
+              "stringifiedArguments": "'action', {static: false}"
+            }
+          ]
+        },
+        {
+          "name": "actionWrapper",
+          "type": "ElementRef",
+          "optional": false,
+          "description": "",
+          "line": 37,
+          "decorators": [
+            {
+              "name": "ViewChild",
+              "stringifiedArguments": "'actionWrapper'"
+            }
+          ]
+        },
+        {
+          "name": "disableMap",
+          "defaultValue": "{\n    firstPage: false,\n    lastPage: false,\n    previous: false,\n    next: false,\n  }",
+          "type": "object",
+          "optional": false,
+          "description": "",
+          "line": 46
+        },
         {
           "name": "headers",
           "defaultValue": "[]",
           "type": "string[]",
           "optional": false,
           "description": "",
-          "line": 27
+          "line": 43
+        },
+        {
+          "name": "resolver",
+          "type": "ComponentFactoryResolver",
+          "optional": false,
+          "description": "",
+          "line": 53,
+          "modifierKind": [114]
+        },
+        {
+          "name": "showActions",
+          "defaultValue": "false",
+          "type": "",
+          "optional": false,
+          "description": "",
+          "line": 44
         },
         {
           "name": "totalPages",
           "type": "number",
           "optional": false,
           "description": "",
-          "line": 26
+          "line": 42
         }
       ],
       "methodsClass": [
+        {
+          "name": "ngAfterViewInit",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 70
+        },
         {
           "name": "ngOnInit",
           "args": [],
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 31
+          "line": 55
         },
         {
           "name": "onFirstPage",
@@ -805,7 +890,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 51
+          "line": 108
         },
         {
           "name": "onLastPage",
@@ -813,7 +898,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 46
+          "line": 101
         },
         {
           "name": "onNextPage",
@@ -821,7 +906,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 56
+          "line": 116
         },
         {
           "name": "onPageIndexChange",
@@ -834,7 +919,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 72,
+          "line": 142,
           "jsdoctags": [
             {
               "name": "pageIndex",
@@ -856,7 +941,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 76,
+          "line": 148,
           "jsdoctags": [
             {
               "name": "pageSize",
@@ -873,15 +958,72 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 62
+          "line": 124
         },
         {
           "name": "onRefresh",
+          "args": [
+            {
+              "name": "event",
+              "type": "Event | KeyboardEvent"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 132,
+          "jsdoctags": [
+            {
+              "name": "event",
+              "type": "Event | KeyboardEvent",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
+        {
+          "name": "toggleButtons",
           "args": [],
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 68
+          "line": 83,
+          "modifierKind": [112]
+        },
+        {
+          "name": "updateButtonsState",
+          "args": [
+            {
+              "name": "buttonList",
+              "type": "Array<\"next\" | \"previous\" | \"lastPage\" | \"firstPage\">"
+            },
+            {
+              "name": "value",
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 74,
+          "modifierKind": [112],
+          "jsdoctags": [
+            {
+              "name": "buttonList",
+              "type": "Array<\"next\" | \"previous\" | \"lastPage\" | \"firstPage\">",
+              "tagName": {
+                "text": "param"
+              }
+            },
+            {
+              "name": "value",
+              "type": "boolean",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
         }
       ],
       "hostBindings": [],
@@ -889,11 +1031,11 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import { TitleCasePipe } from '@angular/common';\nimport { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-table',\n  templateUrl: './table.component.html',\n  styleUrls: ['./table.component.scss'],\n})\nexport class TableComponent implements OnInit {\n  @Output() lastPage = new EventEmitter();\n  @Output() firstPage = new EventEmitter();\n  @Output() nextPage = new EventEmitter();\n  @Output() previousPage = new EventEmitter();\n\n  @Output() refresh = new EventEmitter();\n\n  @Output() pageSizeChange = new EventEmitter();\n  @Output() pageIndexChange = new EventEmitter();\n\n  @Input() pageSize: number;\n  @Input() maxPageSize: number;\n  @Input() pageIndex = 1;\n  @Input() totalEntries: number;\n  @Input() dataSource = [{ default: 'default' }];\n\n  totalPages: number;\n  headers: string[] = [];\n\n  constructor() {}\n\n  ngOnInit(): void {\n    const headers = new Set();\n\n    for (const data of this.dataSource) {\n      for (const key of Object.keys(data)) {\n        headers.add(key);\n      }\n    }\n\n    this.totalPages = Math.ceil(this.totalEntries / this.pageSize);\n    this.headers = [...headers] as string[];\n\n    // console.log(this.headers);\n  }\n\n  onLastPage() {\n    this.pageIndex = this.totalPages;\n    this.lastPage.emit(this.totalPages);\n  }\n\n  onFirstPage() {\n    this.pageIndex = 1;\n    this.firstPage.emit(1);\n  }\n\n  onNextPage() {\n    this.nextPage.emit(\n      this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex\n    );\n  }\n\n  onPreviousPage() {\n    this.previousPage.emit(\n      this.pageIndex > 1 ? --this.pageIndex : this.pageIndex\n    );\n  }\n\n  onRefresh() {\n    this.refresh.emit(this.pageIndex);\n  }\n\n  onPageIndexChange(pageIndex: number) {\n    this.pageIndexChange.emit(pageIndex);\n  }\n\n  onPageSizeChange(pageSize: number) {\n    this.totalPages = Math.ceil(this.totalEntries / pageSize);\n    this.pageSizeChange.emit(pageSize);\n  }\n}\n",
+      "sourceCode": "import {\n  Component,\n  OnInit,\n  Output,\n  EventEmitter,\n  Input,\n  ViewChild,\n  ComponentFactoryResolver,\n  ContentChild,\n  TemplateRef,\n  ElementRef,\n} from '@angular/core';\nimport { AfterViewInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-table',\n  templateUrl: './table.component.html',\n  styleUrls: ['./table.component.scss'],\n})\nexport class TableComponent implements OnInit, AfterViewInit {\n  @Output() lastPage = new EventEmitter();\n  @Output() firstPage = new EventEmitter();\n  @Output() nextPage = new EventEmitter();\n  @Output() previousPage = new EventEmitter();\n\n  @Output() refresh = new EventEmitter();\n\n  @Output() pageSizeChange = new EventEmitter();\n  @Output() pageIndexChange = new EventEmitter();\n\n  @Input() pageSize: number;\n  @Input() maxPageSize: number;\n  @Input() pageIndex = 1;\n  @Input() totalEntries: number;\n  @Input() dataSource = [{ default: 'default' }];\n\n  @ViewChild('actionWrapper') actionWrapper: ElementRef;\n  @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<\n    any\n  >;\n\n  totalPages: number;\n  headers: string[] = [];\n  showActions = false;\n\n  disableMap = {\n    firstPage: false,\n    lastPage: false,\n    previous: false,\n    next: false,\n  };\n\n  constructor(public resolver: ComponentFactoryResolver) {}\n\n  ngOnInit(): void {\n    const headers = new Set();\n\n    for (const data of this.dataSource) {\n      for (const key of Object.keys(data)) {\n        headers.add(key);\n      }\n    }\n\n    this.totalPages = Math.ceil(this.totalEntries / this.pageSize);\n    this.headers = [...headers] as string[];\n\n    this.toggleButtons();\n  }\n\n  ngAfterViewInit(): void {\n    this.showActions = !!this.actionWrapper.nativeElement.children.length;\n  }\n\n  private updateButtonsState(\n    buttonList: Array<'next' | 'previous' | 'lastPage' | 'firstPage'>,\n    value: boolean\n  ) {\n    for (const button of buttonList) {\n      this.disableMap[button] = value;\n    }\n  }\n\n  private toggleButtons() {\n    if (this.pageIndex > this.totalPages) {\n      this.pageIndex = this.totalPages;\n    }\n\n    if (this.pageIndex === 1) {\n      this.updateButtonsState(['previous', 'firstPage'], true);\n    } else {\n      this.updateButtonsState(['previous', 'firstPage'], false);\n    }\n\n    if (this.pageIndex === this.totalPages) {\n      this.updateButtonsState(['next', 'lastPage'], true);\n    } else {\n      this.updateButtonsState(['next', 'lastPage'], false);\n    }\n  }\n\n  onLastPage() {\n    this.pageIndex = this.totalPages;\n    this.lastPage.emit(this.totalPages);\n\n    this.toggleButtons();\n  }\n\n  onFirstPage() {\n    this.pageIndex = 1;\n    this.firstPage.emit(1);\n    this.disableMap.firstPage = true;\n\n    this.toggleButtons();\n  }\n\n  onNextPage() {\n    this.nextPage.emit(\n      this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onPreviousPage() {\n    this.previousPage.emit(\n      this.pageIndex > 1 ? --this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onRefresh(event: Event | KeyboardEvent) {\n    if (event instanceof KeyboardEvent) {\n      if (event.key !== 'Enter') {\n        return;\n      }\n    }\n\n    this.refresh.emit(this.pageIndex);\n  }\n\n  onPageIndexChange(pageIndex: number) {\n    this.pageIndex = pageIndex;\n    this.toggleButtons();\n    this.pageIndexChange.emit(pageIndex);\n  }\n\n  onPageSizeChange(pageSize: number) {\n    this.pageSize = pageSize;\n    this.totalPages = Math.ceil(this.totalEntries / pageSize);\n    this.toggleButtons();\n    this.pageSizeChange.emit(pageSize);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "@import '~flexboxgrid/dist/flexboxgrid.min.css';\n@import '../../assets/scss/colors.scss';\n\n@keyframes rotate {\n  0% {\n    transform: rotate(360deg);\n  }\n\n  100% {\n    transform: rotate(0deg);\n  }\n}\n\n.table {\n  position: relative;\n\n  background: $white;\n  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);\n  border: 1px solid $border-grey;\n  border-radius: 0.5rem;\n\n  /* For testing only */\n  width: 80vw;\n  margin: auto;\n  /*------------------*/\n\n  font-family: Cabin;\n  font-size: 1.4rem;\n\n  .header,\n  .footer {\n    padding: 2rem;\n  }\n\n  .header {\n    color: $grey;\n    font-weight: bold;\n\n    border-bottom: 2px solid $light-grey;\n  }\n\n  .body {\n    color: $black;\n\n    padding: 0 2rem;\n    margin: 0 -0.5rem;\n\n    > .row {\n      margin: 0 -2rem;\n      padding: 0 2rem;\n\n      &:nth-child(2n) {\n        background: $lighter-grey;\n      }\n\n      > .col-xs {\n        padding: 2rem 0.5rem;\n      }\n    }\n  }\n\n  .footer {\n    border-top: 2px solid $light-grey;\n\n    .button {\n      cursor: pointer;\n      transition: color 0.1s ease-in-out;\n\n      &.light {\n        color: #dadada;\n      }\n    }\n\n    .button:hover {\n      color: rgba(0, 0, 0, 0.75);\n    }\n\n    .input {\n      margin-left: 0.2rem;\n      display: inline-block;\n      width: 3rem;\n    }\n\n    > .left {\n      color: $grey;\n\n      .button:hover {\n        animation: rotate 2s ease-in-out infinite;\n      }\n\n      & > div:last-child {\n        margin-left: 1.2rem;\n      }\n    }\n\n    > .right {\n      color: $grey;\n\n      .label {\n        margin: 0 1rem;\n      }\n    }\n  }\n}\n",
+          "data": "@import '~flexboxgrid/dist/flexboxgrid.min.css';\n@import '../../assets/scss/colors.scss';\n@import '../../assets/scss/variables.scss';\n\n@keyframes rotate {\n  0% {\n    transform: rotate(360deg);\n  }\n\n  100% {\n    transform: rotate(0deg);\n  }\n}\n\n.table {\n  position: relative;\n\n  background: $white;\n  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);\n  border: 1px solid $border-grey;\n  border-radius: 0.5rem;\n\n  /* For testing only */\n  width: 80vw;\n  margin: auto;\n  /*------------------*/\n\n  font-family: Cabin;\n  font-size: 1.4rem;\n\n  .header,\n  .footer {\n    padding: 2rem;\n  }\n\n  .header {\n    color: $grey;\n    font-weight: bold;\n\n    border-bottom: 2px solid $light-grey;\n  }\n\n  .body {\n    color: $black;\n\n    padding: 0 2rem;\n    margin: 0 -0.5rem;\n\n    > .row {\n      margin: 0 -2rem;\n      padding: 0 2rem;\n\n      &:nth-child(2n) {\n        background: $lighter-grey;\n      }\n\n      > .col-xs {\n        padding: 2rem 0.5rem;\n      }\n    }\n  }\n\n  .footer {\n    border-top: 2px solid $light-grey;\n\n    .button {\n      transition: color 0.1s ease-in-out, box-shadow 0.15s ease-in-out;\n      border-radius: 100%;\n      &:focus {\n        outline: 0;\n\n        &:not(.disabled) {\n          box-shadow: $focus-shadow;\n        }\n      }\n      &:not(.disabled) {\n        cursor: pointer;\n      }\n\n      &.disabled {\n        color: #dadada;\n      }\n    }\n\n    .button:hover:not(.disabled) {\n      color: rgba(0, 0, 0, 0.75);\n    }\n\n    .input {\n      margin-left: 0.2rem;\n      display: inline-block;\n      width: 3rem;\n    }\n\n    > .left {\n      color: $grey;\n\n      .button:hover {\n        animation: rotate 2s ease-in-out infinite;\n      }\n\n      & > div:last-child {\n        margin-left: 1.2rem;\n      }\n    }\n\n    > .right {\n      color: $grey;\n\n      .label {\n        margin: 0 1rem;\n      }\n    }\n  }\n}\n",
           "styleUrl": "./table.component.scss"
         }
       ],
@@ -901,11 +1043,25 @@
       "constructorObj": {
         "name": "constructor",
         "description": "",
-        "args": [],
-        "line": 27
+        "args": [
+          {
+            "name": "resolver",
+            "type": "ComponentFactoryResolver"
+          }
+        ],
+        "line": 51,
+        "jsdoctags": [
+          {
+            "name": "resolver",
+            "type": "ComponentFactoryResolver",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
       },
-      "implements": ["OnInit"],
-      "templateData": "<div class=\"table col-xs\">\n  <div class=\"header row\">\n    <div class=\"col-xs\" *ngFor=\"let header of headers\">\n      {{ header }}\n    </div>\n  </div>\n  <div class=\"body\">\n    <div class=\"row\" *ngFor=\"let data of dataSource\">\n      <div class=\"col-xs\" *ngFor=\"let header of headers\">\n        {{ data[header] }}\n      </div>\n      <!-- <div class=\"col-xs\">\n        Ações\n      </div> -->\n    </div>\n  </div>\n  <div class=\"footer row between-xs\">\n    <div class=\"row left middle-xs\">\n      <div class=\"button\" (click)=\"onRefresh()\">\n        <cca-common-icon>loop</cca-common-icon>\n      </div>\n      <div>\n        Itens por página:\n        <span class=\"input\">\n          <cca-common-input\n            type=\"number\"\n            [value]=\"pageSize\"\n            (confirm)=\"onPageSizeChange($event)\"\n            min=\"10\"\n            [max]=\"maxPageSize\"\n            step=\"10\"\n            slim\n            textCenter\n          ></cca-common-input>\n        </span>\n      </div>\n    </div>\n    <div class=\"row right middle-xs\">\n      <div class=\"button light\" (click)=\"onFirstPage()\">\n        <cca-common-icon>first_page</cca-common-icon>\n      </div>\n      <div class=\"button\" (click)=\"onPreviousPage()\">\n        <cca-common-icon>chevron_left</cca-common-icon>\n      </div>\n\n      <div class=\"label\">\n        Página:\n        <span class=\"input\">\n          <cca-common-input\n            type=\"number\"\n            [value]=\"pageIndex\"\n            min=\"1\"\n            [max]=\"totalPages\"\n            (confirm)=\"onPageIndexChange($event)\"\n            slim\n            textCenter\n          ></cca-common-input>\n        </span>\n        / {{ totalPages }}\n      </div>\n\n      <div class=\"button\" (click)=\"onNextPage()\">\n        <cca-common-icon>chevron_right</cca-common-icon>\n      </div>\n\n      <div class=\"button light\" (click)=\"onLastPage()\">\n        <cca-common-icon>last_page</cca-common-icon>\n      </div>\n    </div>\n  </div>\n</div>\n"
+      "implements": ["OnInit", "AfterViewInit"],
+      "templateData": "<div class=\"table col-xs\">\n  <div class=\"header row\">\n    <div class=\"col-xs\" *ngFor=\"let header of headers\">\n      {{ header }}\n    </div>\n    <div class=\"col-xs end-xs\" [hidden]=\"!showActions\"></div>\n  </div>\n  <div class=\"body\">\n    <div class=\"row\" *ngFor=\"let data of dataSource; let i = index\">\n      <div class=\"col-xs\" *ngFor=\"let header of headers\">\n        {{ data[header] }}\n      </div>\n      <div class=\"col-xs end-xs\" [hidden]=\"!showActions\" #actionWrapper>\n        <ng-container\n          *ngIf=\"actionTemplateRef\"\n          [ngTemplateOutlet]=\"actionTemplateRef\"\n          [ngTemplateOutletContext]=\"{\n            $implicit: { data: data, index: i, dataSource: dataSource }\n          }\"\n        >\n        </ng-container>\n      </div>\n    </div>\n  </div>\n  <div class=\"footer row between-xs\">\n    <div class=\"row left middle-xs\">\n      <div\n        tabindex=\"0\"\n        class=\"button\"\n        (keydown)=\"onRefresh($event)\"\n        (click)=\"onRefresh($event)\"\n      >\n        <cca-common-icon>loop</cca-common-icon>\n      </div>\n      <div>\n        Itens por página:\n        <span class=\"input\">\n          <cca-common-input\n            type=\"number\"\n            [value]=\"pageSize\"\n            (confirm)=\"onPageSizeChange($event)\"\n            min=\"10\"\n            [max]=\"maxPageSize\"\n            step=\"10\"\n            slim\n            textCenter\n          ></cca-common-input>\n        </span>\n      </div>\n    </div>\n    <div class=\"row right middle-xs\">\n      <div\n        [tabindex]=\"!disableMap['firstPage'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['firstPage'] }\"\n        (click)=\"!disableMap['firstPage'] ? onFirstPage() : null\"\n      >\n        <cca-common-icon>first_page</cca-common-icon>\n      </div>\n      <div\n        [tabindex]=\"!disableMap['previous'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['previous'] }\"\n        (click)=\"!disableMap['previous'] ? onPreviousPage() : null\"\n      >\n        <cca-common-icon>chevron_left</cca-common-icon>\n      </div>\n\n      <div class=\"label\">\n        Página:\n        <span class=\"input\">\n          <cca-common-input\n            type=\"number\"\n            [value]=\"pageIndex\"\n            min=\"1\"\n            [max]=\"totalPages\"\n            (confirm)=\"onPageIndexChange($event)\"\n            slim\n            textCenter\n          ></cca-common-input>\n        </span>\n        / {{ totalPages }}\n      </div>\n\n      <div\n        [tabindex]=\"!disableMap['next'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['next'] }\"\n        (click)=\"!disableMap['next'] ? onNextPage() : null\"\n      >\n        <cca-common-icon>chevron_right</cca-common-icon>\n      </div>\n\n      <div\n        [tabindex]=\"!disableMap['lastPage'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['lastPage'] }\"\n        (click)=\"!disableMap['lastPage'] ? onLastPage() : null\"\n      >\n        <cca-common-icon>last_page</cca-common-icon>\n      </div>\n    </div>\n  </div>\n</div>\n"
     }
   ],
   "modules": [
@@ -1122,7 +1278,7 @@
         "subtype": "variable",
         "file": "src/stories/common/Table.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  component: TableComponent,\n  props: {\n    firstPage: action('firstPage'),\n    lastPage: action('lastPage'),\n    nextPage: action('nextPage'),\n    previousPage: action('previousPage'),\n    refresh: action('refresh'),\n    pageSizeChange: action('pageSizeChange'),\n    pageIndexChange: action('pageIndexChange'),\n    pageSize: 10,\n    pageIndex: 1,\n    totalEntries: 200,\n    dataSource: [\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n    ],\n  },\n})"
+        "defaultValue": "() => ({\n  component: TableComponent,\n  template: `<cca-common-table>\n  </cca-common-table>\n  `,\n  props: {\n    firstPage: action('firstPage'),\n    lastPage: action('lastPage'),\n    nextPage: action('nextPage'),\n    previousPage: action('previousPage'),\n    refresh: action('refresh'),\n    pageSizeChange: action('pageSizeChange'),\n    pageIndexChange: action('pageIndexChange'),\n    pageSize: 10,\n    maxPageSize: 200,\n    pageIndex: 20,\n    totalEntries: 200,\n    dataSource: [\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n    ],\n  },\n})"
       },
       {
         "name": "Fill",
@@ -1202,7 +1358,7 @@
           "subtype": "variable",
           "file": "src/stories/common/Table.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  component: TableComponent,\n  props: {\n    firstPage: action('firstPage'),\n    lastPage: action('lastPage'),\n    nextPage: action('nextPage'),\n    previousPage: action('previousPage'),\n    refresh: action('refresh'),\n    pageSizeChange: action('pageSizeChange'),\n    pageIndexChange: action('pageIndexChange'),\n    pageSize: 10,\n    pageIndex: 1,\n    totalEntries: 200,\n    dataSource: [\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n    ],\n  },\n})"
+          "defaultValue": "() => ({\n  component: TableComponent,\n  template: `<cca-common-table>\n  </cca-common-table>\n  `,\n  props: {\n    firstPage: action('firstPage'),\n    lastPage: action('lastPage'),\n    nextPage: action('nextPage'),\n    previousPage: action('previousPage'),\n    refresh: action('refresh'),\n    pageSizeChange: action('pageSizeChange'),\n    pageIndexChange: action('pageIndexChange'),\n    pageSize: 10,\n    maxPageSize: 200,\n    pageIndex: 20,\n    totalEntries: 200,\n    dataSource: [\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n    ],\n  },\n})"
         }
       ],
       "src/stories/common/Button.stories.ts": [
@@ -1310,7 +1466,7 @@
         "linktype": "component",
         "name": "InputComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/21",
+        "coverageCount": "0/24",
         "status": "low"
       },
       {
@@ -1319,7 +1475,7 @@
         "linktype": "component",
         "name": "TableComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/24",
+        "coverageCount": "0/32",
         "status": "low"
       },
       {

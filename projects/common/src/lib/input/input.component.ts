@@ -1,4 +1,5 @@
 import { trigger, transition, animate, style } from '@angular/animations';
+import { AfterViewInit } from '@angular/core';
 import {
   Attribute,
   Component,
@@ -7,6 +8,7 @@ import {
   Optional,
   Output,
   EventEmitter,
+  ViewChild,
 } from '@angular/core';
 
 @Component({
@@ -41,7 +43,7 @@ import {
     ]),
   ],
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements OnInit, AfterViewInit {
   @Input() value = '';
   @Input() type = 'text';
   @Input() disabled = false;
@@ -51,6 +53,9 @@ export class InputComponent implements OnInit {
   @Input() focus = false;
 
   @Output() confirm = new EventEmitter();
+  @Output() ref = new EventEmitter();
+
+  @ViewChild('input') input;
 
   private numberInterval: any;
   private numberIntervalCounter = 1;
@@ -64,6 +69,10 @@ export class InputComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    this.ref.emit(this.input.nativeElement);
+  }
 
   isFocused(value: boolean) {
     this.focus = value;
