@@ -21,3 +21,7 @@ export * from './lib/table/table.module';
 // Input
 export * from './lib/input/input.component';
 export * from './lib/input/input.module';
+
+// Tooltip
+export * from './lib/tooltip/tooltip.directive';
+export * from './lib/tooltip/tooltip.module';

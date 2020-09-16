@@ -4,7 +4,7 @@
     "directive-selector": [
       true,
       "attribute",
-      "cca-common",
+      "ccaCommon",
       "camelCase"
     ],
     "component-selector": [

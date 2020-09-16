@@ -3,7 +3,194 @@
   "interfaces": [],
   "injectables": [],
   "classes": [],
-  "directives": [],
+  "directives": [
+    {
+      "name": "TooltipDirective",
+      "id": "directive-TooltipDirective-66ad943d33754b95dd1d58f96ab66bdc",
+      "file": "projects/common/src/lib/tooltip/tooltip.directive.ts",
+      "type": "directive",
+      "description": "",
+      "sourceCode": "import {\n  Directive,\n  ElementRef,\n  HostListener,\n  Inject,\n  Input,\n  Renderer2,\n  ViewContainerRef,\n  ComponentFactoryResolver,\n  ComponentRef,\n  OnInit,\n  AfterContentInit,\n  AfterViewInit,\n  AfterViewChecked,\n} from '@angular/core';\nimport { IconComponent } from '../icon/icon.component';\n\n@Directive({\n  selector: '[cca-common-tooltip]',\n})\nexport class TooltipDirective implements OnInit {\n  @Input('cca-common-tooltip') text: string;\n\n  targetElement: HTMLElement;\n\n  tooltipElement: HTMLElement;\n  tooltipComponent: ComponentRef<IconComponent>;\n\n  tooltipInfoElement: HTMLLabelElement;\n\n  constructor(\n    private vc: ViewContainerRef,\n    private targetElementRef: ElementRef,\n    private renderer: Renderer2,\n    private factory: ComponentFactoryResolver\n  ) {}\n\n  ngOnInit() {\n    // Inicializa fábrica de componentes para criar ícone\n    const factory = this.factory.resolveComponentFactory(IconComponent);\n    // Salva referência do elemento pai do elemento que está usando a diretiva\n    const { parentElement } = this.vc.element.nativeElement;\n    // Salva referência do elemento alvo\n    this.targetElement = this.targetElementRef.nativeElement;\n    // Cria componente de ícone\n    this.tooltipComponent = this.vc.createComponent(factory, 0, null, [\n      [document.createTextNode('help_outline')],\n    ]);\n\n    this.tooltipElement = this.tooltipComponent.location.nativeElement;\n\n    // Necessário para que os elementos estejam posicionados lado a lado\n    this.applyStyle(this.targetElement, { display: 'inline-block' });\n\n    this.applyStyle(this.tooltipElement, {\n      display: 'inline-block',\n      color: '#dadada',\n      cursor: 'pointer',\n      marginLeft: '.5rem',\n    });\n\n    this.tooltipElement.addEventListener(\n      'mouseenter',\n      this.onMouseOver.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mouseleave',\n      this.onMouseLeave.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mousemove',\n      this.onMouseMove.bind(this),\n      false\n    );\n\n    this.tooltipInfoElement = document.createElement('label');\n\n    if (this.tooltipElement.id) {\n      this.tooltipInfoElement.htmlFor = this.tooltipElement.id;\n    }\n\n    this.applyStyle(this.tooltipInfoElement, {\n      background: '#202124', //black - colors.scss\n      borderRadius: '5px',\n      color: '#fff',\n      fontFamily: 'Cabin',\n      fontSize: '1.2rem',\n      padding: '1.2rem 1.5rem',\n      position: 'fixed',\n      left: '0',\n      top: '0',\n      transition: 'opacity ease-in-out .15s, visibility .15s',\n      opacity: '0',\n      visibility: 'hidden',\n      zIndex: '99',\n      maxWidth: '256px',\n      textAlign: 'center',\n    });\n\n    this.tooltipInfoElement.innerText = this.text;\n\n    this.renderer.appendChild(parentElement, this.tooltipInfoElement);\n  }\n\n  onMouseOver(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '1',\n      visibility: 'visible',\n    });\n  }\n\n  onMouseMove(event: MouseEvent): void {\n    const { clientX, clientY } = event;\n    this.tooltipInfoElement.style.transform = `translate(${clientX + 16}px, ${\n      clientY + 16\n    }px)`;\n  }\n\n  onMouseLeave(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '0',\n      visibility: 'hidden',\n    });\n  }\n\n  private applyStyle(element: HTMLElement, styleObj: Object) {\n    for (const style in styleObj) {\n      element.style[style] = styleObj[style];\n    }\n  }\n}\n",
+      "selector": "[cca-common-tooltip]",
+      "providers": [],
+      "inputsClass": [
+        {
+          "name": "cca-common-tooltip",
+          "line": 22,
+          "type": "string"
+        }
+      ],
+      "outputsClass": [],
+      "hostBindings": [],
+      "hostListeners": [],
+      "propertiesClass": [
+        {
+          "name": "targetElement",
+          "type": "HTMLElement",
+          "optional": false,
+          "description": "",
+          "line": 24
+        },
+        {
+          "name": "tooltipComponent",
+          "type": "ComponentRef<IconComponent>",
+          "optional": false,
+          "description": "",
+          "line": 27
+        },
+        {
+          "name": "tooltipElement",
+          "type": "HTMLElement",
+          "optional": false,
+          "description": "",
+          "line": 26
+        },
+        {
+          "name": "tooltipInfoElement",
+          "type": "HTMLLabelElement",
+          "optional": false,
+          "description": "",
+          "line": 29
+        }
+      ],
+      "methodsClass": [
+        {
+          "name": "applyStyle",
+          "args": [
+            {
+              "name": "element",
+              "type": "HTMLElement"
+            },
+            {
+              "name": "styleObj",
+              "type": "Object"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 126,
+          "modifierKind": [112],
+          "jsdoctags": [
+            {
+              "name": "element",
+              "type": "HTMLElement",
+              "tagName": {
+                "text": "param"
+              }
+            },
+            {
+              "name": "styleObj",
+              "type": "Object",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
+        {
+          "name": "ngOnInit",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 38
+        },
+        {
+          "name": "onMouseLeave",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 119
+        },
+        {
+          "name": "onMouseMove",
+          "args": [
+            {
+              "name": "event",
+              "type": "MouseEvent"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 112,
+          "jsdoctags": [
+            {
+              "name": "event",
+              "type": "MouseEvent",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
+        {
+          "name": "onMouseOver",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 105
+        }
+      ],
+      "implements": ["OnInit"],
+      "constructorObj": {
+        "name": "constructor",
+        "description": "",
+        "args": [
+          {
+            "name": "vc",
+            "type": "ViewContainerRef"
+          },
+          {
+            "name": "targetElementRef",
+            "type": "ElementRef"
+          },
+          {
+            "name": "renderer",
+            "type": "Renderer2"
+          },
+          {
+            "name": "factory",
+            "type": "ComponentFactoryResolver"
+          }
+        ],
+        "line": 29,
+        "jsdoctags": [
+          {
+            "name": "vc",
+            "type": "ViewContainerRef",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "targetElementRef",
+            "type": "ElementRef",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "renderer",
+            "type": "Renderer2",
+            "tagName": {
+              "text": "param"
+            }
+          },
+          {
+            "name": "factory",
+            "type": "ComponentFactoryResolver",
+            "tagName": {
+              "text": "param"
+            }
+          }
+        ]
+      }
+    }
+  ],
   "components": [
     {
       "name": "ButtonComponent",
@@ -402,7 +589,7 @@
     },
     {
       "name": "InputComponent",
-      "id": "component-InputComponent-dded57bddab34cd943bc22786b6c34d2",
+      "id": "component-InputComponent-de60793506d6b0e90e975e050214520a",
       "file": "projects/common/src/lib/input/input.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -648,7 +835,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 116,
+          "line": 117,
           "jsdoctags": [
             {
               "name": "event",
@@ -672,7 +859,7 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import { trigger, transition, animate, style } from '@angular/animations';\nimport { AfterViewInit } from '@angular/core';\nimport {\n  Attribute,\n  Component,\n  Input,\n  OnInit,\n  Optional,\n  Output,\n  EventEmitter,\n  ViewChild,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n  animations: [\n    trigger('fadeInOut', [\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 1,\n          })\n        ),\n      ]),\n\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 0,\n          })\n        ),\n      ]),\n    ]),\n  ],\n})\nexport class InputComponent implements OnInit, AfterViewInit {\n  @Input() value: number;\n  @Input() type = 'text';\n  @Input() disabled = false;\n  @Input() step = 1;\n  @Input() min: number;\n  @Input() max: number;\n  @Input() focus = false;\n\n  @Output() confirm = new EventEmitter();\n  @Output() ref = new EventEmitter();\n\n  @ViewChild('input') input;\n\n  private numberInterval: any;\n  private numberIntervalCounter = 1;\n\n  constructor(\n    @Optional() @Attribute('textCenter') public textCenter: any,\n    @Optional() @Attribute('slim') public slim: any\n  ) {\n    this.textCenter = textCenter !== null;\n    this.slim = slim !== null;\n  }\n\n  ngOnInit(): void {}\n\n  ngAfterViewInit(): void {\n    this.ref.emit(this.input.nativeElement);\n  }\n\n  isFocused(value: boolean) {\n    this.focus = value;\n    if (!value) {\n      this.confirm.emit(this.value);\n      if (this.numberInterval) {\n        this.clearNumberInterval();\n      }\n    }\n  }\n\n  private clearNumberInterval() {\n    clearInterval(this.numberInterval);\n    this.numberInterval = null;\n    this.numberIntervalCounter = 1;\n  }\n\n  onMouseUp() {\n    this.clearNumberInterval();\n  }\n\n  onKeyDown(event: KeyboardEvent) {\n    if (event.key === 'Enter') {\n      this.confirm.emit(this.value);\n    }\n  }\n\n  rangedValue(event: Event) {\n    const el = event.target as HTMLInputElement;\n    const value = parseInt(el.value, 10);\n\n    if (this.type === 'number') {\n      this.value = this.max && this.min\n          ? Math.max(Math.min(this.max, value), this.min)\n          : parseInt(el.value);\n\n        el.value = String(this.value);\n    }\n  }\n\n  updateValue(event: Event, operation: 'add' | 'sub') {\n    // Impede remoção do foco do input\n    event.preventDefault();\n    const step = operation === 'add' ? +this.step : -this.step;\n\n    // Atualiza o valor imediatamente\n    this.value = this.max && this.min\n        ? Math.max(\n            Math.min(this.max, this.value + step),\n            this.min\n          )\n        : this.value + step;\n\n    // Cria intervalo onde (depois de um delay de 500ms) atualiza o valor do input a cada 50ms\n    this.numberInterval = setInterval(() => {\n      if (this.numberIntervalCounter > 10) {\n        // Garante o delay de 500ms (50 do intervalo, e 10 das iterações com contador menor que 10)\n        this.value = this.max && this.min\n            ? Math.max(\n                Math.min(this.max, this.value + step),\n                this.min\n              )\n            : this.value + step;\n      }\n      ++this.numberIntervalCounter;\n    }, 50);\n  }\n}\n",
+      "sourceCode": "import { trigger, transition, animate, style } from '@angular/animations';\nimport { AfterViewInit } from '@angular/core';\nimport {\n  Attribute,\n  Component,\n  Input,\n  OnInit,\n  Optional,\n  Output,\n  EventEmitter,\n  ViewChild,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n  animations: [\n    trigger('fadeInOut', [\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 1,\n          })\n        ),\n      ]),\n\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 0,\n          })\n        ),\n      ]),\n    ]),\n  ],\n})\nexport class InputComponent implements OnInit, AfterViewInit {\n  @Input() value: number;\n  @Input() type = 'text';\n  @Input() disabled = false;\n  @Input() step = 1;\n  @Input() min: number;\n  @Input() max: number;\n  @Input() focus = false;\n\n  @Output() confirm = new EventEmitter();\n  @Output() ref = new EventEmitter();\n\n  @ViewChild('input') input;\n\n  private numberInterval: any;\n  private numberIntervalCounter = 1;\n\n  constructor(\n    @Optional() @Attribute('textCenter') public textCenter: any,\n    @Optional() @Attribute('slim') public slim: any\n  ) {\n    this.textCenter = textCenter !== null;\n    this.slim = slim !== null;\n  }\n\n  ngOnInit(): void {}\n\n  ngAfterViewInit(): void {\n    this.ref.emit(this.input.nativeElement);\n  }\n\n  isFocused(value: boolean) {\n    this.focus = value;\n    if (!value) {\n      this.confirm.emit(this.value);\n      if (this.numberInterval) {\n        this.clearNumberInterval();\n      }\n    }\n  }\n\n  private clearNumberInterval() {\n    clearInterval(this.numberInterval);\n    this.numberInterval = null;\n    this.numberIntervalCounter = 1;\n  }\n\n  onMouseUp() {\n    this.clearNumberInterval();\n  }\n\n  onKeyDown(event: KeyboardEvent) {\n    if (event.key === 'Enter') {\n      this.confirm.emit(this.value);\n    }\n  }\n\n  rangedValue(event: Event) {\n    const el = event.target as HTMLInputElement;\n    const value = parseInt(el.value, 10);\n\n    if (this.type === 'number') {\n      this.value =\n        this.max && this.min\n          ? Math.max(Math.min(this.max, value), this.min)\n          : parseInt(el.value, 10);\n\n      el.value = String(this.value);\n    }\n  }\n\n  updateValue(event: Event, operation: 'add' | 'sub') {\n    // Impede remoção do foco do input\n    event.preventDefault();\n    const step = operation === 'add' ? +this.step : -this.step;\n\n    // Atualiza o valor imediatamente\n    this.value =\n      this.max && this.min\n        ? Math.max(Math.min(this.max, this.value + step), this.min)\n        : this.value + step;\n\n    // Cria intervalo onde (depois de um delay de 500ms) atualiza o valor do input a cada 50ms\n    this.numberInterval = setInterval(() => {\n      if (this.numberIntervalCounter > 10) {\n        // Garante o delay de 500ms (50 do intervalo, e 10 das iterações com contador menor que 10)\n        this.value =\n          this.max && this.min\n            ? Math.max(Math.min(this.max, this.value + step), this.min)\n            : this.value + step;\n      }\n      ++this.numberIntervalCounter;\n    }, 50);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
@@ -717,7 +904,7 @@
     },
     {
       "name": "TableComponent",
-      "id": "component-TableComponent-a79c097bc45d6605146752e5e00366f2",
+      "id": "component-TableComponent-815a43c944d66c8e730f62a8b021d513",
       "file": "projects/common/src/lib/table/table.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -1031,7 +1218,7 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import {\n  Component,\n  OnInit,\n  Output,\n  EventEmitter,\n  Input,\n  ViewChild,\n  ComponentFactoryResolver,\n  ContentChild,\n  TemplateRef,\n  ElementRef,\n} from '@angular/core';\nimport { AfterViewInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-table',\n  templateUrl: './table.component.html',\n  styleUrls: ['./table.component.scss'],\n})\nexport class TableComponent implements OnInit, AfterViewInit {\n  @Output() lastPage = new EventEmitter();\n  @Output() firstPage = new EventEmitter();\n  @Output() nextPage = new EventEmitter();\n  @Output() previousPage = new EventEmitter();\n\n  @Output() refresh = new EventEmitter();\n\n  @Output() pageSizeChange = new EventEmitter();\n  @Output() pageIndexChange = new EventEmitter();\n\n  @Input() pageSize: number;\n  @Input() maxPageSize: number;\n  @Input() pageIndex = 1;\n  @Input() totalEntries: number;\n  @Input() dataSource = [{ default: 'default' }];\n\n  @ViewChild('actionWrapper') actionWrapper: ElementRef;\n  @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<\n    any\n  >;\n\n  totalPages: number;\n  headers: string[] = [];\n  showActions = false;\n\n  disableMap = {\n    firstPage: false,\n    lastPage: false,\n    previous: false,\n    next: false,\n  };\n\n  constructor(public resolver: ComponentFactoryResolver) {}\n\n  ngOnInit(): void {\n    const headers = new Set();\n\n    for (const data of this.dataSource) {\n      for (const key of Object.keys(data)) {\n        headers.add(key);\n      }\n    }\n\n    this.totalPages = Math.ceil(this.totalEntries / this.pageSize);\n    this.headers = [...headers] as string[];\n\n    this.toggleButtons();\n  }\n\n  ngAfterViewInit(): void {\n    this.showActions = !!this.actionWrapper.nativeElement.children.length;\n  }\n\n  private updateButtonsState(\n    buttonList: Array<'next' | 'previous' | 'lastPage' | 'firstPage'>,\n    value: boolean\n  ) {\n    for (const button of buttonList) {\n      this.disableMap[button] = value;\n    }\n  }\n\n  private toggleButtons() {\n    if (this.pageIndex > this.totalPages) {\n      this.pageIndex = this.totalPages;\n    }\n\n    if (this.pageIndex === 1) {\n      this.updateButtonsState(['previous', 'firstPage'], true);\n    } else {\n      this.updateButtonsState(['previous', 'firstPage'], false);\n    }\n\n    if (this.pageIndex === this.totalPages) {\n      this.updateButtonsState(['next', 'lastPage'], true);\n    } else {\n      this.updateButtonsState(['next', 'lastPage'], false);\n    }\n  }\n\n  onLastPage() {\n    this.pageIndex = this.totalPages;\n    this.lastPage.emit(this.totalPages);\n\n    this.toggleButtons();\n  }\n\n  onFirstPage() {\n    this.pageIndex = 1;\n    this.firstPage.emit(1);\n    this.disableMap.firstPage = true;\n\n    this.toggleButtons();\n  }\n\n  onNextPage() {\n    this.nextPage.emit(\n      this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onPreviousPage() {\n    this.previousPage.emit(\n      this.pageIndex > 1 ? --this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onRefresh(event: Event | KeyboardEvent) {\n    if (event instanceof KeyboardEvent) {\n      if (event.key !== 'Enter') {\n        return;\n      }\n    }\n\n    this.refresh.emit(this.pageIndex);\n  }\n\n  onPageIndexChange(pageIndex: number) {\n    console.log(pageIndex)\n    this.pageIndex = pageIndex;\n    this.toggleButtons();\n    this.pageIndexChange.emit(pageIndex);\n  }\n\n  onPageSizeChange(pageSize: number) {\n    this.pageSize = pageSize;\n    this.totalPages = Math.ceil(this.totalEntries / pageSize);\n    this.toggleButtons();\n    this.pageSizeChange.emit(pageSize);\n  }\n}\n",
+      "sourceCode": "import {\n  Component,\n  OnInit,\n  Output,\n  EventEmitter,\n  Input,\n  ViewChild,\n  ComponentFactoryResolver,\n  ContentChild,\n  TemplateRef,\n  ElementRef,\n} from '@angular/core';\nimport { AfterViewInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-table',\n  templateUrl: './table.component.html',\n  styleUrls: ['./table.component.scss'],\n})\nexport class TableComponent implements OnInit, AfterViewInit {\n  @Output() lastPage = new EventEmitter();\n  @Output() firstPage = new EventEmitter();\n  @Output() nextPage = new EventEmitter();\n  @Output() previousPage = new EventEmitter();\n\n  @Output() refresh = new EventEmitter();\n\n  @Output() pageSizeChange = new EventEmitter();\n  @Output() pageIndexChange = new EventEmitter();\n\n  @Input() pageSize: number;\n  @Input() maxPageSize: number;\n  @Input() pageIndex = 1;\n  @Input() totalEntries: number;\n  @Input() dataSource = [{ default: 'default' }];\n\n  @ViewChild('actionWrapper') actionWrapper: ElementRef;\n  @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<\n    any\n  >;\n\n  totalPages: number;\n  headers: string[] = [];\n  showActions = false;\n\n  disableMap = {\n    firstPage: false,\n    lastPage: false,\n    previous: false,\n    next: false,\n  };\n\n  constructor(public resolver: ComponentFactoryResolver) {}\n\n  ngOnInit(): void {\n    const headers = new Set();\n\n    for (const data of this.dataSource) {\n      for (const key of Object.keys(data)) {\n        headers.add(key);\n      }\n    }\n\n    this.totalPages = Math.ceil(this.totalEntries / this.pageSize);\n    this.headers = [...headers] as string[];\n\n    this.toggleButtons();\n  }\n\n  ngAfterViewInit(): void {\n    this.showActions = !!this.actionWrapper.nativeElement.children.length;\n  }\n\n  private updateButtonsState(\n    buttonList: Array<'next' | 'previous' | 'lastPage' | 'firstPage'>,\n    value: boolean\n  ) {\n    for (const button of buttonList) {\n      this.disableMap[button] = value;\n    }\n  }\n\n  private toggleButtons() {\n    if (this.pageIndex > this.totalPages) {\n      this.pageIndex = this.totalPages;\n    }\n\n    if (this.pageIndex === 1) {\n      this.updateButtonsState(['previous', 'firstPage'], true);\n    } else {\n      this.updateButtonsState(['previous', 'firstPage'], false);\n    }\n\n    if (this.pageIndex === this.totalPages) {\n      this.updateButtonsState(['next', 'lastPage'], true);\n    } else {\n      this.updateButtonsState(['next', 'lastPage'], false);\n    }\n  }\n\n  onLastPage() {\n    this.pageIndex = this.totalPages;\n    this.lastPage.emit(this.totalPages);\n\n    this.toggleButtons();\n  }\n\n  onFirstPage() {\n    this.pageIndex = 1;\n    this.firstPage.emit(1);\n    this.disableMap.firstPage = true;\n\n    this.toggleButtons();\n  }\n\n  onNextPage() {\n    this.nextPage.emit(\n      this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onPreviousPage() {\n    this.previousPage.emit(\n      this.pageIndex > 1 ? --this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onRefresh(event: Event | KeyboardEvent) {\n    if (event instanceof KeyboardEvent) {\n      if (event.key !== 'Enter') {\n        return;\n      }\n    }\n\n    this.refresh.emit(this.pageIndex);\n  }\n\n  onPageIndexChange(pageIndex: number) {\n    console.log(pageIndex);\n    this.pageIndex = pageIndex;\n    this.toggleButtons();\n    this.pageIndexChange.emit(pageIndex);\n  }\n\n  onPageSizeChange(pageSize: number) {\n    this.pageSize = pageSize;\n    this.totalPages = Math.ceil(this.totalEntries / pageSize);\n    this.toggleButtons();\n    this.pageSizeChange.emit(pageSize);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
@@ -1260,6 +1447,43 @@
           "elements": []
         }
       ]
+    },
+    {
+      "name": "TooltipModule",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": [
+            {
+              "name": "TooltipDirective"
+            }
+          ]
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": [
+            {
+              "name": "TooltipDirective"
+            }
+          ]
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
     }
   ],
   "miscellaneous": {
@@ -1279,6 +1503,14 @@
         "file": "src/stories/common/Table.stories.ts",
         "type": "",
         "defaultValue": "() => ({\n  component: TableComponent,\n  template: `<cca-common-table\n    [dataSource]=\"dataSource\"\n    [pageSize]=\"pageSize\"\n    [maxPageSize]=\"maxPageSize\"\n    [pageIndex]=\"pageIndex\"\n    [totalEntries]=\"totalEntries\"\n    (firstPage)=\"firstPage\"\n    (nextPage)=\"nextPage\"\n    (previousPage)=\"previousPage\"\n    (refresh)=\"refresh\"\n    (pageSizeChange)=\"pageSizeChange\"\n    (pageIndexChange)=\"pageIndexChange\"\n  >\n    <ng-template let-content #action>\n      <div style=\"display: flex; justify-content: flex-end;\">\n        <div>\n          <cca-common-icon>edit</cca-common-icon>\n        </div>\n        <div>\n          <cca-common-icon>delete</cca-common-icon>\n        </div>\n      </div>\n    </ng-template>\n  </cca-common-table>\n  `,\n  props: {\n    firstPage: action('firstPage'),\n    lastPage: action('lastPage'),\n    nextPage: action('nextPage'),\n    previousPage: action('previousPage'),\n    refresh: action('refresh'),\n    pageSizeChange: action('pageSizeChange'),\n    pageIndexChange: action('pageIndexChange'),\n    pageSize: 10,\n    maxPageSize: 200,\n    pageIndex: 20,\n    totalEntries: 200,\n    dataSource: [\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n    ],\n  },\n})"
+      },
+      {
+        "name": "Default",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/common/Tooltip.stories.ts",
+        "type": "",
+        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n  <ul style=\"display: flex; flex-flow: row wrap; max-width: 80rem; list-style-type: none;\">\n    <li style=\"padding: .5rem\">\n      <cca-common-button cca-common-tooltip=\"Adicionar novo elemento através do uso deste botão completamente acessível\" flat (click)=\"click($event)\">\n        <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        <ng-container slot=\"text\">nova</ng-container>\n      </cca-common-button>\n    </li>\n    <li style=\"padding: .5rem\">\n      <cca-common-input cca-common-tooltip=\"Campo de texto\" value=\"\"></cca-common-input>\n    </li>\n  </ul>\n`,\n})"
       },
       {
         "name": "Fill",
@@ -1359,6 +1591,16 @@
           "file": "src/stories/common/Table.stories.ts",
           "type": "",
           "defaultValue": "() => ({\n  component: TableComponent,\n  template: `<cca-common-table\n    [dataSource]=\"dataSource\"\n    [pageSize]=\"pageSize\"\n    [maxPageSize]=\"maxPageSize\"\n    [pageIndex]=\"pageIndex\"\n    [totalEntries]=\"totalEntries\"\n    (firstPage)=\"firstPage\"\n    (nextPage)=\"nextPage\"\n    (previousPage)=\"previousPage\"\n    (refresh)=\"refresh\"\n    (pageSizeChange)=\"pageSizeChange\"\n    (pageIndexChange)=\"pageIndexChange\"\n  >\n    <ng-template let-content #action>\n      <div style=\"display: flex; justify-content: flex-end;\">\n        <div>\n          <cca-common-icon>edit</cca-common-icon>\n        </div>\n        <div>\n          <cca-common-icon>delete</cca-common-icon>\n        </div>\n      </div>\n    </ng-template>\n  </cca-common-table>\n  `,\n  props: {\n    firstPage: action('firstPage'),\n    lastPage: action('lastPage'),\n    nextPage: action('nextPage'),\n    previousPage: action('previousPage'),\n    refresh: action('refresh'),\n    pageSizeChange: action('pageSizeChange'),\n    pageIndexChange: action('pageIndexChange'),\n    pageSize: 10,\n    maxPageSize: 200,\n    pageIndex: 20,\n    totalEntries: 200,\n    dataSource: [\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n    ],\n  },\n})"
+        }
+      ],
+      "src/stories/common/Tooltip.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/common/Tooltip.stories.ts",
+          "type": "",
+          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n  <ul style=\"display: flex; flex-flow: row wrap; max-width: 80rem; list-style-type: none;\">\n    <li style=\"padding: .5rem\">\n      <cca-common-button cca-common-tooltip=\"Adicionar novo elemento através do uso deste botão completamente acessível\" flat (click)=\"click($event)\">\n        <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        <ng-container slot=\"text\">nova</ng-container>\n      </cca-common-button>\n    </li>\n    <li style=\"padding: .5rem\">\n      <cca-common-input cca-common-tooltip=\"Campo de texto\" value=\"\"></cca-common-input>\n    </li>\n  </ul>\n`,\n})"
         }
       ],
       "src/stories/common/Button.stories.ts": [
@@ -1479,6 +1721,15 @@
         "status": "low"
       },
       {
+        "filePath": "projects/common/src/lib/tooltip/tooltip.directive.ts",
+        "type": "directive",
+        "linktype": "directive",
+        "name": "TooltipDirective",
+        "coveragePercent": 0,
+        "coverageCount": "0/12",
+        "status": "low"
+      },
+      {
         "filePath": "src/stories/common/Button.stories.ts",
         "type": "variable",
         "linktype": "miscellaneous",
@@ -1560,6 +1811,16 @@
       },
       {
         "filePath": "src/stories/common/Table.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Default",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/common/Tooltip.stories.ts",
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
