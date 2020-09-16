@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
 
 export default {
   title: 'Common | Input',
-  component: InputComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, InputModule, IconModule],

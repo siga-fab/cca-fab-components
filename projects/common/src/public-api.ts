@@ -35,3 +35,16 @@ export * from './lib/breadcrumb/breadcrumb.module';
 export * from './lib/dropmenu/dropmenu-item.component';
 export * from './lib/dropmenu/dropmenu.component';
 export * from './lib/dropmenu/dropmenu.module';
+
+// Label
+export * from './lib/label/label.component';
+export * from './lib/label/label.module';
+
+// Checkbox
+export * from './lib/checkbox/checkbox.component';
+export * from './lib/checkbox/checkbox.module';
+
+// Radio
+export * from './lib/radio/radio-button-group.component';
+export * from './lib/radio/radio-button.component';
+export * from './lib/radio/radio.module';

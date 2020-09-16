@@ -1,14 +1,10 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
-import {
-  DropmenuComponent,
-  DropmenuModule,
-} from '../../../projects/common/src/public-api';
+import { DropmenuModule } from '../../../projects/common/src/public-api';
 
 export default {
   title: 'Common | Dropmenu',
-  component: DropmenuComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, DropmenuModule],

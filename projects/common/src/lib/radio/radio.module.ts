@@ -6,5 +6,6 @@ import { RadioButtonComponent } from './radio-button.component';
 @NgModule({
   declarations: [RadioButtonGroupComponent, RadioButtonComponent],
   imports: [CommonModule],
+  exports: [RadioButtonComponent, RadioButtonGroupComponent],
 })
 export class RadioModule {}
