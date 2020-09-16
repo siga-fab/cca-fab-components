@@ -16,10 +16,10 @@
     'negative-btn': negative === ''
   }"
 >
-  <div #iconRef class="button-icon">
+  <div #iconRef class="btn-icon">
     <ng-content select="[slot='icon']"></ng-content>
   </div>
-  <span #textRef class="button-text"
+  <span #textRef class="btn-text"
     ><ng-content #text select="[slot='text']"></ng-content
   ></span>
 </button>

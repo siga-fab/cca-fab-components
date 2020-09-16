@@ -21,3 +21,17 @@ export * from './lib/table/table.module';
 // Input
 export * from './lib/input/input.component';
 export * from './lib/input/input.module';
+
+// Tag
+export * from './lib/tag/tag.component';
+export * from './lib/tag/tag.module';
+
+// Breadcrumb
+export * from './lib/breadcrumb/breadcrumb-item/breadcrumb-item.component';
+export * from './lib/breadcrumb/breadcrumb.component';
+export * from './lib/breadcrumb/breadcrumb.module';
+
+// Drop Menu
+export * from './lib/dropmenu/dropmenu-item/dropmenu-item.component';
+export * from './lib/dropmenu/dropmenu.component';
+export * from './lib/dropmenu/dropmenu.module';

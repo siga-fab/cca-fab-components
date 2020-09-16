@@ -16,7 +16,7 @@ export default {
   ],
 };
 
-export const Styles = () => ({
+export const Default = () => ({
   template: `
     <div style="display: flex; flex-flow: row wrap">
       <!--Default-->

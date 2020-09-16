@@ -1,0 +1,39 @@
+@import '~flexboxgrid/dist/flexboxgrid.min.css';
+@import '../../../assets/scss/colors.scss';
+@import '../../../assets/scss/variables.scss';
+@import '../../../assets/scss/reset.scss';
+
+.breadcrumb-item {
+  font-size: 1.6rem;
+
+  cursor: pointer;
+
+  &:not(.last-bc)::after {
+    content: '/';
+    padding-left: 1rem;
+  }
+
+  &,
+  .bc-link {
+    color: $grey;
+    font-weight: 600;
+  }
+
+  .bc-link {
+    text-transform: uppercase;
+    text-decoration: underline;
+
+    transition: color $transition-defs;
+  }
+
+  &.selected-bc .bc-link {
+    text-decoration: none;
+    cursor: default;
+  }
+
+  &.selected-bc .bc-link,
+  .bc-link:focus,
+  .bc-link:hover {
+    color: $primary;
+  }
+}

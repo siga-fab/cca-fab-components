@@ -1,0 +1,29 @@
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+
+.tag {
+  padding: 0 2.2rem;
+  display: inline-block;
+
+  color: $grey;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+
+  border: 0.1rem solid $light-grey;
+  border-radius: 2.4rem;
+  background-color: transparent;
+  outline: none;
+  transition: background-color $transition-defs, color $transition-defs,
+    box-shadow $transition-defs;
+
+  &.clickable-tg:hover,
+  &.selected-tg {
+    cursor: pointer;
+    background-color: $black;
+    color: $white;
+  }
+
+  &:focus {
+    box-shadow: $focus-shadow;
+  }
+}
