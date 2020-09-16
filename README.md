@@ -1,16 +1,18 @@
-# Siga Components
+# CCA FAB components
 
 [![build status](https://github.com/coryrylan/angular-github-actions/workflows/Build/badge.svg)](https://github.com/coryrylan/angular-github-actions/actions)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12.
+This libs's monorepo was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12. This project make use of storybook for development and jest for tests.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` or `npm run storybook` for a dev server. Navigate to `http://localhost:6006/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng generate module module-name --project=project` to generate a new module. Run `ng generate component component-name --project=project-name --module=module-name --style=scss --project=project` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+Dont't forget to export your module/components on `public-api.ts`.
 
 ## Build
 
@@ -18,11 +20,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `ng test` to execute the unit tests via [Jest](https://jestjs.io).
+Run `ng test:cov` to execute the unit tests with coverage report.
 
 ## Further help
 
