@@ -13,6 +13,7 @@
   }
 
   &,
+  &:focus-within,
   &:focus,
   &:hover {
     color: $black;
@@ -48,11 +49,13 @@
     border-radius: 0 0.5rem 0.5rem 0.5rem;
   }
 
+  &:focus-within .drop-content,
   &:focus .drop-content,
   &:hover .drop-content {
     display: block;
   }
 
+  &:focus-within .drop-btn,
   &:focus .drop-btn,
   &:hover .drop-btn,
   .drop-content {
@@ -61,6 +64,7 @@
     box-shadow: $box-shadow;
   }
 
+  &:focus-within .drop-btn::after,
   &:focus .drop-btn::after,
   &:hover .drop-btn::after {
     content: '';

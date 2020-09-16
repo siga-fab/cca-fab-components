@@ -23,8 +23,7 @@
     background: #c4c4c444;
   }
 
-  a:focus {
-    text-decoration: underline;
-    color: $primary;
+  &:focus-within {
+    box-shadow: $focus-shadow;
   }
 }
