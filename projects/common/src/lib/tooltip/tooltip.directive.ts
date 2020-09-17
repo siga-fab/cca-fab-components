@@ -1,17 +1,12 @@
 import {
   Directive,
   ElementRef,
-  HostListener,
-  Inject,
   Input,
   Renderer2,
   ViewContainerRef,
   ComponentFactoryResolver,
   ComponentRef,
   OnInit,
-  AfterContentInit,
-  AfterViewInit,
-  AfterViewChecked,
 } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
 
@@ -19,7 +14,10 @@ import { IconComponent } from '../icon/icon.component';
   selector: '[ccaCommonTooltip]',
 })
 export class TooltipDirective implements OnInit {
-  @Input('ccaCommonTooltip') text: string;
+  @Input('ccaCommonTooltip') public text: string;
+
+  /* tslint:disable-next-line:no-input-rename */
+  @Input('tooltipPosition') public tooltipPosition: string;
 
   targetElement: HTMLElement;
 
@@ -27,6 +25,32 @@ export class TooltipDirective implements OnInit {
   tooltipComponent: ComponentRef<IconComponent>;
 
   tooltipInfoElement: HTMLLabelElement;
+
+  private DEFAULT_POSITION = 'bottom-right';
+  private getX: (x: number) => {};
+  private getY: (y: number) => {};
+
+  private positionMap = {
+    'bottom-right': {
+      x: (x: number) => x + 16,
+      y: (y: number) => y + 16,
+    },
+
+    'bottom-left': {
+      x: (x: number) => x - 16 - this.tooltipInfoElement.clientWidth,
+      y: (y: number) => y + 16,
+    },
+
+    'top-left': {
+      x: (x: number) => x - 16 - this.tooltipInfoElement.clientWidth,
+      y: (y: number) => y - 16 - this.tooltipInfoElement.clientHeight,
+    },
+
+    'top-right': {
+      x: (x: number) => x + 16,
+      y: (y: number) => y - 16 - this.tooltipInfoElement.clientHeight,
+    },
+  };
 
   constructor(
     private vc: ViewContainerRef,
@@ -54,7 +78,7 @@ export class TooltipDirective implements OnInit {
 
     this.applyStyle(this.tooltipElement, {
       display: 'inline-block',
-      color: '#dadada',
+      color: '#80868d',
       cursor: 'pointer',
       marginLeft: '.5rem',
     });
@@ -69,8 +93,7 @@ export class TooltipDirective implements OnInit {
     );
     this.tooltipElement.addEventListener(
       'mousemove',
-      this.onMouseMove.bind(this),
-      false
+      this.onMouseMove.bind(this)
     );
 
     this.tooltipInfoElement = document.createElement('label');
@@ -99,6 +122,13 @@ export class TooltipDirective implements OnInit {
 
     this.tooltipInfoElement.innerText = this.text;
 
+    this.getX = this.positionMap[
+      this.tooltipPosition || this.DEFAULT_POSITION
+    ].x;
+    this.getY = this.positionMap[
+      this.tooltipPosition || this.DEFAULT_POSITION
+    ].y;
+
     this.renderer.appendChild(parentElement, this.tooltipInfoElement);
   }
 
@@ -111,9 +141,10 @@ export class TooltipDirective implements OnInit {
 
   onMouseMove(event: MouseEvent): void {
     const { clientX, clientY } = event;
-    this.tooltipInfoElement.style.transform = `translate(${clientX + 16}px, ${
-      clientY + 16
-    }px)`;
+
+    this.tooltipInfoElement.style.transform = `translate(${this.getX(
+      clientX
+    )}px, ${this.getY(clientY)}px)`;
   }
 
   onMouseLeave(): void {

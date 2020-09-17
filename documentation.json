@@ -6,17 +6,17 @@
   "directives": [
     {
       "name": "TooltipDirective",
-      "id": "directive-TooltipDirective-66ad943d33754b95dd1d58f96ab66bdc",
+      "id": "directive-TooltipDirective-7858cae7fbf97208996764b7332922f5",
       "file": "projects/common/src/lib/tooltip/tooltip.directive.ts",
       "type": "directive",
       "description": "",
-      "sourceCode": "import {\n  Directive,\n  ElementRef,\n  HostListener,\n  Inject,\n  Input,\n  Renderer2,\n  ViewContainerRef,\n  ComponentFactoryResolver,\n  ComponentRef,\n  OnInit,\n  AfterContentInit,\n  AfterViewInit,\n  AfterViewChecked,\n} from '@angular/core';\nimport { IconComponent } from '../icon/icon.component';\n\n@Directive({\n  selector: '[cca-common-tooltip]',\n})\nexport class TooltipDirective implements OnInit {\n  @Input('cca-common-tooltip') text: string;\n\n  targetElement: HTMLElement;\n\n  tooltipElement: HTMLElement;\n  tooltipComponent: ComponentRef<IconComponent>;\n\n  tooltipInfoElement: HTMLLabelElement;\n\n  constructor(\n    private vc: ViewContainerRef,\n    private targetElementRef: ElementRef,\n    private renderer: Renderer2,\n    private factory: ComponentFactoryResolver\n  ) {}\n\n  ngOnInit() {\n    // Inicializa fábrica de componentes para criar ícone\n    const factory = this.factory.resolveComponentFactory(IconComponent);\n    // Salva referência do elemento pai do elemento que está usando a diretiva\n    const { parentElement } = this.vc.element.nativeElement;\n    // Salva referência do elemento alvo\n    this.targetElement = this.targetElementRef.nativeElement;\n    // Cria componente de ícone\n    this.tooltipComponent = this.vc.createComponent(factory, 0, null, [\n      [document.createTextNode('help_outline')],\n    ]);\n\n    this.tooltipElement = this.tooltipComponent.location.nativeElement;\n\n    // Necessário para que os elementos estejam posicionados lado a lado\n    this.applyStyle(this.targetElement, { display: 'inline-block' });\n\n    this.applyStyle(this.tooltipElement, {\n      display: 'inline-block',\n      color: '#dadada',\n      cursor: 'pointer',\n      marginLeft: '.5rem',\n    });\n\n    this.tooltipElement.addEventListener(\n      'mouseenter',\n      this.onMouseOver.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mouseleave',\n      this.onMouseLeave.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mousemove',\n      this.onMouseMove.bind(this),\n      false\n    );\n\n    this.tooltipInfoElement = document.createElement('label');\n\n    if (this.tooltipElement.id) {\n      this.tooltipInfoElement.htmlFor = this.tooltipElement.id;\n    }\n\n    this.applyStyle(this.tooltipInfoElement, {\n      background: '#202124', //black - colors.scss\n      borderRadius: '5px',\n      color: '#fff',\n      fontFamily: 'Cabin',\n      fontSize: '1.2rem',\n      padding: '1.2rem 1.5rem',\n      position: 'fixed',\n      left: '0',\n      top: '0',\n      transition: 'opacity ease-in-out .15s, visibility .15s',\n      opacity: '0',\n      visibility: 'hidden',\n      zIndex: '99',\n      maxWidth: '256px',\n      textAlign: 'center',\n    });\n\n    this.tooltipInfoElement.innerText = this.text;\n\n    this.renderer.appendChild(parentElement, this.tooltipInfoElement);\n  }\n\n  onMouseOver(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '1',\n      visibility: 'visible',\n    });\n  }\n\n  onMouseMove(event: MouseEvent): void {\n    const { clientX, clientY } = event;\n    this.tooltipInfoElement.style.transform = `translate(${clientX + 16}px, ${\n      clientY + 16\n    }px)`;\n  }\n\n  onMouseLeave(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '0',\n      visibility: 'hidden',\n    });\n  }\n\n  private applyStyle(element: HTMLElement, styleObj: Object) {\n    for (const style in styleObj) {\n      element.style[style] = styleObj[style];\n    }\n  }\n}\n",
-      "selector": "[cca-common-tooltip]",
+      "sourceCode": "import {\n  Directive,\n  ElementRef,\n  Input,\n  Renderer2,\n  ViewContainerRef,\n  ComponentFactoryResolver,\n  ComponentRef,\n  OnInit\n} from '@angular/core';\nimport { IconComponent } from '../icon/icon.component';\n\n@Directive({\n  selector: '[ccaCommonTooltip]',\n})\nexport class TooltipDirective implements OnInit {\n  @Input('ccaCommonTooltip') text: string;\n\n  targetElement: HTMLElement;\n\n  tooltipElement: HTMLElement;\n  tooltipComponent: ComponentRef<IconComponent>;\n\n  tooltipInfoElement: HTMLLabelElement;\n\n  constructor(\n    private vc: ViewContainerRef,\n    private targetElementRef: ElementRef,\n    private renderer: Renderer2,\n    private factory: ComponentFactoryResolver\n  ) {}\n\n  ngOnInit() {\n    // Inicializa fábrica de componentes para criar ícone\n    const factory = this.factory.resolveComponentFactory(IconComponent);\n    // Salva referência do elemento pai do elemento que está usando a diretiva\n    const { parentElement } = this.vc.element.nativeElement;\n    // Salva referência do elemento alvo\n    this.targetElement = this.targetElementRef.nativeElement;\n    // Cria componente de ícone\n    this.tooltipComponent = this.vc.createComponent(factory, 0, null, [\n      [document.createTextNode('help_outline')],\n    ]);\n\n    this.tooltipElement = this.tooltipComponent.location.nativeElement;\n\n    // Necessário para que os elementos estejam posicionados lado a lado\n    this.applyStyle(this.targetElement, { display: 'inline-block' });\n\n    this.applyStyle(this.tooltipElement, {\n      display: 'inline-block',\n      color: '#dadada',\n      cursor: 'pointer',\n      marginLeft: '.5rem',\n    });\n\n    this.tooltipElement.addEventListener(\n      'mouseenter',\n      this.onMouseOver.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mouseleave',\n      this.onMouseLeave.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mousemove',\n      this.onMouseMove.bind(this)\n    );\n\n    this.tooltipInfoElement = document.createElement('label');\n\n    if (this.tooltipElement.id) {\n      this.tooltipInfoElement.htmlFor = this.tooltipElement.id;\n    }\n\n    this.applyStyle(this.tooltipInfoElement, {\n      background: '#202124', // black - colors.scss\n      borderRadius: '5px',\n      color: '#fff',\n      fontFamily: 'Cabin',\n      fontSize: '1.2rem',\n      padding: '1.2rem 1.5rem',\n      position: 'fixed',\n      left: '0',\n      top: '0',\n      transition: 'opacity ease-in-out .15s, visibility .15s',\n      opacity: '0',\n      visibility: 'hidden',\n      zIndex: '99',\n      maxWidth: '256px',\n      textAlign: 'center',\n    });\n\n    this.tooltipInfoElement.innerText = this.text;\n\n    this.renderer.appendChild(parentElement, this.tooltipInfoElement);\n  }\n\n  onMouseOver(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '1',\n      visibility: 'visible',\n    });\n  }\n\n  onMouseMove(event: MouseEvent): void {\n    const { clientX, clientY } = event;\n    this.tooltipInfoElement.style.transform = `translate(${clientX + 16}px, ${\n      clientY + 16\n    }px)`;\n  }\n\n  onMouseLeave(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '0',\n      visibility: 'hidden',\n    });\n  }\n\n  private applyStyle(element: HTMLElement, styleObj: object) {\n    /* tslint:disable */\n    for (const style in styleObj) {\n      element.style[style] = styleObj[style];\n    }\n    /* tslint:enable\n     */\n  }\n}\n",
+      "selector": "[ccaCommonTooltip]",
       "providers": [],
       "inputsClass": [
         {
-          "name": "cca-common-tooltip",
-          "line": 22,
+          "name": "ccaCommonTooltip",
+          "line": 17,
           "type": "string"
         }
       ],
@@ -29,28 +29,28 @@
           "type": "HTMLElement",
           "optional": false,
           "description": "",
-          "line": 24
+          "line": 19
         },
         {
           "name": "tooltipComponent",
           "type": "ComponentRef<IconComponent>",
           "optional": false,
           "description": "",
-          "line": 27
+          "line": 22
         },
         {
           "name": "tooltipElement",
           "type": "HTMLElement",
           "optional": false,
           "description": "",
-          "line": 26
+          "line": 21
         },
         {
           "name": "tooltipInfoElement",
           "type": "HTMLLabelElement",
           "optional": false,
           "description": "",
-          "line": 29
+          "line": 24
         }
       ],
       "methodsClass": [
@@ -63,13 +63,13 @@
             },
             {
               "name": "styleObj",
-              "type": "Object"
+              "type": "object"
             }
           ],
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 126,
+          "line": 120,
           "modifierKind": [112],
           "jsdoctags": [
             {
@@ -81,7 +81,7 @@
             },
             {
               "name": "styleObj",
-              "type": "Object",
+              "type": "object",
               "tagName": {
                 "text": "param"
               }
@@ -94,7 +94,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 38
+          "line": 33
         },
         {
           "name": "onMouseLeave",
@@ -102,7 +102,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 119
+          "line": 113
         },
         {
           "name": "onMouseMove",
@@ -115,7 +115,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 112,
+          "line": 106,
           "jsdoctags": [
             {
               "name": "event",
@@ -132,7 +132,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 105
+          "line": 99
         }
       ],
       "implements": ["OnInit"],
@@ -157,7 +157,7 @@
             "type": "ComponentFactoryResolver"
           }
         ],
-        "line": 29,
+        "line": 24,
         "jsdoctags": [
           {
             "name": "vc",
@@ -1510,7 +1510,7 @@
         "subtype": "variable",
         "file": "src/stories/common/Tooltip.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n  <ul style=\"display: flex; flex-flow: row wrap; max-width: 80rem; list-style-type: none;\">\n    <li style=\"padding: .5rem\">\n      <cca-common-button cca-common-tooltip=\"Adicionar novo elemento através do uso deste botão completamente acessível\" flat (click)=\"click($event)\">\n        <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        <ng-container slot=\"text\">nova</ng-container>\n      </cca-common-button>\n    </li>\n    <li style=\"padding: .5rem\">\n      <cca-common-input cca-common-tooltip=\"Campo de texto\" value=\"\"></cca-common-input>\n    </li>\n  </ul>\n`,\n})"
+        "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n  <ul style=\"display: flex; flex-flow: row wrap; max-width: 80rem; list-style-type: none;\">\n    <li style=\"padding: .5rem\">\n      <cca-common-button ccaCommonTooltip=\"Adicionar novo elemento através do uso deste botão completamente acessível\" flat (click)=\"click($event)\">\n        <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        <ng-container slot=\"text\">nova</ng-container>\n      </cca-common-button>\n    </li>\n    <li style=\"padding: .5rem\">\n      <cca-common-input ccaCommonTooltip=\"Campo de texto\" value=\"\"></cca-common-input>\n    </li>\n  </ul>\n`,\n})"
       },
       {
         "name": "Fill",
@@ -1600,7 +1600,7 @@
           "subtype": "variable",
           "file": "src/stories/common/Tooltip.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n  <ul style=\"display: flex; flex-flow: row wrap; max-width: 80rem; list-style-type: none;\">\n    <li style=\"padding: .5rem\">\n      <cca-common-button cca-common-tooltip=\"Adicionar novo elemento através do uso deste botão completamente acessível\" flat (click)=\"click($event)\">\n        <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        <ng-container slot=\"text\">nova</ng-container>\n      </cca-common-button>\n    </li>\n    <li style=\"padding: .5rem\">\n      <cca-common-input cca-common-tooltip=\"Campo de texto\" value=\"\"></cca-common-input>\n    </li>\n  </ul>\n`,\n})"
+          "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n  <ul style=\"display: flex; flex-flow: row wrap; max-width: 80rem; list-style-type: none;\">\n    <li style=\"padding: .5rem\">\n      <cca-common-button ccaCommonTooltip=\"Adicionar novo elemento através do uso deste botão completamente acessível\" flat (click)=\"click($event)\">\n        <cca-common-icon slot=\"icon\">add</cca-common-icon>\n        <ng-container slot=\"text\">nova</ng-container>\n      </cca-common-button>\n    </li>\n    <li style=\"padding: .5rem\">\n      <cca-common-input ccaCommonTooltip=\"Campo de texto\" value=\"\"></cca-common-input>\n    </li>\n  </ul>\n`,\n})"
         }
       ],
       "src/stories/common/Button.stories.ts": [
