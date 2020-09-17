@@ -1,0 +1,85 @@
+@import '~flexboxgrid/dist/flexboxgrid.min.css';
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/reset.scss';
+
+.checkbox {
+  .cb-selector {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    visibility: inherit;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .cb-label {
+    position: relative;
+    padding-left: 2rem;
+    display: inline-block;
+    min-height: 2rem;
+    margin-bottom: 0.8rem;
+
+    user-select: none;
+
+    font-size: 1.4rem;
+    line-height: 2rem;
+    white-space: pre-line;
+
+    cursor: pointer;
+  }
+
+  .cb-label-text {
+    padding-left: 0.5rem;
+  }
+
+  .cb-label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.6rem;
+    width: 1.6rem;
+    margin: 0.2rem;
+
+    background-color: transparent;
+    border: 1px solid $grey;
+    border-radius: 0.25rem;
+    transition: box-shadow $transition-defs, background $transition-defs;
+  }
+
+  .cb-label::after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 0.76rem;
+    top: 0.5rem;
+    width: 0.5rem;
+    height: 0.8rem;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .cb-selector:focus ~ .cb-label::before {
+    box-shadow: $focus-shadow;
+  }
+
+  .cb-selector:checked ~ .cb-label::after {
+    display: block;
+  }
+
+  .cb-selector:checked ~ .cb-label::before {
+    background: $primary;
+  }
+
+  .cb-label:hover::before {
+    background-color: $light-grey;
+  }
+}

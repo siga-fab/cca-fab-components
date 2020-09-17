@@ -1,1 +1,16 @@
-<p>checkbox works!</p>
+<div class="checkbox">
+  <input
+    class="cb-selector"
+    type="checkbox"
+    [id]="id"
+    [checked]="checked"
+    [name]="name"
+    [value]="value"
+    [disabled]="disabled"
+    [attr.aria-checked]="checked"
+    (click)="onClick()"
+  />
+  <label class="cb-label" [for]="id">
+    <span class="cb-label-text"><ng-content></ng-content></span>
+  </label>
+</div>
