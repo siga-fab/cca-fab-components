@@ -16,6 +16,6 @@ export const Default = () => ({
   template: `
     <cca-common-checkbox>This is a checkbox!</cca-common-checkbox>
     <cca-common-checkbox>This is a checkbox!</cca-common-checkbox>
-    <cca-common-checkbox>This is a checkbox!</cca-common-checkbox>
+    <cca-common-checkbox disabled="true">This is a checkbox!</cca-common-checkbox>
   `,
 });

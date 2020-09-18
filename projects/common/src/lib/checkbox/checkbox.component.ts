@@ -8,24 +8,23 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class CheckboxComponent implements OnInit {
   static checkboxCount = 0;
 
+  @Input() name = '';
+  @Input() checked = false;
+  @Input() disabled = false;
+  @Input() id = `checkbox-${CheckboxComponent.checkboxCount++}__input`;
+
   @Input() value: string;
-  @Input() name: string;
-  @Input() checked: boolean;
-  @Input() disabled: boolean;
-  @Input() id = `checkbox-${CheckboxComponent.checkboxCount}__input`;
 
-  @Output() toggle = new EventEmitter<boolean>();
+  @Output() changed = new EventEmitter<boolean>();
 
-  constructor() {
-    CheckboxComponent.checkboxCount++;
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 
-  onClick(): void {
+  onChange(): void {
     if (!this.disabled) {
       this.checked = !this.checked;
-      this.toggle.emit(this.checked);
+      this.changed.emit(this.checked);
     }
   }
 }

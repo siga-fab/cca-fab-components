@@ -8,7 +8,7 @@
     [value]="value"
     [disabled]="disabled"
     [attr.aria-checked]="checked"
-    (click)="onClick()"
+    (change)="onChange()"
   />
   <label class="cb-label" [for]="id">
     <span class="cb-label-text"><ng-content></ng-content></span>

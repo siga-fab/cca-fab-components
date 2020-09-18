@@ -75,11 +75,16 @@
     display: block;
   }
 
+  .cb-selector:not(:disabled):not(:checked) ~ .cb-label:hover::before {
+    background: $light-grey;
+  }
+
   .cb-selector:checked ~ .cb-label::before {
     background: $primary;
   }
 
-  .cb-label:hover::before {
-    background-color: $light-grey;
+  .cb-selector:disabled ~ .cb-label::before,
+  .cb-selector:disabled ~ .cb-label > .cb-label-text {
+    opacity: 0.2;
   }
 }
