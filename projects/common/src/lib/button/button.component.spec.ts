@@ -30,13 +30,15 @@ describe('ButtonComponent', () => {
   it('should properly trigger animation on button click', fakeAsync(() => {
     const onClickSpy = jest.spyOn(component, 'onClick');
 
+    const button = fixture.debugElement.nativeElement.querySelector('button');
+
     // first click on btn should trigger the animation
     component.animate = false;
-    component.onClick();
+    button.click();
     expect(component.animate).toBeTruthy();
 
     // click again should do nothing since the animation has not yet ended
-    component.onClick();
+    button.click();
 
     // after the defined animation time, should reset
     tick(component.animateMsTime);
