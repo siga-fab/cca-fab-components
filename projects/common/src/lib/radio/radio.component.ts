@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Event } from '@angular/router';
 
 @Component({
   selector: 'cca-common-radio',
@@ -28,10 +27,12 @@ export class RadioComponent implements OnInit {
   ngOnInit(): void {}
 
   onChange(e): void {
-    this.checked = (e.target as HTMLInputElement).checked;
-    this.changed.emit(this.checked);
-    if (this.checked) {
-      this.radioChangeHandler(this.value);
+    if (!this.disabled) {
+      this.checked = (e.target as HTMLInputElement).checked;
+      this.changed.emit(this.checked);
+      if (this.checked) {
+        this.radioChangeHandler(this.value);
+      }
     }
   }
 

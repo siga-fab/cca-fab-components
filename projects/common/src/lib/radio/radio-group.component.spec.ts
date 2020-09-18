@@ -21,4 +21,6 @@ describe('RadioGroupComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // TODO: Coverage and statement tests
 });
