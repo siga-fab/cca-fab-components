@@ -1,0 +1,16 @@
+<div class="radio">
+  <input
+    class="rd-selector"
+    type="radio"
+    [id]="id"
+    [checked]="checked"
+    [name]="name"
+    [value]="value"
+    [disabled]="disabled"
+    [attr.aria-checked]="checked"
+    (change)="onChange($event)"
+  />
+  <label class="rd-label" [for]="id">
+    <span class="rd-label-text"><ng-content></ng-content></span>
+  </label>
+</div>

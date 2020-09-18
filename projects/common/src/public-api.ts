@@ -45,6 +45,6 @@ export * from './lib/checkbox/checkbox.component';
 export * from './lib/checkbox/checkbox.module';
 
 // Radio
-export * from './lib/radio/radio-button-group.component';
-export * from './lib/radio/radio-button.component';
+export * from './lib/radio/radio-group.component';
+export * from './lib/radio/radio.component';
 export * from './lib/radio/radio.module';

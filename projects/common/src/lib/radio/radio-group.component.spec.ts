@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RadioButtonGroupComponent } from './radio-button-group.component';
+import { RadioGroupComponent } from './radio-group.component';
 
-describe('RadioButtonGroupComponent', () => {
-  let component: RadioButtonGroupComponent;
-  let fixture: ComponentFixture<RadioButtonGroupComponent>;
+describe('RadioGroupComponent', () => {
+  let component: RadioGroupComponent;
+  let fixture: ComponentFixture<RadioGroupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RadioButtonGroupComponent],
+      declarations: [RadioGroupComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RadioButtonGroupComponent);
+    fixture = TestBed.createComponent(RadioGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
