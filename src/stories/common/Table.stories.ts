@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
 
 export default {
   title: 'Common | Table',
-  component: TableComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, TableModule, InputModule],
