@@ -16,7 +16,7 @@ export default {
   ],
 };
 
-export const Styles = () => ({
+export const Default = () => ({
   template: `
     <div style="width: 30rem; height: 40rem;">
       <cca-common-card>
