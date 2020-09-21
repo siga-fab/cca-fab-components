@@ -9,6 +9,7 @@ import {
   ContentChild,
   TemplateRef,
   ElementRef,
+  ViewEncapsulation,
 } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 
@@ -71,7 +72,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.showActions = !!this.actionWrapper.nativeElement.children.length;
   }
 
-  private updateButtonsState(
+  updateButtonsState(
     buttonList: Array<'next' | 'previous' | 'lastPage' | 'firstPage'>,
     value: boolean
   ) {
@@ -80,7 +81,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private toggleButtons() {
+  toggleButtons() {
     if (this.pageIndex > this.totalPages) {
       this.pageIndex = this.totalPages;
     }
@@ -139,17 +140,16 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.refresh.emit(this.pageIndex);
   }
 
-  onPageIndexChange(pageIndex: number) {
-    console.log(pageIndex);
-    this.pageIndex = pageIndex;
+  onPageIndexChange(pageIndex: string) {
+    this.pageIndex = parseInt(pageIndex, 10);
     this.toggleButtons();
-    this.pageIndexChange.emit(pageIndex);
+    this.pageIndexChange.emit(this.pageIndex);
   }
 
-  onPageSizeChange(pageSize: number) {
-    this.pageSize = pageSize;
-    this.totalPages = Math.ceil(this.totalEntries / pageSize);
+  onPageSizeChange(pageSize: string) {
+    this.pageSize = parseInt(pageSize, 10);
+    this.totalPages = Math.ceil(this.totalEntries / parseInt(pageSize, 10));
     this.toggleButtons();
-    this.pageSizeChange.emit(pageSize);
+    this.pageSizeChange.emit(this.pageSize);
   }
 }

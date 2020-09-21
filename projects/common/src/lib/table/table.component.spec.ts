@@ -129,6 +129,18 @@ describe('TableComponent', () => {
     expect(onRefreshSpy).toHaveBeenCalled();
   });
 
+  it('should not emit refresh with a keyboard event', () => {
+    const MOCK_EVENT = new KeyboardEvent(null, { key: 'Escape' });
+    const onRefreshSpy = jest.spyOn(component, 'onRefresh');
+
+    component.refresh.subscribe((res) => {
+      expect(res).toBe(component.pageIndex);
+    });
+
+    component.onRefresh(MOCK_EVENT);
+    expect(onRefreshSpy).toHaveBeenCalled();
+  });
+
   it('should emit pageIndexChange', () => {
     const onPageIndexChangeSpy = jest.spyOn(component, 'onPageIndexChange');
     const NEW_INDEX = component.totalPages / 2;
@@ -137,7 +149,7 @@ describe('TableComponent', () => {
       expect(res).toBe(NEW_INDEX);
     });
 
-    component.onPageIndexChange(NEW_INDEX);
+    component.onPageIndexChange(String(NEW_INDEX));
     expect(onPageIndexChangeSpy).toHaveBeenCalled();
   });
 
@@ -149,7 +161,21 @@ describe('TableComponent', () => {
       expect(res).toBe(NEW_PAGE_SIZE);
     });
 
-    component.onPageSizeChange(NEW_PAGE_SIZE);
+    component.onPageSizeChange(String(NEW_PAGE_SIZE));
     expect(onPageSizeChangeSpy).toHaveBeenCalled();
+  });
+
+  it('should set page index equals to last page index when page index is bigger', () => {
+    const CURRENT_INDEX = 5;
+    const TOTAL_PAGES = 3;
+    const toggleButtonsSpy = jest.spyOn(component, 'toggleButtons');
+
+    component.pageIndex = CURRENT_INDEX;
+    component.totalPages = TOTAL_PAGES;
+
+    component.toggleButtons();
+
+    expect(toggleButtonsSpy).toHaveBeenCalled();
+    expect(component.pageIndex).toBe(component.totalPages);
   });
 });

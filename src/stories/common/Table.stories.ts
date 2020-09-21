@@ -62,7 +62,7 @@ export const Default = () => ({
     refresh: action('refresh'),
     pageSizeChange: action('pageSizeChange'),
     pageIndexChange: action('pageIndexChange'),
-    pageSize: 10,
+    pageSize: 20,
     maxPageSize: 200,
     pageIndex: 20,
     totalEntries: 200,

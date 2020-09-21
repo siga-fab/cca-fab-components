@@ -6,17 +6,22 @@
   "directives": [
     {
       "name": "TooltipDirective",
-      "id": "directive-TooltipDirective-7858cae7fbf97208996764b7332922f5",
+      "id": "directive-TooltipDirective-1835f25be58ad1fb3498da1e18fc34f8",
       "file": "projects/common/src/lib/tooltip/tooltip.directive.ts",
       "type": "directive",
       "description": "",
-      "sourceCode": "import {\n  Directive,\n  ElementRef,\n  Input,\n  Renderer2,\n  ViewContainerRef,\n  ComponentFactoryResolver,\n  ComponentRef,\n  OnInit\n} from '@angular/core';\nimport { IconComponent } from '../icon/icon.component';\n\n@Directive({\n  selector: '[ccaCommonTooltip]',\n})\nexport class TooltipDirective implements OnInit {\n  @Input('ccaCommonTooltip') text: string;\n\n  targetElement: HTMLElement;\n\n  tooltipElement: HTMLElement;\n  tooltipComponent: ComponentRef<IconComponent>;\n\n  tooltipInfoElement: HTMLLabelElement;\n\n  constructor(\n    private vc: ViewContainerRef,\n    private targetElementRef: ElementRef,\n    private renderer: Renderer2,\n    private factory: ComponentFactoryResolver\n  ) {}\n\n  ngOnInit() {\n    // Inicializa fábrica de componentes para criar ícone\n    const factory = this.factory.resolveComponentFactory(IconComponent);\n    // Salva referência do elemento pai do elemento que está usando a diretiva\n    const { parentElement } = this.vc.element.nativeElement;\n    // Salva referência do elemento alvo\n    this.targetElement = this.targetElementRef.nativeElement;\n    // Cria componente de ícone\n    this.tooltipComponent = this.vc.createComponent(factory, 0, null, [\n      [document.createTextNode('help_outline')],\n    ]);\n\n    this.tooltipElement = this.tooltipComponent.location.nativeElement;\n\n    // Necessário para que os elementos estejam posicionados lado a lado\n    this.applyStyle(this.targetElement, { display: 'inline-block' });\n\n    this.applyStyle(this.tooltipElement, {\n      display: 'inline-block',\n      color: '#dadada',\n      cursor: 'pointer',\n      marginLeft: '.5rem',\n    });\n\n    this.tooltipElement.addEventListener(\n      'mouseenter',\n      this.onMouseOver.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mouseleave',\n      this.onMouseLeave.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mousemove',\n      this.onMouseMove.bind(this)\n    );\n\n    this.tooltipInfoElement = document.createElement('label');\n\n    if (this.tooltipElement.id) {\n      this.tooltipInfoElement.htmlFor = this.tooltipElement.id;\n    }\n\n    this.applyStyle(this.tooltipInfoElement, {\n      background: '#202124', // black - colors.scss\n      borderRadius: '5px',\n      color: '#fff',\n      fontFamily: 'Cabin',\n      fontSize: '1.2rem',\n      padding: '1.2rem 1.5rem',\n      position: 'fixed',\n      left: '0',\n      top: '0',\n      transition: 'opacity ease-in-out .15s, visibility .15s',\n      opacity: '0',\n      visibility: 'hidden',\n      zIndex: '99',\n      maxWidth: '256px',\n      textAlign: 'center',\n    });\n\n    this.tooltipInfoElement.innerText = this.text;\n\n    this.renderer.appendChild(parentElement, this.tooltipInfoElement);\n  }\n\n  onMouseOver(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '1',\n      visibility: 'visible',\n    });\n  }\n\n  onMouseMove(event: MouseEvent): void {\n    const { clientX, clientY } = event;\n    this.tooltipInfoElement.style.transform = `translate(${clientX + 16}px, ${\n      clientY + 16\n    }px)`;\n  }\n\n  onMouseLeave(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '0',\n      visibility: 'hidden',\n    });\n  }\n\n  private applyStyle(element: HTMLElement, styleObj: object) {\n    /* tslint:disable */\n    for (const style in styleObj) {\n      element.style[style] = styleObj[style];\n    }\n    /* tslint:enable\n     */\n  }\n}\n",
+      "sourceCode": "import {\n  Directive,\n  ElementRef,\n  Input,\n  Renderer2,\n  ViewContainerRef,\n  ComponentFactoryResolver,\n  ComponentRef,\n  OnInit,\n} from '@angular/core';\nimport { IconComponent } from '../icon/icon.component';\n\n@Directive({\n  selector: '[ccaCommonTooltip]',\n})\nexport class TooltipDirective implements OnInit {\n  @Input('ccaCommonTooltip') public text: string;\n\n  /* tslint:disable-next-line:no-input-rename */\n  @Input('tooltipPosition') public tooltipPosition: string;\n\n  targetElement: HTMLElement;\n\n  tooltipElement: HTMLElement;\n  tooltipComponent: ComponentRef<IconComponent>;\n\n  tooltipInfoElement: HTMLLabelElement;\n\n  private DEFAULT_POSITION = 'bottom-right';\n  private getX: (x: number) => {};\n  private getY: (y: number) => {};\n\n  private positionMap = {\n    'bottom-right': {\n      x: (x: number) => x + 16,\n      y: (y: number) => y + 16,\n    },\n\n    'bottom-left': {\n      x: (x: number) => x - 16 - this.tooltipInfoElement.clientWidth,\n      y: (y: number) => y + 16,\n    },\n\n    'top-left': {\n      x: (x: number) => x - 16 - this.tooltipInfoElement.clientWidth,\n      y: (y: number) => y - 16 - this.tooltipInfoElement.clientHeight,\n    },\n\n    'top-right': {\n      x: (x: number) => x + 16,\n      y: (y: number) => y - 16 - this.tooltipInfoElement.clientHeight,\n    },\n  };\n\n  constructor(\n    private vc: ViewContainerRef,\n    private targetElementRef: ElementRef,\n    private renderer: Renderer2,\n    private factory: ComponentFactoryResolver\n  ) {}\n\n  ngOnInit() {\n    // Inicializa fábrica de componentes para criar ícone\n    const factory = this.factory.resolveComponentFactory(IconComponent);\n    // Salva referência do elemento pai do elemento que está usando a diretiva\n    const { parentElement } = this.vc.element.nativeElement;\n    // Salva referência do elemento alvo\n    this.targetElement = this.targetElementRef.nativeElement;\n    // Cria componente de ícone\n    this.tooltipComponent = this.vc.createComponent(factory, 0, null, [\n      [document.createTextNode('help_outline')],\n    ]);\n\n    this.tooltipElement = this.tooltipComponent.location.nativeElement;\n\n    // Necessário para que os elementos estejam posicionados lado a lado\n    this.applyStyle(this.targetElement, { display: 'inline-block' });\n\n    this.applyStyle(this.tooltipElement, {\n      display: 'inline-block',\n      color: '#80868d',\n      cursor: 'pointer',\n      marginLeft: '.5rem',\n    });\n\n    this.tooltipElement.addEventListener(\n      'mouseenter',\n      this.onMouseOver.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mouseleave',\n      this.onMouseLeave.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mousemove',\n      this.onMouseMove.bind(this)\n    );\n\n    this.tooltipInfoElement = document.createElement('label');\n\n    if (this.tooltipElement.id) {\n      this.tooltipInfoElement.htmlFor = this.tooltipElement.id;\n    }\n\n    this.applyStyle(this.tooltipInfoElement, {\n      background: '#202124', // black - colors.scss\n      borderRadius: '5px',\n      color: '#fff',\n      fontFamily: 'Cabin',\n      fontSize: '1.2rem',\n      padding: '1.2rem 1.5rem',\n      position: 'fixed',\n      left: '0',\n      top: '0',\n      transition: 'opacity ease-in-out .15s, visibility .15s',\n      opacity: '0',\n      visibility: 'hidden',\n      zIndex: '99',\n      maxWidth: '256px',\n      textAlign: 'center',\n    });\n\n    this.tooltipInfoElement.innerText = this.text;\n\n    this.getX = this.positionMap[\n      this.tooltipPosition || this.DEFAULT_POSITION\n    ].x;\n    this.getY = this.positionMap[\n      this.tooltipPosition || this.DEFAULT_POSITION\n    ].y;\n\n    console.log(parentElement)\n\n    this.renderer.appendChild(parentElement, this.tooltipInfoElement);\n  }\n\n  onMouseOver(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '1',\n      visibility: 'visible',\n    });\n  }\n\n  onMouseMove(event: MouseEvent): void {\n    const { clientX, clientY } = event;\n\n    this.tooltipInfoElement.style.transform = `translate(${this.getX(\n      clientX\n    )}px, ${this.getY(clientY)}px)`;\n  }\n\n  onMouseLeave(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '0',\n      visibility: 'hidden',\n    });\n  }\n\n  private applyStyle(element: HTMLElement, styleObj: object) {\n    /* tslint:disable */\n    for (const style in styleObj) {\n      element.style[style] = styleObj[style];\n    }\n    /* tslint:enable\n     */\n  }\n}\n",
       "selector": "[ccaCommonTooltip]",
       "providers": [],
       "inputsClass": [
         {
           "name": "ccaCommonTooltip",
           "line": 17,
+          "type": "string"
+        },
+        {
+          "name": "tooltipPosition",
+          "line": 20,
           "type": "string"
         }
       ],
@@ -25,32 +30,66 @@
       "hostListeners": [],
       "propertiesClass": [
         {
+          "name": "DEFAULT_POSITION",
+          "defaultValue": "'bottom-right'",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 29,
+          "modifierKind": [112]
+        },
+        {
+          "name": "getX",
+          "type": "function",
+          "optional": false,
+          "description": "",
+          "line": 30,
+          "modifierKind": [112]
+        },
+        {
+          "name": "getY",
+          "type": "function",
+          "optional": false,
+          "description": "",
+          "line": 31,
+          "modifierKind": [112]
+        },
+        {
+          "name": "positionMap",
+          "defaultValue": "{\n    'bottom-right': {\n      x: (x: number) => x + 16,\n      y: (y: number) => y + 16,\n    },\n\n    'bottom-left': {\n      x: (x: number) => x - 16 - this.tooltipInfoElement.clientWidth,\n      y: (y: number) => y + 16,\n    },\n\n    'top-left': {\n      x: (x: number) => x - 16 - this.tooltipInfoElement.clientWidth,\n      y: (y: number) => y - 16 - this.tooltipInfoElement.clientHeight,\n    },\n\n    'top-right': {\n      x: (x: number) => x + 16,\n      y: (y: number) => y - 16 - this.tooltipInfoElement.clientHeight,\n    },\n  }",
+          "type": "object",
+          "optional": false,
+          "description": "",
+          "line": 33,
+          "modifierKind": [112]
+        },
+        {
           "name": "targetElement",
           "type": "HTMLElement",
           "optional": false,
           "description": "",
-          "line": 19
+          "line": 22
         },
         {
           "name": "tooltipComponent",
           "type": "ComponentRef<IconComponent>",
           "optional": false,
           "description": "",
-          "line": 22
+          "line": 25
         },
         {
           "name": "tooltipElement",
           "type": "HTMLElement",
           "optional": false,
           "description": "",
-          "line": 21
+          "line": 24
         },
         {
           "name": "tooltipInfoElement",
           "type": "HTMLLabelElement",
           "optional": false,
           "description": "",
-          "line": 24
+          "line": 27
         }
       ],
       "methodsClass": [
@@ -69,7 +108,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 120,
+          "line": 159,
           "modifierKind": [112],
           "jsdoctags": [
             {
@@ -94,7 +133,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 33
+          "line": 62
         },
         {
           "name": "onMouseLeave",
@@ -102,7 +141,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 113
+          "line": 152
         },
         {
           "name": "onMouseMove",
@@ -115,7 +154,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 106,
+          "line": 144,
           "jsdoctags": [
             {
               "name": "event",
@@ -132,7 +171,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 99
+          "line": 137
         }
       ],
       "implements": ["OnInit"],
@@ -157,7 +196,7 @@
             "type": "ComponentFactoryResolver"
           }
         ],
-        "line": 24,
+        "line": 53,
         "jsdoctags": [
           {
             "name": "vc",
@@ -589,7 +628,7 @@
     },
     {
       "name": "InputComponent",
-      "id": "component-InputComponent-de60793506d6b0e90e975e050214520a",
+      "id": "component-InputComponent-0b67451a2bc8e7498d6b7b58561c0d58",
       "file": "projects/common/src/lib/input/input.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -613,6 +652,11 @@
           "line": 53
         },
         {
+          "name": "label",
+          "defaultValue": "''",
+          "line": 55
+        },
+        {
           "name": "max",
           "line": 52,
           "type": "number"
@@ -621,6 +665,11 @@
           "name": "min",
           "line": 51,
           "type": "number"
+        },
+        {
+          "name": "placeholder",
+          "defaultValue": "''",
+          "line": 54
         },
         {
           "name": "step",
@@ -634,21 +683,21 @@
         },
         {
           "name": "value",
-          "line": 47,
-          "type": "number"
+          "defaultValue": "''",
+          "line": 47
         }
       ],
       "outputsClass": [
         {
           "name": "confirm",
           "defaultValue": "new EventEmitter()",
-          "line": 55,
+          "line": 57,
           "type": "EventEmitter"
         },
         {
           "name": "ref",
           "defaultValue": "new EventEmitter()",
-          "line": 56,
+          "line": 58,
           "type": "EventEmitter"
         }
       ],
@@ -658,7 +707,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 58,
+          "line": 60,
           "decorators": [
             {
               "name": "ViewChild",
@@ -671,7 +720,7 @@
           "type": "any",
           "optional": false,
           "description": "",
-          "line": 60,
+          "line": 62,
           "modifierKind": [112]
         },
         {
@@ -680,7 +729,7 @@
           "type": "number",
           "optional": false,
           "description": "",
-          "line": 61,
+          "line": 63,
           "modifierKind": [112]
         },
         {
@@ -688,7 +737,7 @@
           "type": "any",
           "optional": false,
           "description": "",
-          "line": 65,
+          "line": 67,
           "decorators": [
             {
               "name": "Optional",
@@ -706,7 +755,7 @@
           "type": "any",
           "optional": false,
           "description": "",
-          "line": 64,
+          "line": 66,
           "decorators": [
             {
               "name": "Optional",
@@ -727,7 +776,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 87,
+          "line": 99,
           "modifierKind": [112]
         },
         {
@@ -741,7 +790,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 77,
+          "line": 79,
           "jsdoctags": [
             {
               "name": "value",
@@ -758,7 +807,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 73
+          "line": 75
         },
         {
           "name": "ngOnInit",
@@ -766,7 +815,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 71
+          "line": 73
         },
         {
           "name": "onKeyDown",
@@ -777,9 +826,9 @@
             }
           ],
           "optional": false,
-          "returnType": "void",
+          "returnType": "boolean",
           "typeParameters": [],
-          "line": 97,
+          "line": 109,
           "jsdoctags": [
             {
               "name": "event",
@@ -796,24 +845,25 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 93
+          "line": 105
         },
         {
           "name": "rangedValue",
           "args": [
             {
-              "name": "event",
-              "type": "Event"
+              "name": "el",
+              "type": "HTMLInputElement"
             }
           ],
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 103,
+          "line": 122,
+          "modifierKind": [112],
           "jsdoctags": [
             {
-              "name": "event",
-              "type": "Event",
+              "name": "el",
+              "type": "HTMLInputElement",
               "tagName": {
                 "text": "param"
               }
@@ -821,7 +871,7 @@
           ]
         },
         {
-          "name": "updateValue",
+          "name": "updateNumberValue",
           "args": [
             {
               "name": "event",
@@ -835,7 +885,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 117,
+          "line": 148,
           "jsdoctags": [
             {
               "name": "event",
@@ -852,6 +902,28 @@
               }
             }
           ]
+        },
+        {
+          "name": "updateValue",
+          "args": [
+            {
+              "name": "event",
+              "type": "Event"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 143,
+          "jsdoctags": [
+            {
+              "name": "event",
+              "type": "Event",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
         }
       ],
       "hostBindings": [],
@@ -859,11 +931,11 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import { trigger, transition, animate, style } from '@angular/animations';\nimport { AfterViewInit } from '@angular/core';\nimport {\n  Attribute,\n  Component,\n  Input,\n  OnInit,\n  Optional,\n  Output,\n  EventEmitter,\n  ViewChild,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n  animations: [\n    trigger('fadeInOut', [\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 1,\n          })\n        ),\n      ]),\n\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 0,\n          })\n        ),\n      ]),\n    ]),\n  ],\n})\nexport class InputComponent implements OnInit, AfterViewInit {\n  @Input() value: number;\n  @Input() type = 'text';\n  @Input() disabled = false;\n  @Input() step = 1;\n  @Input() min: number;\n  @Input() max: number;\n  @Input() focus = false;\n\n  @Output() confirm = new EventEmitter();\n  @Output() ref = new EventEmitter();\n\n  @ViewChild('input') input;\n\n  private numberInterval: any;\n  private numberIntervalCounter = 1;\n\n  constructor(\n    @Optional() @Attribute('textCenter') public textCenter: any,\n    @Optional() @Attribute('slim') public slim: any\n  ) {\n    this.textCenter = textCenter !== null;\n    this.slim = slim !== null;\n  }\n\n  ngOnInit(): void {}\n\n  ngAfterViewInit(): void {\n    this.ref.emit(this.input.nativeElement);\n  }\n\n  isFocused(value: boolean) {\n    this.focus = value;\n    if (!value) {\n      this.confirm.emit(this.value);\n      if (this.numberInterval) {\n        this.clearNumberInterval();\n      }\n    }\n  }\n\n  private clearNumberInterval() {\n    clearInterval(this.numberInterval);\n    this.numberInterval = null;\n    this.numberIntervalCounter = 1;\n  }\n\n  onMouseUp() {\n    this.clearNumberInterval();\n  }\n\n  onKeyDown(event: KeyboardEvent) {\n    if (event.key === 'Enter') {\n      this.confirm.emit(this.value);\n    }\n  }\n\n  rangedValue(event: Event) {\n    const el = event.target as HTMLInputElement;\n    const value = parseInt(el.value, 10);\n\n    if (this.type === 'number') {\n      this.value =\n        this.max && this.min\n          ? Math.max(Math.min(this.max, value), this.min)\n          : parseInt(el.value, 10);\n\n      el.value = String(this.value);\n    }\n  }\n\n  updateValue(event: Event, operation: 'add' | 'sub') {\n    // Impede remoção do foco do input\n    event.preventDefault();\n    const step = operation === 'add' ? +this.step : -this.step;\n\n    // Atualiza o valor imediatamente\n    this.value =\n      this.max && this.min\n        ? Math.max(Math.min(this.max, this.value + step), this.min)\n        : this.value + step;\n\n    // Cria intervalo onde (depois de um delay de 500ms) atualiza o valor do input a cada 50ms\n    this.numberInterval = setInterval(() => {\n      if (this.numberIntervalCounter > 10) {\n        // Garante o delay de 500ms (50 do intervalo, e 10 das iterações com contador menor que 10)\n        this.value =\n          this.max && this.min\n            ? Math.max(Math.min(this.max, this.value + step), this.min)\n            : this.value + step;\n      }\n      ++this.numberIntervalCounter;\n    }, 50);\n  }\n}\n",
+      "sourceCode": "import { trigger, transition, animate, style } from '@angular/animations';\nimport { AfterViewInit } from '@angular/core';\nimport {\n  Attribute,\n  Component,\n  Input,\n  OnInit,\n  Optional,\n  Output,\n  EventEmitter,\n  ViewChild,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n  animations: [\n    trigger('fadeInOut', [\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 1,\n          })\n        ),\n      ]),\n\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 0,\n          })\n        ),\n      ]),\n    ]),\n  ],\n})\nexport class InputComponent implements OnInit, AfterViewInit {\n  @Input() value = '';\n  @Input() type = 'text';\n  @Input() disabled = false;\n  @Input() step = 1;\n  @Input() min: number;\n  @Input() max: number;\n  @Input() focus = false;\n  @Input() placeholder = '';\n  @Input() label = '';\n\n  @Output() confirm = new EventEmitter();\n  @Output() ref = new EventEmitter();\n\n  @ViewChild('input') input;\n\n  private numberInterval: any;\n  private numberIntervalCounter = 1;\n\n  constructor(\n    @Optional() @Attribute('textCenter') public textCenter: any,\n    @Optional() @Attribute('slim') public slim: any\n  ) {\n    this.textCenter = textCenter !== null;\n    this.slim = slim !== null;\n  }\n\n  ngOnInit(): void {}\n\n  ngAfterViewInit(): void {\n    this.ref.emit(this.input.nativeElement);\n  }\n\n  isFocused(value: boolean) {\n    this.focus = value;\n\n    if (!value) {\n\n      if(this.type === 'number'){\n        this.rangedValue(this.input.nativeElement)\n      }\n      this.input.nativeElement.placeholder = ''\n      this.confirm.emit(this.value);\n      if (this.numberInterval) {\n        this.clearNumberInterval();\n      }\n    } else {\n      if(this.placeholder){\n        this.input.nativeElement.placeholder = this.placeholder\n      }\n    }\n  }\n\n  private clearNumberInterval() {\n    clearInterval(this.numberInterval);\n    this.numberInterval = null;\n    this.numberIntervalCounter = 1;\n  }\n\n  onMouseUp() {\n    this.clearNumberInterval();\n  }\n\n  onKeyDown(event: KeyboardEvent) {\n    if(this.type === 'number' && (event.key == '+' || event.key == 'e') ) {\n      return false\n    }\n\n    if (event.key === 'Enter') {\n      if(this.type === 'number'){\n        this.rangedValue(this.input.nativeElement)\n      }\n      this.confirm.emit(this.value);\n    }\n  }\n\n  private rangedValue(el: HTMLInputElement) {\n    let value = parseInt(el.value, 10);\n\n    if(Number.isNaN(value)){\n      value = this.min || 0;\n    }\n\n    if (this.type === 'number') {\n\n      if(this.max){\n        value = Math.min(this.max, value)\n      }\n\n      if(this.min){\n        value = Math.max(this.min, value)\n      }\n\n      this.value = el.value = String(value)\n    }\n  }\n\n  updateValue(event: Event){\n    const el = (<HTMLInputElement>event.target);\n    this.value = el.value;\n  }\n\n  updateNumberValue(event: Event, operation: 'add' | 'sub') {\n    // Impede remoção do foco do input\n    event.preventDefault();\n\n    const step = operation === 'add' ? +this.step : -this.step;\n    let value = parseInt(this.value, 10) || 0;\n\n    value += step;\n\n    if(this.max) {\n      value = Math.min(this.max, value)\n    }\n\n    if(this.min) {\n      value = Math.max(this.min, value)\n    }\n\n    this.value = String(value)\n\n    // Cria intervalo onde (depois de um delay de 500ms) atualiza o valor do input a cada 50ms\n    this.numberInterval = setInterval(() => {\n      if (this.numberIntervalCounter > 10) {\n        // Garante o delay de 500ms (50 do intervalo, e 10 das iterações com contador menor que 10)\n        let value = parseInt(this.value, 10) || 0;\n\n        value += step;\n\n        if(this.max) {\n          value = Math.min(this.max, value)\n        }\n\n        if(this.min) {\n          value = Math.max(this.min, value)\n        }\n\n        this.value = String(value)\n      }\n      ++this.numberIntervalCounter;\n    }, 50);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "@import '../../assets/scss/colors.scss';\n@import '../../assets/scss/variables.scss';\n\n:host {\n  position: relative;\n  display: inline-block;\n\n  input[type] {\n    color: $grey;\n    font-family: Cabin;\n    font-size: 1.4rem;\n\n    width: 100%;\n\n    border-radius: 0.5rem;\n    border: 1px solid $light-grey;\n    height: 3.6rem;\n\n    &.center {\n      text-align: center;\n    }\n\n    &.slim {\n      height: 2.4rem;\n    }\n\n    transition: box-shadow 0.1s ease-in-out;\n\n    &:focus {\n      box-shadow: $focus-shadow;\n      outline: 0;\n    }\n\n    &[type='number']::-webkit-outer-spin-button,\n    &[type='number']::-webkit-inner-spin-button {\n      -webkit-appearance: none;\n      margin: 0;\n    }\n\n    &[type='number'] {\n      -moz-appearance: textfield;\n    }\n  }\n\n  .number-minus,\n  .number-plus {\n    position: absolute;\n    left: calc(50% - 12px);\n    cursor: pointer;\n  }\n\n  .number-minus {\n    bottom: -2.5rem;\n  }\n\n  .number-plus {\n    top: -2.5rem;\n  }\n}\n",
+          "data": "@import '../../assets/scss/colors.scss';\n@import '../../assets/scss/variables.scss';\n\n:host {\n  background: inherit;\n  position: relative;\n  display: inline-block;\n\n  label {\n    color: $grey;\n    user-select: none;\n    pointer-events: none;\n    padding: 0 .5rem;\n    position: absolute;\n    top: 1rem;\n    left: 1.3rem;\n    background-color: inherit;\n    transition: transform .15s ease-in-out, font-size .15s ease-in-out, color .15s ease-in-out;\n\n    &.focused {\n      transform: translate(-.5rem,-1.8rem);\n      font-size: 1.2rem;\n      color: $tertiary;\n    }\n\n    &.colored {\n      color: $grey;\n      &.focused {\n        color: $light-grey\n      }\n    }\n  }\n\n  input[type] {\n    background: transparent;\n    padding: .5rem 1.8rem;\n    color: $grey;\n    font-family: Cabin;\n    font-size: 1.4rem;\n\n    width: 100%;\n\n    border-radius: 0.5rem;\n    border: 1px solid $light-grey;\n    height: 3.6rem;\n\n    &.center {\n      text-align: center;\n    }\n\n    &.slim {\n      height: 2.4rem;\n    }\n\n    transition: border 0.15s ease-in-out;\n\n    &:focus {\n      border: 1px solid $tertiary;\n      outline: 0;\n      caret-color: $tertiary;\n    }\n\n    &[type='number']::-webkit-outer-spin-button,\n    &[type='number']::-webkit-inner-spin-button {\n      -webkit-appearance: none;\n      margin: 0;\n    }\n\n    &[type='number'] {\n      -moz-appearance: textfield;\n    }\n\n    &[type='date'] {\n      cursor: text;\n    }\n\n  }\n\n  .number-minus,\n  .number-plus {\n    position: absolute;\n    left: calc(50% - 12px);\n    cursor: pointer;\n  }\n\n  .number-minus {\n    bottom: -2.5rem;\n  }\n\n  .number-plus {\n    top: -2.5rem;\n  }\n}\n",
           "styleUrl": "./input.component.scss"
         }
       ],
@@ -881,7 +953,7 @@
             "type": "any"
           }
         ],
-        "line": 61,
+        "line": 63,
         "jsdoctags": [
           {
             "name": "textCenter",
@@ -900,11 +972,11 @@
         ]
       },
       "implements": ["OnInit", "AfterViewInit"],
-      "templateData": "<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateValue($event, 'add')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-plus\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon>expand_less</cca-common-icon>\n</div>\n\n<input\n  #input\n  tabindex=\"0\"\n  [min]=\"min\"\n  [max]=\"max\"\n  [step]=\"step\"\n  [type]=\"type\"\n  [value]=\"value\"\n  [ngClass]=\"{ center: textCenter, slim: slim }\"\n  [disabled]=\"disabled\"\n  (focus)=\"isFocused(true)\"\n  (blur)=\"isFocused(false)\"\n  (keyup)=\"rangedValue($event)\"\n  (keydown)=\"onKeyDown($event)\"\n/>\n\n<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateValue($event, 'sub')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-minus\"\n  [ngClass]=\"{ slim: slim }\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon>expand_more</cca-common-icon>\n</div>\n"
+      "templateData": "<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateNumberValue($event, 'add')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-plus\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon color=\"#3399ff\">expand_less</cca-common-icon>\n</div>\n\n<label *ngIf=\"label\" [ngClass]=\"{focused: (focus && !value) || value || type === 'date', colored: !focus }\">\n  {{label}}\n</label>\n\n<input\n  #input\n  tabindex=\"0\"\n  [min]=\"min\"\n  [max]=\"max\"\n  [step]=\"step\"\n  [type]=\"type\"\n  [value]=\"value\"\n  [ngClass]=\"{ center: textCenter, slim: slim }\"\n  [disabled]=\"disabled\"\n  (change)=\"type === 'text' ? updateValue($event) : null\"\n  (focus)=\"isFocused(true)\"\n  (blur)=\"isFocused(false)\"\n  (keydown)=\"onKeyDown($event)\"\n\n/>\n\n<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateNumberValue($event, 'sub')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-minus\"\n  [ngClass]=\"{ slim: slim }\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon color=\"#3399ff\">expand_more</cca-common-icon>\n</div>\n"
     },
     {
       "name": "TableComponent",
-      "id": "component-TableComponent-815a43c944d66c8e730f62a8b021d513",
+      "id": "component-TableComponent-82d9c76cad212256be56552105968f81",
       "file": "projects/common/src/lib/table/table.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -920,26 +992,26 @@
         {
           "name": "dataSource",
           "defaultValue": "[{ default: 'default' }]",
-          "line": 35
+          "line": 36
         },
         {
           "name": "maxPageSize",
-          "line": 32,
+          "line": 33,
           "type": "number"
         },
         {
           "name": "pageIndex",
           "defaultValue": "1",
-          "line": 33
+          "line": 34
         },
         {
           "name": "pageSize",
-          "line": 31,
+          "line": 32,
           "type": "number"
         },
         {
           "name": "totalEntries",
-          "line": 34,
+          "line": 35,
           "type": "number"
         }
       ],
@@ -947,43 +1019,43 @@
         {
           "name": "firstPage",
           "defaultValue": "new EventEmitter()",
-          "line": 22,
+          "line": 23,
           "type": "EventEmitter"
         },
         {
           "name": "lastPage",
           "defaultValue": "new EventEmitter()",
-          "line": 21,
+          "line": 22,
           "type": "EventEmitter"
         },
         {
           "name": "nextPage",
           "defaultValue": "new EventEmitter()",
-          "line": 23,
+          "line": 24,
           "type": "EventEmitter"
         },
         {
           "name": "pageIndexChange",
           "defaultValue": "new EventEmitter()",
-          "line": 29,
+          "line": 30,
           "type": "EventEmitter"
         },
         {
           "name": "pageSizeChange",
           "defaultValue": "new EventEmitter()",
-          "line": 28,
+          "line": 29,
           "type": "EventEmitter"
         },
         {
           "name": "previousPage",
           "defaultValue": "new EventEmitter()",
-          "line": 24,
+          "line": 25,
           "type": "EventEmitter"
         },
         {
           "name": "refresh",
           "defaultValue": "new EventEmitter()",
-          "line": 26,
+          "line": 27,
           "type": "EventEmitter"
         }
       ],
@@ -993,7 +1065,7 @@
           "type": "TemplateRef<any>",
           "optional": false,
           "description": "",
-          "line": 38,
+          "line": 39,
           "decorators": [
             {
               "name": "ContentChild",
@@ -1006,7 +1078,7 @@
           "type": "ElementRef",
           "optional": false,
           "description": "",
-          "line": 37,
+          "line": 38,
           "decorators": [
             {
               "name": "ViewChild",
@@ -1020,7 +1092,7 @@
           "type": "object",
           "optional": false,
           "description": "",
-          "line": 46
+          "line": 47
         },
         {
           "name": "headers",
@@ -1028,14 +1100,14 @@
           "type": "string[]",
           "optional": false,
           "description": "",
-          "line": 43
+          "line": 44
         },
         {
           "name": "resolver",
           "type": "ComponentFactoryResolver",
           "optional": false,
           "description": "",
-          "line": 53,
+          "line": 54,
           "modifierKind": [114]
         },
         {
@@ -1044,14 +1116,14 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 44
+          "line": 45
         },
         {
           "name": "totalPages",
           "type": "number",
           "optional": false,
           "description": "",
-          "line": 42
+          "line": 43
         }
       ],
       "methodsClass": [
@@ -1061,7 +1133,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 70
+          "line": 71
         },
         {
           "name": "ngOnInit",
@@ -1069,7 +1141,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 55
+          "line": 56
         },
         {
           "name": "onFirstPage",
@@ -1077,7 +1149,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 108
+          "line": 109
         },
         {
           "name": "onLastPage",
@@ -1085,7 +1157,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 101
+          "line": 102
         },
         {
           "name": "onNextPage",
@@ -1093,24 +1165,24 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 116
+          "line": 117
         },
         {
           "name": "onPageIndexChange",
           "args": [
             {
               "name": "pageIndex",
-              "type": "number"
+              "type": "string"
             }
           ],
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 142,
+          "line": 143,
           "jsdoctags": [
             {
               "name": "pageIndex",
-              "type": "number",
+              "type": "string",
               "tagName": {
                 "text": "param"
               }
@@ -1122,7 +1194,7 @@
           "args": [
             {
               "name": "pageSize",
-              "type": "number"
+              "type": "string"
             }
           ],
           "optional": false,
@@ -1132,7 +1204,7 @@
           "jsdoctags": [
             {
               "name": "pageSize",
-              "type": "number",
+              "type": "string",
               "tagName": {
                 "text": "param"
               }
@@ -1145,7 +1217,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 124
+          "line": 125
         },
         {
           "name": "onRefresh",
@@ -1158,7 +1230,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 132,
+          "line": 133,
           "jsdoctags": [
             {
               "name": "event",
@@ -1175,7 +1247,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 83,
+          "line": 84,
           "modifierKind": [112]
         },
         {
@@ -1193,7 +1265,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 74,
+          "line": 75,
           "modifierKind": [112],
           "jsdoctags": [
             {
@@ -1218,11 +1290,11 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import {\n  Component,\n  OnInit,\n  Output,\n  EventEmitter,\n  Input,\n  ViewChild,\n  ComponentFactoryResolver,\n  ContentChild,\n  TemplateRef,\n  ElementRef,\n} from '@angular/core';\nimport { AfterViewInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-table',\n  templateUrl: './table.component.html',\n  styleUrls: ['./table.component.scss'],\n})\nexport class TableComponent implements OnInit, AfterViewInit {\n  @Output() lastPage = new EventEmitter();\n  @Output() firstPage = new EventEmitter();\n  @Output() nextPage = new EventEmitter();\n  @Output() previousPage = new EventEmitter();\n\n  @Output() refresh = new EventEmitter();\n\n  @Output() pageSizeChange = new EventEmitter();\n  @Output() pageIndexChange = new EventEmitter();\n\n  @Input() pageSize: number;\n  @Input() maxPageSize: number;\n  @Input() pageIndex = 1;\n  @Input() totalEntries: number;\n  @Input() dataSource = [{ default: 'default' }];\n\n  @ViewChild('actionWrapper') actionWrapper: ElementRef;\n  @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<\n    any\n  >;\n\n  totalPages: number;\n  headers: string[] = [];\n  showActions = false;\n\n  disableMap = {\n    firstPage: false,\n    lastPage: false,\n    previous: false,\n    next: false,\n  };\n\n  constructor(public resolver: ComponentFactoryResolver) {}\n\n  ngOnInit(): void {\n    const headers = new Set();\n\n    for (const data of this.dataSource) {\n      for (const key of Object.keys(data)) {\n        headers.add(key);\n      }\n    }\n\n    this.totalPages = Math.ceil(this.totalEntries / this.pageSize);\n    this.headers = [...headers] as string[];\n\n    this.toggleButtons();\n  }\n\n  ngAfterViewInit(): void {\n    this.showActions = !!this.actionWrapper.nativeElement.children.length;\n  }\n\n  private updateButtonsState(\n    buttonList: Array<'next' | 'previous' | 'lastPage' | 'firstPage'>,\n    value: boolean\n  ) {\n    for (const button of buttonList) {\n      this.disableMap[button] = value;\n    }\n  }\n\n  private toggleButtons() {\n    if (this.pageIndex > this.totalPages) {\n      this.pageIndex = this.totalPages;\n    }\n\n    if (this.pageIndex === 1) {\n      this.updateButtonsState(['previous', 'firstPage'], true);\n    } else {\n      this.updateButtonsState(['previous', 'firstPage'], false);\n    }\n\n    if (this.pageIndex === this.totalPages) {\n      this.updateButtonsState(['next', 'lastPage'], true);\n    } else {\n      this.updateButtonsState(['next', 'lastPage'], false);\n    }\n  }\n\n  onLastPage() {\n    this.pageIndex = this.totalPages;\n    this.lastPage.emit(this.totalPages);\n\n    this.toggleButtons();\n  }\n\n  onFirstPage() {\n    this.pageIndex = 1;\n    this.firstPage.emit(1);\n    this.disableMap.firstPage = true;\n\n    this.toggleButtons();\n  }\n\n  onNextPage() {\n    this.nextPage.emit(\n      this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onPreviousPage() {\n    this.previousPage.emit(\n      this.pageIndex > 1 ? --this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onRefresh(event: Event | KeyboardEvent) {\n    if (event instanceof KeyboardEvent) {\n      if (event.key !== 'Enter') {\n        return;\n      }\n    }\n\n    this.refresh.emit(this.pageIndex);\n  }\n\n  onPageIndexChange(pageIndex: number) {\n    console.log(pageIndex);\n    this.pageIndex = pageIndex;\n    this.toggleButtons();\n    this.pageIndexChange.emit(pageIndex);\n  }\n\n  onPageSizeChange(pageSize: number) {\n    this.pageSize = pageSize;\n    this.totalPages = Math.ceil(this.totalEntries / pageSize);\n    this.toggleButtons();\n    this.pageSizeChange.emit(pageSize);\n  }\n}\n",
+      "sourceCode": "import {\n  Component,\n  OnInit,\n  Output,\n  EventEmitter,\n  Input,\n  ViewChild,\n  ComponentFactoryResolver,\n  ContentChild,\n  TemplateRef,\n  ElementRef,\n  ViewEncapsulation\n} from '@angular/core';\nimport { AfterViewInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-table',\n  templateUrl: './table.component.html',\n  styleUrls: ['./table.component.scss']\n})\nexport class TableComponent implements OnInit, AfterViewInit {\n  @Output() lastPage = new EventEmitter();\n  @Output() firstPage = new EventEmitter();\n  @Output() nextPage = new EventEmitter();\n  @Output() previousPage = new EventEmitter();\n\n  @Output() refresh = new EventEmitter();\n\n  @Output() pageSizeChange = new EventEmitter();\n  @Output() pageIndexChange = new EventEmitter();\n\n  @Input() pageSize: number;\n  @Input() maxPageSize: number;\n  @Input() pageIndex = 1;\n  @Input() totalEntries: number;\n  @Input() dataSource = [{ default: 'default' }];\n\n  @ViewChild('actionWrapper') actionWrapper: ElementRef;\n  @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<\n    any\n  >;\n\n  totalPages: number;\n  headers: string[] = [];\n  showActions = false;\n\n  disableMap = {\n    firstPage: false,\n    lastPage: false,\n    previous: false,\n    next: false,\n  };\n\n  constructor(public resolver: ComponentFactoryResolver) {}\n\n  ngOnInit(): void {\n    const headers = new Set();\n\n    for (const data of this.dataSource) {\n      for (const key of Object.keys(data)) {\n        headers.add(key);\n      }\n    }\n\n    this.totalPages = Math.ceil(this.totalEntries / this.pageSize);\n    this.headers = [...headers] as string[];\n\n    this.toggleButtons();\n  }\n\n  ngAfterViewInit(): void {\n    this.showActions = !!this.actionWrapper.nativeElement.children.length;\n  }\n\n  private updateButtonsState(\n    buttonList: Array<'next' | 'previous' | 'lastPage' | 'firstPage'>,\n    value: boolean\n  ) {\n    for (const button of buttonList) {\n      this.disableMap[button] = value;\n    }\n  }\n\n  private toggleButtons() {\n    if (this.pageIndex > this.totalPages) {\n      this.pageIndex = this.totalPages;\n    }\n\n    if (this.pageIndex === 1) {\n      this.updateButtonsState(['previous', 'firstPage'], true);\n    } else {\n      this.updateButtonsState(['previous', 'firstPage'], false);\n    }\n\n    if (this.pageIndex === this.totalPages) {\n      this.updateButtonsState(['next', 'lastPage'], true);\n    } else {\n      this.updateButtonsState(['next', 'lastPage'], false);\n    }\n  }\n\n  onLastPage() {\n    this.pageIndex = this.totalPages;\n    this.lastPage.emit(this.totalPages);\n\n    this.toggleButtons();\n  }\n\n  onFirstPage() {\n    this.pageIndex = 1;\n    this.firstPage.emit(1);\n    this.disableMap.firstPage = true;\n\n    this.toggleButtons();\n  }\n\n  onNextPage() {\n    this.nextPage.emit(\n      this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onPreviousPage() {\n    this.previousPage.emit(\n      this.pageIndex > 1 ? --this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onRefresh(event: Event | KeyboardEvent) {\n    if (event instanceof KeyboardEvent) {\n      if (event.key !== 'Enter') {\n        return;\n      }\n    }\n\n    this.refresh.emit(this.pageIndex);\n  }\n\n  onPageIndexChange(pageIndex: string) {\n    this.pageIndex = parseInt(pageIndex, 10);\n    this.toggleButtons();\n    this.pageIndexChange.emit(this.pageIndex);\n  }\n\n  onPageSizeChange(pageSize: string) {\n    this.pageSize = parseInt(pageSize, 10);\n    this.totalPages = Math.ceil(this.totalEntries / parseInt(pageSize, 10));\n    this.toggleButtons();\n    this.pageSizeChange.emit(this.pageSize);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "@import '~flexboxgrid/dist/flexboxgrid.min.css';\n@import '../../assets/scss/colors.scss';\n@import '../../assets/scss/variables.scss';\n\n@keyframes rotate {\n  0% {\n    transform: rotate(360deg);\n  }\n\n  100% {\n    transform: rotate(0deg);\n  }\n}\n\n.table {\n  position: relative;\n\n  background: $white;\n  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);\n  border: 1px solid $border-grey;\n  border-radius: 0.5rem;\n\n  /* For testing only */\n  width: 80vw;\n  margin: auto;\n  /*------------------*/\n\n  font-family: Cabin;\n  font-size: 1.4rem;\n\n  .header,\n  .footer {\n    padding: 2rem;\n  }\n\n  .header {\n    color: $grey;\n    font-weight: bold;\n\n    border-bottom: 2px solid $light-grey;\n  }\n\n  .body {\n    color: $black;\n\n    padding: 0 2rem;\n    margin: 0 -0.5rem;\n\n    > .row {\n      margin: 0 -2rem;\n      padding: 0 2rem;\n\n      &:nth-child(2n) {\n        background: $lighter-grey;\n      }\n\n      > .col-xs {\n        padding: 2rem 0.5rem;\n      }\n    }\n  }\n\n  .footer {\n    border-top: 2px solid $light-grey;\n\n    .button {\n      transition: color 0.1s ease-in-out, box-shadow 0.15s ease-in-out;\n      border-radius: 100%;\n      &:focus {\n        outline: 0;\n\n        &:not(.disabled) {\n          box-shadow: $focus-shadow;\n        }\n      }\n      &:not(.disabled) {\n        cursor: pointer;\n      }\n\n      &.disabled {\n        color: #dadada;\n      }\n    }\n\n    .button:hover:not(.disabled) {\n      color: rgba(0, 0, 0, 0.75);\n    }\n\n    .input {\n      margin-left: 0.2rem;\n      display: inline-block;\n      width: 3rem;\n    }\n\n    > .left {\n      color: $grey;\n\n      .button:hover {\n        animation: rotate 2s ease-in-out infinite;\n      }\n\n      & > div:last-child {\n        margin-left: 1.2rem;\n      }\n    }\n\n    > .right {\n      color: $grey;\n\n      .label {\n        margin: 0 1rem;\n      }\n    }\n  }\n}\n",
+          "data": "@import '~flexboxgrid/dist/flexboxgrid.min.css';\n@import '../../assets/scss/colors.scss';\n@import '../../assets/scss/variables.scss';\n\n@keyframes rotate {\n  0% {\n    transform: rotate(360deg);\n  }\n\n  100% {\n    transform: rotate(0deg);\n  }\n}\n\n.table {\n  position: relative;\n\n  background: $white;\n  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);\n  border: 1px solid $border-grey;\n  border-radius: 0.5rem;\n\n  /* For testing only */\n  width: 80vw;\n  margin: auto;\n  /*------------------*/\n\n  font-family: Cabin;\n  font-size: 1.4rem;\n\n  .header,\n  .footer {\n    padding: 2rem;\n  }\n\n  .header {\n    color: $grey;\n    font-weight: bold;\n\n    border-bottom: 2px solid $light-grey;\n  }\n\n  .body {\n    color: $black;\n\n    padding: 0 2rem;\n    margin: 0 -0.5rem;\n\n    > .row {\n      margin: 0 -2rem;\n      padding: 0 2rem;\n\n      &:nth-child(2n) {\n        background: $lighter-grey;\n      }\n\n      > .col-xs {\n        padding: 2rem 0.5rem;\n      }\n    }\n  }\n\n  .footer {\n    border-top: 2px solid $light-grey;\n\n    .button {\n      transition: color 0.1s ease-in-out, box-shadow 0.15s ease-in-out;\n      border-radius: 100%;\n      &:focus {\n        outline: 0;\n\n        &:not(.disabled) {\n          box-shadow: $focus-shadow;\n        }\n      }\n      &:not(.disabled) {\n        cursor: pointer;\n      }\n\n      &.disabled {\n        color: #dadada;\n      }\n    }\n\n    .button:hover:not(.disabled) {\n      color: rgba(0, 0, 0, 0.75);\n    }\n\n    .input {\n      margin-left: 0.2rem;\n      display: inline-block;\n      width: 6.5rem;\n    }\n\n    > .left {\n      color: $grey;\n\n      .button:hover {\n        animation: rotate 2s ease-in-out infinite;\n      }\n\n      & > div:last-child {\n        margin-left: 1.2rem;\n      }\n    }\n\n    > .right {\n      color: $grey;\n\n      .label {\n        margin: 0 1rem;\n      }\n    }\n  }\n}\n",
           "styleUrl": "./table.component.scss"
         }
       ],
@@ -1236,7 +1308,7 @@
             "type": "ComponentFactoryResolver"
           }
         ],
-        "line": 51,
+        "line": 52,
         "jsdoctags": [
           {
             "name": "resolver",
@@ -1248,7 +1320,7 @@
         ]
       },
       "implements": ["OnInit", "AfterViewInit"],
-      "templateData": "<div class=\"table col-xs\">\n  <div class=\"header row\">\n    <div class=\"col-xs\" *ngFor=\"let header of headers\">\n      {{ header }}\n    </div>\n    <div class=\"col-xs end-xs\" [hidden]=\"!showActions\"></div>\n  </div>\n  <div class=\"body\">\n    <div class=\"row\" *ngFor=\"let data of dataSource; let i = index\">\n      <div class=\"col-xs\" *ngFor=\"let header of headers\">\n        {{ data[header] }}\n      </div>\n      <div class=\"col-xs end-xs\" [hidden]=\"!showActions\" #actionWrapper>\n        <ng-container\n          *ngIf=\"actionTemplateRef\"\n          [ngTemplateOutlet]=\"actionTemplateRef\"\n          [ngTemplateOutletContext]=\"{\n            $implicit: { data: data, index: i, dataSource: dataSource }\n          }\"\n        >\n        </ng-container>\n      </div>\n    </div>\n  </div>\n  <div class=\"footer row between-xs\">\n    <div class=\"row left middle-xs\">\n      <div\n        tabindex=\"0\"\n        class=\"button\"\n        (keydown)=\"onRefresh($event)\"\n        (click)=\"onRefresh($event)\"\n      >\n        <cca-common-icon>loop</cca-common-icon>\n      </div>\n      <div>\n        Itens por página:\n        <span class=\"input\">\n          <cca-common-input\n            type=\"number\"\n            [value]=\"pageSize\"\n            (confirm)=\"onPageSizeChange($event)\"\n            min=\"10\"\n            [max]=\"maxPageSize\"\n            step=\"10\"\n            slim\n            textCenter\n          ></cca-common-input>\n        </span>\n      </div>\n    </div>\n    <div class=\"row right middle-xs\">\n      <div\n        [tabindex]=\"!disableMap['firstPage'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['firstPage'] }\"\n        (click)=\"!disableMap['firstPage'] ? onFirstPage() : null\"\n      >\n        <cca-common-icon>first_page</cca-common-icon>\n      </div>\n      <div\n        [tabindex]=\"!disableMap['previous'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['previous'] }\"\n        (click)=\"!disableMap['previous'] ? onPreviousPage() : null\"\n      >\n        <cca-common-icon>chevron_left</cca-common-icon>\n      </div>\n\n      <div class=\"label\">\n        Página:\n        <span class=\"input\">\n          <cca-common-input\n            type=\"number\"\n            [value]=\"pageIndex\"\n            min=\"1\"\n            [max]=\"totalPages\"\n            (confirm)=\"onPageIndexChange($event)\"\n            slim\n            textCenter\n          ></cca-common-input>\n        </span>\n        / {{ totalPages }}\n      </div>\n\n      <div\n        [tabindex]=\"!disableMap['next'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['next'] }\"\n        (click)=\"!disableMap['next'] ? onNextPage() : null\"\n      >\n        <cca-common-icon>chevron_right</cca-common-icon>\n      </div>\n\n      <div\n        [tabindex]=\"!disableMap['lastPage'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['lastPage'] }\"\n        (click)=\"!disableMap['lastPage'] ? onLastPage() : null\"\n      >\n        <cca-common-icon>last_page</cca-common-icon>\n      </div>\n    </div>\n  </div>\n</div>\n"
+      "templateData": "<div class=\"table col-xs\">\n  <div class=\"header row\">\n    <div class=\"col-xs\" *ngFor=\"let header of headers\">\n      {{ header }}\n    </div>\n    <div class=\"col-xs end-xs\" [hidden]=\"!showActions\"></div>\n  </div>\n  <div class=\"body\">\n    <div class=\"row\" *ngFor=\"let data of dataSource; let i = index\">\n      <div class=\"col-xs\" *ngFor=\"let header of headers\">\n        {{ data[header] }}\n      </div>\n      <div class=\"col-xs end-xs\" [hidden]=\"!showActions\" #actionWrapper>\n        <ng-container\n          *ngIf=\"actionTemplateRef\"\n          [ngTemplateOutlet]=\"actionTemplateRef\"\n          [ngTemplateOutletContext]=\"{\n            $implicit: { data: data, index: i, dataSource: dataSource }\n          }\"\n        >\n        </ng-container>\n      </div>\n    </div>\n  </div>\n  <div class=\"footer row between-xs\">\n    <div class=\"row left middle-xs\">\n      <div\n        tabindex=\"0\"\n        class=\"button\"\n        (keydown)=\"onRefresh($event)\"\n        (click)=\"onRefresh($event)\"\n      >\n        <cca-common-icon>loop</cca-common-icon>\n      </div>\n      <div>\n        Itens por página:\n        <span class=\"input\">\n          <cca-common-input\n            type=\"number\"\n            [value]=\"pageSize\"\n            (confirm)=\"onPageSizeChange($event)\"\n            min=\"20\"\n            [max]=\"maxPageSize\"\n            step=\"10\"\n            textCenter\n          ></cca-common-input>\n        </span>\n      </div>\n    </div>\n    <div class=\"row right middle-xs\">\n      <div\n        [tabindex]=\"!disableMap['firstPage'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['firstPage'] }\"\n        (click)=\"!disableMap['firstPage'] ? onFirstPage() : null\"\n      >\n        <cca-common-icon>first_page</cca-common-icon>\n      </div>\n      <div\n        [tabindex]=\"!disableMap['previous'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['previous'] }\"\n        (click)=\"!disableMap['previous'] ? onPreviousPage() : null\"\n      >\n        <cca-common-icon>chevron_left</cca-common-icon>\n      </div>\n\n      <div class=\"label\">\n        Página:\n        <span class=\"input\">\n          <cca-common-input\n            type=\"number\"\n            [value]=\"pageIndex\"\n            min=\"1\"\n            [max]=\"totalPages\"\n            (confirm)=\"onPageIndexChange($event)\"\n            textCenter\n          ></cca-common-input>\n        </span>\n        / {{ totalPages }}\n      </div>\n\n      <div\n        [tabindex]=\"!disableMap['next'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['next'] }\"\n        (click)=\"!disableMap['next'] ? onNextPage() : null\"\n      >\n        <cca-common-icon>chevron_right</cca-common-icon>\n      </div>\n\n      <div\n        [tabindex]=\"!disableMap['lastPage'] ? '0' : '-1'\"\n        class=\"button\"\n        [ngClass]=\"{ disabled: disableMap['lastPage'] }\"\n        (click)=\"!disableMap['lastPage'] ? onLastPage() : null\"\n      >\n        <cca-common-icon>last_page</cca-common-icon>\n      </div>\n    </div>\n  </div>\n</div>\n"
     }
   ],
   "modules": [
@@ -1465,7 +1537,11 @@
         },
         {
           "type": "imports",
-          "elements": []
+          "elements": [
+            {
+              "name": "IconModule"
+            }
+          ]
         },
         {
           "type": "exports",
@@ -1489,12 +1565,20 @@
   "miscellaneous": {
     "variables": [
       {
+        "name": "Date",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/common/Input.stories.ts",
+        "type": "",
+        "defaultValue": "() => ({\n  template: `\n  <div style=\"background: #fff;\">\n    <cca-common-input label=\"Data\" type=\"date\" min=\"2020-05-20\"></cca-common-input>\n  </div>\n  `\n})"
+      },
+      {
         "name": "Default",
         "ctype": "miscellaneous",
         "subtype": "variable",
         "file": "src/stories/common/Input.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  component: InputComponent,\n})"
+        "defaultValue": "() => ({\n  props: {\n    console: console\n  },\n  template: `\n  <div style=\"background: #fafafa\">\n    <cca-common-input placeholder=\"Digite seu nome\" label=\"Campo de Texto\"></cca-common-input>\n  </div>\n  `\n})"
       },
       {
         "name": "Default",
@@ -1502,7 +1586,7 @@
         "subtype": "variable",
         "file": "src/stories/common/Table.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  component: TableComponent,\n  template: `<cca-common-table\n    [dataSource]=\"dataSource\"\n    [pageSize]=\"pageSize\"\n    [maxPageSize]=\"maxPageSize\"\n    [pageIndex]=\"pageIndex\"\n    [totalEntries]=\"totalEntries\"\n    (firstPage)=\"firstPage\"\n    (nextPage)=\"nextPage\"\n    (previousPage)=\"previousPage\"\n    (refresh)=\"refresh\"\n    (pageSizeChange)=\"pageSizeChange\"\n    (pageIndexChange)=\"pageIndexChange\"\n  >\n    <ng-template let-content #action>\n      <div style=\"display: flex; justify-content: flex-end;\">\n        <div>\n          <cca-common-icon>edit</cca-common-icon>\n        </div>\n        <div>\n          <cca-common-icon>delete</cca-common-icon>\n        </div>\n      </div>\n    </ng-template>\n  </cca-common-table>\n  `,\n  props: {\n    firstPage: action('firstPage'),\n    lastPage: action('lastPage'),\n    nextPage: action('nextPage'),\n    previousPage: action('previousPage'),\n    refresh: action('refresh'),\n    pageSizeChange: action('pageSizeChange'),\n    pageIndexChange: action('pageIndexChange'),\n    pageSize: 10,\n    maxPageSize: 200,\n    pageIndex: 20,\n    totalEntries: 200,\n    dataSource: [\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n    ],\n  },\n})"
+        "defaultValue": "() => ({\n  component: TableComponent,\n  template: `<cca-common-table\n    [dataSource]=\"dataSource\"\n    [pageSize]=\"pageSize\"\n    [maxPageSize]=\"maxPageSize\"\n    [pageIndex]=\"pageIndex\"\n    [totalEntries]=\"totalEntries\"\n    (firstPage)=\"firstPage\"\n    (nextPage)=\"nextPage\"\n    (previousPage)=\"previousPage\"\n    (refresh)=\"refresh\"\n    (pageSizeChange)=\"pageSizeChange\"\n    (pageIndexChange)=\"pageIndexChange\"\n  >\n    <ng-template let-content #action>\n      <div style=\"display: flex; justify-content: flex-end;\">\n        <div>\n          <cca-common-icon>edit</cca-common-icon>\n        </div>\n        <div>\n          <cca-common-icon>delete</cca-common-icon>\n        </div>\n      </div>\n    </ng-template>\n  </cca-common-table>\n  `,\n  props: {\n    firstPage: action('firstPage'),\n    lastPage: action('lastPage'),\n    nextPage: action('nextPage'),\n    previousPage: action('previousPage'),\n    refresh: action('refresh'),\n    pageSizeChange: action('pageSizeChange'),\n    pageIndexChange: action('pageIndexChange'),\n    pageSize: 20,\n    maxPageSize: 200,\n    pageIndex: 20,\n    totalEntries: 200,\n    dataSource: [\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n    ],\n  },\n})"
       },
       {
         "name": "Default",
@@ -1527,6 +1611,14 @@
         "file": "src/stories/common/Button.stories.ts",
         "type": "",
         "defaultValue": "() => ({\n  props: {\n    click: action('This was clicked OMG'),\n  },\n  template: `\n    <ul style=\"display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;\">\n      <li style=\"padding: .5rem\">\n        <cca-common-button badged=\"true\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">error_outline</cca-common-icon>\n          <ng-container slot=\"text\">notification</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button badged=\"true\" type=\"fill\" (click)=\"click($event)\">\n          <ng-container slot=\"text\">notification</ng-container>\n        </cca-common-button>\n      </li>\n      <li style=\"padding: .5rem\">\n        <cca-common-button badged=\"true\" type=\"transparent\" (click)=\"click($event)\">\n          <cca-common-icon slot=\"icon\">error_outline</cca-common-icon>\n        </cca-common-button>\n      </li>\n    </ul>\n  `,\n})"
+      },
+      {
+        "name": "Number",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/common/Input.stories.ts",
+        "type": "",
+        "defaultValue": "() => ({\n  template: `<div style=\"background: #fff\">\n    <cca-common-input label=\"testando\" type=\"number\" style=\"margin-top: 2rem\"></cca-common-input>\n  </div>`\n})"
       },
       {
         "name": "Outline",
@@ -1575,12 +1667,28 @@
     "groupedVariables": {
       "src/stories/common/Input.stories.ts": [
         {
+          "name": "Date",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/common/Input.stories.ts",
+          "type": "",
+          "defaultValue": "() => ({\n  template: `\n  <div style=\"background: #fff;\">\n    <cca-common-input label=\"Data\" type=\"date\" min=\"2020-05-20\"></cca-common-input>\n  </div>\n  `\n})"
+        },
+        {
           "name": "Default",
           "ctype": "miscellaneous",
           "subtype": "variable",
           "file": "src/stories/common/Input.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  component: InputComponent,\n})"
+          "defaultValue": "() => ({\n  props: {\n    console: console\n  },\n  template: `\n  <div style=\"background: #fafafa\">\n    <cca-common-input placeholder=\"Digite seu nome\" label=\"Campo de Texto\"></cca-common-input>\n  </div>\n  `\n})"
+        },
+        {
+          "name": "Number",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/common/Input.stories.ts",
+          "type": "",
+          "defaultValue": "() => ({\n  template: `<div style=\"background: #fff\">\n    <cca-common-input label=\"testando\" type=\"number\" style=\"margin-top: 2rem\"></cca-common-input>\n  </div>`\n})"
         }
       ],
       "src/stories/common/Table.stories.ts": [
@@ -1590,7 +1698,7 @@
           "subtype": "variable",
           "file": "src/stories/common/Table.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  component: TableComponent,\n  template: `<cca-common-table\n    [dataSource]=\"dataSource\"\n    [pageSize]=\"pageSize\"\n    [maxPageSize]=\"maxPageSize\"\n    [pageIndex]=\"pageIndex\"\n    [totalEntries]=\"totalEntries\"\n    (firstPage)=\"firstPage\"\n    (nextPage)=\"nextPage\"\n    (previousPage)=\"previousPage\"\n    (refresh)=\"refresh\"\n    (pageSizeChange)=\"pageSizeChange\"\n    (pageIndexChange)=\"pageIndexChange\"\n  >\n    <ng-template let-content #action>\n      <div style=\"display: flex; justify-content: flex-end;\">\n        <div>\n          <cca-common-icon>edit</cca-common-icon>\n        </div>\n        <div>\n          <cca-common-icon>delete</cca-common-icon>\n        </div>\n      </div>\n    </ng-template>\n  </cca-common-table>\n  `,\n  props: {\n    firstPage: action('firstPage'),\n    lastPage: action('lastPage'),\n    nextPage: action('nextPage'),\n    previousPage: action('previousPage'),\n    refresh: action('refresh'),\n    pageSizeChange: action('pageSizeChange'),\n    pageIndexChange: action('pageIndexChange'),\n    pageSize: 10,\n    maxPageSize: 200,\n    pageIndex: 20,\n    totalEntries: 200,\n    dataSource: [\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n    ],\n  },\n})"
+          "defaultValue": "() => ({\n  component: TableComponent,\n  template: `<cca-common-table\n    [dataSource]=\"dataSource\"\n    [pageSize]=\"pageSize\"\n    [maxPageSize]=\"maxPageSize\"\n    [pageIndex]=\"pageIndex\"\n    [totalEntries]=\"totalEntries\"\n    (firstPage)=\"firstPage\"\n    (nextPage)=\"nextPage\"\n    (previousPage)=\"previousPage\"\n    (refresh)=\"refresh\"\n    (pageSizeChange)=\"pageSizeChange\"\n    (pageIndexChange)=\"pageIndexChange\"\n  >\n    <ng-template let-content #action>\n      <div style=\"display: flex; justify-content: flex-end;\">\n        <div>\n          <cca-common-icon>edit</cca-common-icon>\n        </div>\n        <div>\n          <cca-common-icon>delete</cca-common-icon>\n        </div>\n      </div>\n    </ng-template>\n  </cca-common-table>\n  `,\n  props: {\n    firstPage: action('firstPage'),\n    lastPage: action('lastPage'),\n    nextPage: action('nextPage'),\n    previousPage: action('previousPage'),\n    refresh: action('refresh'),\n    pageSizeChange: action('pageSizeChange'),\n    pageIndexChange: action('pageIndexChange'),\n    pageSize: 20,\n    maxPageSize: 200,\n    pageIndex: 20,\n    totalEntries: 200,\n    dataSource: [\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n      {\n        'Cabeçalho 1': 'Coluna 1',\n        'Cabeçalho 2': 'Coluna 2',\n        'Cabeçalho 3': 'Coluna 3',\n        'Cabeçalho 4': 'Coluna 4',\n        'Cabeçalho 5': 'Coluna 5',\n      },\n    ],\n  },\n})"
         }
       ],
       "src/stories/common/Tooltip.stories.ts": [
@@ -1708,7 +1816,7 @@
         "linktype": "component",
         "name": "InputComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/24",
+        "coverageCount": "0/27",
         "status": "low"
       },
       {
@@ -1726,7 +1834,7 @@
         "linktype": "directive",
         "name": "TooltipDirective",
         "coveragePercent": 0,
-        "coverageCount": "0/12",
+        "coverageCount": "0/17",
         "status": "low"
       },
       {
@@ -1804,7 +1912,27 @@
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
+        "name": "Date",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/common/Input.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
         "name": "Default",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/common/Input.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Number",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"

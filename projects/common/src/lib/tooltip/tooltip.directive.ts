@@ -98,8 +98,8 @@ export class TooltipDirective implements OnInit {
 
     this.tooltipInfoElement = document.createElement('label');
 
-    if (this.tooltipElement.id) {
-      this.tooltipInfoElement.htmlFor = this.tooltipElement.id;
+    if (this.targetElement.id) {
+      this.tooltipInfoElement.htmlFor = this.targetElement.id;
     }
 
     this.applyStyle(this.tooltipInfoElement, {

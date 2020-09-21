@@ -1,13 +1,23 @@
 <div
   [@fadeInOut]
   (mouseleave)="onMouseUp()"
-  (mousedown)="updateValue($event, 'add')"
+  (mousedown)="updateNumberValue($event, 'add')"
   (mouseup)="onMouseUp()"
   class="number-plus"
   *ngIf="type === 'number' && focus"
 >
-  <cca-common-icon>expand_less</cca-common-icon>
+  <cca-common-icon color="#3399ff">expand_less</cca-common-icon>
 </div>
+
+<label
+  *ngIf="label"
+  [ngClass]="{
+    focused: (focus && !value) || value || type === 'date',
+    colored: !focus
+  }"
+>
+  {{ label }}
+</label>
 
 <input
   #input
@@ -19,20 +29,20 @@
   [value]="value"
   [ngClass]="{ center: textCenter, slim: slim }"
   [disabled]="disabled"
+  (change)="type === 'text' ? updateValue($event) : null"
   (focus)="isFocused(true)"
   (blur)="isFocused(false)"
-  (keyup)="rangedValue($event)"
   (keydown)="onKeyDown($event)"
 />
 
 <div
   [@fadeInOut]
   (mouseleave)="onMouseUp()"
-  (mousedown)="updateValue($event, 'sub')"
+  (mousedown)="updateNumberValue($event, 'sub')"
   (mouseup)="onMouseUp()"
   class="number-minus"
   [ngClass]="{ slim: slim }"
   *ngIf="type === 'number' && focus"
 >
-  <cca-common-icon>expand_more</cca-common-icon>
+  <cca-common-icon color="#3399ff">expand_more</cca-common-icon>
 </div>

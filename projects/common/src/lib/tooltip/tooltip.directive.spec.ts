@@ -1,174 +1,112 @@
-import {
-  ViewContainerRef,
-  ElementRef,
-  Renderer2,
-  ComponentFactoryResolver,
-  Type,
-  ComponentFactory,
-} from '@angular/core';
-import { TooltipDirective } from './tooltip.directive';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TooltipModule } from './tooltip.module';
+import { IconComponent } from '../icon/icon.component';
+
+@Component({
+  template: `
+    <div>
+      <p
+        id="test"
+        ccaCommonTooltip="This is a tooltip"
+        tooltipPosition="bottom-right"
+      >
+        Testing Directives is awesome!
+      </p>
+    </div>
+  `,
+})
+class TestComponent {
+  constructor() {}
+}
 
 describe('TooltipDirective', () => {
-  it('should create an instance', () => {
-    const renderer2: Renderer2 = new TestRenderer2();
-    const factory: ComponentFactoryResolver = new TestComponentFactoryResolver();
+  let component: TestComponent;
+  let fixture: ComponentFixture<TestComponent>;
+  let PARENT_ELEMENT: HTMLElement;
 
-    const directive = new TooltipDirective(
-      new TestViewContainerRef(),
-      new ElementRef(document),
-      renderer2,
-      factory
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [TestComponent],
+      imports: [TooltipModule],
+    });
+
+    fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
+    PARENT_ELEMENT = fixture.debugElement.nativeElement.querySelector('div');
+    fixture.detectChanges();
+  });
+
+  it('should create component', () => {
+    expect(component).toBeDefined();
+  });
+
+  it('should create tooltip element after component', () => {
+    expect(PARENT_ELEMENT.children.length).toBe(3);
+    expect(
+      PARENT_ELEMENT.querySelectorAll('cca-common-icon').length
+    ).toBeTruthy();
+  });
+
+  it('should create tooltip element with for attribute', () => {
+    const TOOLTIP_INFO_ELEMENT = PARENT_ELEMENT.querySelector('label');
+
+    expect(TOOLTIP_INFO_ELEMENT.htmlFor).toBeTruthy();
+  });
+
+  it('should have properly innerText', () => {
+    const TOOLTIP_INFO_ELEMENT = PARENT_ELEMENT.querySelector('label');
+    const TARGET_ELEMENT = PARENT_ELEMENT.querySelector('[ccaCommonTooltip]');
+
+    expect(TARGET_ELEMENT.getAttribute('ccaCommonTooltip')).toBe(
+      TOOLTIP_INFO_ELEMENT.innerText
     );
-    expect(directive).toBeTruthy();
+  });
+
+  it('should be visible and opaque on mouseenter event at tooltip button', () => {
+    const TOOLTIP_INFO_ELEMENT = PARENT_ELEMENT.querySelector('label');
+    const TOOLTIP_BUTTON_ELEMENT = PARENT_ELEMENT.querySelector(
+      'cca-common-icon'
+    );
+    const MOCK_EVENT = new MouseEvent('mouseenter');
+
+    TOOLTIP_BUTTON_ELEMENT.dispatchEvent(MOCK_EVENT);
+    expect(TOOLTIP_INFO_ELEMENT.style.opacity).toBe('1');
+    expect(TOOLTIP_INFO_ELEMENT.style.visibility).toBe('visible');
+  });
+
+  it('should be hidden and transparent on mouseleave event at tooltip button', () => {
+    const TOOLTIP_INFO_ELEMENT = PARENT_ELEMENT.querySelector('label');
+    const TOOLTIP_BUTTON_ELEMENT = PARENT_ELEMENT.querySelector(
+      'cca-common-icon'
+    );
+    const MOCK_EVENT = new MouseEvent('mouseleave');
+
+    TOOLTIP_BUTTON_ELEMENT.dispatchEvent(MOCK_EVENT);
+    expect(TOOLTIP_INFO_ELEMENT.style.opacity).toBe('0');
+    expect(TOOLTIP_INFO_ELEMENT.style.visibility).toBe('hidden');
+  });
+
+  it('should be positioned accordin to position prop and mouse (x,y)', () => {
+    const TOOLTIP_INFO_ELEMENT = PARENT_ELEMENT.querySelector('label');
+    const TOOLTIP_BUTTON_ELEMENT = PARENT_ELEMENT.querySelector(
+      'cca-common-icon'
+    );
+    const TARGET_ELEMENT = PARENT_ELEMENT.querySelector('[ccaCommonTooltip]');
+    const MOCK_MOUSE_ENTER_EVENT = new MouseEvent('mouseenter');
+    const MOCK_MOUSE_MOVE_EVENT = new MouseEvent('mousemove', {
+      clientX: 100,
+      clientY: 100,
+    });
+
+    TOOLTIP_BUTTON_ELEMENT.dispatchEvent(MOCK_MOUSE_ENTER_EVENT);
+    TOOLTIP_BUTTON_ELEMENT.dispatchEvent(MOCK_MOUSE_MOVE_EVENT);
+
+    expect(TARGET_ELEMENT.getAttribute('tooltipPosition')).toBe('bottom-right');
+    expect(TOOLTIP_INFO_ELEMENT.style.transform).toBe(
+      `translate(${MOCK_MOUSE_MOVE_EVENT.clientX + 16}px, ${
+        MOCK_MOUSE_MOVE_EVENT.clientY + 16
+      }px)`
+    );
   });
 });
-
-class TestRenderer2 extends Renderer2 {
-  addClass() {
-    throw new Error('Method not implemented.');
-  }
-
-  appendChild() {
-    throw new Error('Method not implemented.');
-  }
-
-  createComment() {
-    throw new Error('Method not implemented.');
-  }
-
-  createElement() {
-    throw new Error('Method not implemented.');
-  }
-
-  createText() {
-    throw new Error('Method not implemented.');
-  }
-
-  get data() {
-    return {};
-  }
-
-  destroy() {
-    throw new Error('Method not implemented.');
-  }
-
-  insertBefore() {
-    throw new Error('Method not implemented.');
-  }
-
-  listen(target, eventName: string, callback: (event: any) => void | boolean) {
-    throw new Error('Method not implemented.');
-    return () => {};
-  }
-
-  nextSibling() {
-    throw new Error('Method not implemented.');
-  }
-
-  parentNode() {
-    throw new Error('Method not implemented.');
-  }
-
-  removeAttribute() {
-    throw new Error('Method not implemented.');
-  }
-
-  removeChild() {
-    throw new Error('Method not implemented.');
-  }
-
-  removeClass() {
-    throw new Error('Method not implemented.');
-  }
-
-  removeStyle() {
-    throw new Error('Method not implemented.');
-  }
-
-  selectRootElement() {
-    throw new Error('Method not implemented.');
-  }
-
-  setAttribute() {
-    throw new Error('Method not implemented.');
-  }
-
-  setProperty() {
-    throw new Error('Method not implemented.');
-  }
-
-  setStyle() {
-    throw new Error('Method not implemented.');
-  }
-
-  setValue() {
-    throw new Error('Method not implemented.');
-  }
-}
-
-class TestComponentFactoryResolver extends ComponentFactoryResolver {
-  resolveComponentFactory<IconComponent>(
-    component: Type<IconComponent>
-  ): ComponentFactory<IconComponent> {
-    throw new Error('Method not implemented.');
-    return;
-  }
-}
-
-class TestViewContainerRef extends ViewContainerRef {
-  get element(): import('@angular/core').ElementRef<any> {
-    throw new Error('Method not implemented.');
-  }
-  get injector(): import('@angular/core').Injector {
-    throw new Error('Method not implemented.');
-  }
-  get parentInjector(): import('@angular/core').Injector {
-    throw new Error('Method not implemented.');
-  }
-  clear(): void {
-    throw new Error('Method not implemented.');
-  }
-  get(index: number): import('@angular/core').ViewRef {
-    throw new Error('Method not implemented.');
-  }
-  get length(): number {
-    throw new Error('Method not implemented.');
-  }
-  createEmbeddedView<C>(
-    templateRef: import('@angular/core').TemplateRef<C>,
-    context?: C,
-    index?: number
-  ): import('@angular/core').EmbeddedViewRef<C> {
-    throw new Error('Method not implemented.');
-  }
-  createComponent<C>(
-    componentFactory: import('@angular/core').ComponentFactory<C>,
-    index?: number,
-    injector?: import('@angular/core').Injector,
-    projectableNodes?: any[][],
-    ngModule?: import('@angular/core').NgModuleRef<any>
-  ): import('@angular/core').ComponentRef<C> {
-    throw new Error('Method not implemented.');
-  }
-  insert(
-    viewRef: import('@angular/core').ViewRef,
-    index?: number
-  ): import('@angular/core').ViewRef {
-    throw new Error('Method not implemented.');
-  }
-  move(
-    viewRef: import('@angular/core').ViewRef,
-    currentIndex: number
-  ): import('@angular/core').ViewRef {
-    throw new Error('Method not implemented.');
-  }
-  indexOf(viewRef: import('@angular/core').ViewRef): number {
-    throw new Error('Method not implemented.');
-  }
-  remove(index?: number): void {
-    throw new Error('Method not implemented.');
-  }
-  detach(index?: number): import('@angular/core').ViewRef {
-    throw new Error('Method not implemented.');
-  }
-}

@@ -44,21 +44,23 @@ import {
   ],
 })
 export class InputComponent implements OnInit, AfterViewInit {
-  @Input() value: number;
+  @Input() value = '';
   @Input() type = 'text';
   @Input() disabled = false;
   @Input() step = 1;
   @Input() min: number;
   @Input() max: number;
   @Input() focus = false;
+  @Input() placeholder = '';
+  @Input() label = '';
 
   @Output() confirm = new EventEmitter();
   @Output() ref = new EventEmitter();
 
   @ViewChild('input') input;
 
-  private numberInterval: any;
-  private numberIntervalCounter = 1;
+  numberInterval: any;
+  numberIntervalCounter = 1;
 
   constructor(
     @Optional() @Attribute('textCenter') public textCenter: any,
@@ -76,15 +78,24 @@ export class InputComponent implements OnInit, AfterViewInit {
 
   isFocused(value: boolean) {
     this.focus = value;
+
     if (!value) {
+      if (this.type === 'number') {
+        this.rangedValue(this.input.nativeElement);
+      }
+      this.input.nativeElement.placeholder = '';
       this.confirm.emit(this.value);
       if (this.numberInterval) {
         this.clearNumberInterval();
       }
+    } else {
+      if (this.placeholder) {
+        this.input.nativeElement.placeholder = this.placeholder;
+      }
     }
   }
 
-  private clearNumberInterval() {
+  clearNumberInterval() {
     clearInterval(this.numberInterval);
     this.numberInterval = null;
     this.numberIntervalCounter = 1;
@@ -95,44 +106,71 @@ export class InputComponent implements OnInit, AfterViewInit {
   }
 
   onKeyDown(event: KeyboardEvent) {
+    if (this.type === 'number' && (event.key === '+' || event.key === 'e')) {
+      return false;
+    }
+
     if (event.key === 'Enter') {
+      if (this.type === 'number') {
+        this.rangedValue(this.input.nativeElement);
+      }
       this.confirm.emit(this.value);
     }
   }
 
-  rangedValue(event: Event) {
-    const el = event.target as HTMLInputElement;
-    const value = parseInt(el.value, 10);
+  rangedValue(el: HTMLInputElement) {
+    let value = parseInt(el.value, 10);
+
+    if (Number.isNaN(value)) {
+      value = this.min || 0;
+    }
 
     if (this.type === 'number') {
-      this.value =
-        this.max && this.min
-          ? Math.max(Math.min(this.max, value), this.min)
-          : parseInt(el.value, 10);
+      if (this.max) {
+        value = Math.min(this.max, value);
+      }
 
-      el.value = String(this.value);
+      if (this.min) {
+        value = Math.max(this.min, value);
+      }
+
+      this.value = el.value = String(value);
     }
   }
 
-  updateValue(event: Event, operation: 'add' | 'sub') {
+  updateValue(event: Event) {
+    const el = event.target as HTMLInputElement;
+    this.value = el.value;
+  }
+
+  updateNumberValue(event: Event, operation: 'add' | 'sub') {
     // Impede remoção do foco do input
     event.preventDefault();
-    const step = operation === 'add' ? +this.step : -this.step;
 
-    // Atualiza o valor imediatamente
-    this.value =
-      this.max && this.min
-        ? Math.max(Math.min(this.max, this.value + step), this.min)
-        : this.value + step;
+    const step = operation === 'add' ? +this.step : -this.step;
+    const numberUpdate = () => {
+      let value = parseInt(this.value, 10) || 0;
+
+      value += step;
+
+      if (this.max) {
+        value = Math.min(this.max, value);
+      }
+
+      if (this.min) {
+        value = Math.max(this.min, value);
+      }
+
+      this.value = String(value);
+    };
+
+    numberUpdate();
 
     // Cria intervalo onde (depois de um delay de 500ms) atualiza o valor do input a cada 50ms
     this.numberInterval = setInterval(() => {
       if (this.numberIntervalCounter > 10) {
         // Garante o delay de 500ms (50 do intervalo, e 10 das iterações com contador menor que 10)
-        this.value =
-          this.max && this.min
-            ? Math.max(Math.min(this.max, this.value + step), this.min)
-            : this.value + step;
+        numberUpdate();
       }
       ++this.numberIntervalCounter;
     }, 50);

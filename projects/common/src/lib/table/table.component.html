@@ -39,10 +39,9 @@
             type="number"
             [value]="pageSize"
             (confirm)="onPageSizeChange($event)"
-            min="10"
+            min="20"
             [max]="maxPageSize"
             step="10"
-            slim
             textCenter
           ></cca-common-input>
         </span>
@@ -75,7 +74,6 @@
             min="1"
             [max]="totalPages"
             (confirm)="onPageIndexChange($event)"
-            slim
             textCenter
           ></cca-common-input>
         </span>

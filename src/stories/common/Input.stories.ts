@@ -27,5 +27,26 @@ export default {
 };
 
 export const Default = () => ({
-  component: InputComponent,
+  props: {
+    console: console,
+  },
+  template: `
+  <div style="background: #fafafa">
+    <cca-common-input placeholder="Digite seu nome" label="Campo de Texto"></cca-common-input>
+  </div>
+  `,
+});
+
+export const Number = () => ({
+  template: `<div style="background: #fff">
+    <cca-common-input label="testando" type="number" style="margin-top: 2rem"></cca-common-input>
+  </div>`,
+});
+
+export const Date = () => ({
+  template: `
+  <div style="background: #fff;">
+    <cca-common-input label="Data" type="date" min="2020-05-20"></cca-common-input>
+  </div>
+  `,
 });
