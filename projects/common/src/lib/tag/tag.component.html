@@ -1,0 +1,10 @@
+<span
+  class="tag"
+  [tabindex]="clickable === '' ? 0 : -1"
+  [ngClass]="{
+    'clickable-tg': clickable === '',
+    'selected-tg': selected
+  }"
+>
+  <ng-content></ng-content>
+</span>
