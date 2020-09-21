@@ -6,11 +6,11 @@
   "directives": [
     {
       "name": "TooltipDirective",
-      "id": "directive-TooltipDirective-1835f25be58ad1fb3498da1e18fc34f8",
+      "id": "directive-TooltipDirective-af5d16b921fc2cb351f4d9802ad9f77e",
       "file": "projects/common/src/lib/tooltip/tooltip.directive.ts",
       "type": "directive",
       "description": "",
-      "sourceCode": "import {\n  Directive,\n  ElementRef,\n  Input,\n  Renderer2,\n  ViewContainerRef,\n  ComponentFactoryResolver,\n  ComponentRef,\n  OnInit,\n} from '@angular/core';\nimport { IconComponent } from '../icon/icon.component';\n\n@Directive({\n  selector: '[ccaCommonTooltip]',\n})\nexport class TooltipDirective implements OnInit {\n  @Input('ccaCommonTooltip') public text: string;\n\n  /* tslint:disable-next-line:no-input-rename */\n  @Input('tooltipPosition') public tooltipPosition: string;\n\n  targetElement: HTMLElement;\n\n  tooltipElement: HTMLElement;\n  tooltipComponent: ComponentRef<IconComponent>;\n\n  tooltipInfoElement: HTMLLabelElement;\n\n  private DEFAULT_POSITION = 'bottom-right';\n  private getX: (x: number) => {};\n  private getY: (y: number) => {};\n\n  private positionMap = {\n    'bottom-right': {\n      x: (x: number) => x + 16,\n      y: (y: number) => y + 16,\n    },\n\n    'bottom-left': {\n      x: (x: number) => x - 16 - this.tooltipInfoElement.clientWidth,\n      y: (y: number) => y + 16,\n    },\n\n    'top-left': {\n      x: (x: number) => x - 16 - this.tooltipInfoElement.clientWidth,\n      y: (y: number) => y - 16 - this.tooltipInfoElement.clientHeight,\n    },\n\n    'top-right': {\n      x: (x: number) => x + 16,\n      y: (y: number) => y - 16 - this.tooltipInfoElement.clientHeight,\n    },\n  };\n\n  constructor(\n    private vc: ViewContainerRef,\n    private targetElementRef: ElementRef,\n    private renderer: Renderer2,\n    private factory: ComponentFactoryResolver\n  ) {}\n\n  ngOnInit() {\n    // Inicializa fábrica de componentes para criar ícone\n    const factory = this.factory.resolveComponentFactory(IconComponent);\n    // Salva referência do elemento pai do elemento que está usando a diretiva\n    const { parentElement } = this.vc.element.nativeElement;\n    // Salva referência do elemento alvo\n    this.targetElement = this.targetElementRef.nativeElement;\n    // Cria componente de ícone\n    this.tooltipComponent = this.vc.createComponent(factory, 0, null, [\n      [document.createTextNode('help_outline')],\n    ]);\n\n    this.tooltipElement = this.tooltipComponent.location.nativeElement;\n\n    // Necessário para que os elementos estejam posicionados lado a lado\n    this.applyStyle(this.targetElement, { display: 'inline-block' });\n\n    this.applyStyle(this.tooltipElement, {\n      display: 'inline-block',\n      color: '#80868d',\n      cursor: 'pointer',\n      marginLeft: '.5rem',\n    });\n\n    this.tooltipElement.addEventListener(\n      'mouseenter',\n      this.onMouseOver.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mouseleave',\n      this.onMouseLeave.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mousemove',\n      this.onMouseMove.bind(this)\n    );\n\n    this.tooltipInfoElement = document.createElement('label');\n\n    if (this.tooltipElement.id) {\n      this.tooltipInfoElement.htmlFor = this.tooltipElement.id;\n    }\n\n    this.applyStyle(this.tooltipInfoElement, {\n      background: '#202124', // black - colors.scss\n      borderRadius: '5px',\n      color: '#fff',\n      fontFamily: 'Cabin',\n      fontSize: '1.2rem',\n      padding: '1.2rem 1.5rem',\n      position: 'fixed',\n      left: '0',\n      top: '0',\n      transition: 'opacity ease-in-out .15s, visibility .15s',\n      opacity: '0',\n      visibility: 'hidden',\n      zIndex: '99',\n      maxWidth: '256px',\n      textAlign: 'center',\n    });\n\n    this.tooltipInfoElement.innerText = this.text;\n\n    this.getX = this.positionMap[\n      this.tooltipPosition || this.DEFAULT_POSITION\n    ].x;\n    this.getY = this.positionMap[\n      this.tooltipPosition || this.DEFAULT_POSITION\n    ].y;\n\n    console.log(parentElement)\n\n    this.renderer.appendChild(parentElement, this.tooltipInfoElement);\n  }\n\n  onMouseOver(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '1',\n      visibility: 'visible',\n    });\n  }\n\n  onMouseMove(event: MouseEvent): void {\n    const { clientX, clientY } = event;\n\n    this.tooltipInfoElement.style.transform = `translate(${this.getX(\n      clientX\n    )}px, ${this.getY(clientY)}px)`;\n  }\n\n  onMouseLeave(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '0',\n      visibility: 'hidden',\n    });\n  }\n\n  private applyStyle(element: HTMLElement, styleObj: object) {\n    /* tslint:disable */\n    for (const style in styleObj) {\n      element.style[style] = styleObj[style];\n    }\n    /* tslint:enable\n     */\n  }\n}\n",
+      "sourceCode": "import {\n  Directive,\n  ElementRef,\n  Input,\n  Renderer2,\n  ViewContainerRef,\n  ComponentFactoryResolver,\n  ComponentRef,\n  OnInit,\n} from '@angular/core';\nimport { IconComponent } from '../icon/icon.component';\n\n@Directive({\n  selector: '[ccaCommonTooltip]',\n})\nexport class TooltipDirective implements OnInit {\n  @Input('ccaCommonTooltip') public text: string;\n\n  /* tslint:disable-next-line:no-input-rename */\n  @Input('tooltipPosition') public tooltipPosition: string;\n\n  targetElement: HTMLElement;\n\n  tooltipElement: HTMLElement;\n  tooltipComponent: ComponentRef<IconComponent>;\n\n  tooltipInfoElement: HTMLLabelElement;\n\n  private DEFAULT_POSITION = 'bottom-right';\n  private getX: (x: number) => {};\n  private getY: (y: number) => {};\n\n  private positionMap = {\n    'bottom-right': {\n      x: (x: number) => x + 16,\n      y: (y: number) => y + 16,\n    },\n\n    'bottom-left': {\n      x: (x: number) => x - 16 - this.tooltipInfoElement.clientWidth,\n      y: (y: number) => y + 16,\n    },\n\n    'top-left': {\n      x: (x: number) => x - 16 - this.tooltipInfoElement.clientWidth,\n      y: (y: number) => y - 16 - this.tooltipInfoElement.clientHeight,\n    },\n\n    'top-right': {\n      x: (x: number) => x + 16,\n      y: (y: number) => y - 16 - this.tooltipInfoElement.clientHeight,\n    },\n  };\n\n  constructor(\n    private vc: ViewContainerRef,\n    private targetElementRef: ElementRef,\n    private renderer: Renderer2,\n    private factory: ComponentFactoryResolver\n  ) {}\n\n  ngOnInit() {\n    // Inicializa fábrica de componentes para criar ícone\n    const factory = this.factory.resolveComponentFactory(IconComponent);\n    // Salva referência do elemento pai do elemento que está usando a diretiva\n    const { parentElement } = this.vc.element.nativeElement;\n    // Salva referência do elemento alvo\n    this.targetElement = this.targetElementRef.nativeElement;\n    // Cria componente de ícone\n    this.tooltipComponent = this.vc.createComponent(factory, 0, null, [\n      [document.createTextNode('help_outline')],\n    ]);\n\n    this.tooltipElement = this.tooltipComponent.location.nativeElement;\n\n    // Necessário para que os elementos estejam posicionados lado a lado\n    this.applyStyle(this.targetElement, { display: 'inline-block' });\n\n    this.applyStyle(this.tooltipElement, {\n      display: 'inline-block',\n      color: '#80868d',\n      cursor: 'pointer',\n      marginLeft: '.5rem',\n    });\n\n    this.tooltipElement.addEventListener(\n      'mouseenter',\n      this.onMouseOver.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mouseleave',\n      this.onMouseLeave.bind(this)\n    );\n    this.tooltipElement.addEventListener(\n      'mousemove',\n      this.onMouseMove.bind(this)\n    );\n\n    this.tooltipInfoElement = document.createElement('label');\n\n    if (this.targetElement.id) {\n      this.tooltipInfoElement.htmlFor = this.targetElement.id;\n    }\n\n    this.applyStyle(this.tooltipInfoElement, {\n      background: '#202124', // black - colors.scss\n      borderRadius: '5px',\n      color: '#fff',\n      fontFamily: 'Cabin',\n      fontSize: '1.2rem',\n      padding: '1.2rem 1.5rem',\n      position: 'fixed',\n      left: '0',\n      top: '0',\n      transition: 'opacity ease-in-out .15s, visibility .15s',\n      opacity: '0',\n      visibility: 'hidden',\n      zIndex: '99',\n      maxWidth: '256px',\n      textAlign: 'center',\n    });\n\n    this.tooltipInfoElement.innerText = this.text;\n\n    this.getX = this.positionMap[\n      this.tooltipPosition || this.DEFAULT_POSITION\n    ].x;\n    this.getY = this.positionMap[\n      this.tooltipPosition || this.DEFAULT_POSITION\n    ].y;\n\n    this.renderer.appendChild(parentElement, this.tooltipInfoElement);\n  }\n\n  onMouseOver(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '1',\n      visibility: 'visible',\n    });\n  }\n\n  onMouseMove(event: MouseEvent): void {\n    const { clientX, clientY } = event;\n\n    this.tooltipInfoElement.style.transform = `translate(${this.getX(\n      clientX\n    )}px, ${this.getY(clientY)}px)`;\n  }\n\n  onMouseLeave(): void {\n    this.applyStyle(this.tooltipInfoElement, {\n      opacity: '0',\n      visibility: 'hidden',\n    });\n  }\n\n  private applyStyle(element: HTMLElement, styleObj: object) {\n    /* tslint:disable */\n    for (const style in styleObj) {\n      element.style[style] = styleObj[style];\n    }\n    /* tslint:enable\n     */\n  }\n}\n",
       "selector": "[ccaCommonTooltip]",
       "providers": [],
       "inputsClass": [
@@ -108,7 +108,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 159,
+          "line": 157,
           "modifierKind": [112],
           "jsdoctags": [
             {
@@ -141,7 +141,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 152
+          "line": 150
         },
         {
           "name": "onMouseMove",
@@ -154,7 +154,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 144,
+          "line": 142,
           "jsdoctags": [
             {
               "name": "event",
@@ -171,7 +171,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 137
+          "line": 135
         }
       ],
       "implements": ["OnInit"],
@@ -628,7 +628,7 @@
     },
     {
       "name": "InputComponent",
-      "id": "component-InputComponent-0b67451a2bc8e7498d6b7b58561c0d58",
+      "id": "component-InputComponent-733f67cab0c874b7a1e5dedff86791c5",
       "file": "projects/common/src/lib/input/input.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -644,60 +644,60 @@
         {
           "name": "disabled",
           "defaultValue": "false",
-          "line": 49
+          "line": 50
         },
         {
           "name": "focus",
           "defaultValue": "false",
-          "line": 53
+          "line": 54
         },
         {
           "name": "label",
           "defaultValue": "''",
-          "line": 55
+          "line": 56
         },
         {
           "name": "max",
-          "line": 52,
+          "line": 53,
           "type": "number"
         },
         {
           "name": "min",
-          "line": 51,
+          "line": 52,
           "type": "number"
         },
         {
           "name": "placeholder",
           "defaultValue": "''",
-          "line": 54
+          "line": 55
         },
         {
           "name": "step",
           "defaultValue": "1",
-          "line": 50
+          "line": 51
         },
         {
           "name": "type",
           "defaultValue": "'text'",
-          "line": 48
+          "line": 49
         },
         {
           "name": "value",
           "defaultValue": "''",
-          "line": 47
+          "line": 48
         }
       ],
       "outputsClass": [
         {
           "name": "confirm",
           "defaultValue": "new EventEmitter()",
-          "line": 57,
+          "line": 58,
           "type": "EventEmitter"
         },
         {
           "name": "ref",
           "defaultValue": "new EventEmitter()",
-          "line": 58,
+          "line": 59,
           "type": "EventEmitter"
         }
       ],
@@ -707,7 +707,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 60,
+          "line": 61,
           "decorators": [
             {
               "name": "ViewChild",
@@ -720,8 +720,7 @@
           "type": "any",
           "optional": false,
           "description": "",
-          "line": 62,
-          "modifierKind": [112]
+          "line": 63
         },
         {
           "name": "numberIntervalCounter",
@@ -729,15 +728,14 @@
           "type": "number",
           "optional": false,
           "description": "",
-          "line": 63,
-          "modifierKind": [112]
+          "line": 64
         },
         {
           "name": "slim",
           "type": "any",
           "optional": false,
           "description": "",
-          "line": 67,
+          "line": 68,
           "decorators": [
             {
               "name": "Optional",
@@ -755,7 +753,7 @@
           "type": "any",
           "optional": false,
           "description": "",
-          "line": 66,
+          "line": 67,
           "decorators": [
             {
               "name": "Optional",
@@ -776,8 +774,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 99,
-          "modifierKind": [112]
+          "line": 123
         },
         {
           "name": "isFocused",
@@ -790,7 +787,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 79,
+          "line": 104,
           "jsdoctags": [
             {
               "name": "value",
@@ -807,7 +804,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 75
+          "line": 100
         },
         {
           "name": "ngOnInit",
@@ -815,7 +812,15 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 73
+          "line": 98
+        },
+        {
+          "name": "onChange",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 91
         },
         {
           "name": "onKeyDown",
@@ -828,7 +833,7 @@
           "optional": false,
           "returnType": "boolean",
           "typeParameters": [],
-          "line": 109,
+          "line": 133,
           "jsdoctags": [
             {
               "name": "event",
@@ -845,7 +850,15 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 105
+          "line": 129
+        },
+        {
+          "name": "onTouched",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 92
         },
         {
           "name": "rangedValue",
@@ -858,12 +871,77 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 122,
-          "modifierKind": [112],
+          "line": 146,
           "jsdoctags": [
             {
               "name": "el",
               "type": "HTMLInputElement",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
+        {
+          "name": "registerOnChange",
+          "args": [
+            {
+              "name": "fn",
+              "type": "any"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 83,
+          "jsdoctags": [
+            {
+              "name": "fn",
+              "type": "any",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
+        {
+          "name": "registerOnTouched",
+          "args": [
+            {
+              "name": "fn",
+              "type": "any"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 87,
+          "jsdoctags": [
+            {
+              "name": "fn",
+              "type": "any",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
+        {
+          "name": "setDisabledState",
+          "args": [
+            {
+              "name": "isDisabled",
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 94,
+          "jsdoctags": [
+            {
+              "name": "isDisabled",
+              "type": "boolean",
               "tagName": {
                 "text": "param"
               }
@@ -885,7 +963,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 148,
+          "line": 171,
           "jsdoctags": [
             {
               "name": "event",
@@ -914,11 +992,33 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 143,
+          "line": 166,
           "jsdoctags": [
             {
               "name": "event",
               "type": "Event",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
+        {
+          "name": "writeValue",
+          "args": [
+            {
+              "name": "value",
+              "type": "any"
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 79,
+          "jsdoctags": [
+            {
+              "name": "value",
+              "type": "any",
               "tagName": {
                 "text": "param"
               }
@@ -931,11 +1031,11 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import { trigger, transition, animate, style } from '@angular/animations';\nimport { AfterViewInit } from '@angular/core';\nimport {\n  Attribute,\n  Component,\n  Input,\n  OnInit,\n  Optional,\n  Output,\n  EventEmitter,\n  ViewChild,\n} from '@angular/core';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n  animations: [\n    trigger('fadeInOut', [\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 1,\n          })\n        ),\n      ]),\n\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 0,\n          })\n        ),\n      ]),\n    ]),\n  ],\n})\nexport class InputComponent implements OnInit, AfterViewInit {\n  @Input() value = '';\n  @Input() type = 'text';\n  @Input() disabled = false;\n  @Input() step = 1;\n  @Input() min: number;\n  @Input() max: number;\n  @Input() focus = false;\n  @Input() placeholder = '';\n  @Input() label = '';\n\n  @Output() confirm = new EventEmitter();\n  @Output() ref = new EventEmitter();\n\n  @ViewChild('input') input;\n\n  private numberInterval: any;\n  private numberIntervalCounter = 1;\n\n  constructor(\n    @Optional() @Attribute('textCenter') public textCenter: any,\n    @Optional() @Attribute('slim') public slim: any\n  ) {\n    this.textCenter = textCenter !== null;\n    this.slim = slim !== null;\n  }\n\n  ngOnInit(): void {}\n\n  ngAfterViewInit(): void {\n    this.ref.emit(this.input.nativeElement);\n  }\n\n  isFocused(value: boolean) {\n    this.focus = value;\n\n    if (!value) {\n\n      if(this.type === 'number'){\n        this.rangedValue(this.input.nativeElement)\n      }\n      this.input.nativeElement.placeholder = ''\n      this.confirm.emit(this.value);\n      if (this.numberInterval) {\n        this.clearNumberInterval();\n      }\n    } else {\n      if(this.placeholder){\n        this.input.nativeElement.placeholder = this.placeholder\n      }\n    }\n  }\n\n  private clearNumberInterval() {\n    clearInterval(this.numberInterval);\n    this.numberInterval = null;\n    this.numberIntervalCounter = 1;\n  }\n\n  onMouseUp() {\n    this.clearNumberInterval();\n  }\n\n  onKeyDown(event: KeyboardEvent) {\n    if(this.type === 'number' && (event.key == '+' || event.key == 'e') ) {\n      return false\n    }\n\n    if (event.key === 'Enter') {\n      if(this.type === 'number'){\n        this.rangedValue(this.input.nativeElement)\n      }\n      this.confirm.emit(this.value);\n    }\n  }\n\n  private rangedValue(el: HTMLInputElement) {\n    let value = parseInt(el.value, 10);\n\n    if(Number.isNaN(value)){\n      value = this.min || 0;\n    }\n\n    if (this.type === 'number') {\n\n      if(this.max){\n        value = Math.min(this.max, value)\n      }\n\n      if(this.min){\n        value = Math.max(this.min, value)\n      }\n\n      this.value = el.value = String(value)\n    }\n  }\n\n  updateValue(event: Event){\n    const el = (<HTMLInputElement>event.target);\n    this.value = el.value;\n  }\n\n  updateNumberValue(event: Event, operation: 'add' | 'sub') {\n    // Impede remoção do foco do input\n    event.preventDefault();\n\n    const step = operation === 'add' ? +this.step : -this.step;\n    let value = parseInt(this.value, 10) || 0;\n\n    value += step;\n\n    if(this.max) {\n      value = Math.min(this.max, value)\n    }\n\n    if(this.min) {\n      value = Math.max(this.min, value)\n    }\n\n    this.value = String(value)\n\n    // Cria intervalo onde (depois de um delay de 500ms) atualiza o valor do input a cada 50ms\n    this.numberInterval = setInterval(() => {\n      if (this.numberIntervalCounter > 10) {\n        // Garante o delay de 500ms (50 do intervalo, e 10 das iterações com contador menor que 10)\n        let value = parseInt(this.value, 10) || 0;\n\n        value += step;\n\n        if(this.max) {\n          value = Math.min(this.max, value)\n        }\n\n        if(this.min) {\n          value = Math.max(this.min, value)\n        }\n\n        this.value = String(value)\n      }\n      ++this.numberIntervalCounter;\n    }, 50);\n  }\n}\n",
+      "sourceCode": "import { trigger, transition, animate, style } from '@angular/animations';\nimport { AfterViewInit, Self } from '@angular/core';\nimport {\n  Attribute,\n  Component,\n  Input,\n  OnInit,\n  Optional,\n  Output,\n  EventEmitter,\n  ViewChild,\n} from '@angular/core';\nimport { NgControl } from '@angular/forms';\n\n@Component({\n  selector: 'cca-common-input',\n  templateUrl: './input.component.html',\n  styleUrls: ['./input.component.scss'],\n  animations: [\n    trigger('fadeInOut', [\n      transition(':enter', [\n        style({\n          opacity: 0,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 1,\n          })\n        ),\n      ]),\n\n      transition(':leave', [\n        style({\n          opacity: 1,\n        }),\n        animate(\n          '.1s ease-in-out',\n          style({\n            opacity: 0,\n          })\n        ),\n      ]),\n    ]),\n  ],\n})\nexport class InputComponent implements OnInit, AfterViewInit {\n  @Input() value = '';\n  @Input() type = 'text';\n  @Input() disabled = false;\n  @Input() step = 1;\n  @Input() min: number;\n  @Input() max: number;\n  @Input() focus = false;\n  @Input() placeholder = '';\n  @Input() label = '';\n\n  @Output() confirm = new EventEmitter();\n  @Output() ref = new EventEmitter();\n\n  @ViewChild('input') input;\n\n  numberInterval: any;\n  numberIntervalCounter = 1;\n\n  constructor(\n    @Optional() @Attribute('textCenter') public textCenter: any,\n    @Optional() @Attribute('slim') public slim: any,\n    @Self() @Optional() private ngControl: NgControl\n  ) {\n    this.textCenter = textCenter !== null;\n    this.slim = slim !== null;\n\n    if (this.ngControl) {\n      this.ngControl.valueAccessor = this;\n    }\n  }\n\n  writeValue(value: any) {\n    this.value = value;\n  }\n\n  registerOnChange(fn: any): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: any): void {\n    this.onTouched = fn;\n  }\n\n  onChange() {}\n  onTouched() {}\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled = isDisabled;\n  }\n\n  ngOnInit(): void {}\n\n  ngAfterViewInit(): void {\n    this.ref.emit(this.input.nativeElement);\n  }\n\n  isFocused(value: boolean) {\n    this.focus = value;\n\n    if (!value) {\n      if (this.type === 'number') {\n        this.rangedValue(this.input.nativeElement);\n      }\n      this.input.nativeElement.placeholder = '';\n      this.confirm.emit(this.value);\n      if (this.numberInterval) {\n        this.clearNumberInterval();\n      }\n    } else {\n      if (this.placeholder) {\n        this.input.nativeElement.placeholder = this.placeholder;\n      }\n    }\n  }\n\n  clearNumberInterval() {\n    clearInterval(this.numberInterval);\n    this.numberInterval = null;\n    this.numberIntervalCounter = 1;\n  }\n\n  onMouseUp() {\n    this.clearNumberInterval();\n  }\n\n  onKeyDown(event: KeyboardEvent) {\n    if (this.type === 'number' && (event.key === '+' || event.key === 'e')) {\n      return false;\n    }\n\n    if (event.key === 'Enter') {\n      if (this.type === 'number') {\n        this.rangedValue(this.input.nativeElement);\n      }\n      this.confirm.emit(this.value);\n    }\n  }\n\n  rangedValue(el: HTMLInputElement) {\n    let value = parseInt(el.value, 10);\n\n    if (Number.isNaN(value)) {\n      value = this.min || 0;\n    }\n\n    if (this.type === 'number') {\n      if (this.max) {\n        value = Math.min(this.max, value);\n      }\n\n      if (this.min) {\n        value = Math.max(this.min, value);\n      }\n\n      this.value = el.value = String(value);\n    }\n  }\n\n  updateValue(event: Event) {\n    const el = event.target as HTMLInputElement;\n    this.value = el.value;\n  }\n\n  updateNumberValue(event: Event, operation: 'add' | 'sub') {\n    // Impede remoção do foco do input\n    event.preventDefault();\n\n    const step = operation === 'add' ? +this.step : -this.step;\n    const numberUpdate = () => {\n      let value = parseInt(this.value, 10) || 0;\n\n      value += step;\n\n      if (this.max) {\n        value = Math.min(this.max, value);\n      }\n\n      if (this.min) {\n        value = Math.max(this.min, value);\n      }\n\n      this.value = String(value);\n    };\n\n    numberUpdate();\n\n    // Cria intervalo onde (depois de um delay de 500ms) atualiza o valor do input a cada 50ms\n    this.numberInterval = setInterval(() => {\n      if (this.numberIntervalCounter > 10) {\n        // Garante o delay de 500ms (50 do intervalo, e 10 das iterações com contador menor que 10)\n        numberUpdate();\n      }\n      ++this.numberIntervalCounter;\n    }, 50);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "@import '../../assets/scss/colors.scss';\n@import '../../assets/scss/variables.scss';\n\n:host {\n  background: inherit;\n  position: relative;\n  display: inline-block;\n\n  label {\n    color: $grey;\n    user-select: none;\n    pointer-events: none;\n    padding: 0 .5rem;\n    position: absolute;\n    top: 1rem;\n    left: 1.3rem;\n    background-color: inherit;\n    transition: transform .15s ease-in-out, font-size .15s ease-in-out, color .15s ease-in-out;\n\n    &.focused {\n      transform: translate(-.5rem,-1.8rem);\n      font-size: 1.2rem;\n      color: $tertiary;\n    }\n\n    &.colored {\n      color: $grey;\n      &.focused {\n        color: $light-grey\n      }\n    }\n  }\n\n  input[type] {\n    background: transparent;\n    padding: .5rem 1.8rem;\n    color: $grey;\n    font-family: Cabin;\n    font-size: 1.4rem;\n\n    width: 100%;\n\n    border-radius: 0.5rem;\n    border: 1px solid $light-grey;\n    height: 3.6rem;\n\n    &.center {\n      text-align: center;\n    }\n\n    &.slim {\n      height: 2.4rem;\n    }\n\n    transition: border 0.15s ease-in-out;\n\n    &:focus {\n      border: 1px solid $tertiary;\n      outline: 0;\n      caret-color: $tertiary;\n    }\n\n    &[type='number']::-webkit-outer-spin-button,\n    &[type='number']::-webkit-inner-spin-button {\n      -webkit-appearance: none;\n      margin: 0;\n    }\n\n    &[type='number'] {\n      -moz-appearance: textfield;\n    }\n\n    &[type='date'] {\n      cursor: text;\n    }\n\n  }\n\n  .number-minus,\n  .number-plus {\n    position: absolute;\n    left: calc(50% - 12px);\n    cursor: pointer;\n  }\n\n  .number-minus {\n    bottom: -2.5rem;\n  }\n\n  .number-plus {\n    top: -2.5rem;\n  }\n}\n",
+          "data": "@import '../../assets/scss/colors.scss';\n@import '../../assets/scss/variables.scss';\n\n:host {\n  background: inherit;\n  position: relative;\n  display: inline-block;\n\n  label {\n    color: $grey;\n    user-select: none;\n    pointer-events: none;\n    padding: 0 0.5rem;\n    position: absolute;\n    top: 1rem;\n    left: 1.3rem;\n    background-color: inherit;\n    transition: transform 0.15s ease-in-out, font-size 0.15s ease-in-out,\n      color 0.15s ease-in-out;\n\n    &.focused {\n      transform: translate(-0.5rem, -1.8rem);\n      font-size: 1.2rem;\n      color: $tertiary;\n    }\n\n    &.colored {\n      color: $grey;\n      &.focused {\n        color: $light-grey;\n      }\n    }\n  }\n\n  input[type] {\n    background: transparent;\n    padding: 0.5rem 1.8rem;\n    color: $grey;\n    font-family: Cabin;\n    font-size: 1.4rem;\n\n    width: 100%;\n\n    border-radius: 0.5rem;\n    border: 1px solid $light-grey;\n    height: 3.6rem;\n\n    &.center {\n      text-align: center;\n    }\n\n    &.slim {\n      height: 2.4rem;\n    }\n\n    transition: border 0.15s ease-in-out;\n\n    &:focus {\n      border: 1px solid $tertiary;\n      outline: 0;\n      caret-color: $tertiary;\n    }\n\n    &[type='number']::-webkit-outer-spin-button,\n    &[type='number']::-webkit-inner-spin-button {\n      -webkit-appearance: none;\n      margin: 0;\n    }\n\n    &[type='number'] {\n      -moz-appearance: textfield;\n    }\n\n    &[type='date'] {\n      cursor: text;\n    }\n  }\n\n  .number-minus,\n  .number-plus {\n    position: absolute;\n    left: calc(50% - 12px);\n    cursor: pointer;\n  }\n\n  .number-minus {\n    bottom: -2.5rem;\n  }\n\n  .number-plus {\n    top: -2.5rem;\n  }\n}\n",
           "styleUrl": "./input.component.scss"
         }
       ],
@@ -951,9 +1051,13 @@
           {
             "name": "slim",
             "type": "any"
+          },
+          {
+            "name": "ngControl",
+            "type": "NgControl"
           }
         ],
-        "line": 63,
+        "line": 64,
         "jsdoctags": [
           {
             "name": "textCenter",
@@ -968,15 +1072,22 @@
             "tagName": {
               "text": "param"
             }
+          },
+          {
+            "name": "ngControl",
+            "type": "NgControl",
+            "tagName": {
+              "text": "param"
+            }
           }
         ]
       },
       "implements": ["OnInit", "AfterViewInit"],
-      "templateData": "<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateNumberValue($event, 'add')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-plus\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon color=\"#3399ff\">expand_less</cca-common-icon>\n</div>\n\n<label *ngIf=\"label\" [ngClass]=\"{focused: (focus && !value) || value || type === 'date', colored: !focus }\">\n  {{label}}\n</label>\n\n<input\n  #input\n  tabindex=\"0\"\n  [min]=\"min\"\n  [max]=\"max\"\n  [step]=\"step\"\n  [type]=\"type\"\n  [value]=\"value\"\n  [ngClass]=\"{ center: textCenter, slim: slim }\"\n  [disabled]=\"disabled\"\n  (change)=\"type === 'text' ? updateValue($event) : null\"\n  (focus)=\"isFocused(true)\"\n  (blur)=\"isFocused(false)\"\n  (keydown)=\"onKeyDown($event)\"\n\n/>\n\n<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateNumberValue($event, 'sub')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-minus\"\n  [ngClass]=\"{ slim: slim }\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon color=\"#3399ff\">expand_more</cca-common-icon>\n</div>\n"
+      "templateData": "<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateNumberValue($event, 'add')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-plus\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon color=\"#3399ff\">expand_less</cca-common-icon>\n</div>\n\n<label\n  *ngIf=\"label\"\n  [ngClass]=\"{\n    focused: (focus && !value) || value || type === 'date',\n    colored: !focus\n  }\"\n>\n  {{ label }}\n</label>\n\n<input\n  #input\n  tabindex=\"0\"\n  [min]=\"min\"\n  [max]=\"max\"\n  [step]=\"step\"\n  [type]=\"type\"\n  [value]=\"value\"\n  [ngClass]=\"{ center: textCenter, slim: slim }\"\n  [disabled]=\"disabled\"\n  (input)=\"onChange($event.target.value)\"\n  (change)=\"type === 'text' ? updateValue($event) : null\"\n  (focus)=\"isFocused(true)\"\n  (blur)=\"isFocused(false); onTouched()\"\n  (keydown)=\"onKeyDown($event)\"\n/>\n\n<div\n  [@fadeInOut]\n  (mouseleave)=\"onMouseUp()\"\n  (mousedown)=\"updateNumberValue($event, 'sub')\"\n  (mouseup)=\"onMouseUp()\"\n  class=\"number-minus\"\n  [ngClass]=\"{ slim: slim }\"\n  *ngIf=\"type === 'number' && focus\"\n>\n  <cca-common-icon color=\"#3399ff\">expand_more</cca-common-icon>\n</div>\n"
     },
     {
       "name": "TableComponent",
-      "id": "component-TableComponent-82d9c76cad212256be56552105968f81",
+      "id": "component-TableComponent-8c13d818a22c4214aa94f6da59370fe2",
       "file": "projects/common/src/lib/table/table.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -1247,8 +1358,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 84,
-          "modifierKind": [112]
+          "line": 84
         },
         {
           "name": "updateButtonsState",
@@ -1266,7 +1376,6 @@
           "returnType": "void",
           "typeParameters": [],
           "line": 75,
-          "modifierKind": [112],
           "jsdoctags": [
             {
               "name": "buttonList",
@@ -1290,7 +1399,7 @@
       "description": "",
       "rawdescription": "",
       "type": "component",
-      "sourceCode": "import {\n  Component,\n  OnInit,\n  Output,\n  EventEmitter,\n  Input,\n  ViewChild,\n  ComponentFactoryResolver,\n  ContentChild,\n  TemplateRef,\n  ElementRef,\n  ViewEncapsulation\n} from '@angular/core';\nimport { AfterViewInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-table',\n  templateUrl: './table.component.html',\n  styleUrls: ['./table.component.scss']\n})\nexport class TableComponent implements OnInit, AfterViewInit {\n  @Output() lastPage = new EventEmitter();\n  @Output() firstPage = new EventEmitter();\n  @Output() nextPage = new EventEmitter();\n  @Output() previousPage = new EventEmitter();\n\n  @Output() refresh = new EventEmitter();\n\n  @Output() pageSizeChange = new EventEmitter();\n  @Output() pageIndexChange = new EventEmitter();\n\n  @Input() pageSize: number;\n  @Input() maxPageSize: number;\n  @Input() pageIndex = 1;\n  @Input() totalEntries: number;\n  @Input() dataSource = [{ default: 'default' }];\n\n  @ViewChild('actionWrapper') actionWrapper: ElementRef;\n  @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<\n    any\n  >;\n\n  totalPages: number;\n  headers: string[] = [];\n  showActions = false;\n\n  disableMap = {\n    firstPage: false,\n    lastPage: false,\n    previous: false,\n    next: false,\n  };\n\n  constructor(public resolver: ComponentFactoryResolver) {}\n\n  ngOnInit(): void {\n    const headers = new Set();\n\n    for (const data of this.dataSource) {\n      for (const key of Object.keys(data)) {\n        headers.add(key);\n      }\n    }\n\n    this.totalPages = Math.ceil(this.totalEntries / this.pageSize);\n    this.headers = [...headers] as string[];\n\n    this.toggleButtons();\n  }\n\n  ngAfterViewInit(): void {\n    this.showActions = !!this.actionWrapper.nativeElement.children.length;\n  }\n\n  private updateButtonsState(\n    buttonList: Array<'next' | 'previous' | 'lastPage' | 'firstPage'>,\n    value: boolean\n  ) {\n    for (const button of buttonList) {\n      this.disableMap[button] = value;\n    }\n  }\n\n  private toggleButtons() {\n    if (this.pageIndex > this.totalPages) {\n      this.pageIndex = this.totalPages;\n    }\n\n    if (this.pageIndex === 1) {\n      this.updateButtonsState(['previous', 'firstPage'], true);\n    } else {\n      this.updateButtonsState(['previous', 'firstPage'], false);\n    }\n\n    if (this.pageIndex === this.totalPages) {\n      this.updateButtonsState(['next', 'lastPage'], true);\n    } else {\n      this.updateButtonsState(['next', 'lastPage'], false);\n    }\n  }\n\n  onLastPage() {\n    this.pageIndex = this.totalPages;\n    this.lastPage.emit(this.totalPages);\n\n    this.toggleButtons();\n  }\n\n  onFirstPage() {\n    this.pageIndex = 1;\n    this.firstPage.emit(1);\n    this.disableMap.firstPage = true;\n\n    this.toggleButtons();\n  }\n\n  onNextPage() {\n    this.nextPage.emit(\n      this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onPreviousPage() {\n    this.previousPage.emit(\n      this.pageIndex > 1 ? --this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onRefresh(event: Event | KeyboardEvent) {\n    if (event instanceof KeyboardEvent) {\n      if (event.key !== 'Enter') {\n        return;\n      }\n    }\n\n    this.refresh.emit(this.pageIndex);\n  }\n\n  onPageIndexChange(pageIndex: string) {\n    this.pageIndex = parseInt(pageIndex, 10);\n    this.toggleButtons();\n    this.pageIndexChange.emit(this.pageIndex);\n  }\n\n  onPageSizeChange(pageSize: string) {\n    this.pageSize = parseInt(pageSize, 10);\n    this.totalPages = Math.ceil(this.totalEntries / parseInt(pageSize, 10));\n    this.toggleButtons();\n    this.pageSizeChange.emit(this.pageSize);\n  }\n}\n",
+      "sourceCode": "import {\n  Component,\n  OnInit,\n  Output,\n  EventEmitter,\n  Input,\n  ViewChild,\n  ComponentFactoryResolver,\n  ContentChild,\n  TemplateRef,\n  ElementRef,\n  ViewEncapsulation,\n} from '@angular/core';\nimport { AfterViewInit } from '@angular/core';\n\n@Component({\n  selector: 'cca-common-table',\n  templateUrl: './table.component.html',\n  styleUrls: ['./table.component.scss'],\n})\nexport class TableComponent implements OnInit, AfterViewInit {\n  @Output() lastPage = new EventEmitter();\n  @Output() firstPage = new EventEmitter();\n  @Output() nextPage = new EventEmitter();\n  @Output() previousPage = new EventEmitter();\n\n  @Output() refresh = new EventEmitter();\n\n  @Output() pageSizeChange = new EventEmitter();\n  @Output() pageIndexChange = new EventEmitter();\n\n  @Input() pageSize: number;\n  @Input() maxPageSize: number;\n  @Input() pageIndex = 1;\n  @Input() totalEntries: number;\n  @Input() dataSource = [{ default: 'default' }];\n\n  @ViewChild('actionWrapper') actionWrapper: ElementRef;\n  @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<\n    any\n  >;\n\n  totalPages: number;\n  headers: string[] = [];\n  showActions = false;\n\n  disableMap = {\n    firstPage: false,\n    lastPage: false,\n    previous: false,\n    next: false,\n  };\n\n  constructor(public resolver: ComponentFactoryResolver) {}\n\n  ngOnInit(): void {\n    const headers = new Set();\n\n    for (const data of this.dataSource) {\n      for (const key of Object.keys(data)) {\n        headers.add(key);\n      }\n    }\n\n    this.totalPages = Math.ceil(this.totalEntries / this.pageSize);\n    this.headers = [...headers] as string[];\n\n    this.toggleButtons();\n  }\n\n  ngAfterViewInit(): void {\n    this.showActions = !!this.actionWrapper.nativeElement.children.length;\n  }\n\n  updateButtonsState(\n    buttonList: Array<'next' | 'previous' | 'lastPage' | 'firstPage'>,\n    value: boolean\n  ) {\n    for (const button of buttonList) {\n      this.disableMap[button] = value;\n    }\n  }\n\n  toggleButtons() {\n    if (this.pageIndex > this.totalPages) {\n      this.pageIndex = this.totalPages;\n    }\n\n    if (this.pageIndex === 1) {\n      this.updateButtonsState(['previous', 'firstPage'], true);\n    } else {\n      this.updateButtonsState(['previous', 'firstPage'], false);\n    }\n\n    if (this.pageIndex === this.totalPages) {\n      this.updateButtonsState(['next', 'lastPage'], true);\n    } else {\n      this.updateButtonsState(['next', 'lastPage'], false);\n    }\n  }\n\n  onLastPage() {\n    this.pageIndex = this.totalPages;\n    this.lastPage.emit(this.totalPages);\n\n    this.toggleButtons();\n  }\n\n  onFirstPage() {\n    this.pageIndex = 1;\n    this.firstPage.emit(1);\n    this.disableMap.firstPage = true;\n\n    this.toggleButtons();\n  }\n\n  onNextPage() {\n    this.nextPage.emit(\n      this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onPreviousPage() {\n    this.previousPage.emit(\n      this.pageIndex > 1 ? --this.pageIndex : this.pageIndex\n    );\n\n    this.toggleButtons();\n  }\n\n  onRefresh(event: Event | KeyboardEvent) {\n    if (event instanceof KeyboardEvent) {\n      if (event.key !== 'Enter') {\n        return;\n      }\n    }\n\n    this.refresh.emit(this.pageIndex);\n  }\n\n  onPageIndexChange(pageIndex: string) {\n    this.pageIndex = parseInt(pageIndex, 10);\n    this.toggleButtons();\n    this.pageIndexChange.emit(this.pageIndex);\n  }\n\n  onPageSizeChange(pageSize: string) {\n    this.pageSize = parseInt(pageSize, 10);\n    this.totalPages = Math.ceil(this.totalEntries / parseInt(pageSize, 10));\n    this.toggleButtons();\n    this.pageSizeChange.emit(this.pageSize);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
@@ -1570,7 +1679,7 @@
         "subtype": "variable",
         "file": "src/stories/common/Input.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  template: `\n  <div style=\"background: #fff;\">\n    <cca-common-input label=\"Data\" type=\"date\" min=\"2020-05-20\"></cca-common-input>\n  </div>\n  `\n})"
+        "defaultValue": "() => ({\n  template: `\n  <div style=\"background: #fff;\">\n    <cca-common-input label=\"Data\" type=\"date\" min=\"2020-05-20\"></cca-common-input>\n  </div>\n  `,\n})"
       },
       {
         "name": "Default",
@@ -1578,7 +1687,7 @@
         "subtype": "variable",
         "file": "src/stories/common/Input.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  props: {\n    console: console\n  },\n  template: `\n  <div style=\"background: #fafafa\">\n    <cca-common-input placeholder=\"Digite seu nome\" label=\"Campo de Texto\"></cca-common-input>\n  </div>\n  `\n})"
+        "defaultValue": "() => ({\n  props: {\n    console: console,\n  },\n  template: `\n  <div style=\"background: #fafafa\">\n    <cca-common-input placeholder=\"Digite seu nome\" label=\"Campo de Texto\"></cca-common-input>\n  </div>\n  `,\n})"
       },
       {
         "name": "Default",
@@ -1618,7 +1727,7 @@
         "subtype": "variable",
         "file": "src/stories/common/Input.stories.ts",
         "type": "",
-        "defaultValue": "() => ({\n  template: `<div style=\"background: #fff\">\n    <cca-common-input label=\"testando\" type=\"number\" style=\"margin-top: 2rem\"></cca-common-input>\n  </div>`\n})"
+        "defaultValue": "() => ({\n  template: `<div style=\"background: #fff\">\n    <cca-common-input label=\"testando\" type=\"number\" style=\"margin-top: 2rem\"></cca-common-input>\n  </div>`,\n})"
       },
       {
         "name": "Outline",
@@ -1672,7 +1781,7 @@
           "subtype": "variable",
           "file": "src/stories/common/Input.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  template: `\n  <div style=\"background: #fff;\">\n    <cca-common-input label=\"Data\" type=\"date\" min=\"2020-05-20\"></cca-common-input>\n  </div>\n  `\n})"
+          "defaultValue": "() => ({\n  template: `\n  <div style=\"background: #fff;\">\n    <cca-common-input label=\"Data\" type=\"date\" min=\"2020-05-20\"></cca-common-input>\n  </div>\n  `,\n})"
         },
         {
           "name": "Default",
@@ -1680,7 +1789,7 @@
           "subtype": "variable",
           "file": "src/stories/common/Input.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  props: {\n    console: console\n  },\n  template: `\n  <div style=\"background: #fafafa\">\n    <cca-common-input placeholder=\"Digite seu nome\" label=\"Campo de Texto\"></cca-common-input>\n  </div>\n  `\n})"
+          "defaultValue": "() => ({\n  props: {\n    console: console,\n  },\n  template: `\n  <div style=\"background: #fafafa\">\n    <cca-common-input placeholder=\"Digite seu nome\" label=\"Campo de Texto\"></cca-common-input>\n  </div>\n  `,\n})"
         },
         {
           "name": "Number",
@@ -1688,7 +1797,7 @@
           "subtype": "variable",
           "file": "src/stories/common/Input.stories.ts",
           "type": "",
-          "defaultValue": "() => ({\n  template: `<div style=\"background: #fff\">\n    <cca-common-input label=\"testando\" type=\"number\" style=\"margin-top: 2rem\"></cca-common-input>\n  </div>`\n})"
+          "defaultValue": "() => ({\n  template: `<div style=\"background: #fff\">\n    <cca-common-input label=\"testando\" type=\"number\" style=\"margin-top: 2rem\"></cca-common-input>\n  </div>`,\n})"
         }
       ],
       "src/stories/common/Table.stories.ts": [
@@ -1816,7 +1925,7 @@
         "linktype": "component",
         "name": "InputComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/27",
+        "coverageCount": "0/33",
         "status": "low"
       },
       {

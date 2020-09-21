@@ -1,5 +1,5 @@
 import { trigger, transition, animate, style } from '@angular/animations';
-import { AfterViewInit } from '@angular/core';
+import { AfterViewInit, Self } from '@angular/core';
 import {
   Attribute,
   Component,
@@ -10,6 +10,7 @@ import {
   EventEmitter,
   ViewChild,
 } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 @Component({
   selector: 'cca-common-input',
@@ -64,10 +65,34 @@ export class InputComponent implements OnInit, AfterViewInit {
 
   constructor(
     @Optional() @Attribute('textCenter') public textCenter: any,
-    @Optional() @Attribute('slim') public slim: any
+    @Optional() @Attribute('slim') public slim: any,
+    @Self() @Optional() private ngControl: NgControl
   ) {
     this.textCenter = textCenter !== null;
     this.slim = slim !== null;
+
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  writeValue(value: any) {
+    this.value = value;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  onChange() {}
+  onTouched() {}
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
   ngOnInit(): void {}

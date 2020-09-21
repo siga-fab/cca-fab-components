@@ -29,9 +29,10 @@
   [value]="value"
   [ngClass]="{ center: textCenter, slim: slim }"
   [disabled]="disabled"
+  (input)="onChange($event.target.value)"
   (change)="type === 'text' ? updateValue($event) : null"
   (focus)="isFocused(true)"
-  (blur)="isFocused(false)"
+  (blur)="isFocused(false); onTouched()"
   (keydown)="onKeyDown($event)"
 />
 
