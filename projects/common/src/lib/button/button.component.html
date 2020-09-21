@@ -2,13 +2,15 @@
   class="button"
   (click)="onClick()"
   [disabled]="disabled === ''"
+  [type]="type"
+  [attr.form]="form"
   [ngClass]="{
     'icon-btn': hasIcon,
     'text-btn': hasText,
     'badged-btn': badged,
-    'outline-btn': !type || type === 'outline',
-    'fill-btn': type === 'fill',
-    'transparent-btn': type === 'transparent',
+    'outline-btn': !style || style === 'outline',
+    'fill-btn': style === 'fill',
+    'transparent-btn': style === 'transparent',
     'clicked-btn': animate,
     'secondary-btn': secondary === '',
     'flat-btn': flat === '',
