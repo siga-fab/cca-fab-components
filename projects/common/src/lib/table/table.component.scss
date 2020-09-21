@@ -1,5 +1,6 @@
 @import '~flexboxgrid/dist/flexboxgrid.min.css';
 @import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
 
 @keyframes rotate {
   0% {
@@ -63,22 +64,32 @@
     border-top: 2px solid $light-grey;
 
     .button {
-      cursor: pointer;
-      transition: color 0.1s ease-in-out;
+      transition: color 0.1s ease-in-out, box-shadow 0.15s ease-in-out;
+      border-radius: 100%;
+      &:focus {
+        outline: 0;
 
-      &.light {
+        &:not(.disabled) {
+          box-shadow: $focus-shadow;
+        }
+      }
+      &:not(.disabled) {
+        cursor: pointer;
+      }
+
+      &.disabled {
         color: #dadada;
       }
     }
 
-    .button:hover {
+    .button:hover:not(.disabled) {
       color: rgba(0, 0, 0, 0.75);
     }
 
     .input {
       margin-left: 0.2rem;
       display: inline-block;
-      width: 3rem;
+      width: 6.5rem;
     }
 
     > .left {

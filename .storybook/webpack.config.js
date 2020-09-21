@@ -17,7 +17,7 @@ module.exports = {
         enforce: 'pre',
       },
       {
-        test: '/.css$/',
+        test: [/\.css$/],
         include: includePath,
         use: ['to-string-loader', 'css-loader'],
       },

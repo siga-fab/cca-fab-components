@@ -102,18 +102,43 @@ describe('TableComponent', () => {
     });
 
     component.onFirstPage();
-    expect(onFirstPageSpy).toBeCalled();
+    expect(onFirstPageSpy).toHaveBeenCalled();
   });
 
   it('should emit refresh', () => {
+    const MOCK_EVENT = new Event(null);
     const onRefreshSpy = jest.spyOn(component, 'onRefresh');
 
     component.refresh.subscribe((res) => {
       expect(res).toBe(component.pageIndex);
     });
 
-    component.onRefresh();
-    expect(onRefreshSpy).toBeCalled();
+    component.onRefresh(MOCK_EVENT);
+    expect(onRefreshSpy).toHaveBeenCalled();
+  });
+
+  it('should emit refresh with a keyboard event', () => {
+    const MOCK_EVENT = new KeyboardEvent(null, { key: 'Enter' });
+    const onRefreshSpy = jest.spyOn(component, 'onRefresh');
+
+    component.refresh.subscribe((res) => {
+      expect(res).toBe(component.pageIndex);
+    });
+
+    component.onRefresh(MOCK_EVENT);
+    expect(onRefreshSpy).toHaveBeenCalled();
+  });
+
+  it('should not emit refresh with a keyboard event', () => {
+    const MOCK_EVENT = new KeyboardEvent(null, { key: 'Escape' });
+    const onRefreshSpy = jest.spyOn(component, 'onRefresh');
+
+    component.refresh.subscribe((res) => {
+      expect(res).toBe(component.pageIndex);
+    });
+
+    component.onRefresh(MOCK_EVENT);
+    expect(onRefreshSpy).toHaveBeenCalled();
   });
 
   it('should emit pageIndexChange', () => {
@@ -124,8 +149,8 @@ describe('TableComponent', () => {
       expect(res).toBe(NEW_INDEX);
     });
 
-    component.onPageIndexChange(NEW_INDEX);
-    expect(onPageIndexChangeSpy).toBeCalled();
+    component.onPageIndexChange(String(NEW_INDEX));
+    expect(onPageIndexChangeSpy).toHaveBeenCalled();
   });
 
   it('should emit pageSizeChange', () => {
@@ -136,7 +161,21 @@ describe('TableComponent', () => {
       expect(res).toBe(NEW_PAGE_SIZE);
     });
 
-    component.onPageSizeChange(NEW_PAGE_SIZE);
-    expect(onPageSizeChangeSpy).toBeCalled();
+    component.onPageSizeChange(String(NEW_PAGE_SIZE));
+    expect(onPageSizeChangeSpy).toHaveBeenCalled();
+  });
+
+  it('should set page index equals to last page index when page index is bigger', () => {
+    const CURRENT_INDEX = 5;
+    const TOTAL_PAGES = 3;
+    const toggleButtonsSpy = jest.spyOn(component, 'toggleButtons');
+
+    component.pageIndex = CURRENT_INDEX;
+    component.totalPages = TOTAL_PAGES;
+
+    component.toggleButtons();
+
+    expect(toggleButtonsSpy).toHaveBeenCalled();
+    expect(component.pageIndex).toBe(component.totalPages);
   });
 });

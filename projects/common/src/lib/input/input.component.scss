@@ -1,10 +1,40 @@
 @import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
 
 :host {
+  background: inherit;
   position: relative;
   display: inline-block;
 
+  label {
+    color: $grey;
+    user-select: none;
+    pointer-events: none;
+    padding: 0 0.5rem;
+    position: absolute;
+    top: 1rem;
+    left: 1.3rem;
+    background-color: inherit;
+    transition: transform 0.15s ease-in-out, font-size 0.15s ease-in-out,
+      color 0.15s ease-in-out;
+
+    &.focused {
+      transform: translate(-0.5rem, -1.8rem);
+      font-size: 1.2rem;
+      color: $tertiary;
+    }
+
+    &.colored {
+      color: $grey;
+      &.focused {
+        color: $light-grey;
+      }
+    }
+  }
+
   input[type] {
+    background: transparent;
+    padding: 0.5rem 1.8rem;
     color: $grey;
     font-family: Cabin;
     font-size: 1.4rem;
@@ -23,11 +53,12 @@
       height: 2.4rem;
     }
 
-    transition: box-shadow 0.1s ease-in-out;
+    transition: border 0.15s ease-in-out;
 
     &:focus {
-      box-shadow: $focus-shadow;
+      border: 1px solid $tertiary;
       outline: 0;
+      caret-color: $tertiary;
     }
 
     &[type='number']::-webkit-outer-spin-button,
@@ -38,6 +69,10 @@
 
     &[type='number'] {
       -moz-appearance: textfield;
+    }
+
+    &[type='date'] {
+      cursor: text;
     }
   }
 
