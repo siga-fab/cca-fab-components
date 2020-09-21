@@ -1,14 +1,10 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
-import {
-  CardComponent,
-  CardModule,
-} from '../../../projects/common/src/public-api';
+import { CardModule } from '../../../projects/common/src/public-api';
 
 export default {
   title: 'Common | Card',
-  component: CardComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, CardModule],

@@ -1,14 +1,10 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
-import {
-  BreadcrumbItemComponent,
-  BreadcrumbModule,
-} from '../../../projects/common/src/public-api';
+import { BreadcrumbModule } from '../../../projects/common/src/public-api';
 
 export default {
   title: 'Common | Breadcrumb',
-  component: BreadcrumbItemComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, BreadcrumbModule],

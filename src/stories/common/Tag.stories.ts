@@ -1,13 +1,9 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import {
-  TagComponent,
-  TagModule,
-} from '../../../projects/common/src/public-api';
+import { TagModule } from '../../../projects/common/src/public-api';
 
 export default {
   title: 'Common | Tag',
-  component: TagComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, TagModule],
