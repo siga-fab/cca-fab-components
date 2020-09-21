@@ -88,7 +88,7 @@ export class InputComponent implements OnInit, AfterViewInit {
     this.onTouched = fn;
   }
 
-  onChange() {}
+  onChange(value: any) {}
   onTouched() {}
 
   setDisabledState(isDisabled: boolean): void {
