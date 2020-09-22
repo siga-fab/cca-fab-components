@@ -9,7 +9,6 @@ import {
   ContentChild,
   TemplateRef,
   ElementRef,
-  ViewEncapsulation,
 } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 
@@ -46,9 +45,17 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   disableMap = {
     firstPage: false,
-    lastPage: false,
     previous: false,
     next: false,
+    lastPage: false,
+  };
+
+  acessibleStateMap = {
+    refresh: false,
+    firstPage: false,
+    previous: false,
+    next: false,
+    lastPage: false,
   };
 
   constructor(public resolver: ComponentFactoryResolver) {}
@@ -99,14 +106,26 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onLastPage() {
+  onLastPage(event: Event | KeyboardEvent) {
+    if (event instanceof KeyboardEvent) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
+    }
+
     this.pageIndex = this.totalPages;
     this.lastPage.emit(this.totalPages);
 
     this.toggleButtons();
   }
 
-  onFirstPage() {
+  onFirstPage(event: Event | KeyboardEvent) {
+    if (event instanceof KeyboardEvent) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
+    }
+
     this.pageIndex = 1;
     this.firstPage.emit(1);
     this.disableMap.firstPage = true;
@@ -114,7 +133,12 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.toggleButtons();
   }
 
-  onNextPage() {
+  onNextPage(event: Event | KeyboardEvent) {
+    if (event instanceof KeyboardEvent) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
+    }
     this.nextPage.emit(
       this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex
     );
@@ -122,7 +146,13 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.toggleButtons();
   }
 
-  onPreviousPage() {
+  onPreviousPage(event: Event | KeyboardEvent) {
+    if (event instanceof KeyboardEvent) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
+    }
+
     this.previousPage.emit(
       this.pageIndex > 1 ? --this.pageIndex : this.pageIndex
     );
@@ -132,7 +162,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   onRefresh(event: Event | KeyboardEvent) {
     if (event instanceof KeyboardEvent) {
-      if (event.key !== 'Enter') {
+      if (event.key !== 'Enter' && event.key !== ' ') {
         return;
       }
     }

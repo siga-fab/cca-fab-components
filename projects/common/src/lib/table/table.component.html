@@ -27,8 +27,13 @@
       <div
         tabindex="0"
         class="button"
-        (keydown)="onRefresh($event)"
+        (keydown)="onRefresh($event); acessibleStateMap['refresh'] = true"
+        (keyup)="acessibleStateMap['refresh'] = false"
         (click)="onRefresh($event)"
+        (mousedown)="acessibleStateMap['refresh'] = true"
+        (mouseup)="acessibleStateMap['refresh'] = false"
+        role="button"
+        [attr.aria-pressed]="acessibleStateMap['refresh']"
       >
         <cca-common-icon>loop</cca-common-icon>
       </div>
@@ -52,7 +57,18 @@
         [tabindex]="!disableMap['firstPage'] ? '0' : '-1'"
         class="button"
         [ngClass]="{ disabled: disableMap['firstPage'] }"
-        (click)="!disableMap['firstPage'] ? onFirstPage() : null"
+        (click)="!disableMap['firstPage'] ? onFirstPage($event) : null"
+        role="button"
+        (keydown)="
+          !disableMap['firstPage']
+            ? onFirstPage($event) && (acessibleStateMap['firstPage'] = true)
+            : null
+        "
+        (keyup)="acessibleStateMap['firstPage'] = false"
+        (mousedown)="acessibleStateMap['firstPage'] = true"
+        (mouseup)="acessibleStateMap['firstPage'] = false"
+        role="button"
+        [attr.aria-pressed]="acessibleStateMap['firstPage']"
       >
         <cca-common-icon>first_page</cca-common-icon>
       </div>
@@ -60,7 +76,17 @@
         [tabindex]="!disableMap['previous'] ? '0' : '-1'"
         class="button"
         [ngClass]="{ disabled: disableMap['previous'] }"
-        (click)="!disableMap['previous'] ? onPreviousPage() : null"
+        (click)="!disableMap['previous'] ? onPreviousPage($event) : null"
+        (keydown)="
+          !disableMap['previous']
+            ? onPreviousPage($event) && (acessibleStateMap['previous'] = true)
+            : null
+        "
+        (keyup)="acessibleStateMap['previous'] = false"
+        (mousedown)="acessibleStateMap['previous'] = true"
+        (mouseup)="acessibleStateMap['previous'] = false"
+        role="button"
+        [attr.aria-pressed]="acessibleStateMap['previous']"
       >
         <cca-common-icon>chevron_left</cca-common-icon>
       </div>
@@ -84,7 +110,17 @@
         [tabindex]="!disableMap['next'] ? '0' : '-1'"
         class="button"
         [ngClass]="{ disabled: disableMap['next'] }"
-        (click)="!disableMap['next'] ? onNextPage() : null"
+        (click)="!disableMap['next'] ? onNextPage($event) : null"
+        (keydown)="
+          !disableMap['next']
+            ? onNextPage($event) && (acessibleStateMap['next'] = true)
+            : null
+        "
+        (keyup)="acessibleStateMap['next'] = false"
+        (mousedown)="acessibleStateMap['next'] = true"
+        (mouseup)="acessibleStateMap['next'] = false"
+        role="button"
+        [attr.aria-pressed]="acessibleStateMap['next']"
       >
         <cca-common-icon>chevron_right</cca-common-icon>
       </div>
@@ -93,7 +129,17 @@
         [tabindex]="!disableMap['lastPage'] ? '0' : '-1'"
         class="button"
         [ngClass]="{ disabled: disableMap['lastPage'] }"
-        (click)="!disableMap['lastPage'] ? onLastPage() : null"
+        (click)="!disableMap['lastPage'] ? onLastPage($event) : null"
+        (keydown)="
+          !disableMap['lastPage']
+            ? onLastPage($event) && (acessibleStateMap['lastPage'] = true)
+            : null
+        "
+        (keyup)="acessibleStateMap['lastPage'] = false"
+        (mousedown)="acessibleStateMap['lastPage'] = true"
+        (mouseup)="acessibleStateMap['lastPage'] = false"
+        role="button"
+        [attr.aria-pressed]="acessibleStateMap['lastPage']"
       >
         <cca-common-icon>last_page</cca-common-icon>
       </div>
