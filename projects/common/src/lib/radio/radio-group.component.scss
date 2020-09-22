@@ -1,5 +1,6 @@
 .radio-group {
   &.horizontal {
     display: flex;
+    flex-flow: row wrap;
   }
 }

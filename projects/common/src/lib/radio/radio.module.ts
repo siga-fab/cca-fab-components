@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RadioGroupComponent } from './radio-group.component';
+
 import { RadioComponent } from './radio.component';
+import { RadioGroupComponent } from './radio-group.component';
 
 @NgModule({
   declarations: [RadioGroupComponent, RadioComponent],
