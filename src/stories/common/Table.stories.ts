@@ -28,31 +28,6 @@ export default {
 
 export const Default = () => ({
   component: TableComponent,
-  template: `<cca-common-table
-    [dataSource]="dataSource"
-    [pageSize]="pageSize"
-    [maxPageSize]="maxPageSize"
-    [pageIndex]="pageIndex"
-    [totalEntries]="totalEntries"
-    (firstPage)="firstPage"
-    (nextPage)="nextPage"
-    (previousPage)="previousPage"
-    (refresh)="refresh"
-    (pageSizeChange)="pageSizeChange"
-    (pageIndexChange)="pageIndexChange"
-  >
-    <ng-template let-content #action>
-      <div style="display: flex; justify-content: flex-end;">
-        <div>
-          <cca-common-icon>edit</cca-common-icon>
-        </div>
-        <div>
-          <cca-common-icon>delete</cca-common-icon>
-        </div>
-      </div>
-    </ng-template>
-  </cca-common-table>
-  `,
   props: {
     firstPage: action('firstPage'),
     lastPage: action('lastPage'),
@@ -103,4 +78,30 @@ export const Default = () => ({
       },
     ],
   },
+  template: `<cca-common-table
+    [dataSource]="dataSource"
+    [pageSize]="pageSize"
+    [maxPageSize]="maxPageSize"
+    [pageIndex]="pageIndex"
+    [totalEntries]="totalEntries"
+    (lastPage)="lastPage($event)"
+    (firstPage)="firstPage($event)"
+    (nextPage)="nextPage($event)"
+    (previousPage)="previousPage($event)"
+    (refresh)="refresh($event)"
+    (pageSizeChange)="pageSizeChange($event)"
+    (pageIndexChange)="pageIndexChange($event)"
+  >
+    <ng-template let-content #action>
+      <div style="display: flex; justify-content: flex-end;">
+        <div>
+          <cca-common-icon>edit</cca-common-icon>
+        </div>
+        <div>
+          <cca-common-icon>delete</cca-common-icon>
+        </div>
+      </div>
+    </ng-template>
+  </cca-common-table>
+  `,
 });

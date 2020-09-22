@@ -41,7 +41,7 @@ describe('TableComponent', () => {
       expect(res).toBe(PAGE_START_INDEX + 1);
     });
 
-    component.onNextPage();
+    component.onNextPage(new Event(null));
     expect(onNextPageSpy).toHaveBeenCalled();
   });
 
@@ -54,7 +54,7 @@ describe('TableComponent', () => {
       expect(res).toBe(NEW_INDEX);
     });
 
-    component.onNextPage();
+    component.onNextPage(new Event(null));
     expect(onNextPageSpy).toHaveBeenCalled();
   });
 
@@ -65,7 +65,7 @@ describe('TableComponent', () => {
       expect(res).toBe(component.totalPages);
     });
 
-    component.onLastPage();
+    component.onLastPage(new Event(null));
     expect(onLastPageSpy).toHaveBeenCalled();
   });
 
@@ -77,7 +77,7 @@ describe('TableComponent', () => {
       expect(res).toBe(MIN_PAGE);
     });
 
-    component.onPreviousPage();
+    component.onPreviousPage(new Event(null));
     expect(onPreviousPageSpy).toHaveBeenCalled();
   });
 
@@ -90,7 +90,7 @@ describe('TableComponent', () => {
       expect(res).toBe(NEW_INDEX - 1);
     });
 
-    component.onPreviousPage();
+    component.onPreviousPage(new Event(null));
     expect(onPreviousPageSpy).toHaveBeenCalled();
   });
 
@@ -101,7 +101,7 @@ describe('TableComponent', () => {
       expect(res).toBe(PAGE_START_INDEX);
     });
 
-    component.onFirstPage();
+    component.onFirstPage(new Event(null));
     expect(onFirstPageSpy).toHaveBeenCalled();
   });
 
