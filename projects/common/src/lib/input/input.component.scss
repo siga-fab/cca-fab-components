@@ -2,52 +2,125 @@
 @import '../../assets/scss/variables.scss';
 
 :host {
-  background: inherit;
   position: relative;
   display: inline-block;
 
-  label {
-    color: $grey;
-    user-select: none;
-    pointer-events: none;
-    padding: 0 0.5rem;
-    position: absolute;
-    top: 1rem;
-    left: 1.3rem;
-    background-color: inherit;
-    transition: transform 0.15s ease-in-out, font-size 0.15s ease-in-out,
-      color 0.15s ease-in-out;
-
-    &.focused {
-      transform: translate(-0.5rem, -1.8rem);
-      font-size: 1.2rem;
-      color: $tertiary;
+  .input:focus-within + .wrapper {
+    .corner-left,
+    .corner-right {
+      border-color: $tertiary;
     }
 
-    &.colored {
-      color: $grey;
-      &.focused {
-        color: $light-grey;
+    .label {
+      border-color: transparent;
+
+      &.unlabeled {
+        border-color: $tertiary;
       }
     }
   }
 
-  input[type] {
-    background: transparent;
-    padding: 0.5rem 1.8rem;
-    color: $grey;
-    font-family: Cabin;
-    font-size: 1.4rem;
+  .wrapper {
+    display: flex;
+    user-select: none;
+    pointer-events: none;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+
+    .corner-left,
+    .corner-right {
+      transition: border 0.15s ease-in-out;
+    }
+
+    .corner-left {
+      border-top: 1px solid $light-grey;
+      border-left: 1px solid $light-grey;
+      border-bottom: 1px solid $light-grey;
+      border-top-left-radius: 0.5rem;
+      border-bottom-left-radius: 0.5rem;
+
+      flex-grow: 1;
+      max-width: 0.5rem;
+    }
+
+    .corner-right {
+      border-top: 1px solid $light-grey;
+      border-right: 1px solid $light-grey;
+      border-bottom: 1px solid $light-grey;
+      border-top-right-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+
+      flex-grow: 1;
+    }
+
+    .label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $grey;
+      border-top: 1px solid $light-grey;
+      padding: 0 0.4rem;
+      transition: border 0.15s ease-in-out;
+
+      &.filled {
+        border-color: transparent;
+      }
+
+      label {
+        display: block;
+
+        transition: transform 0.15s ease-in-out, font-size 0.15s ease-in-out,
+          color 0.15s ease-in-out;
+
+        &.focused {
+          transform: translate(0, -1.9rem);
+          font-size: 1.2rem;
+          color: $tertiary;
+        }
+
+        &.colored {
+          color: $grey;
+          &.focused {
+            color: $light-grey;
+          }
+        }
+      }
+    }
+  }
+
+  .input {
+    display: flex;
+    justify-content: center;
 
     width: 100%;
 
+    input {
+      background: transparent;
+      color: $black;
+      font-family: Cabin;
+      font-size: 1.4rem;
+      border: 0;
+      margin: 0;
+      padding: 0 0.9rem;
+
+      &:focus {
+        outline: none;
+      }
+
+      &.center {
+        text-align: center;
+      }
+    }
+
     border-radius: 0.5rem;
     border: 1px solid $light-grey;
+    border-top: 0;
     height: 3.6rem;
-
-    &.center {
-      text-align: center;
-    }
 
     &.slim {
       height: 2.4rem;
@@ -55,14 +128,15 @@
 
     transition: border 0.15s ease-in-out;
 
-    &:focus {
+    &:focus-within {
       border: 1px solid $tertiary;
+      border-top: 0;
       outline: 0;
       caret-color: $tertiary;
     }
 
-    &[type='number']::-webkit-outer-spin-button,
-    &[type='number']::-webkit-inner-spin-button {
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }

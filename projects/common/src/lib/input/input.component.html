@@ -9,32 +9,47 @@
   <cca-common-icon color="#3399ff">expand_less</cca-common-icon>
 </div>
 
-<label
-  *ngIf="label"
-  [ngClass]="{
-    focused: (focus && !value) || value || type === 'date',
-    colored: !focus
-  }"
->
-  {{ label }}
-</label>
+<div class="input" [ngClass]="{ slim: slim }">
+  <input
+    #input
+    tabindex="0"
+    [ngClass]="{ center: textCenter }"
+    [min]="min"
+    [max]="max"
+    [step]="step"
+    [type]="type"
+    [value]="value"
+    [disabled]="disabled"
+    (input)="onChange($event.target.value)"
+    (change)="type === 'text' ? updateValue($event) : null"
+    (focus)="isFocused(true)"
+    (blur)="isFocused(false); onTouched()"
+    (keydown)="onKeyDown($event)"
+  />
+</div>
 
-<input
-  #input
-  tabindex="0"
-  [min]="min"
-  [max]="max"
-  [step]="step"
-  [type]="type"
-  [value]="value"
-  [ngClass]="{ center: textCenter, slim: slim }"
-  [disabled]="disabled"
-  (input)="onChange($event.target.value)"
-  (change)="type === 'text' ? updateValue($event) : null"
-  (focus)="isFocused(true)"
-  (blur)="isFocused(false); onTouched()"
-  (keydown)="onKeyDown($event)"
-/>
+<div class="wrapper">
+  <div class="corner-left"></div>
+
+  <div
+    class="label"
+    [ngClass]="{
+      filled: (label && value) || type === 'date',
+      unlabeled: !label && value
+    }"
+  >
+    <label
+      *ngIf="label"
+      [ngClass]="{
+        focused: (focus && !value) || value || type === 'date',
+        colored: !focus
+      }"
+    >
+      {{ label }}
+    </label>
+  </div>
+  <div class="corner-right"></div>
+</div>
 
 <div
   [@fadeInOut]
