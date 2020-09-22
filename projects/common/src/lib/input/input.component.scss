@@ -1,10 +1,13 @@
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
 
+// TODO: fix background color of floating label on transparent backgrounds
+
 :host {
   background: inherit;
   position: relative;
   display: inline-block;
+  width: 100%;
 
   label {
     color: $grey;
@@ -35,7 +38,7 @@
   input[type] {
     background: transparent;
     padding: 0.5rem 1.8rem;
-    color: $grey;
+    color: $black;
     font-family: Cabin;
     font-size: 1.4rem;
 
