@@ -16,7 +16,8 @@ export class FormSectionComponent implements OnInit {
   @HostBinding('class.partly-sized') partlySized = false;
 
   @Input() description?: string;
-  @Input() title?: string;
+  @Input() formTitle?: string;
+  @Input() tooltip?: string;
 
   // A number between 0-99
   @Input() step?: number;

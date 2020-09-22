@@ -19,6 +19,9 @@ export class TooltipDirective implements OnInit {
   /* tslint:disable-next-line:no-input-rename */
   @Input('tooltipPosition') public tooltipPosition: string;
 
+  /* tslint:disable-next-line:no-input-rename */
+  @Input('tooltipSize') public tooltipSize: number;
+
   targetElement: HTMLElement;
 
   tooltipElement: HTMLElement;
@@ -70,6 +73,7 @@ export class TooltipDirective implements OnInit {
     this.tooltipComponent = this.vc.createComponent(factory, 0, null, [
       [document.createTextNode('help_outline')],
     ]);
+    this.tooltipComponent.instance.size = this.tooltipSize;
 
     this.tooltipElement = this.tooltipComponent.location.nativeElement;
 

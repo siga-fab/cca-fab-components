@@ -6,6 +6,7 @@
   width: 100%;
   display: flex;
   flex-flow: row wrap;
+  background: inherit;
 
   &:not(.transparent-fm) {
     background: $white;

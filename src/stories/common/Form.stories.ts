@@ -1,12 +1,14 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { action } from '@storybook/addon-actions';
 import {
   FormModule,
   ButtonModule,
   RadioModule,
   LabelModule,
+  CheckboxModule,
+  InputModule,
 } from '../../../projects/common/src/public-api';
 
 export default {
@@ -19,6 +21,8 @@ export default {
         ButtonModule,
         RadioModule,
         LabelModule,
+        CheckboxModule,
+        InputModule,
       ],
     }),
   ],
@@ -36,21 +40,33 @@ export default {
 export const Default = () => ({
   props: {
     handleSubmit: action('submited'),
-    myGroup: new FormGroup({}),
+    myGroup: new FormGroup({
+      input: new FormControl('asdfaf'),
+      inputNumber: new FormControl(''),
+      radioGroup: new FormControl('option 5'),
+    }),
     formId: 'form-test',
   },
   template: `
     <div style="width: 70%;">
-      <cca-common-form [id]="formId" [formGroup]="myGroup" (ngSubmit)="handleSubmit($event)">
-        <cca-common-form-section partly title="Lorem Ipsum" step="1" tooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit."></cca-common-form-section>
-        <cca-common-form-section partly title="Lorem Ipsum" step="2" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id elit at erat consequat finibus non ut leo. Mauris luctus purus quis risus pharetra, in semper dolor faucibus.">
+      <cca-common-form [id]="formId" [formGroup]="myGroup" (ngSubmit)="handleSubmit(myGroup.value)">
+        <cca-common-form-section partly formTitle="Lorem Ipsum" step="1" tooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+          <cca-common-input label="Basic input" placeholder="type your text here" formControlName="input"></cca-common-input>
+          <cca-common-input type="number" label="Basic number input" placeholder="type your number here" formControlName="inputNumber" min="0" max="10"></cca-common-input>
         </cca-common-form-section>
-        <cca-common-form-section block title="Lorem Ipsum" step="3">
-          <cca-common-label>Teste</cca-common-label>
-          <cca-common-radio-group horizontal>
-            <cca-common-radio checked="true" value="option 4">option 4</cca-common-radio>
+        <cca-common-form-section partly formTitle="Lorem Ipsum" step="2" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id elit at erat consequat finibus non ut leo. Mauris luctus purus quis risus pharetra, in semper dolor faucibus.">
+          <cca-common-label>Checkbox field</cca-common-label>
+          <cca-common-checkbox>checkbox 1</cca-common-checkbox>
+          <cca-common-checkbox>checkbox 2</cca-common-checkbox>
+          <cca-common-checkbox>checkbox 3</cca-common-checkbox>
+        </cca-common-form-section>
+        <cca-common-form-section block formTitle="Lorem Ipsum" step="3">
+          <cca-common-label>Radio button field</cca-common-label>
+          <cca-common-radio-group horizontal formControlName="radioGroup">
             <cca-common-radio value="option 5">option 5</cca-common-radio>
-            <cca-common-radio [disabled]="true">option 6</cca-common-radio>
+            <cca-common-radio value="option 6">option 6</cca-common-radio>
+            <cca-common-radio value="option 7">option 7</cca-common-radio>
+            <cca-common-radio value="option 8">option 9</cca-common-radio>
           </cca-common-radio-group>
         </cca-common-form-section>
       </cca-common-form>

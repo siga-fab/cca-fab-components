@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import {
   Component,
   OnInit,
@@ -7,7 +8,6 @@ import {
   Optional,
   Attribute,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'cca-common-form',
