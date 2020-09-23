@@ -1,6 +1,16 @@
-.radio-group {
-  &.horizontal {
-    display: flex;
-    flex-flow: row wrap;
+@import '../../assets/scss/variables.scss';
+
+:host {
+  &:not(:last-child) {
+    .radio-group {
+      margin-bottom: $margin-bottom-default;
+    }
+  }
+
+  .radio-group {
+    &.horizontal {
+      display: flex;
+      flex-flow: row wrap;
+    }
   }
 }

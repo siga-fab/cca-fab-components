@@ -1,13 +1,15 @@
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
 
-// TODO: fix background color of floating label on transparent backgrounds
-
 :host {
   background: inherit;
   position: relative;
   display: inline-block;
   width: 100%;
+
+  &:not(:last-child) {
+    margin-bottom: $margin-bottom-default;
+  }
 
   label {
     color: $grey;
