@@ -109,6 +109,20 @@ describe('InputComponent', () => {
     expect(rangedValueSpy).toHaveBeenCalled();
   });
 
+  it('should do nothing on rangeValue if type is not number', () => {
+    const rangedValueSpy = jest.spyOn(component, 'rangedValue');
+    const INITIAL_VALUE = 'test';
+    const ELEMENT = component.input.nativeElement;
+
+    component.type = 'text';
+    component.value = 'test';
+
+    component.rangedValue(ELEMENT);
+
+    expect(rangedValueSpy).toHaveBeenCalled();
+    expect(component.value).toBe(INITIAL_VALUE);
+  });
+
   it('should call onKeyDown and do nothing', () => {
     const onKeyDownSpy = jest.spyOn(component, 'onKeyDown');
     const MOCK_KEYBOARD_EVENT = new KeyboardEvent(null, {
@@ -258,6 +272,24 @@ describe('InputComponent', () => {
 
     expect(updateValueSpy).toHaveBeenCalled();
     expect(component.value !== INITIAL_VALUE).toBe(true);
+  });
+
+  it('should use zero if value is invalid on type number', () => {
+    const updateValueSpy = jest.spyOn(component, 'updateNumberValue');
+    const MOCK_EVENT = new Event('mousedown');
+    const MOCK_ELEMENT = document.createElement('div');
+    const INITIAL_VALUE = '';
+
+    component.value = INITIAL_VALUE;
+
+    MOCK_ELEMENT.addEventListener('mousedown', (event) =>
+      component.updateNumberValue(event, 'add')
+    );
+
+    MOCK_ELEMENT.dispatchEvent(MOCK_EVENT);
+
+    expect(updateValueSpy).toHaveBeenCalled();
+    expect(component.value).toBe('1');
   });
 
   // Input number only

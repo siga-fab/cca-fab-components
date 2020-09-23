@@ -45,6 +45,8 @@ import { NgControl } from '@angular/forms';
   ],
 })
 export class InputComponent implements OnInit, AfterViewInit {
+  DEFAULT_MAX_LENGTH = 524288;
+
   @Input() value = '';
   @Input() type = 'text';
   @Input() disabled = false;
@@ -54,6 +56,7 @@ export class InputComponent implements OnInit, AfterViewInit {
   @Input() focus = false;
   @Input() placeholder = '';
   @Input() label = '';
+  @Input() maxlength;
 
   @Output() confirm = new EventEmitter();
   @Output() ref = new EventEmitter();
@@ -71,26 +74,28 @@ export class InputComponent implements OnInit, AfterViewInit {
     this.textCenter = textCenter !== null;
     this.slim = slim !== null;
 
+    /* istanbul ignore next */
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
   }
-
+  /* istanbul ignore next */
   writeValue(value: any) {
     this.value = value;
   }
-
+  /* istanbul ignore next */
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-
+  /* istanbul ignore next */
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-
+  /* istanbul ignore next */
   onChange(value: any) {}
+  /* istanbul ignore next */
   onTouched() {}
-
+  /* istanbul ignore next */
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }

@@ -30,7 +30,7 @@ export class TooltipDirective implements OnInit {
   private getX: (x: number) => {};
   private getY: (y: number) => {};
 
-  private positionMap = {
+  positionMap = {
     'bottom-right': {
       x: (x: number) => x + 16,
       y: (y: number) => y + 16,

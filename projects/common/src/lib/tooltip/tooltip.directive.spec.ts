@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TooltipModule } from './tooltip.module';
-import { IconComponent } from '../icon/icon.component';
 
 @Component({
   template: `
