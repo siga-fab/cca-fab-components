@@ -6,10 +6,16 @@ import { FormComponent } from './form.component';
 import { FormSectionComponent } from './form-section.component';
 
 import { TooltipModule } from '../tooltip/tooltip.module';
+import { FieldsetComponent } from './fieldset.component';
 
 @NgModule({
-  declarations: [FormComponent, FormSectionComponent],
+  declarations: [FormComponent, FormSectionComponent, FieldsetComponent],
   imports: [CommonModule, ReactiveFormsModule, TooltipModule],
-  exports: [FormComponent, FormSectionComponent, ReactiveFormsModule],
+  exports: [
+    FormComponent,
+    FormSectionComponent,
+    FieldsetComponent,
+    ReactiveFormsModule,
+  ],
 })
 export class FormModule {}

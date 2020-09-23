@@ -44,6 +44,9 @@ export const Default = () => ({
       input: new FormControl('asdfaf'),
       inputNumber: new FormControl(''),
       radioGroup: new FormControl('option 5'),
+      checkboxOne: new FormControl(true),
+      checkboxTwo: new FormControl(false),
+      checkboxTree: new FormControl(false),
     }),
     formId: 'form-test',
   },
@@ -55,10 +58,12 @@ export const Default = () => ({
           <cca-common-input type="number" label="Basic number input" placeholder="type your number here" formControlName="inputNumber" min="0" max="10"></cca-common-input>
         </cca-common-form-section>
         <cca-common-form-section partly formTitle="Lorem Ipsum" step="2" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id elit at erat consequat finibus non ut leo. Mauris luctus purus quis risus pharetra, in semper dolor faucibus.">
-          <cca-common-label>Checkbox field</cca-common-label>
-          <cca-common-checkbox>checkbox 1</cca-common-checkbox>
-          <cca-common-checkbox>checkbox 2</cca-common-checkbox>
-          <cca-common-checkbox>checkbox 3</cca-common-checkbox>
+          <cca-common-fieldset>
+            <cca-common-label>Checkbox field</cca-common-label>
+            <cca-common-checkbox formControlName="checkboxOne">checkbox 1</cca-common-checkbox>
+            <cca-common-checkbox formControlName="checkboxTwo">checkbox 2</cca-common-checkbox>
+            <cca-common-checkbox formControlName="checkboxTree">checkbox 3</cca-common-checkbox>
+          </cca-common-fieldset>
         </cca-common-form-section>
         <cca-common-form-section block formTitle="Lorem Ipsum" step="3">
           <cca-common-label>Radio button field</cca-common-label>

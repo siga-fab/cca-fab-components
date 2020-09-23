@@ -1,0 +1,9 @@
+@import '../../assets/scss/variables.scss';
+
+:host {
+  &:not(:last-child) {
+    .fieldset {
+      margin-bottom: $margin-bottom-default;
+    }
+  }
+}
