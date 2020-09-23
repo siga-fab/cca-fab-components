@@ -1,0 +1,17 @@
+@import '~flexboxgrid/dist/flexboxgrid.min.css';
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  background: inherit;
+
+  &:not(.transparent-fm) {
+    background: $white;
+    border: 0.1rem solid $border-grey;
+    box-shadow: $box-shadow;
+    border-radius: 0.5rem;
+  }
+}

@@ -16,14 +16,18 @@ export default {
 export const Default = () => ({
   props: {
     handleChange: action('changed'),
+    radioVertical: 'option 2',
+    radioHorizontal: 'option 5',
   },
   template: `
-    <cca-common-radio-group (changed)="handleChange($event)">
-      <cca-common-radio checked="true" value="option 1">option 1</cca-common-radio>
+    <span>{{ radioVertical }}</span>
+    <cca-common-radio-group [(ngModel)]="radioVertical" (changed)="handleChange($event)">
+      <cca-common-radio value="option 1">option 1</cca-common-radio>
       <cca-common-radio value="option 2">option 2</cca-common-radio>
       <cca-common-radio [disabled]="true">option 3</cca-common-radio>
     </cca-common-radio-group>
-    <cca-common-radio-group horizontal (changed)="handleChange($event)">
+    <span>{{ radioHorizontal }}</span>
+    <cca-common-radio-group horizontal [(ngModel)]="radioHorizontal" (changed)="handleChange($event)">
       <cca-common-radio checked="true" value="option 4">option 4</cca-common-radio>
       <cca-common-radio value="option 5">option 5</cca-common-radio>
       <cca-common-radio [disabled]="true">option 6</cca-common-radio>

@@ -12,6 +12,12 @@ export class RadioComponent implements OnInit {
   @Input() checked = false;
   @Input() disabled = false;
   @Input() id = `radio-${RadioComponent.radioCount++}__input`;
+  @Input() ariaLabel = '';
+
+  /**
+   * Sets the HTML required attribute
+   */
+  @Input() required = false;
 
   @Input() value: string;
 

@@ -1,0 +1,62 @@
+@import '~flexboxgrid/dist/flexboxgrid.min.css';
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+
+:host {
+  flex: 1 1 100%;
+  background: inherit;
+
+  &.partly-sized {
+    min-width: 30rem;
+    flex-basis: 50%;
+  }
+
+  .form-section {
+    padding: $padding;
+    background: inherit;
+
+    &.block-fs {
+      border-top: 0.2rem solid $light-grey;
+    }
+
+    .fs-header {
+      display: flex;
+      margin-top: 0;
+      margin-bottom: 2.5rem;
+
+      color: $black;
+      font-weight: bold;
+
+      .fs-title,
+      .fs-step {
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+      }
+
+      .fs-step {
+        display: inline-block;
+        width: 2.4rem;
+        height: 2.4rem;
+        margin-right: 1rem;
+
+        color: $white;
+
+        background-color: $primary;
+        border-radius: 50%;
+        text-align: center;
+      }
+    }
+
+    .fs-description {
+      margin-top: 0;
+      margin-bottom: 2.5rem;
+
+      font-size: 1.4rem;
+      opacity: 0.45;
+    }
+
+    .fs-header + .fs-description {
+      margin-top: -1rem;
+    }
+  }
+}
