@@ -8,9 +8,11 @@
     [value]="value"
     [disabled]="disabled"
     [attr.aria-checked]="checked"
-    (change)="onChange()"
+    [indeterminate]="false"
+    (change)="onChange($event)"
+    (click)="onClick()"
   />
-  <label class="cb-label" [for]="id">
+  <label class="cb-label" [for]="id" [attr.aria-label]="ariaLabel">
     <span class="cb-label-text"><ng-content></ng-content></span>
   </label>
 </div>

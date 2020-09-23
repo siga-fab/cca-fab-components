@@ -1,3 +1,4 @@
+import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
@@ -13,9 +14,14 @@ export default {
 };
 
 export const Default = () => ({
+  props: {
+    checkbox: true,
+    handleChange: action('changed'),
+  },
   template: `
-    <cca-common-checkbox>This is a checkbox!</cca-common-checkbox>
-    <cca-common-checkbox>This is a checkbox!</cca-common-checkbox>
+    <span>{{ checkbox }}</span>
+    <cca-common-checkbox value="checkbox 1" [(ngModel)]="checkbox">This is a checkbox!</cca-common-checkbox>
+    <cca-common-checkbox (changed)="handleChange($event)">This is a checkbox!</cca-common-checkbox>
     <cca-common-checkbox disabled="true">This is a checkbox!</cca-common-checkbox>
   `,
 });
