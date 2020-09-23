@@ -20,6 +20,7 @@
     [type]="type"
     [value]="value"
     [disabled]="disabled"
+    [maxLength]="maxlength ? maxlength : DEFAULT_MAX_LENGTH"
     (input)="onChange($event.target.value)"
     (change)="type === 'text' ? updateValue($event) : null"
     (focus)="isFocused(true)"
