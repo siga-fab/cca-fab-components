@@ -44,6 +44,7 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
   @Output() changed = new EventEmitter<boolean>();
 
   constructor(@Self() @Optional() private ngControl: NgControl) {
+    /* istanbul ignore next */
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
@@ -70,15 +71,19 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
    * In this case the value is the `checked` property.
    *
    * @param value boolean, corresponds to the `checked` property.
+   *
    */
+  /* istanbul ignore next */
   writeValue(value: any) {
     this.checked = !!value;
   }
 
+  /* istanbul ignore next */
   public registerOnChange(fn: any) {
     this.propagateChange = fn;
   }
 
+  /* istanbul ignore next */
   public registerOnTouched(fn: any) {
     this.onTouched = fn;
   }

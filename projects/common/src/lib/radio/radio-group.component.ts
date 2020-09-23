@@ -43,6 +43,7 @@ export class RadioGroupComponent
    */
   protected _name = `radio-group-${RadioGroupComponent.radioGroupCount++}`;
 
+  /* istanbul ignore next */
   @Input()
   set selected(selected: RadioComponent | null) {
     this._selected = selected;
@@ -53,6 +54,7 @@ export class RadioGroupComponent
   /**
    * Returns the `Radio` that is selected within the `RadioGroup`.
    */
+  /* istanbul ignore next */
   get selected() {
     return this._selected;
   }
@@ -60,6 +62,7 @@ export class RadioGroupComponent
   /**
    * Sets the value/state of the selected `Radio` within the `RadioGroup` to the passed in value.
    */
+  /* istanbul ignore next */
   @Input()
   set value(newValue: any) {
     if (this._value !== newValue) {
@@ -73,18 +76,22 @@ export class RadioGroupComponent
   /**
    * Returns the value/state of the selected `Radio` within the `RadioGroup`.
    */
+  /* istanbul ignore next */
   get value() {
     return this._value;
   }
 
+  /* istanbul ignore next */
   @Input()
   set name(name: string) {
     this._name = name;
     this.updateRadios();
   }
+
   /**
    * Returns the associated name of the `RadioGroup`.
    */
+  /* istanbul ignore next */
   get name() {
     return this._name;
   }
@@ -99,6 +106,7 @@ export class RadioGroupComponent
     @Optional() @Attribute('horizontal') public horizontal,
     @Self() @Optional() private ngControl: NgControl
   ) {
+    /* istanbul ignore next */
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
@@ -106,6 +114,7 @@ export class RadioGroupComponent
 
   ngOnInit(): void {}
 
+  /* istanbul ignore next */
   ngAfterContentInit(): void {
     this.radios.changes.subscribe(() => {
       this.updateRadios();
@@ -128,6 +137,7 @@ export class RadioGroupComponent
   /**
    * Synchronizes radio properties.
    */
+  /* istanbul ignore next */
   updateRadios() {
     if (this.radios) {
       setTimeout(() => {
@@ -149,6 +159,7 @@ export class RadioGroupComponent
     }
   }
 
+  /* istanbul ignore next */
   updateRadioChangeHandlers(): void {
     if (this.radios) {
       this.radios.forEach((radio) => {
@@ -164,6 +175,7 @@ export class RadioGroupComponent
   /**
    * Updates the value of the `RadioGroup` using the provided parameter.
    */
+  /* istanbul ignore next */
   writeValue(value: any) {
     this.value = value;
     setTimeout(() => {
@@ -175,6 +187,7 @@ export class RadioGroupComponent
   /**
    * Used to set method to propagate changes back to the form.
    */
+  /* istanbul ignore next */
   public registerOnChange(fn: any) {
     this.propagateChange = fn;
   }
@@ -183,6 +196,7 @@ export class RadioGroupComponent
    * Registers a callback to be triggered when the control has been touched.
    * @param fn Callback to be triggered when the checkbox is touched.
    */
+  /* istanbul ignore next */
   public registerOnTouched(fn: any) {
     this.onTouched = fn;
   }
