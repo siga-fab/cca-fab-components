@@ -154,7 +154,7 @@ export class RadioGroupComponent
       this.radios.forEach((radio) => {
         radio.registerRadioChangeHandler((value: string) => {
           this.changed.emit(value);
-          this.onChange(value);
+          this.propagateChange(value);
           this.onTouched();
         });
       });
@@ -176,7 +176,7 @@ export class RadioGroupComponent
    * Used to set method to propagate changes back to the form.
    */
   public registerOnChange(fn: any) {
-    this.onChange = fn;
+    this.propagateChange = fn;
   }
 
   /**
@@ -190,7 +190,7 @@ export class RadioGroupComponent
   /**
    * Method set in registerOnChange to propagate changes back to the form.
    */
-  onChange = (_: any) => {};
+  propagateChange = (_: any) => {};
 
   /**
    * Needed to properly implement ControlValueAccessor.
