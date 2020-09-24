@@ -109,7 +109,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   onLastPage(event: Event | KeyboardEvent) {
     if (event instanceof KeyboardEvent) {
       if (event.key !== 'Enter' && event.key !== ' ') {
-        return;
+        return false;
       }
     }
 
@@ -117,12 +117,13 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.lastPage.emit(this.totalPages);
 
     this.toggleButtons();
+    return true;
   }
 
   onFirstPage(event: Event | KeyboardEvent) {
     if (event instanceof KeyboardEvent) {
       if (event.key !== 'Enter' && event.key !== ' ') {
-        return;
+        return false;
       }
     }
 
@@ -131,12 +132,13 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.disableMap.firstPage = true;
 
     this.toggleButtons();
+    return true;
   }
 
   onNextPage(event: Event | KeyboardEvent) {
     if (event instanceof KeyboardEvent) {
       if (event.key !== 'Enter' && event.key !== ' ') {
-        return;
+        return false;
       }
     }
     this.nextPage.emit(
@@ -144,12 +146,14 @@ export class TableComponent implements OnInit, AfterViewInit {
     );
 
     this.toggleButtons();
+
+    return true;
   }
 
   onPreviousPage(event: Event | KeyboardEvent) {
     if (event instanceof KeyboardEvent) {
       if (event.key !== 'Enter' && event.key !== ' ') {
-        return;
+        return false;
       }
     }
 
@@ -158,16 +162,19 @@ export class TableComponent implements OnInit, AfterViewInit {
     );
 
     this.toggleButtons();
+    return true;
   }
 
   onRefresh(event: Event | KeyboardEvent) {
     if (event instanceof KeyboardEvent) {
       if (event.key !== 'Enter' && event.key !== ' ') {
-        return;
+        return false;
       }
     }
 
     this.refresh.emit(this.pageIndex);
+
+    return true;
   }
 
   onPageIndexChange(pageIndex: string) {
