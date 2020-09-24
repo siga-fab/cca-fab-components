@@ -13,7 +13,7 @@ import {
 import { AfterViewInit } from '@angular/core';
 
 @Component({
-  selector: 'cca-common-table',
+  selector: 'com-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })

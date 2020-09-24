@@ -31,21 +31,21 @@ export const Default = () => ({
   },
   template: `
   <div style="background: #fafafa">
-    <cca-common-input placeholder="Digite seu nome" label="Campo de Texto"></cca-common-input>
+    <com-input placeholder="Digite seu nome" label="Campo de Texto"></com-input>
   </div>
   `,
 });
 
 export const Number = () => ({
   template: `<div style="width: 10rem">
-    <cca-common-input step="0.1" min="0.5" max="0.8" label="testando" type="number" style="margin-top: 2rem"></cca-common-input>
+    <com-input step="0.1" min="0.5" max="0.8" label="testando" type="number" style="margin-top: 2rem"></com-input>
   </div>`,
 });
 
 export const Date = () => ({
   template: `
   <div style="background: #fff;">
-    <cca-common-input label="Data" type="date" min="2020-05-20"></cca-common-input>
+    <com-input label="Data" type="date" min="2020-05-20"></com-input>
   </div>
   `,
 });

@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'cca-common-form',
+  selector: 'com-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })

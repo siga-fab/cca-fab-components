@@ -21,16 +21,16 @@ export const Default = () => ({
   },
   template: `
     <span>{{ radioVertical }}</span>
-    <cca-common-radio-group [(ngModel)]="radioVertical" (changed)="handleChange($event)">
-      <cca-common-radio value="option 1">option 1</cca-common-radio>
-      <cca-common-radio value="option 2">option 2</cca-common-radio>
-      <cca-common-radio [disabled]="true">option 3</cca-common-radio>
-    </cca-common-radio-group>
+    <com-radio-group [(ngModel)]="radioVertical" (changed)="handleChange($event)">
+      <com-radio value="option 1">option 1</com-radio>
+      <com-radio value="option 2">option 2</com-radio>
+      <com-radio [disabled]="true">option 3</com-radio>
+    </com-radio-group>
     <span>{{ radioHorizontal }}</span>
-    <cca-common-radio-group horizontal [(ngModel)]="radioHorizontal" (changed)="handleChange($event)">
-      <cca-common-radio checked="true" value="option 4">option 4</cca-common-radio>
-      <cca-common-radio value="option 5">option 5</cca-common-radio>
-      <cca-common-radio [disabled]="true">option 6</cca-common-radio>
-    </cca-common-radio-group>
+    <com-radio-group horizontal [(ngModel)]="radioHorizontal" (changed)="handleChange($event)">
+      <com-radio checked="true" value="option 4">option 4</com-radio>
+      <com-radio value="option 5">option 5</com-radio>
+      <com-radio [disabled]="true">option 6</com-radio>
+    </com-radio-group>
   `,
 });

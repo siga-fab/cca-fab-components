@@ -16,7 +16,7 @@ import {
 } from '@angular/animations';
 
 @Component({
-  selector: 'cca-common-toast',
+  selector: 'com-toast',
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss'],
   animations: [

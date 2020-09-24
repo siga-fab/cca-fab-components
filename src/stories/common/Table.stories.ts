@@ -78,7 +78,7 @@ export const Default = () => ({
       },
     ],
   },
-  template: `<cca-common-table
+  template: `<com-table
     [dataSource]="dataSource"
     [pageSize]="pageSize"
     [maxPageSize]="maxPageSize"
@@ -95,13 +95,13 @@ export const Default = () => ({
     <ng-template let-content #action>
       <div style="display: flex; justify-content: flex-end;">
         <div>
-          <cca-common-icon>edit</cca-common-icon>
+          <com-icon>edit</com-icon>
         </div>
         <div>
-          <cca-common-icon>delete</cca-common-icon>
+          <com-icon>delete</com-icon>
         </div>
       </div>
     </ng-template>
-  </cca-common-table>
+  </com-table>
   `,
 });

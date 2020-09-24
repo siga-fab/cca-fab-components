@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'cca-common-radio',
+  selector: 'com-radio',
   templateUrl: './radio.component.html',
   styleUrls: ['./radio.component.scss'],
 })

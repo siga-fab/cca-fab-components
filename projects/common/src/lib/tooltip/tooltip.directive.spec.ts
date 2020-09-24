@@ -42,9 +42,7 @@ describe('TooltipDirective', () => {
 
   it('should create tooltip element after component', () => {
     expect(PARENT_ELEMENT.children.length).toBe(3);
-    expect(
-      PARENT_ELEMENT.querySelectorAll('cca-common-icon').length
-    ).toBeTruthy();
+    expect(PARENT_ELEMENT.querySelectorAll('com-icon').length).toBeTruthy();
   });
 
   it('should create tooltip element with for attribute', () => {
@@ -64,9 +62,7 @@ describe('TooltipDirective', () => {
 
   it('should be visible and opaque on mouseenter event at tooltip button', () => {
     const TOOLTIP_INFO_ELEMENT = PARENT_ELEMENT.querySelector('label');
-    const TOOLTIP_BUTTON_ELEMENT = PARENT_ELEMENT.querySelector(
-      'cca-common-icon'
-    );
+    const TOOLTIP_BUTTON_ELEMENT = PARENT_ELEMENT.querySelector('com-icon');
     const MOCK_EVENT = new MouseEvent('mouseenter');
 
     TOOLTIP_BUTTON_ELEMENT.dispatchEvent(MOCK_EVENT);
@@ -76,9 +72,7 @@ describe('TooltipDirective', () => {
 
   it('should be hidden and transparent on mouseleave event at tooltip button', () => {
     const TOOLTIP_INFO_ELEMENT = PARENT_ELEMENT.querySelector('label');
-    const TOOLTIP_BUTTON_ELEMENT = PARENT_ELEMENT.querySelector(
-      'cca-common-icon'
-    );
+    const TOOLTIP_BUTTON_ELEMENT = PARENT_ELEMENT.querySelector('com-icon');
     const MOCK_EVENT = new MouseEvent('mouseleave');
 
     TOOLTIP_BUTTON_ELEMENT.dispatchEvent(MOCK_EVENT);
@@ -88,9 +82,7 @@ describe('TooltipDirective', () => {
 
   it('should be positioned accordin to position prop and mouse (x,y)', () => {
     const TOOLTIP_INFO_ELEMENT = PARENT_ELEMENT.querySelector('label');
-    const TOOLTIP_BUTTON_ELEMENT = PARENT_ELEMENT.querySelector(
-      'cca-common-icon'
-    );
+    const TOOLTIP_BUTTON_ELEMENT = PARENT_ELEMENT.querySelector('com-icon');
     const TARGET_ELEMENT = PARENT_ELEMENT.querySelector('[ccaCommonTooltip]');
     const MOCK_MOUSE_ENTER_EVENT = new MouseEvent('mouseenter');
     const MOCK_MOUSE_MOVE_EVENT = new MouseEvent('mousemove', {

@@ -14,10 +14,10 @@ export default {
 
 export const Default = () => ({
   template: `
-    <cca-common-breadcrumb>
-      <cca-common-breadcrumb-item href="/">1st route</cca-common-breadcrumb-item>
-      <cca-common-breadcrumb-item href="/">2nd route</cca-common-breadcrumb-item>
-      <cca-common-breadcrumb-item selected href="/">actual route</cca-common-breadcrumb-item>
-    </cca-common-breadcrumb>
+    <com-breadcrumb>
+      <com-breadcrumb-item href="/">1st route</com-breadcrumb-item>
+      <com-breadcrumb-item href="/">2nd route</com-breadcrumb-item>
+      <com-breadcrumb-item selected href="/">actual route</com-breadcrumb-item>
+    </com-breadcrumb>
   `,
 });

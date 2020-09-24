@@ -35,12 +35,12 @@
         role="button"
         [attr.aria-pressed]="acessibleStateMap['refresh']"
       >
-        <cca-common-icon>loop</cca-common-icon>
+        <com-icon>loop</com-icon>
       </div>
       <div>
         Itens por página:
         <span class="input">
-          <cca-common-input
+          <com-input
             type="number"
             [value]="pageSize"
             (confirm)="onPageSizeChange($event)"
@@ -50,7 +50,7 @@
             textCenter
             integerOnly
             arrowed
-          ></cca-common-input>
+          ></com-input>
         </span>
       </div>
     </div>
@@ -72,7 +72,7 @@
         role="button"
         [attr.aria-pressed]="acessibleStateMap['firstPage']"
       >
-        <cca-common-icon>first_page</cca-common-icon>
+        <com-icon>first_page</com-icon>
       </div>
       <div
         [tabindex]="!disableMap['previous'] ? '0' : '-1'"
@@ -90,13 +90,13 @@
         role="button"
         [attr.aria-pressed]="acessibleStateMap['previous']"
       >
-        <cca-common-icon>chevron_left</cca-common-icon>
+        <com-icon>chevron_left</com-icon>
       </div>
 
       <div class="label">
         Página:
         <span class="input">
-          <cca-common-input
+          <com-input
             type="number"
             [value]="pageIndex"
             min="1"
@@ -105,7 +105,7 @@
             textCenter
             integerOnly
             arrowed
-          ></cca-common-input>
+          ></com-input>
         </span>
         / {{ totalPages }}
       </div>
@@ -126,7 +126,7 @@
         role="button"
         [attr.aria-pressed]="acessibleStateMap['next']"
       >
-        <cca-common-icon>chevron_right</cca-common-icon>
+        <com-icon>chevron_right</com-icon>
       </div>
 
       <div
@@ -145,7 +145,7 @@
         role="button"
         [attr.aria-pressed]="acessibleStateMap['lastPage']"
       >
-        <cca-common-icon>last_page</cca-common-icon>
+        <com-icon>last_page</com-icon>
       </div>
     </div>
   </div>

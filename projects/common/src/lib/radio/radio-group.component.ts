@@ -18,7 +18,7 @@ import {
 import { RadioComponent } from './radio.component';
 
 @Component({
-  selector: 'cca-common-radio-group',
+  selector: 'com-radio-group',
   templateUrl: './radio-group.component.html',
   styleUrls: ['./radio-group.component.scss'],
 })

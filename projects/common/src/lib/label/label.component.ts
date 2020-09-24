@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'cca-common-label',
+  selector: 'com-label',
   templateUrl: './label.component.html',
   styleUrls: ['./label.component.scss'],
 })

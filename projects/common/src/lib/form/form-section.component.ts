@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'cca-common-form-section',
+  selector: 'com-form-section',
   templateUrl: './form-section.component.html',
   styleUrls: ['./form-section.component.scss'],
 })

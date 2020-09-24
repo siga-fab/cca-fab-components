@@ -12,7 +12,7 @@ import {
 
 // TODO: Add indeterminate state
 @Component({
-  selector: 'cca-common-checkbox',
+  selector: 'com-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
 })

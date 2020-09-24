@@ -8,14 +8,14 @@
     'icon-btn': hasIcon,
     'text-btn': hasText,
     'badged-btn': badged,
-    'outline-btn': !style || style === 'outline',
-    'fill-btn': style === 'fill',
-    'transparent-btn': style === 'transparent',
     'clicked-btn': animate,
-    'secondary-btn': secondary === '',
-    'flat-btn': flat === '',
-    'warning-btn': warning === '',
-    'negative-btn': negative === ''
+    'outline-btn': outline || (!fill && !transparent),
+    'fill-btn': fill,
+    'transparent-btn': transparent,
+    'secondary-btn': secondary,
+    'flat-btn': flat,
+    'warning-btn': warning,
+    'negative-btn': negative
   }"
 >
   <div #iconRef class="btn-icon">

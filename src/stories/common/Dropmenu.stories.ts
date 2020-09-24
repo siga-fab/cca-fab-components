@@ -23,15 +23,15 @@ export default {
 
 export const Default = () => ({
   template: `
-    <cca-common-dropmenu name="lorem ipsum">
-      <cca-common-dropmenu-item>This is a Dropmenu!</cca-common-dropmenu-item>
-      <cca-common-dropmenu-item>This is a Dropmenu!</cca-common-dropmenu-item>
-      <cca-common-dropmenu-item>This is a Dropmenu! Dropmenu!</cca-common-dropmenu-item>
-    </cca-common-dropmenu>
-    <cca-common-dropmenu negative name="lorem negative">
-      <cca-common-dropmenu-item>This is a Dropmenu! This is a Dropmenu!</cca-common-dropmenu-item>
-      <cca-common-dropmenu-item>This is a Dropmenu! Dropmenu!</cca-common-dropmenu-item>
-      <cca-common-dropmenu-item>This is a Dropmenu!</cca-common-dropmenu-item>
-    </cca-common-dropmenu>
+    <com-dropmenu name="lorem ipsum">
+      <com-dropmenu-item>This is a Dropmenu!</com-dropmenu-item>
+      <com-dropmenu-item>This is a Dropmenu!</com-dropmenu-item>
+      <com-dropmenu-item>This is a Dropmenu! Dropmenu!</com-dropmenu-item>
+    </com-dropmenu>
+    <com-dropmenu negative name="lorem negative">
+      <com-dropmenu-item>This is a Dropmenu! This is a Dropmenu!</com-dropmenu-item>
+      <com-dropmenu-item>This is a Dropmenu! Dropmenu!</com-dropmenu-item>
+      <com-dropmenu-item>This is a Dropmenu!</com-dropmenu-item>
+    </com-dropmenu>
   `,
 });

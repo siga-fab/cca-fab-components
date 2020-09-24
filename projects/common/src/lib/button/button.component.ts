@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'cca-common-button',
+  selector: 'com-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
@@ -21,18 +21,17 @@ export class ButtonComponent
   @ViewChild('iconRef') icon!: ElementRef;
   @ViewChild('textRef') text!: ElementRef;
 
-  @Input() style?: 'outline' | 'fill' | 'transparent';
   @Input() badged?: boolean;
 
   // Native attributes
   @Input() form: string;
   @Input() type = 'button';
 
-  animate = false;
-  animateMsTime = 850;
+  public animate = false;
+  public animateMsTime = 850;
 
-  hasIcon: boolean;
-  hasText: boolean;
+  public hasIcon: boolean;
+  public hasText: boolean;
 
   constructor(
     @Optional() @Attribute('secondary') public secondary,
@@ -40,8 +39,23 @@ export class ButtonComponent
     @Optional() @Attribute('warning') public warning,
     @Optional() @Attribute('negative') public negative,
     @Optional() @Attribute('disabled') public disabled,
+    @Optional() @Attribute('outline') public outline,
+    @Optional() @Attribute('fill') public fill,
+    @Optional() @Attribute('transparent') public transparent,
     private cdref: ChangeDetectorRef
-  ) {}
+  ) {
+    this.parseAttributes(
+      'secondary',
+      'flat',
+      'warning',
+      'negative',
+      'disabled',
+      'outline',
+      'fill',
+      'transparent'
+    );
+    console.log(fill);
+  }
 
   ngOnInit() {}
 
@@ -52,6 +66,12 @@ export class ButtonComponent
 
   ngAfterViewChecked() {
     this.cdref.detectChanges();
+  }
+
+  private parseAttributes(...arr: any[]): void {
+    for (const att of arr) {
+      this[att] = this[att] === '';
+    }
   }
 
   onClick() {
