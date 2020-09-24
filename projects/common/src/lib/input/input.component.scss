@@ -6,7 +6,7 @@
   display: inline-block;
   width: 100%;
 
-  :not(:last-child) {
+  &:not(:last-child) {
     margin-bottom: $margin-bottom-default;
   }
 
