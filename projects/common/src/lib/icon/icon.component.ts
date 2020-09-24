@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Optional, Attribute } from '@angular/core';
 
 @Component({
   selector: 'com-icon',
@@ -9,7 +9,9 @@ export class IconComponent implements OnInit {
   @Input() size?: number;
   @Input() color?: string;
 
-  constructor() {}
+  constructor(@Optional() @Attribute('outlined') public outlined) {
+    this.outlined = outlined === '';
+  }
 
   ngOnInit(): void {}
 }

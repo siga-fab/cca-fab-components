@@ -8,11 +8,11 @@
   }"
 >
   <div class="ts-wrapper">
-    <com-icon class="ts-icon-left">
+    <com-icon outlined class="ts-icon-left">
       <ng-container *ngIf="success !== '' && error !== '' && alert !== ''"
-        >info_outline</ng-container
+        >info</ng-container
       >
-      <ng-container *ngIf="success === ''">check_circle_outline</ng-container>
+      <ng-container *ngIf="success === ''">check_circle</ng-container>
       <ng-container *ngIf="error === ''">cancel</ng-container>
       <ng-container *ngIf="alert === ''">report_problem</ng-container>
     </com-icon>

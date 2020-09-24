@@ -1,8 +1,66 @@
-$material-icons-font-path: '../../assets/fonts/';
-@import '~material-icons/iconfont/material-icons.scss';
 @import '../../assets/scss/colors.scss';
 
-.material-icons {
+$material-icons-font-path: '../../assets/fonts/' !default;
+$material-icons-font-size: 24px !default;
+
+$material-icons-font-name: 'MaterialIcons-Regular' !default;
+$material-icons-font-family: 'Material Icons' !default;
+
+$material-icons-outlined-font-name: 'MaterialIconsOutlined-Regular' !default;
+$material-icons-outlined-font-family: 'Material Icons Outlined' !default;
+
+$material-icons-font-file: $material-icons-font-path + $material-icons-font-name;
+$material-icons-outlined-font-file: $material-icons-font-path +
+  $material-icons-outlined-font-name;
+
+@mixin material-icons($font-family: $material-icons-font-family) {
+  font-family: $font-family;
+  font-weight: normal;
+  font-style: normal;
+  font-size: $material-icons-font-size;
   display: flex;
-  user-select: none;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+@font-face {
+  font-family: $material-icons-font-family;
+  font-style: normal;
+  font-weight: 400;
+  src: url('#{$material-icons-font-file}.ttf'); /* For IE6-8 */
+  src: local($material-icons-font-family), local($material-icons-font-name),
+    url('#{$material-icons-font-file}.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: $material-icons-outlined-font-family;
+  font-style: normal;
+  font-weight: 400;
+  src: url('#{$material-icons-outlined-font-file}.otf'); /* For IE6-8 */
+  src: local($material-icons-outlined-font-family),
+    local($material-icons-outlined-font-name),
+    url('#{$material-icons-outlined-font-file}.otf') format('opentype');
+}
+
+.material-icon {
+  @include material-icons();
+}
+
+.material-icon-outlined {
+  @include material-icons($material-icons-outlined-font-family);
 }
