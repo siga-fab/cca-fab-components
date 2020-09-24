@@ -1,7 +1,7 @@
 import { Component, OnInit, Optional, Attribute, Input } from '@angular/core';
 
 @Component({
-  selector: 'cca-common-tag',
+  selector: 'com-tag',
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss'],
 })

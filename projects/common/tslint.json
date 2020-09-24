@@ -10,7 +10,7 @@
     "component-selector": [
       true,
       "element",
-      "cca-common",
+      "com",
       "kebab-case"
     ]
   }

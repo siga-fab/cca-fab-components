@@ -20,9 +20,9 @@ export const Default = () => ({
   },
   template: `
     <span>{{ checkbox }}</span>
-    <cca-common-checkbox value="checkbox 1" [(ngModel)]="checkbox">This is a checkbox!</cca-common-checkbox>
-    <cca-common-checkbox (changed)="handleChange($event)">This is a checkbox!</cca-common-checkbox>
-    <cca-common-checkbox disabled="true">This is a checkbox!</cca-common-checkbox>
+    <com-checkbox value="checkbox 1" [(ngModel)]="checkbox">This is a checkbox!</com-checkbox>
+    <com-checkbox (changed)="handleChange($event)">This is a checkbox!</com-checkbox>
+    <com-checkbox disabled="true">This is a checkbox!</com-checkbox>
   `,
 });
 
@@ -33,8 +33,8 @@ export const Switch = () => ({
   },
   template: `
     <span>{{ checkbox }}</span>
-    <cca-common-checkbox switch value="checkbox 1" [(ngModel)]="checkbox">This is a switch!</cca-common-checkbox>
-    <cca-common-checkbox switch (changed)="handleChange($event)">This is a switch!</cca-common-checkbox>
-    <cca-common-checkbox switch disabled="true">This is a switch!</cca-common-checkbox>
+    <com-checkbox switch value="checkbox 1" [(ngModel)]="checkbox"></com-checkbox>
+    <com-checkbox switch (changed)="handleChange($event)"></com-checkbox>
+    <com-checkbox switch disabled="true"></com-checkbox>
   `,
 });

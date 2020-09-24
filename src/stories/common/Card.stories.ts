@@ -15,9 +15,9 @@ export default {
 export const Default = () => ({
   template: `
     <div style="width: 30rem; height: 40rem;">
-      <cca-common-card>
+      <com-card>
         <span>This is a card!</span>
-      </cca-common-card>
+      </com-card>
     </div>
   `,
 });

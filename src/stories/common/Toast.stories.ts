@@ -17,9 +17,9 @@ export const Default = () => ({
     click: action('Closed'),
   },
   template: `
-    <cca-common-toast (closed)="click($event)">This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</cca-common-toast>
-    <cca-common-toast (closed)="click($event)" success>This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk adsdfsadf sdafs daf sdf asd fas df asdf asd fas f asdf fghfdhfdhfhfg!</cca-common-toast>
-    <cca-common-toast (closed)="click($event)" alert>This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</cca-common-toast>
-    <cca-common-toast (closed)="click($event)" error>This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</cca-common-toast>
+    <com-toast (closed)="click($event)">This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</com-toast>
+    <com-toast (closed)="click($event)" success>This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk adsdfsadf sdafs daf sdf asd fas df asdf asd fas f asdf fghfdhfdhfhfg!</com-toast>
+    <com-toast (closed)="click($event)" alert>This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</com-toast>
+    <com-toast (closed)="click($event)" error>This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</com-toast>
   `,
 });

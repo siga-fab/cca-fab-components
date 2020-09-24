@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'cca-common-dropmenu',
+  selector: 'com-dropmenu',
   templateUrl: './dropmenu.component.html',
   styleUrls: ['./dropmenu.component.scss'],
 })

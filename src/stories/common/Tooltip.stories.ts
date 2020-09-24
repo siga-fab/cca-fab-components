@@ -34,13 +34,13 @@ export const Default = () => ({
   template: `
   <ul style="display: flex; flex-flow: row wrap; max-width: 80rem; list-style-type: none;">
     <li style="padding: .5rem">
-      <cca-common-button ccaCommonTooltip="Adicionar novo elemento através do uso deste botão completamente acessível" flat (click)="click($event)">
-        <cca-common-icon slot="icon">add</cca-common-icon>
+      <com-button ccaCommonTooltip="Adicionar novo elemento através do uso deste botão completamente acessível" flat (click)="click($event)">
+        <com-icon slot="icon">add</com-icon>
         <ng-container slot="text">nova</ng-container>
-      </cca-common-button>
+      </com-button>
     </li>
     <li style="padding: .5rem">
-      <cca-common-input ccaCommonTooltip="Campo de texto" value=""></cca-common-input>
+      <com-input ccaCommonTooltip="Campo de texto" value=""></com-input>
     </li>
   </ul>
 `,

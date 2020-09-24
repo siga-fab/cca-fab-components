@@ -1,7 +1,7 @@
 import { Component, OnInit, Optional, Attribute, Input } from '@angular/core';
 
 @Component({
-  selector: 'cca-common-breadcrumb-item',
+  selector: 'com-breadcrumb-item',
   templateUrl: './breadcrumb-item.component.html',
   styleUrls: ['./breadcrumb-item.component.scss'],
 })

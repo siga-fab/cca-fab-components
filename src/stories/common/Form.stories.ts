@@ -52,34 +52,34 @@ export const Default = () => ({
   },
   template: `
     <div style="width: 70%;">
-      <cca-common-form [id]="formId" [formGroup]="myGroup" (ngSubmit)="handleSubmit(myGroup.value)">
-        <cca-common-form-section partly formTitle="Lorem Ipsum" step="1" tooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
-          <cca-common-input label="Basic input" placeholder="type your text here" formControlName="input"></cca-common-input>
-          <cca-common-input type="number" label="Basic number input" placeholder="type your number here" formControlName="inputNumber" min="0" max="10"></cca-common-input>
-        </cca-common-form-section>
-        <cca-common-form-section partly formTitle="Lorem Ipsum" step="2" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id elit at erat consequat finibus non ut leo. Mauris luctus purus quis risus pharetra, in semper dolor faucibus.">
-          <cca-common-fieldset>
-            <cca-common-label>Checkbox field</cca-common-label>
-            <cca-common-checkbox formControlName="checkboxOne">checkbox 1</cca-common-checkbox>
-            <cca-common-checkbox formControlName="checkboxTwo">checkbox 2</cca-common-checkbox>
-            <cca-common-checkbox formControlName="checkboxTree">checkbox 3</cca-common-checkbox>
-          </cca-common-fieldset>
-        </cca-common-form-section>
-        <cca-common-form-section block formTitle="Lorem Ipsum" step="3">
-          <cca-common-label>Radio button field</cca-common-label>
-          <cca-common-radio-group horizontal formControlName="radioGroup">
-            <cca-common-radio value="option 5">option 5</cca-common-radio>
-            <cca-common-radio value="option 6">option 6</cca-common-radio>
-            <cca-common-radio value="option 7">option 7</cca-common-radio>
-            <cca-common-radio value="option 8">option 9</cca-common-radio>
-          </cca-common-radio-group>
-        </cca-common-form-section>
-      </cca-common-form>
+      <com-form [id]="formId" [formGroup]="myGroup" (ngSubmit)="handleSubmit(myGroup.value)">
+        <com-form-section partly formTitle="Lorem Ipsum" step="1" tooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+          <com-input label="Basic input" placeholder="type your text here" formControlName="input"></com-input>
+          <com-input type="number" label="Basic number input" placeholder="type your number here" formControlName="inputNumber" min="0" max="10"></com-input>
+        </com-form-section>
+        <com-form-section partly formTitle="Lorem Ipsum" step="2" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id elit at erat consequat finibus non ut leo. Mauris luctus purus quis risus pharetra, in semper dolor faucibus.">
+          <com-fieldset>
+            <com-label>Checkbox field</com-label>
+            <com-checkbox formControlName="checkboxOne">checkbox 1</com-checkbox>
+            <com-checkbox formControlName="checkboxTwo">checkbox 2</com-checkbox>
+            <com-checkbox formControlName="checkboxTree">checkbox 3</com-checkbox>
+          </com-fieldset>
+        </com-form-section>
+        <com-form-section block formTitle="Lorem Ipsum" step="3">
+          <com-label>Radio button field</com-label>
+          <com-radio-group horizontal formControlName="radioGroup">
+            <com-radio value="option 5">option 5</com-radio>
+            <com-radio value="option 6">option 6</com-radio>
+            <com-radio value="option 7">option 7</com-radio>
+            <com-radio value="option 8">option 9</com-radio>
+          </com-radio-group>
+        </com-form-section>
+      </com-form>
     </div>
     <div style="margin-top: 2rem;">
-      <cca-common-button style="fill" type="submit" [form]="formId">
+      <com-button style="fill" type="submit" [form]="formId">
         <ng-container slot="text">submit</ng-container>
-      </cca-common-button>
+      </com-button>
     </div>
   `,
 });

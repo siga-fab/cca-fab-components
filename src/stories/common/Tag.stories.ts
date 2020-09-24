@@ -13,18 +13,18 @@ export default {
 
 export const Default = () => ({
   template: `
-    <cca-common-tag>This is a Tag!</cca-common-tag>
+    <com-tag>This is a Tag!</com-tag>
   `,
 });
 
 export const Clickable = () => ({
   template: `
-    <cca-common-tag clickable>This is a clickable Tag!</cca-common-tag>
+    <com-tag clickable>This is a clickable Tag!</com-tag>
   `,
 });
 
 export const Selected = () => ({
   template: `
-    <cca-common-tag [selected]="true">This is a selected Tag!</cca-common-tag>
+    <com-tag [selected]="true">This is a selected Tag!</com-tag>
   `,
 });

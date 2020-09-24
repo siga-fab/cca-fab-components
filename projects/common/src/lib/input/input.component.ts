@@ -13,7 +13,7 @@ import {
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
-  selector: 'cca-common-input',
+  selector: 'com-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   animations: [

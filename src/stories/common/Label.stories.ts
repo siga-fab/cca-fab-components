@@ -14,6 +14,6 @@ export default {
 
 export const Default = () => ({
   template: `
-    <cca-common-label>This is a Label</cca-common-label>
+    <com-label>This is a Label</com-label>
   `,
 });

@@ -17,16 +17,16 @@ export const Default = () => ({
     <div style="display: flex; flex-flow: row wrap">
       <!--Default-->
       <section style="padding: 1rem;">
-        <cca-common-icon>face</cca-common-icon>
+        <com-icon>face</com-icon>
       </section>
       <section style="padding: 1rem;">
-        <cca-common-icon size="32" color="red">face</cca-common-icon>
+        <com-icon size="32" color="red">face</com-icon>
       </section>
       <section style="padding: 1rem;">
-        <cca-common-icon size="48" color="rgb(120, 0, 0)">face</cca-common-icon>
+        <com-icon size="48" color="rgb(120, 0, 0)">face</com-icon>
       </section>
       <section style="padding: 1rem;">
-        <cca-common-icon size="64" color="#567700">face</cca-common-icon>
+        <com-icon size="64" color="#567700">face</com-icon>
       </section>
     </div>
   `,

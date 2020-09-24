@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'cca-common-icon',
+  selector: 'com-icon',
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
 })

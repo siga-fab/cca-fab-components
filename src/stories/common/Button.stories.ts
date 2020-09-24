@@ -34,44 +34,44 @@ export const Default = () => ({
 
       <!--Primary-->
       <li style="padding: .5rem">
-        <cca-common-button (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">primary</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
       <!--Secondary-->
       <li style="padding: .5rem">
-        <cca-common-button secondary (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button secondary (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">secondary</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
 
       <!--Flat-->
       <li style="padding: .5rem">
-        <cca-common-button flat (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button flat (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">flat</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
       <!--Warning-->
       <li style="padding: .5rem">
-        <cca-common-button warning (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button warning (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">warning</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
 
       <!--Negative-->
       <li style="padding: .5rem">
-        <cca-common-button negative (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button negative (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">negative</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
     </ul>
   `,
@@ -85,44 +85,44 @@ export const Fill = () => ({
     <ul style="display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;">
       <!--Primary-->
       <li style="padding: .5rem">
-        <cca-common-button style="fill" (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button fill (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">primary</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
       <!--Secondary-->
       <li style="padding: .5rem">
-        <cca-common-button secondary style="fill" (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button secondary fill (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">secondary</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
 
       <!--Flat-->
       <li style="padding: .5rem">
-        <cca-common-button flat style="fill" (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button flat fill (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">flat</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
       <!--Warning-->
       <li style="padding: .5rem">
-        <cca-common-button warning style="fill" (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button warning fill (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">warning</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
 
       <!--Negative-->
       <li style="padding: .5rem">
-        <cca-common-button negative style="fill" (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button negative fill (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">negative</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
     </ul>
   `,
@@ -136,44 +136,44 @@ export const Transparent = () => ({
     <ul style="display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;">
       <!--Primary-->
       <li style="padding: .5rem">
-        <cca-common-button style="transparent" (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button transparent (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">primary</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
       <!--Secondary-->
       <li style="padding: .5rem">
-        <cca-common-button secondary style="transparent" (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button secondary transparent (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">secondary</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
 
       <!--Flat-->
       <li style="padding: .5rem">
-        <cca-common-button flat style="transparent" (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button flat transparent (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">flat</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
       <!--Warning-->
       <li style="padding: .5rem">
-        <cca-common-button warning style="transparent" (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button warning transparent (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">warning</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
 
       <!--Negative-->
       <li style="padding: .5rem">
-        <cca-common-button negative style="transparent" (click)="click($event)">
-          <cca-common-icon slot="icon">add</cca-common-icon>
+        <com-button negative transparent (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">negative</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
     </ul>
   `,
@@ -186,22 +186,22 @@ export const Badged = () => ({
   template: `
     <ul style="display: flex; flex-flow: row wrap; max-width: 100rem; list-style-type: none;">
       <li style="padding: .5rem">
-        <cca-common-button [badged]="true" (click)="click($event)">
-          <cca-common-icon slot="icon">error_outline</cca-common-icon>
+        <com-button [badged]="true" (click)="click($event)">
+          <com-icon slot="icon">error_outline</com-icon>
           <ng-container slot="text">default</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
       <li style="padding: .5rem">
-        <cca-common-button style="fill" [badged]="true" (click)="click($event)">
+        <com-button fill [badged]="true" (click)="click($event)">
           <ng-container slot="text">only text</ng-container>
-        </cca-common-button>
+        </com-button>
       </li>
 
       <li style="padding: .5rem">
-        <cca-common-button style="transparent" [badged]="true" (click)="click($event)">
-          <cca-common-icon slot="icon">error_outline</cca-common-icon>
-        </cca-common-button>
+        <com-button transparent [badged]="true" (click)="click($event)">
+          <com-icon slot="icon">error_outline</com-icon>
+        </com-button>
       </li>
     </ul>
   `,
