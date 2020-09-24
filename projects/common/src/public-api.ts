@@ -22,7 +22,6 @@ export * from './lib/table/table.module';
 export * from './lib/input/input.component';
 export * from './lib/input/input.module';
 
-
 // Tooltip
 export * from './lib/tooltip/tooltip.directive';
 export * from './lib/tooltip/tooltip.module';
@@ -53,3 +52,7 @@ export * from './lib/checkbox/checkbox.module';
 export * from './lib/radio/radio-group.component';
 export * from './lib/radio/radio.component';
 export * from './lib/radio/radio.module';
+
+// Toast
+export * from './lib/toast/toast.component';
+export * from './lib/toast/toast.module';

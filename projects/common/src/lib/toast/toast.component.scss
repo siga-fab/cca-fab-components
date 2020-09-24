@@ -1,0 +1,74 @@
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/reset.scss';
+
+.toast {
+  position: relative;
+  display: inline-flex;
+
+  max-width: 40vw;
+  min-height: 6.5rem;
+
+  box-shadow: $box-shadow;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    height: 100%;
+    width: 14px;
+
+    border-radius: 0.5rem 0rem 0rem 0.5rem;
+    background: $info;
+  }
+
+  .ts-wrapper {
+    display: inherit;
+    flex-direction: row;
+    align-items: center;
+    padding: $padding;
+    padding-left: calc(1.4rem + #{$padding});
+
+    border: 0.1rem solid $light-grey;
+    border-radius: 0.5rem;
+  }
+
+  .ts-icon-left {
+    color: $info;
+  }
+
+  .ts-text {
+    margin-left: 1rem;
+    margin-right: 3rem;
+
+    color: $grey;
+  }
+
+  &.alert::before {
+    background-color: $alert;
+  }
+
+  &.success::before {
+    background-color: $success;
+  }
+
+  &.error::before {
+    background-color: $warning;
+  }
+
+  &.success .ts-icon-left {
+    color: $success;
+  }
+
+  &.error .ts-icon-left {
+    color: $warning;
+  }
+
+  &.alert .ts-icon-left {
+    color: $alert;
+  }
+}
