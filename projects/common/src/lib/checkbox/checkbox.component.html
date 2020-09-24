@@ -1,8 +1,8 @@
-<div class="checkbox">
+<div class="checkbox" [ngClass]="isSwitch ? 'hasSwitch' : ''">
   <input
-    class="cb-selector"
     type="checkbox"
     [id]="id"
+    [ngClass]="isSwitch ? 'switch' : 'cb-selector'"
     [checked]="checked"
     [name]="name"
     [value]="value"

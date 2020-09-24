@@ -4,6 +4,12 @@
 @import '../../assets/scss/reset.scss';
 
 .checkbox {
+  &.hasSwitch {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
   .cb-selector {
     position: absolute;
     width: 1px;
@@ -17,19 +23,70 @@
     clip: rect(0, 0, 0, 0);
   }
 
-  .cb-label {
+  input[type='checkbox'].switch {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 6rem;
+    height: 3.2rem;
+    background: transparent;
+    border: 2px solid $grey;
+    border-radius: 2rem;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    -webkit-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+
+    &:checked {
+      background: $primary;
+      border-color: $primary;
+
+      &:after {
+        border-color: $white;
+        left: calc(100% - 2.7rem);
+      }
+    }
+
+    &:after {
+      position: absolute;
+      content: '';
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      border: 2px solid $grey;
+      background: $white;
+      top: 0.2rem;
+      left: 0.2rem;
+      -webkit-transition: all 0.15s ease-in-out;
+      transition: all 0.15s ease-in-out;
+    }
+
+    &:focus {
+      box-shadow: $focus-shadow;
+    }
+
+    &:disabled {
+      border-color: $light-grey;
+      &::after {
+        border-color: $light-grey;
+      }
+    }
+  }
+
+  .cb-selector ~ .cb-label {
     position: relative;
     padding-left: 2rem;
     display: inline-block;
     min-height: 2rem;
     margin-bottom: 0.8rem;
-
-    user-select: none;
-
-    font-size: 1.4rem;
     line-height: 2rem;
-    white-space: pre-line;
+  }
 
+  .cb-label {
+    user-select: none;
+    font-size: 1.4rem;
+    white-space: pre-line;
     cursor: pointer;
   }
 
@@ -37,7 +94,7 @@
     padding-left: 0.5rem;
   }
 
-  .cb-label::before {
+  .cb-selector ~ .cb-label::before {
     content: '';
     position: absolute;
     top: 0;
@@ -52,7 +109,7 @@
     transition: box-shadow $transition-defs, background $transition-defs;
   }
 
-  .cb-label::after {
+  .cb-selector ~ .cb-label::after {
     content: '';
     position: absolute;
     display: none;

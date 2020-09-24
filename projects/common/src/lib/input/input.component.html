@@ -4,7 +4,7 @@
   (mousedown)="updateNumberValue($event, 'add')"
   (mouseup)="onMouseUp()"
   class="number-plus"
-  *ngIf="type === 'number' && focus"
+  *ngIf="type === 'number' && arrowed && focus"
 >
   <cca-common-icon color="#3399ff">expand_less</cca-common-icon>
 </div>
@@ -59,7 +59,7 @@
   (mouseup)="onMouseUp()"
   class="number-minus"
   [ngClass]="{ slim: slim }"
-  *ngIf="type === 'number' && focus"
+  *ngIf="type === 'number' && arrowed && focus"
 >
   <cca-common-icon color="#3399ff">expand_more</cca-common-icon>
 </div>

@@ -48,6 +48,8 @@
             [max]="maxPageSize"
             step="10"
             textCenter
+            integerOnly
+            arrowed
           ></cca-common-input>
         </span>
       </div>
@@ -101,6 +103,8 @@
             [max]="totalPages"
             (confirm)="onPageIndexChange($event)"
             textCenter
+            integerOnly
+            arrowed
           ></cca-common-input>
         </span>
         / {{ totalPages }}

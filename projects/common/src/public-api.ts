@@ -58,7 +58,3 @@ export * from './lib/form/form-section.component';
 export * from './lib/form/fieldset.component';
 export * from './lib/form/form.component';
 export * from './lib/form/form.module';
-// Switch
-
-export * from './lib/switch/switch.component';
-export * from './lib/switch/switch.module';

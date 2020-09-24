@@ -7,6 +7,7 @@ import {
   EventEmitter,
   Optional,
   Self,
+  Attribute,
 } from '@angular/core';
 
 // TODO: Add indeterminate state
@@ -43,7 +44,11 @@ export class CheckboxComponent implements OnInit, ControlValueAccessor {
 
   @Output() changed = new EventEmitter<boolean>();
 
-  constructor(@Self() @Optional() private ngControl: NgControl) {
+  constructor(
+    @Optional() @Attribute('switch') public isSwitch: any,
+    @Self() @Optional() private ngControl: NgControl
+  ) {
+    this.isSwitch = isSwitch !== null;
     /* istanbul ignore next */
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;

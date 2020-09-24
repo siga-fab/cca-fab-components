@@ -44,8 +44,9 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
     ]),
   ],
 })
-export class InputComponent implements OnInit, AfterViewInit, ControlValueAccessor {
-    DEFAULT_MAX_LENGTH = 524288;
+export class InputComponent
+  implements OnInit, AfterViewInit, ControlValueAccessor {
+  DEFAULT_MAX_LENGTH = 524288;
   @Input() value = '';
   @Input() type = 'text';
   @Input() disabled = false;
@@ -68,10 +69,14 @@ export class InputComponent implements OnInit, AfterViewInit, ControlValueAccess
   constructor(
     @Optional() @Attribute('textCenter') public textCenter: any,
     @Optional() @Attribute('slim') public slim: any,
+    @Optional() @Attribute('integerOnly') public integerOnly: any,
+    @Optional() @Attribute('arrowed') public arrowed: any,
     @Self() @Optional() private ngControl: NgControl
   ) {
     this.textCenter = textCenter !== null;
     this.slim = slim !== null;
+    this.integerOnly = integerOnly !== null;
+    this.arrowed = arrowed !== null;
 
     /* istanbul ignore next */
     if (this.ngControl) {
@@ -148,7 +153,9 @@ export class InputComponent implements OnInit, AfterViewInit, ControlValueAccess
   }
 
   rangedValue(el: HTMLInputElement) {
-    let value = parseInt(el.value, 10);
+    let value = this.integerOnly
+      ? parseInt(el.value, 10)
+      : parseFloat(el.value);
 
     if (Number.isNaN(value)) {
       value = this.min || 0;
@@ -178,7 +185,10 @@ export class InputComponent implements OnInit, AfterViewInit, ControlValueAccess
 
     const step = operation === 'add' ? +this.step : -this.step;
     const numberUpdate = () => {
-      let value = parseInt(this.value, 10) || 0;
+      let value =
+        (this.integerOnly
+          ? parseInt(this.value, 10)
+          : parseFloat(this.value)) || 0;
 
       value += step;
 
