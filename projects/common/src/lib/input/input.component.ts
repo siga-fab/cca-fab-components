@@ -1,5 +1,5 @@
 import { trigger, transition, animate, style } from '@angular/animations';
-import { AfterViewInit, Self } from '@angular/core';
+import { AfterViewInit, Self, ElementRef } from '@angular/core';
 import {
   Attribute,
   Component,
@@ -10,7 +10,7 @@ import {
   EventEmitter,
   ViewChild,
 } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'cca-common-input',
@@ -44,7 +44,8 @@ import { NgControl } from '@angular/forms';
     ]),
   ],
 })
-export class InputComponent implements OnInit, AfterViewInit {
+export class InputComponent
+  implements OnInit, AfterViewInit, ControlValueAccessor {
   @Input() value = '';
   @Input() type = 'text';
   @Input() disabled = false;

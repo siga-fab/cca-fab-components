@@ -47,7 +47,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
 
     display: inline-flex;
     height: 100%;
@@ -92,7 +91,7 @@
   }
 
   &.text-btn:not(.icon-btn) {
-    padding: 0 2rem;
+    padding: 0 4rem;
   }
 
   .btn-text:not(:empty) {

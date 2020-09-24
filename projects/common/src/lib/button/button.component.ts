@@ -21,8 +21,12 @@ export class ButtonComponent
   @ViewChild('iconRef') icon!: ElementRef;
   @ViewChild('textRef') text!: ElementRef;
 
-  @Input() type?: 'outline' | 'fill' | 'transparent';
+  @Input() style?: 'outline' | 'fill' | 'transparent';
   @Input() badged?: boolean;
+
+  // Native attributes
+  @Input() form: string;
+  @Input() type = 'button';
 
   animate = false;
   animateMsTime = 850;

@@ -2,15 +2,8 @@
 
 :host {
   &:not(:last-child) {
-    .radio-group {
+    .fieldset {
       margin-bottom: $margin-bottom-default;
-    }
-  }
-
-  .radio-group {
-    &.horizontal {
-      display: flex;
-      flex-flow: row wrap;
     }
   }
 }

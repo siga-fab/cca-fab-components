@@ -1,0 +1,9 @@
+<form
+  class="form"
+  (ngSubmit)="ngSubmit.emit($event)"
+  [id]="id"
+  [formGroup]="formGroup"
+  [ngClass]="{ 'transparent-fm': transparent === '' }"
+>
+  <ng-content></ng-content>
+</form>
