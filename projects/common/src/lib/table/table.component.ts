@@ -9,7 +9,6 @@ import {
   ContentChild,
   TemplateRef,
   ElementRef,
-  ViewEncapsulation,
 } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 
@@ -46,9 +45,17 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   disableMap = {
     firstPage: false,
-    lastPage: false,
     previous: false,
     next: false,
+    lastPage: false,
+  };
+
+  acessibleStateMap = {
+    refresh: false,
+    firstPage: false,
+    previous: false,
+    next: false,
+    lastPage: false,
   };
 
   constructor(public resolver: ComponentFactoryResolver) {}
@@ -99,45 +106,75 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onLastPage() {
+  onLastPage(event: Event | KeyboardEvent) {
+    if (event instanceof KeyboardEvent) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return false;
+      }
+    }
+
     this.pageIndex = this.totalPages;
     this.lastPage.emit(this.totalPages);
 
     this.toggleButtons();
+    return true;
   }
 
-  onFirstPage() {
+  onFirstPage(event: Event | KeyboardEvent) {
+    if (event instanceof KeyboardEvent) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return false;
+      }
+    }
+
     this.pageIndex = 1;
     this.firstPage.emit(1);
     this.disableMap.firstPage = true;
 
     this.toggleButtons();
+    return true;
   }
 
-  onNextPage() {
+  onNextPage(event: Event | KeyboardEvent) {
+    if (event instanceof KeyboardEvent) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return false;
+      }
+    }
     this.nextPage.emit(
       this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex
     );
 
     this.toggleButtons();
+
+    return true;
   }
 
-  onPreviousPage() {
+  onPreviousPage(event: Event | KeyboardEvent) {
+    if (event instanceof KeyboardEvent) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return false;
+      }
+    }
+
     this.previousPage.emit(
       this.pageIndex > 1 ? --this.pageIndex : this.pageIndex
     );
 
     this.toggleButtons();
+    return true;
   }
 
   onRefresh(event: Event | KeyboardEvent) {
     if (event instanceof KeyboardEvent) {
-      if (event.key !== 'Enter') {
-        return;
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return false;
       }
     }
 
     this.refresh.emit(this.pageIndex);
+
+    return true;
   }
 
   onPageIndexChange(pageIndex: string) {

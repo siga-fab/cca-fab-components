@@ -46,6 +46,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 })
 export class InputComponent
   implements OnInit, AfterViewInit, ControlValueAccessor {
+  DEFAULT_MAX_LENGTH = 524288;
   @Input() value = '';
   @Input() type = 'text';
   @Input() disabled = false;
@@ -55,6 +56,7 @@ export class InputComponent
   @Input() focus = false;
   @Input() placeholder = '';
   @Input() label = '';
+  @Input() maxlength;
 
   @Output() confirm = new EventEmitter();
   @Output() ref = new EventEmitter();
@@ -67,31 +69,37 @@ export class InputComponent
   constructor(
     @Optional() @Attribute('textCenter') public textCenter: any,
     @Optional() @Attribute('slim') public slim: any,
+    @Optional() @Attribute('integerOnly') public integerOnly: any,
+    @Optional() @Attribute('arrowed') public arrowed: any,
     @Self() @Optional() private ngControl: NgControl
   ) {
     this.textCenter = textCenter !== null;
     this.slim = slim !== null;
+    this.integerOnly = integerOnly !== null;
+    this.arrowed = arrowed !== null;
 
+    /* istanbul ignore next */
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
   }
-
+  /* istanbul ignore next */
   writeValue(value: any) {
     this.value = value;
   }
-
+  /* istanbul ignore next */
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-
+  /* istanbul ignore next */
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-
+  /* istanbul ignore next */
   onChange(value: any) {}
+  /* istanbul ignore next */
   onTouched() {}
-
+  /* istanbul ignore next */
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
@@ -145,7 +153,9 @@ export class InputComponent
   }
 
   rangedValue(el: HTMLInputElement) {
-    let value = parseInt(el.value, 10);
+    let value = this.integerOnly
+      ? parseInt(el.value, 10)
+      : parseFloat(el.value);
 
     if (Number.isNaN(value)) {
       value = this.min || 0;
@@ -175,7 +185,10 @@ export class InputComponent
 
     const step = operation === 'add' ? +this.step : -this.step;
     const numberUpdate = () => {
-      let value = parseInt(this.value, 10) || 0;
+      let value =
+        (this.integerOnly
+          ? parseInt(this.value, 10)
+          : parseFloat(this.value)) || 0;
 
       value += step;
 

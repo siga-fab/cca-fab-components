@@ -37,8 +37,8 @@ export const Default = () => ({
 });
 
 export const Number = () => ({
-  template: `<div style="background: #fff">
-    <cca-common-input label="testando" type="number" style="margin-top: 2rem"></cca-common-input>
+  template: `<div style="width: 10rem">
+    <cca-common-input step="0.1" min="0.5" max="0.8" label="testando" type="number" style="margin-top: 2rem"></cca-common-input>
   </div>`,
 });
 

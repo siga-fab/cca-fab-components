@@ -25,3 +25,16 @@ export const Default = () => ({
     <cca-common-checkbox disabled="true">This is a checkbox!</cca-common-checkbox>
   `,
 });
+
+export const Switch = () => ({
+  props: {
+    checkbox: true,
+    handleChange: action('changed'),
+  },
+  template: `
+    <span>{{ checkbox }}</span>
+    <cca-common-checkbox switch value="checkbox 1" [(ngModel)]="checkbox">This is a switch!</cca-common-checkbox>
+    <cca-common-checkbox switch (changed)="handleChange($event)">This is a switch!</cca-common-checkbox>
+    <cca-common-checkbox switch disabled="true">This is a switch!</cca-common-checkbox>
+  `,
+});
