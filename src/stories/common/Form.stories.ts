@@ -54,8 +54,8 @@ export const Default = () => ({
     <div style="width: 70%;">
       <com-form [id]="formId" [formGroup]="myGroup" (ngSubmit)="handleSubmit(myGroup.value)">
         <com-form-section partly formTitle="Lorem Ipsum" step="1" tooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
-          <com-input label="Basic input" placeholder="type your text here" formControlName="input"></com-input>
-          <com-input type="number" label="Basic number input" placeholder="type your number here" formControlName="inputNumber" min="0" max="10"></com-input>
+          <com-input style="width: 100%" label="Basic input" placeholder="type your text here" formControlName="input"></com-input>
+          <com-input style="width: 100%" type="number" label="Basic number input" placeholder="type your number here" formControlName="inputNumber" min="0" max="10"></com-input>
         </com-form-section>
         <com-form-section partly formTitle="Lorem Ipsum" step="2" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id elit at erat consequat finibus non ut leo. Mauris luctus purus quis risus pharetra, in semper dolor faucibus.">
           <com-fieldset>

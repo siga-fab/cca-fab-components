@@ -40,7 +40,7 @@ export const Default = () => ({
       </com-button>
     </li>
     <li style="padding: .5rem">
-      <com-input ccaCommonTooltip="Campo de texto" value=""></com-input>
+      <com-input style="width: 10rem" ccaCommonTooltip="Campo de texto" value=""></com-input>
     </li>
   </ul>
 `,

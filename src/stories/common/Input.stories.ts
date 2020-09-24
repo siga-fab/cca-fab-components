@@ -37,8 +37,8 @@ export const Default = () => ({
 });
 
 export const Number = () => ({
-  template: `<div style="width: 10rem">
-    <com-input step="0.1" min="0.5" max="0.8" label="testando" type="number" style="margin-top: 2rem"></com-input>
+  template: `<div>
+    <com-input label="Number Input" type="number" style="margin-top: 2rem; width: 15rem;"></com-input>
   </div>`,
 });
 
