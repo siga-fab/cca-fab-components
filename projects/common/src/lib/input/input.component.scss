@@ -6,13 +6,11 @@
   display: inline-block;
   width: 100%;
 
-  <<<<<<< HEAD &:not(:last-child) {
+  :not(:last-child) {
     margin-bottom: $margin-bottom-default;
   }
 
-  =======>>>>>>>63f1a211c295a862130ca0fdf5fcbf7c6d2ce780
-    .input:focus-within
-    + .wrapper {
+  .input:focus-within + .wrapper {
     .corner-left,
     .corner-right {
       border-color: $tertiary;
