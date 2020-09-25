@@ -57,7 +57,7 @@
   }
 
   &.error::before {
-    background-color: $warning;
+    background-color: $error;
   }
 
   &.success .ts-icon-left {
@@ -65,7 +65,7 @@
   }
 
   &.error .ts-icon-left {
-    color: $warning;
+    color: $error;
   }
 
   &.alert .ts-icon-left {
