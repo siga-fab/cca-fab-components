@@ -57,9 +57,13 @@ export class InputComponent
   @Input() placeholder = '';
   @Input() label = '';
   @Input() maxlength;
+  @Input() forcedFocus = false;
 
   @Output() confirm = new EventEmitter();
   @Output() ref = new EventEmitter();
+
+  @Output() focused = new EventEmitter();
+  @Output() blurred = new EventEmitter();
 
   @ViewChild('input') input;
 
@@ -110,22 +114,28 @@ export class InputComponent
     this.ref.emit(this.input.nativeElement);
   }
 
-  isFocused(value: boolean) {
+  isFocused(value: boolean, event: FocusEvent) {
     this.focus = value;
 
     if (!value) {
       if (this.type === 'number') {
         this.rangedValue(this.input.nativeElement);
       }
+
       this.input.nativeElement.placeholder = '';
+
       this.confirm.emit(this.value);
       if (this.numberInterval) {
         this.clearNumberInterval();
       }
+
+      this.blurred.emit(event);
     } else {
       if (this.placeholder) {
         this.input.nativeElement.placeholder = this.placeholder;
       }
+
+      this.focused.emit(event);
     }
   }
 

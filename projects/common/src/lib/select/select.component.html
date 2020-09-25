@@ -1,0 +1,31 @@
+<div class="wrapper">
+  <com-input
+    (ref)="getInputRef($event)"
+    (focused)="open($event)"
+    (blurred)="close($event)"
+    [forcedFocus]="forcedFocus"
+    placeholder="Select something..."
+    class="input-style"
+    label="Select"
+  ></com-input>
+
+  <div
+    class="status-icon"
+    (click)="isOpen ? onCloseClick() : onArrowClick()"
+    (mousedown)="$event.preventDefault()"
+    [ngClass]="{ open: isOpen }"
+  >
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+</div>
+
+<div (focusout)="close($event)" [@inOutAnimation] *ngIf="isOpen" class="card">
+  <ul>
+    <li tabindex="0">Teste TesteTesteTesteTesteTesteTesteTeste Teste Teste</li>
+    <li tabindex="0">Teste</li>
+    <li tabindex="0">Teste</li>
+    <li tabindex="0">Teste</li>
+    <li tabindex="0">Teste</li>
+  </ul>
+</div>

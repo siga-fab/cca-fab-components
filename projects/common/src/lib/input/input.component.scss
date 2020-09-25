@@ -9,7 +9,8 @@
     margin-bottom: $margin-bottom-default;
   }
 
-  .input:focus-within + .wrapper {
+  .input:focus-within + .wrapper,
+  .wrapper.forced-focus {
     .corner-left,
     .corner-right {
       border-color: $tertiary;
@@ -133,7 +134,8 @@
 
     transition: border 0.15s ease-in-out;
 
-    &:focus-within {
+    &:focus-within,
+    &.forced-focus {
       border: 1px solid $tertiary;
       border-top: 0;
       outline: 0;

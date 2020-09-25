@@ -9,7 +9,7 @@
   <com-icon color="#3399ff">expand_less</com-icon>
 </div>
 
-<div class="input" [ngClass]="{ slim: slim }">
+<div class="input" [ngClass]="{ slim: slim, 'forced-focus': forcedFocus }">
   <input
     #input
     tabindex="0"
@@ -23,27 +23,27 @@
     [maxLength]="maxlength ? maxlength : DEFAULT_MAX_LENGTH"
     (input)="onChange($event.target.value)"
     (change)="type === 'text' ? updateValue($event) : null"
-    (focus)="isFocused(true)"
-    (blur)="isFocused(false); onTouched()"
+    (focus)="isFocused(true, $event)"
+    (blur)="isFocused(false, $event); onTouched()"
     (keydown)="onKeyDown($event)"
   />
 </div>
 
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{ 'forced-focus': forcedFocus }">
   <div class="corner-left"></div>
 
   <div
     class="label"
     [ngClass]="{
-      filled: (label && value) || type === 'date',
+      filled: (label && value) || type === 'date' || forcedFocus,
       unlabeled: !label
     }"
   >
     <label
       *ngIf="label"
       [ngClass]="{
-        focused: (focus && !value) || value || type === 'date',
-        colored: !focus
+        focused: (focus && !value) || value || type === 'date' || forcedFocus,
+        colored: !focus && !forcedFocus
       }"
     >
       {{ label }}

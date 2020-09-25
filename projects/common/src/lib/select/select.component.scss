@@ -1,0 +1,122 @@
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/reset.scss';
+
+:host {
+  display: inline-block;
+  position: relative;
+  width: 15rem;
+
+  > .wrapper {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+  }
+
+  .input-style {
+    width: 100%;
+    margin-bottom: 0.2rem;
+  }
+
+  .status-icon {
+    display: block;
+    cursor: pointer;
+
+    width: 24px;
+    height: 24px;
+
+    position: absolute;
+    right: 0.9rem;
+    top: calc(calc(100% - 0.2rem) / 2 - 12px);
+
+    > div {
+      display: block;
+      transition: all 0.1s ease-in-out;
+    }
+
+    &.open {
+      .left {
+        position: absolute;
+        width: 2px;
+        height: 75%;
+        background-color: $tertiary;
+        transform: translate(11px, 3px) rotate(-45deg);
+      }
+
+      .right {
+        position: absolute;
+        width: 2px;
+        height: 75%;
+        background-color: $tertiary;
+        transform: translate(11px, 3px) rotate(45deg);
+      }
+    }
+
+    .left {
+      position: absolute;
+      width: 2px;
+      height: 50%;
+      background: $grey;
+      transform: translate(7.25px, 7.5px) rotate(-45deg);
+    }
+
+    .right {
+      position: absolute;
+      width: 2px;
+      height: 50%;
+      background: $grey;
+      transform: translate(14.5px, 7.5px) rotate(45deg);
+    }
+  }
+
+  .card {
+    display: block;
+    background: $white;
+    border: 0.1rem solid $border-grey;
+    box-shadow: $box-shadow;
+    border-radius: 0.5rem;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    max-height: 15rem;
+
+    ul {
+      background: $white;
+
+      li {
+        display: block;
+        cursor: pointer;
+        padding: 0.8rem;
+        padding-left: 1.6rem;
+
+        &:hover,
+        &:focus {
+          background: $lighter-grey;
+          color: $tertiary;
+        }
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      margin: 0.2rem;
+      background: transparent;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: $grey;
+      border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #{$grey}a0;
+    }
+  }
+}
