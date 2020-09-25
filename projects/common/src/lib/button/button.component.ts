@@ -54,7 +54,6 @@ export class ButtonComponent
       'fill',
       'transparent'
     );
-    console.log(fill);
   }
 
   ngOnInit() {}
