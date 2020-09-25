@@ -1,0 +1,152 @@
+<div class="table col-xs">
+  <div class="header row">
+    <div class="col-xs" *ngFor="let header of headers">
+      {{ header }}
+    </div>
+    <div class="col-xs end-xs" [hidden]="!showActions"></div>
+  </div>
+  <div class="body">
+    <div class="row" *ngFor="let data of dataSource; let i = index">
+      <div class="col-xs" *ngFor="let header of headers">
+        {{ data[header] }}
+      </div>
+      <div class="col-xs end-xs" [hidden]="!showActions" #actionWrapper>
+        <ng-container
+          *ngIf="actionTemplateRef"
+          [ngTemplateOutlet]="actionTemplateRef"
+          [ngTemplateOutletContext]="{
+            $implicit: { data: data, index: i, dataSource: dataSource }
+          }"
+        >
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="footer row between-xs">
+    <div class="row left middle-xs">
+      <div
+        tabindex="0"
+        class="button"
+        (keydown)="onRefresh($event); acessibleStateMap['refresh'] = true"
+        (keyup)="acessibleStateMap['refresh'] = false"
+        (click)="onRefresh($event)"
+        (mousedown)="acessibleStateMap['refresh'] = true"
+        (mouseup)="acessibleStateMap['refresh'] = false"
+        role="button"
+        [attr.aria-pressed]="acessibleStateMap['refresh']"
+      >
+        <com-icon>loop</com-icon>
+      </div>
+      <div>
+        Itens por página:
+        <span class="input">
+          <com-input
+            type="number"
+            [value]="pageSize"
+            (confirm)="onPageSizeChange($event)"
+            min="20"
+            [max]="maxPageSize"
+            step="10"
+            textCenter
+            integerOnly
+            arrowed
+          ></com-input>
+        </span>
+      </div>
+    </div>
+    <div class="row right middle-xs">
+      <div
+        [tabindex]="!disableMap['firstPage'] ? '0' : '-1'"
+        class="button"
+        [ngClass]="{ disabled: disableMap['firstPage'] }"
+        (click)="!disableMap['firstPage'] ? onFirstPage($event) : null"
+        role="button"
+        (keydown)="
+          !disableMap['firstPage']
+            ? onFirstPage($event) && (acessibleStateMap['firstPage'] = true)
+            : null
+        "
+        (keyup)="acessibleStateMap['firstPage'] = false"
+        (mousedown)="acessibleStateMap['firstPage'] = true"
+        (mouseup)="acessibleStateMap['firstPage'] = false"
+        role="button"
+        [attr.aria-pressed]="acessibleStateMap['firstPage']"
+      >
+        <com-icon>first_page</com-icon>
+      </div>
+      <div
+        [tabindex]="!disableMap['previous'] ? '0' : '-1'"
+        class="button"
+        [ngClass]="{ disabled: disableMap['previous'] }"
+        (click)="!disableMap['previous'] ? onPreviousPage($event) : null"
+        (keydown)="
+          !disableMap['previous']
+            ? onPreviousPage($event) && (acessibleStateMap['previous'] = true)
+            : null
+        "
+        (keyup)="acessibleStateMap['previous'] = false"
+        (mousedown)="acessibleStateMap['previous'] = true"
+        (mouseup)="acessibleStateMap['previous'] = false"
+        role="button"
+        [attr.aria-pressed]="acessibleStateMap['previous']"
+      >
+        <com-icon>chevron_left</com-icon>
+      </div>
+
+      <div class="label">
+        Página:
+        <span class="input">
+          <com-input
+            type="number"
+            [value]="pageIndex"
+            min="1"
+            [max]="totalPages"
+            (confirm)="onPageIndexChange($event)"
+            textCenter
+            integerOnly
+            arrowed
+          ></com-input>
+        </span>
+        /&nbsp;&nbsp;&nbsp;{{ totalPages }}
+      </div>
+
+      <div
+        [tabindex]="!disableMap['next'] ? '0' : '-1'"
+        class="button"
+        [ngClass]="{ disabled: disableMap['next'] }"
+        (click)="!disableMap['next'] ? onNextPage($event) : null"
+        (keydown)="
+          !disableMap['next']
+            ? onNextPage($event) && (acessibleStateMap['next'] = true)
+            : null
+        "
+        (keyup)="acessibleStateMap['next'] = false"
+        (mousedown)="acessibleStateMap['next'] = true"
+        (mouseup)="acessibleStateMap['next'] = false"
+        role="button"
+        [attr.aria-pressed]="acessibleStateMap['next']"
+      >
+        <com-icon>chevron_right</com-icon>
+      </div>
+
+      <div
+        [tabindex]="!disableMap['lastPage'] ? '0' : '-1'"
+        class="button"
+        [ngClass]="{ disabled: disableMap['lastPage'] }"
+        (click)="!disableMap['lastPage'] ? onLastPage($event) : null"
+        (keydown)="
+          !disableMap['lastPage']
+            ? onLastPage($event) && (acessibleStateMap['lastPage'] = true)
+            : null
+        "
+        (keyup)="acessibleStateMap['lastPage'] = false"
+        (mousedown)="acessibleStateMap['lastPage'] = true"
+        (mouseup)="acessibleStateMap['lastPage'] = false"
+        role="button"
+        [attr.aria-pressed]="acessibleStateMap['lastPage']"
+      >
+        <com-icon>last_page</com-icon>
+      </div>
+    </div>
+  </div>
+</div>

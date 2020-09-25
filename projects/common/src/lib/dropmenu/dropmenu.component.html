@@ -1,0 +1,16 @@
+<div
+  #dropmenu
+  class="dropmenu"
+  tabindex="0"
+  [ngClass]="{ 'negative-drop': negative === '' }"
+>
+  <div class="drop-btn">
+    <span class="drop-btn-text">{{ name }}</span>
+    <com-icon class="drop-btn-icon">keyboard_arrow_down</com-icon>
+  </div>
+  <nav class="drop-content">
+    <ul #links>
+      <ng-content></ng-content>
+    </ul>
+  </nav>
+</div>

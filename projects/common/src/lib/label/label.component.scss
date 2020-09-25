@@ -1,0 +1,11 @@
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+
+.label {
+  display: block;
+  margin-bottom: $padding/2;
+
+  font-size: 1.4rem;
+  color: $grey;
+  opacity: 1;
+}

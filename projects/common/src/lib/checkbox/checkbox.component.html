@@ -1,0 +1,18 @@
+<div class="checkbox" [ngClass]="isSwitch ? 'hasSwitch' : ''">
+  <input
+    type="checkbox"
+    [id]="id"
+    [ngClass]="isSwitch ? 'switch' : 'cb-selector'"
+    [checked]="checked"
+    [name]="name"
+    [value]="value"
+    [disabled]="disabled"
+    [attr.aria-checked]="checked"
+    [indeterminate]="false"
+    (change)="onChange($event)"
+    (click)="onClick()"
+  />
+  <label class="cb-label" [for]="id" [attr.aria-label]="ariaLabel">
+    <span class="cb-label-text"><ng-content></ng-content></span>
+  </label>
+</div>

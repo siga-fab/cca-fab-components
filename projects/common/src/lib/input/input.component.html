@@ -1,0 +1,65 @@
+<div
+  [@fadeInOut]
+  (mouseleave)="onMouseUp()"
+  (mousedown)="updateNumberValue($event, 'add')"
+  (mouseup)="onMouseUp()"
+  class="number-plus"
+  *ngIf="type === 'number' && arrowed && focus"
+>
+  <com-icon color="#3399ff">expand_less</com-icon>
+</div>
+
+<div class="input" [ngClass]="{ slim: slim }">
+  <input
+    #input
+    tabindex="0"
+    [ngClass]="{ center: textCenter }"
+    [min]="min"
+    [max]="max"
+    [step]="step"
+    [type]="type"
+    [value]="value"
+    [disabled]="disabled"
+    [maxLength]="maxlength ? maxlength : DEFAULT_MAX_LENGTH"
+    (input)="onChange($event.target.value)"
+    (change)="type === 'text' ? updateValue($event) : null"
+    (focus)="isFocused(true)"
+    (blur)="isFocused(false); onTouched()"
+    (keydown)="onKeyDown($event)"
+  />
+</div>
+
+<div class="wrapper">
+  <div class="corner-left"></div>
+
+  <div
+    class="label"
+    [ngClass]="{
+      filled: (label && value) || type === 'date',
+      unlabeled: !label
+    }"
+  >
+    <label
+      *ngIf="label"
+      [ngClass]="{
+        focused: (focus && !value) || value || type === 'date',
+        colored: !focus
+      }"
+    >
+      {{ label }}
+    </label>
+  </div>
+  <div class="corner-right"></div>
+</div>
+
+<div
+  [@fadeInOut]
+  (mouseleave)="onMouseUp()"
+  (mousedown)="updateNumberValue($event, 'sub')"
+  (mouseup)="onMouseUp()"
+  class="number-minus"
+  [ngClass]="{ slim: slim }"
+  *ngIf="type === 'number' && arrowed && focus"
+>
+  <com-icon color="#3399ff">expand_more</com-icon>
+</div>

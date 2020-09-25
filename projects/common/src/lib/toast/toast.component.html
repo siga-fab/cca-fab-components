@@ -1,0 +1,26 @@
+<div
+  class="toast"
+  [@openClose]="isOpen ? 'open' : 'closed'"
+  [ngClass]="{
+    success: success === '',
+    error: error === '',
+    alert: alert === ''
+  }"
+>
+  <div class="ts-wrapper">
+    <com-icon outlined class="ts-icon-left">
+      <ng-container *ngIf="success !== '' && error !== '' && alert !== ''"
+        >info</ng-container
+      >
+      <ng-container *ngIf="success === ''">check_circle</ng-container>
+      <ng-container *ngIf="error === ''">cancel</ng-container>
+      <ng-container *ngIf="alert === ''">report_problem</ng-container>
+    </com-icon>
+    <p class="ts-text">
+      <ng-content></ng-content>
+    </p>
+    <com-button flat transparent (click)="onClose($event)">
+      <com-icon slot="icon">clear</com-icon>
+    </com-button>
+  </div>
+</div>
