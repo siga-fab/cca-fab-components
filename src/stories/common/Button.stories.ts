@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import {
   ButtonModule,
+  ButtonComponent,
   IconModule,
 } from '../../../projects/common/src/public-api';
 
 export default {
-  title: 'Common | Button',
+  title: 'Common / Button',
+  component: ButtonComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, ButtonModule, IconModule],

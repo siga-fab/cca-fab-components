@@ -4,15 +4,15 @@ import { action } from '@storybook/addon-actions';
 import { IconComponent } from '../../../projects/common/src/lib/icon/icon.component';
 import { InputModule } from '../../../projects/common/src/lib/input/input.module';
 import {
-  ButtonComponent,
   ButtonModule,
   IconModule,
   TooltipModule,
+  TooltipDirective,
 } from '../../../projects/common/src/public-api';
 
 export default {
-  title: 'Common | Tooltip',
-  component: ButtonComponent,
+  title: 'Common / Tooltip',
+  component: TooltipDirective,
   decorators: [
     moduleMetadata({
       imports: [

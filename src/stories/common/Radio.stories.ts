@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { RadioModule } from '../../../projects/common/src/public-api';
 
 export default {
-  title: 'Common | Radio',
+  title: 'Common / Radio',
   decorators: [
     moduleMetadata({
       imports: [CommonModule, RadioModule],
