@@ -14,13 +14,14 @@
     "lint:test": "prettier \"projects/**/*.{html,md,scss,json,ts}\" \"src/**/*.{html,md,scss,json,ts}\" --list-different",
     "lint:prettier": "prettier \"projects/**/*.{html,md,scss,json,ts}\" \"src/**/*.{html,md,scss,json,ts}\" --write",
     "e2e": "ng e2e",
-    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "storybook": "npm run docs:json && start-storybook -p 6006",
+    "build:storybook": "build-storybook",
     "build:prod": "ng build --prod",
     "build:ci": "npm run build:prod",
-    "build:storybook": "npm run docs:json && build-storybook",
-    "deploy:storybook:ci": "storybook-to-ghpages --ci",
-    "release:ci": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo"
+    "release:ci": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo",
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
+    "build-storybook": "npm run docs:json && build-storybook",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "private": false,
   "husky": {
