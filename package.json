@@ -14,13 +14,13 @@
     "lint:test": "prettier \"projects/**/*.{html,md,scss,json,ts}\" \"src/**/*.{html,md,scss,json,ts}\" --list-different",
     "lint:prettier": "prettier \"projects/**/*.{html,md,scss,json,ts}\" \"src/**/*.{html,md,scss,json,ts}\" --write",
     "e2e": "ng e2e",
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "storybook": "npm run docs:json && start-storybook -p 6006",
-    "build:storybook": "build-storybook",
     "build:prod": "ng build --prod",
     "build:ci": "npm run build:prod",
-    "release:ci": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo",
-    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-    "build-storybook": "npm run docs:json && build-storybook"
+    "build:storybook": "npm run docs:json && build-storybook",
+    "deploy:storybook:ci": "storybook-to-ghpages --ci",
+    "release:ci": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo"
   },
   "private": false,
   "husky": {
@@ -64,6 +64,7 @@
     "@storybook/addon-essentials": "^6.0.22",
     "@storybook/addon-links": "^6.0.22",
     "@storybook/angular": "^6.0.22",
+    "@storybook/storybook-deployer": "^2.8.6",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/jest": "^26.0.13",
