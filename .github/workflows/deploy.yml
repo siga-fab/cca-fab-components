@@ -50,6 +50,6 @@ jobs:
         if: ${{ success() }}
         run: |
           npm ci
-          npm run deploy:storybook:ci
+          npm run deploy-storybook -- --ci
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
