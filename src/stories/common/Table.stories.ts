@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
 import { IconModule } from '../../../projects/common/src/lib/icon/icon.module';
 
 export default {
-  title: 'Common | Table',
+  title: 'Common / Table',
+  component: TableComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, TableModule, InputModule, IconModule],

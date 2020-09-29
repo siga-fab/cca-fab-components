@@ -1,4 +1,3 @@
-import { action } from '@storybook/addon-actions';
 import {
   InputComponent,
   InputModule,
@@ -8,7 +7,8 @@ import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
 export default {
-  title: 'Common | Input',
+  title: 'Common / Input',
+  component: InputComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, InputModule, IconModule],

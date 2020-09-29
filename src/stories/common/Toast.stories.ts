@@ -1,10 +1,15 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { ToastModule } from '../../../projects/common/src/public-api';
 import { action } from '@storybook/addon-actions';
 
+import {
+  ToastComponent,
+  ToastModule,
+} from '../../../projects/common/src/public-api';
+
 export default {
-  title: 'Common | Toast',
+  title: 'Common / Toast',
+  component: ToastComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, ToastModule],

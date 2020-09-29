@@ -1,10 +1,14 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
-import { LabelModule } from '../../../projects/common/src/public-api';
+import {
+  LabelComponent,
+  LabelModule,
+} from '../../../projects/common/src/public-api';
 
 export default {
-  title: 'Common | Label',
+  title: 'Common / Label',
+  component: LabelComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, LabelModule],

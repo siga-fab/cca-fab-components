@@ -2,10 +2,14 @@ import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
-import { CheckboxModule } from '../../../projects/common/src/public-api';
+import {
+  CheckboxComponent,
+  CheckboxModule,
+} from '../../../projects/common/src/public-api';
 
 export default {
-  title: 'Common | Checkbox',
+  title: 'Common / Checkbox',
+  component: CheckboxComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, CheckboxModule],
