@@ -163,6 +163,21 @@ describe('SelectComponent', () => {
     expect(clickSpy).toHaveBeenCalledTimes(2);
   });
 
+  it('should close dropdown after calling onKeyDown with Escape', () => {
+    const onKeyDownSpy = jest.spyOn(component, 'onKeyDown');
+    const blurSpy = jest.spyOn(component.selectElement, 'blur');
+    const initialIndex = 2;
+
+    component.isOpen = true;
+    component.selectedIndex = initialIndex;
+
+    component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('Escape'));
+
+    expect(component.selectedIndex).toBe(initialIndex);
+    expect(onKeyDownSpy).toHaveBeenCalled();
+    expect(blurSpy).toHaveBeenCalled();
+  });
+
   it('should do nothing after calling onKeyDown if key is not mapped', () => {
     const onKeyDownSpy = jest.spyOn(component, 'onKeyDown');
     const initialIndex = 2;
@@ -170,7 +185,7 @@ describe('SelectComponent', () => {
     component.isOpen = true;
     component.selectedIndex = initialIndex;
 
-    component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('Escape'));
+    component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('T'));
 
     expect(component.selectedIndex).toBe(initialIndex);
     expect(onKeyDownSpy).toHaveBeenCalled();

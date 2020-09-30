@@ -130,6 +130,11 @@ export class SelectComponent implements AfterViewChecked {
       childElement(this.selectedIndex).click();
       return;
     }
+
+    if (key === 'Escape') {
+      this.selectElement.blur();
+      return;
+    }
   }
 
   selectedItem(index: number) {
