@@ -1,22 +1,20 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
-import { SelectModule } from 'projects/common/src/lib/select/select.module';
+import { AutocompleteModule } from '../../../projects/common/src/lib/autocomplete/autocomplete.module';
 
 export default {
-  title: 'Common | Select',
+  title: 'Common | Autocomplete',
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, SelectModule],
+      imports: [CommonModule, AutocompleteModule],
     }),
   ],
 };
 
 export const Default = () => ({
   props: {
-    opened: action('opened'),
-    closed: action('closed'),
-    changed: action('changed'),
+    click: action('Closed'),
     options: [
       'Opção 1',
       'Opção 2',
@@ -31,11 +29,6 @@ export const Default = () => ({
     ],
   },
   template: `
-    <com-select
-      (changed)="changed($event)"
-      (opened)="opened()"
-      (closed)="closed()"
-      [options]="options">
-    </com-select>
+    <com-autocomplete [options]="options"></com-autocomplete>
   `,
 });

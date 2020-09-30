@@ -25,6 +25,14 @@
     }
   }
 
+  .input:focus-within,
+  .input.forced-focus {
+    input::placeholder {
+      color: $grey;
+      transition: color 0.15s ease-in-out;
+    }
+  }
+
   .wrapper {
     display: flex;
     user-select: none;
@@ -104,6 +112,14 @@
 
     width: 100%;
 
+    ::-webkit-input-placeholder,
+    :-moz-placeholder,
+    ::-moz-placeholder,
+    :-ms-input-placeholder {
+      color: transparent;
+      transition: color 0.15s ease-in-out;
+    }
+
     input {
       background: transparent;
       color: $black;
@@ -120,6 +136,17 @@
 
       &.center {
         text-align: center;
+      }
+
+      &.select {
+        padding-right: 4rem;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      &::placeholder {
+        color: transparent;
+        transition: color 0.15s ease-in-out;
       }
     }
 

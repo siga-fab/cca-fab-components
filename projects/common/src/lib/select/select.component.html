@@ -1,31 +1,35 @@
-<div class="wrapper">
+<div
+  class="wrapper"
+  (mousedown)="$event.preventDefault()"
+  (click)="isOpen ? selectElement.blur() : selectElement.focus()"
+>
   <com-input
-    (ref)="getInputRef($event)"
-    (focused)="open($event)"
-    (blurred)="close($event)"
     [forcedFocus]="forcedFocus"
-    placeholder="Select something..."
+    [value]="value"
+    disabled="true"
+    type="select"
+    placeholder="Pick one"
     class="input-style"
     label="Select"
   ></com-input>
 
-  <div
-    class="status-icon"
-    (click)="isOpen ? onCloseClick() : onArrowClick()"
-    (mousedown)="$event.preventDefault()"
-    [ngClass]="{ open: isOpen }"
-  >
+  <div class="status-icon" [ngClass]="{ open: isOpen }">
     <div class="left"></div>
     <div class="right"></div>
   </div>
 </div>
 
-<div (focusout)="close($event)" [@inOutAnimation] *ngIf="isOpen" class="card">
+<div [@inOutAnimation] *ngIf="isOpen && options.length" class="card">
   <ul>
-    <li tabindex="0">Teste TesteTesteTesteTesteTesteTesteTeste Teste Teste</li>
-    <li tabindex="0">Teste</li>
-    <li tabindex="0">Teste</li>
-    <li tabindex="0">Teste</li>
-    <li tabindex="0">Teste</li>
+    <li (click)="selectedItem(0)" [ngClass]="{ focus: !selectedIndex }">
+      Nenhum
+    </li>
+    <li
+      [ngClass]="{ focus: index === selectedIndex - 1 }"
+      *ngFor="let option of options; let index = index"
+      (click)="selectedItem(index + 1)"
+    >
+      {{ option.value ? option.name : option }}
+    </li>
   </ul>
 </div>

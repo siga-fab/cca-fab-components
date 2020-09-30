@@ -1,6 +1,5 @@
 import { action } from '@storybook/addon-actions';
 import {
-  InputComponent,
   InputModule,
   IconModule,
 } from '../../../projects/common/src/public-api';

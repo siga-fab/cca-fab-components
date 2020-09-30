@@ -33,18 +33,18 @@ describe('InputComponent', () => {
     expect(isFocusedSpy).toHaveBeenCalled();
   });
 
-  it('should show the native placeholder after setting focus to true', () => {
-    const isFocusedSpy = jest.spyOn(component, 'isFocused');
-    const ELEMENT: HTMLInputElement = component.input.nativeElement;
-    const MOCK_EVENT = new FocusEvent(null);
-    component.placeholder = 'This is a test';
+  // it('should show the native placeholder after setting focus to true', () => {
+  //   const isFocusedSpy = jest.spyOn(component, 'isFocused');
+  //   const ELEMENT: HTMLInputElement = component.input.nativeElement;
+  //   const MOCK_EVENT = new FocusEvent(null);
+  //   component.placeholder = 'This is a test';
 
-    component.isFocused(true, MOCK_EVENT);
+  //   component.isFocused(true, MOCK_EVENT);
 
-    expect(component.focus).toBe(true);
-    expect(isFocusedSpy).toHaveBeenCalled();
-    expect(ELEMENT.placeholder).toBe(component.placeholder);
-  });
+  //   expect(component.focus).toBe(true);
+  //   expect(isFocusedSpy).toHaveBeenCalled();
+  //   expect(ELEMENT.placeholder).toBe(component.placeholder);
+  // });
 
   it('should set focus to false', () => {
     const isFocusedSpy = jest.spyOn(component, 'isFocused');

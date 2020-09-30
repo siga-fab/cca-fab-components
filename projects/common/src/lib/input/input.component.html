@@ -13,19 +13,23 @@
   <input
     #input
     tabindex="0"
-    [ngClass]="{ center: textCenter }"
+    [ngClass]="{ center: textCenter, select: type === 'select' }"
     [min]="min"
     [max]="max"
     [step]="step"
-    [type]="type"
+    [type]="type !== 'select' ? type : 'text'"
     [value]="value"
     [disabled]="disabled"
     [maxLength]="maxlength ? maxlength : DEFAULT_MAX_LENGTH"
-    (input)="onChange($event.target.value)"
-    (change)="type === 'text' ? updateValue($event) : null"
+    (input)="
+      onChange($event.target.value);
+      immediateEnabled ? onImmediateChange($event.target.value) : null
+    "
+    (change)="['text', 'select'].includes(type) ? updateValue($event) : null"
     (focus)="isFocused(true, $event)"
     (blur)="isFocused(false, $event); onTouched()"
     (keydown)="onKeyDown($event)"
+    [placeholder]="placeholder"
   />
 </div>
 

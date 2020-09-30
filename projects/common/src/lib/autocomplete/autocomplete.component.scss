@@ -6,11 +6,6 @@
   display: inline-block;
   position: relative;
   width: 25rem;
-  cursor: pointer !important;
-
-  &:focus {
-    outline: 0;
-  }
 
   > .wrapper {
     width: 100%;
@@ -25,6 +20,7 @@
 
   .status-icon {
     display: block;
+    cursor: pointer;
 
     width: 24px;
     height: 24px;
@@ -89,10 +85,6 @@
       background: $white;
 
       li {
-        &:first-child {
-          color: $grey;
-        }
-
         display: block;
         cursor: pointer;
         padding: 0.8rem;

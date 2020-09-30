@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <com-input
+    (ref)="getInputRef($event)"
+    (focused)="open($event)"
+    (blurred)="close($event)"
+    (immediate)="onImmediateChange($event)"
+    [forcedFocus]="forcedFocus"
+    [value]="value"
+    type="autocomplete"
+    placeholder="Pick one"
+    class="input-style"
+    label="Select"
+    immediate
+  ></com-input>
+
+  <div
+    class="status-icon"
+    (click)="isOpen ? onCloseClick() : onArrowClick()"
+    (mousedown)="$event.preventDefault()"
+    [ngClass]="{ open: isOpen }"
+  >
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+</div>
+
+<div
+  (focusout)="close($event)"
+  [@inOutAnimation]
+  *ngIf="isOpen && options.length"
+  class="card"
+>
+  <ul>
+    <li
+      tabindex="0"
+      [ngClass]="{ focus: index === selectedIndex }"
+      *ngFor="let option of options; let index = index"
+      (click)="selectedItem(index)"
+    >
+      {{ option.value ? option.name : option }}
+    </li>
+  </ul>
+</div>

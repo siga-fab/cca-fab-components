@@ -1,5 +1,17 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  Input,
+  ContentChild,
+  ViewChild,
+  AfterViewChecked,
+  AfterContentChecked,
+  Output,
+  EventEmitter,
+} from '@angular/core';
+import { SelectOption } from '../../types/select';
 
 @Component({
   selector: 'com-select',
@@ -24,52 +36,115 @@ import { Component, OnInit, ElementRef } from '@angular/core';
     ]),
   ],
 })
-export class SelectComponent implements OnInit {
+export class SelectComponent implements AfterViewChecked {
   isOpen = false;
-  inputElement: HTMLInputElement;
-  selectElement: HTMLElement;
+
   forcedFocus = false;
+  selectElement: HTMLElement;
+  optionsParentElement: HTMLUListElement;
+
+  value = '';
+  selectedIndex = 0;
+
+  private scrollBehavior: ScrollIntoViewOptions = {
+    block: 'center',
+  };
+
+  @Input() options: Array<string | SelectOption> = [];
+
+  @Output() changed = new EventEmitter();
+  @Output() opened = new EventEmitter();
+  @Output() closed = new EventEmitter();
 
   constructor(public el: ElementRef) {
     this.selectElement = this.el.nativeElement;
+
+    this.selectElement.tabIndex = 0;
+
+    this.selectElement.addEventListener('focus', this.open.bind(this));
+    this.selectElement.addEventListener('blur', this.close.bind(this));
+    this.selectElement.addEventListener('keydown', this.onKeyDown.bind(this));
   }
 
-  ngOnInit(): void {}
-
-  open(event?: FocusEvent) {
-    this.isOpen = true;
-    this.inputElement.focus();
-  }
-
-  close(event?: FocusEvent) {
-    if (event) {
-      const { relatedTarget: FOCUSED_ELEMENT } = event;
-
-      if (this.selectElement.contains(FOCUSED_ELEMENT as HTMLElement)) {
-        this.forcedFocus = true;
-        return;
-      }
+  /* istanbul ignore next */
+  ngAfterViewChecked(): void {
+    if (this.isOpen) {
+      this.optionsParentElement = this.selectElement.querySelector('ul');
+    } else {
+      this.optionsParentElement = null;
     }
+  }
 
-    this.inputElement.blur();
+  open() {
+    this.isOpen = true;
+    this.forcedFocus = true;
+    this.opened.emit();
 
+    /* istanbul ignore next */
+    setTimeout(() => {
+      if (this.optionsParentElement && this.selectedIndex) {
+        const child = this.optionsParentElement.children[
+          this.selectedIndex
+        ] as HTMLLIElement;
+
+        child.scrollIntoView(this.scrollBehavior);
+      }
+    });
+  }
+
+  close() {
     this.isOpen = false;
     this.forcedFocus = false;
+    this.closed.emit();
   }
 
-  getInputRef(el: HTMLInputElement) {
-    this.inputElement = el;
+  onKeyDown(event: KeyboardEvent) {
+    const { key } = event;
+
+    const childElement: (index: number) => HTMLLIElement = (index) =>
+      this.optionsParentElement.children[index] as HTMLLIElement;
+
+    if (!this.isOpen) {
+      return;
+    }
+
+    if (key === 'ArrowUp') {
+      if (!this.selectedIndex) {
+        return;
+      }
+
+      childElement(--this.selectedIndex).scrollIntoView(this.scrollBehavior);
+      return;
+    }
+
+    if (key === 'ArrowDown') {
+      if (this.selectedIndex === this.options.length) {
+        return;
+      }
+
+      childElement(++this.selectedIndex).scrollIntoView(this.scrollBehavior);
+      return;
+    }
+
+    if (key === 'Enter' || key === ' ') {
+      childElement(this.selectedIndex).click();
+      return;
+    }
   }
 
-  onArrowClick() {
-    this.open();
-  }
+  selectedItem(index: number) {
+    const selection = this.options[index - 1];
 
-  onCloseClick() {
-    this.close();
-  }
+    this.selectedIndex = index;
 
-  teste() {
-    console.log('saiu');
+    if (typeof selection === 'string') {
+      this.value = selection;
+      this.changed.emit(selection);
+    } else {
+      this.value = selection ? String(selection.name) : '';
+      this.changed.emit(selection ? selection.value : null);
+    }
+
+    this.selectElement.blur();
   }
 }

@@ -10,6 +10,8 @@ import {
   EventEmitter,
   ViewChild,
 } from '@angular/core';
+
+import { NgFormsFn } from '../../types/ngForms';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
@@ -49,7 +51,6 @@ export class InputComponent
   DEFAULT_MAX_LENGTH = 524288;
   @Input() value = '';
   @Input() type = 'text';
-  @Input() disabled = false;
   @Input() step = 1;
   @Input() min: number;
   @Input() max: number;
@@ -60,6 +61,7 @@ export class InputComponent
   @Input() forcedFocus = false;
 
   @Output() confirm = new EventEmitter();
+  @Output() immediate = new EventEmitter();
   @Output() ref = new EventEmitter();
 
   @Output() focused = new EventEmitter();
@@ -70,17 +72,24 @@ export class InputComponent
   numberInterval: any;
   numberIntervalCounter = 1;
 
+  onChange: NgFormsFn = (value: any): void => {};
+  onTouched: NgFormsFn = (value: any): void => {};
+
   constructor(
     @Optional() @Attribute('textCenter') public textCenter: any,
     @Optional() @Attribute('slim') public slim: any,
     @Optional() @Attribute('integerOnly') public integerOnly: any,
     @Optional() @Attribute('arrowed') public arrowed: any,
+    @Optional() @Attribute('disabled') public disabled: any,
+    @Optional() @Attribute('immediate') public immediateEnabled: any,
     @Self() @Optional() private ngControl: NgControl
   ) {
     this.textCenter = textCenter !== null;
     this.slim = slim !== null;
     this.integerOnly = integerOnly !== null;
     this.arrowed = arrowed !== null;
+    this.disabled = disabled !== null;
+    this.immediateEnabled = immediateEnabled !== null;
 
     /* istanbul ignore next */
     if (this.ngControl) {
@@ -92,17 +101,13 @@ export class InputComponent
     this.value = value;
   }
   /* istanbul ignore next */
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: NgFormsFn): void {
     this.onChange = fn;
   }
   /* istanbul ignore next */
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: NgFormsFn): void {
     this.onTouched = fn;
   }
-  /* istanbul ignore next */
-  onChange(value: any) {}
-  /* istanbul ignore next */
-  onTouched() {}
   /* istanbul ignore next */
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
@@ -122,8 +127,6 @@ export class InputComponent
         this.rangedValue(this.input.nativeElement);
       }
 
-      this.input.nativeElement.placeholder = '';
-
       this.confirm.emit(this.value);
       if (this.numberInterval) {
         this.clearNumberInterval();
@@ -131,10 +134,6 @@ export class InputComponent
 
       this.blurred.emit(event);
     } else {
-      if (this.placeholder) {
-        this.input.nativeElement.placeholder = this.placeholder;
-      }
-
       this.focused.emit(event);
     }
   }
@@ -160,6 +159,10 @@ export class InputComponent
       }
       this.confirm.emit(this.value);
     }
+  }
+
+  onImmediateChange(value: string): void {
+    this.immediate.emit(value);
   }
 
   rangedValue(el: HTMLInputElement) {
