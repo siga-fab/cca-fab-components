@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DropmenuComponent } from './dropmenu.component';
 
 import { IconModule } from '../icon/icon.module';
+import { RouterModule } from '@angular/router';
 
 describe('DropmenuComponent', () => {
   let component: DropmenuComponent;

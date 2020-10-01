@@ -1,5 +1,10 @@
 <li class="dropmenu-item">
-  <a [href]="href ? href : '/'">
+  <a
+    [routerLink]="routerLink"
+    [rel]="rel"
+    [target]="target"
+    [href]="href ? href : '/'"
+  >
     <ng-content></ng-content>
   </a>
 </li>

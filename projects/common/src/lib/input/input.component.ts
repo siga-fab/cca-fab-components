@@ -159,6 +159,13 @@ export class InputComponent
       }
       this.confirm.emit(this.value);
     }
+
+    if (
+      this.type === 'autocomplete' &&
+      (event.key === 'ArrowUp' || event.key === 'ArrowDown')
+    ) {
+      event.preventDefault();
+    }
   }
 
   onImmediateChange(value: string): void {

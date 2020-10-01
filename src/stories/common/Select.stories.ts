@@ -29,13 +29,18 @@ export const Default = () => ({
       { name: 'Opção 9', value: 1337 },
       'Opção 10',
     ],
+    label: 'Select',
+    placeholder: 'Escolha algo',
   },
   template: `
     <com-select
       (changed)="changed($event)"
       (opened)="opened()"
       (closed)="closed()"
-      [options]="options">
+      [options]="options"
+      [label]="label"
+      [placeholder]="placeholder"
+    >
     </com-select>
   `,
 });

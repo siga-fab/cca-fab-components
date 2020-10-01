@@ -13,7 +13,11 @@
   <input
     #input
     tabindex="0"
-    [ngClass]="{ center: textCenter, select: type === 'select' }"
+    [ngClass]="{
+      center: textCenter,
+      select: type === 'select',
+      unlabeled: !label
+    }"
     [min]="min"
     [max]="max"
     [step]="step"

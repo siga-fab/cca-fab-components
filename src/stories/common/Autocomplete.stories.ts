@@ -12,23 +12,49 @@ export default {
   ],
 };
 
-export const Default = () => ({
-  props: {
-    click: action('Closed'),
-    options: [
-      'Opção 1',
-      'Opção 2',
-      'Opção 3',
-      'Opção 4',
-      'Opção 5',
-      'Opção 6',
-      'Opção 7',
-      'Opção 8',
-      { name: 'Opção 9', value: 1337 },
-      'Opção 10',
-    ],
-  },
-  template: `
-    <com-autocomplete [options]="options"></com-autocomplete>
-  `,
-});
+export const Default = () => {
+  const optionsConfig = [
+    'Amazon',
+    'Alphabet',
+    'BBC',
+    'Google',
+    'Random',
+    'Stuff',
+    'Apple',
+    'Right',
+    { name: 'Sample', value: 1337 },
+    'Ninx',
+  ];
+
+  const options = [...optionsConfig];
+
+  const filter = (value: any) =>
+    optionsConfig.filter((option) =>
+      typeof option === 'string'
+        ? option.toLowerCase().startsWith(value.toLowerCase())
+        : option.name.toLowerCase().startsWith(value.toLowerCase())
+    );
+
+  const update = (value: any[]) => {
+    options.splice(0, options.length, ...value);
+    return options;
+  };
+
+  return {
+    props: {
+      filter: (value) => action('changed')(update(filter(value))),
+      options,
+      confirmed: action('confirmed'),
+      label: 'Autocomplete',
+      placeholder: 'Digite algo',
+    },
+    template: `
+      <com-autocomplete highlightFirst
+        (changed)="filter($event)"
+        (confirmed)="confirmed($event)"
+        [label]="label"
+        [placeholder]="placeholder"
+        [options]="options"></com-autocomplete>
+    `,
+  };
+};

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DropmenuItemComponent } from './dropmenu-item.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DropmenuItemComponent', () => {
   let component: DropmenuItemComponent;
@@ -9,6 +10,7 @@ describe('DropmenuItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DropmenuItemComponent],
+      imports: [RouterTestingModule],
     }).compileComponents();
   }));
 

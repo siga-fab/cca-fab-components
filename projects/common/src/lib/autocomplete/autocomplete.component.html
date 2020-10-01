@@ -4,24 +4,13 @@
     (focused)="open($event)"
     (blurred)="close($event)"
     (immediate)="onImmediateChange($event)"
-    [forcedFocus]="forcedFocus"
     [value]="value"
     type="autocomplete"
-    placeholder="Pick one"
+    [placeholder]="placeholder"
     class="input-style"
-    label="Select"
+    [label]="label"
     immediate
   ></com-input>
-
-  <div
-    class="status-icon"
-    (click)="isOpen ? onCloseClick() : onArrowClick()"
-    (mousedown)="$event.preventDefault()"
-    [ngClass]="{ open: isOpen }"
-  >
-    <div class="left"></div>
-    <div class="right"></div>
-  </div>
 </div>
 
 <div
@@ -32,12 +21,12 @@
 >
   <ul>
     <li
-      tabindex="0"
       [ngClass]="{ focus: index === selectedIndex }"
       *ngFor="let option of options; let index = index"
+      (mousedown)="$event.preventDefault()"
       (click)="selectedItem(index)"
     >
-      {{ option.value ? option.name : option }}
+      {{ $any(option).value ? $any(option).name : option }}
     </li>
   </ul>
 </div>

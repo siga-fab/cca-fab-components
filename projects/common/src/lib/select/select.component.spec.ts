@@ -8,8 +8,6 @@ describe('SelectComponent', () => {
   let component: SelectComponent;
   let fixture: ComponentFixture<SelectComponent>;
   const MOCK_ELEMENT = document.createElement('ul');
-  const MOCK_EVENT_FOCUS = new FocusEvent('focus');
-  const MOCK_EVENT_BLUR = new FocusEvent('blur');
   const CREATE_KEYBOARD_MOCK_EVENT = (key) =>
     new KeyboardEvent('keydown', { key });
 

@@ -144,6 +144,10 @@
         user-select: none;
       }
 
+      &.unlabeled::placeholder {
+        color: $grey;
+      }
+
       &::placeholder {
         color: transparent;
         transition: color 0.15s ease-in-out;

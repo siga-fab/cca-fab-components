@@ -18,57 +18,6 @@
     margin-bottom: 0.2rem;
   }
 
-  .status-icon {
-    display: block;
-    cursor: pointer;
-
-    width: 24px;
-    height: 24px;
-
-    position: absolute;
-    right: 0.9rem;
-    top: calc(calc(100% - 0.2rem) / 2 - 12px);
-
-    > div {
-      display: block;
-      transition: all 0.1s ease-in-out;
-    }
-
-    &.open {
-      .left {
-        position: absolute;
-        width: 2px;
-        height: 1.5rem;
-        background-color: $tertiary;
-        transform: translate(11px, 5px) rotate(-45deg);
-      }
-
-      .right {
-        position: absolute;
-        width: 2px;
-        height: 1.5rem;
-        background-color: $tertiary;
-        transform: translate(11px, 5px) rotate(45deg);
-      }
-    }
-
-    .left {
-      position: absolute;
-      width: 2px;
-      height: 1rem;
-      background: $grey;
-      transform: translate(7.25px, 7.5px) rotate(-45deg);
-    }
-
-    .right {
-      position: absolute;
-      width: 2px;
-      height: 1rem;
-      background: $grey;
-      transform: translate(13.25px, 7.5px) rotate(45deg);
-    }
-  }
-
   .card {
     display: block;
     background: $white;
@@ -78,6 +27,7 @@
 
     overflow-x: hidden;
     overflow-y: scroll;
+    overflow-y: overlay;
 
     max-height: 15rem;
 
@@ -96,7 +46,7 @@
         &:hover,
         &.focus {
           background: $lighter-grey;
-          color: $tertiary;
+          color: $secondary;
         }
       }
     }

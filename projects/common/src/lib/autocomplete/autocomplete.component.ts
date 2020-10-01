@@ -1,15 +1,14 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import {
   Component,
-  OnInit,
   ElementRef,
   Input,
-  ContentChild,
-  ViewChild,
   AfterViewChecked,
-  AfterContentChecked,
+  Output,
+  Optional,
 } from '@angular/core';
 import { SelectOption } from '../../types/select';
+import { EventEmitter, Attribute } from '@angular/core';
 
 @Component({
   selector: 'com-autocomplete',
@@ -34,24 +33,45 @@ import { SelectOption } from '../../types/select';
     ]),
   ],
 })
-export class AutocompleteComponent implements OnInit, AfterViewChecked {
+export class AutocompleteComponent implements AfterViewChecked {
   isOpen = false;
   inputElement: HTMLInputElement;
-  selectElement: HTMLElement;
-  forcedFocus = false;
+  autocompleteElement: HTMLElement;
   value = '';
 
-  selectedIndex: number;
+  selectedIndex: number = null;
   optionsParentElement: HTMLUListElement;
 
-  @Input() options: string[] | SelectOption[] = [];
+  private scrollBehavior: ScrollIntoViewOptions = {
+    block: 'center',
+  };
 
-  constructor(public el: ElementRef) {
-    this.selectElement = this.el.nativeElement;
+  @Input() options: Array<string | SelectOption> = [];
+  @Input() label: string;
+  @Input() placeholder = '';
+
+  @Output() changed = new EventEmitter();
+  @Output() confirmed = new EventEmitter();
+
+  constructor(
+    @Optional() @Attribute('highlightFirst') public highlightFirst,
+    public el: ElementRef
+  ) {
+    this.autocompleteElement = this.el.nativeElement;
+
+    this.autocompleteElement.tabIndex = 0;
+
+    this.autocompleteElement.addEventListener('focus', this.open.bind(this));
+    this.autocompleteElement.addEventListener('blur', this.close.bind(this));
+    this.autocompleteElement.addEventListener(
+      'keydown',
+      this.onKeyDown.bind(this)
+    );
+
+    this.highlightFirst = highlightFirst !== null;
   }
 
-  ngOnInit(): void {}
-
+  /* istanbul ignore next */
   ngAfterViewChecked(): void {
     if (this.isOpen) {
       this.optionsParentElement = this.el.nativeElement.querySelector('ul');
@@ -60,10 +80,14 @@ export class AutocompleteComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  open(event?: FocusEvent) {
+  open() {
     this.isOpen = true;
     this.inputElement.focus();
 
+    if (this.highlightFirst) {
+      this.selectedIndex = 0;
+    }
+    /* istanbul ignore next */
     setTimeout(() => {
       if (this.optionsParentElement && this.selectedIndex) {
         const child = this.optionsParentElement.children[
@@ -75,56 +99,114 @@ export class AutocompleteComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  close(event?: FocusEvent) {
-    if (event) {
-      const { relatedTarget: FOCUSED_ELEMENT } = event;
-
-      if (typeof this.selectedIndex === 'undefined') {
-        this.inputElement.value = '';
-      }
-
-      if (this.selectElement.contains(FOCUSED_ELEMENT as HTMLElement)) {
-        this.forcedFocus = true;
-        return;
-      }
-    }
+  close() {
+    this.selectedIndex = null;
 
     this.inputElement.blur();
 
     this.isOpen = false;
-    this.forcedFocus = false;
   }
 
   getInputRef(el: HTMLInputElement) {
     this.inputElement = el;
   }
 
-  onArrowClick() {
-    this.open();
-  }
-
-  onCloseClick() {
-    this.close();
-  }
-
   onImmediateChange(value: string) {
-    this.selectedIndex = null;
-    console.log(value);
+    if (this.highlightFirst) {
+      this.selectedIndex = 0;
+    } else {
+      this.selectedIndex = null;
+    }
+
+    if (
+      this.optionsParentElement &&
+      this.options.length &&
+      this.selectedIndex !== null
+    ) {
+      const childElement: (index: number) => HTMLLIElement = (index) =>
+        this.optionsParentElement.children[index] as HTMLLIElement;
+      childElement(this.selectedIndex).scrollIntoView(this.scrollBehavior);
+    }
+
+    this.value = value;
+    this.changed.emit(value);
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    const { key } = event;
+
+    let childElement: (index: number) => HTMLLIElement;
+
+    if (this.optionsParentElement) {
+      childElement = (index) =>
+        this.optionsParentElement.children[index] as HTMLLIElement;
+    }
+
+    if (!this.isOpen) {
+      return;
+    }
+
+    if (key === 'ArrowUp') {
+      if (this.selectedIndex === null || this.selectedIndex === 0) {
+        this.selectedIndex = this.options.length;
+      }
+
+      if (!this.selectedIndex || !this.optionsParentElement) {
+        return;
+      }
+
+      childElement(--this.selectedIndex).scrollIntoView(this.scrollBehavior);
+      return;
+    }
+
+    if (key === 'ArrowDown') {
+      if (!this.optionsParentElement) {
+        return;
+      }
+
+      if (
+        this.selectedIndex === null ||
+        this.selectedIndex === this.options.length - 1
+      ) {
+        this.selectedIndex = -1;
+      }
+
+      childElement(++this.selectedIndex).scrollIntoView(this.scrollBehavior);
+      return;
+    }
+
+    if (key === 'Enter') {
+      if (!this.optionsParentElement) {
+      } else {
+        childElement(this.selectedIndex).click();
+      }
+      return;
+    }
+
+    if (key === 'Escape') {
+      this.inputElement.blur();
+      return;
+    }
   }
 
   selectedItem(index: number) {
     const selection = this.options[index];
 
-    this.selectedIndex = index;
+    if (this.highlightFirst) {
+      this.selectedIndex = 0;
+    }
 
     if (typeof selection === 'string') {
       this.value = selection;
-      this.close();
-
+      this.changed.emit(this.value);
+      this.confirmed.emit(this.value);
+      this.inputElement.blur();
       return;
     }
 
-    this.value = String(selection.value);
-    this.close();
+    this.value = String(selection.name);
+    this.changed.emit(this.value);
+    this.confirmed.emit(selection.value);
+    this.inputElement.blur();
   }
 }

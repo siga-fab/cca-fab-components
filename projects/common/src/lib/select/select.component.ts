@@ -1,13 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import {
   Component,
-  OnInit,
   ElementRef,
   Input,
-  ContentChild,
-  ViewChild,
   AfterViewChecked,
-  AfterContentChecked,
   Output,
   EventEmitter,
 } from '@angular/core';
@@ -51,6 +47,8 @@ export class SelectComponent implements AfterViewChecked {
   };
 
   @Input() options: Array<string | SelectOption> = [];
+  @Input() label: string;
+  @Input() placeholder = '';
 
   @Output() changed = new EventEmitter();
   @Output() opened = new EventEmitter();

@@ -8,9 +8,9 @@
     [value]="value"
     disabled="true"
     type="select"
-    placeholder="Pick one"
+    [placeholder]="placeholder"
     class="input-style"
-    label="Select"
+    [label]="label"
   ></com-input>
 
   <div class="status-icon" [ngClass]="{ open: isOpen }">
@@ -29,7 +29,7 @@
       *ngFor="let option of options; let index = index"
       (click)="selectedItem(index + 1)"
     >
-      {{ option.value ? option.name : option }}
+      {{ $any(option).value ? $any(option).name : option }}
     </li>
   </ul>
 </div>
