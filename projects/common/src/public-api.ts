@@ -22,6 +22,14 @@ export * from './lib/table/table.module';
 export * from './lib/input/input.component';
 export * from './lib/input/input.module';
 
+// Select
+export * from './lib/select/select.component';
+export * from './lib/select/select.module';
+
+// Autocomplete
+export * from './lib/autocomplete/autocomplete.component';
+export * from './lib/autocomplete/autocomplete.module';
+
 // TextArea
 export * from './lib/textarea/textarea.component';
 export * from './lib/textarea/textarea.module';

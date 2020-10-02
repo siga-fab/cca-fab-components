@@ -1,6 +1,7 @@
 import {
   InputModule,
   IconModule,
+  InputComponent,
 } from '../../../projects/common/src/public-api';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';

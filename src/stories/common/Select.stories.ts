@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { SelectModule } from 'projects/common/src/lib/select/select.module';
 
 export default {
-  title: 'Common | Select',
+  title: 'Common / Select',
   decorators: [
     moduleMetadata({
       imports: [CommonModule, SelectModule],

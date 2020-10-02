@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { AutocompleteModule } from '../../../projects/common/src/lib/autocomplete/autocomplete.module';
 
 export default {
-  title: 'Common | Autocomplete',
+  title: 'Common / Autocomplete',
   decorators: [
     moduleMetadata({
       imports: [CommonModule, AutocompleteModule],

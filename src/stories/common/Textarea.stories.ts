@@ -6,7 +6,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
 export default {
-  title: 'Common | Textarea',
+  title: 'Common / Textarea',
   decorators: [
     moduleMetadata({
       imports: [CommonModule, TextareaModule, IconModule],
