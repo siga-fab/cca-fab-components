@@ -69,7 +69,7 @@
       border-bottom-left-radius: 0.5rem;
 
       flex-grow: 1;
-      max-width: 0.5rem;
+      max-width: 0.7rem;
     }
 
     .corner-right {
@@ -88,7 +88,7 @@
       justify-content: center;
       color: $grey;
       border-top: 1px solid $light-grey;
-      padding: 0 0.4rem;
+      padding: 0 0.6rem;
       transition: border 0.15s ease-in-out;
 
       &.filled {
@@ -102,7 +102,7 @@
           color 0.15s ease-in-out;
 
         &.focused {
-          transform: translate(0, -1.9rem);
+          transform: translate(0, -2.1rem);
           font-size: 1.2rem;
           color: $tertiary;
 
@@ -114,7 +114,7 @@
         &.colored {
           color: $grey;
           &.focused {
-            color: $light-grey;
+            color: $grey;
           }
         }
       }
@@ -149,7 +149,7 @@
       font-size: 1.4rem;
       border: 0;
       margin: 0;
-      padding: 0 0.9rem;
+      padding: 0 1.3rem;
       width: 100%;
 
       &:focus {
@@ -176,8 +176,13 @@
       }
     }
 
+    border-radius: 0.5rem;
+    border: 1px solid $light-grey;
+    border-top: 0;
+    height: 4rem;
+
     &.slim {
-      height: 2.4rem;
+      height: 2.6rem;
     }
 
     &.invalid {
@@ -215,10 +220,10 @@
   }
 
   .number-minus {
-    bottom: -2.25rem;
+    bottom: -2.1rem;
   }
 
   .number-plus {
-    top: -2.25rem;
+    top: -2.1rem;
   }
 }

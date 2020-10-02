@@ -18,7 +18,13 @@ import {
 })
 export class ButtonComponent
   implements OnInit, AfterViewInit, AfterViewChecked {
+  /**
+   * @internal
+   */
   @ViewChild('iconRef') icon!: ElementRef;
+  /**
+   * @internal
+   */
   @ViewChild('textRef') text!: ElementRef;
 
   @Input() badged?: boolean;
@@ -27,10 +33,21 @@ export class ButtonComponent
   @Input() form: string;
   @Input() type = 'button';
 
+  /**
+   * @internal
+   */
   public animate = false;
+  /**
+   * @internal
+   */
   public animateMsTime = 850;
-
+  /**
+   * @internal
+   */
   public hasIcon: boolean;
+  /**
+   * @internal
+   */
   public hasText: boolean;
 
   constructor(
@@ -54,7 +71,6 @@ export class ButtonComponent
       'fill',
       'transparent'
     );
-    console.log(fill);
   }
 
   ngOnInit() {}
@@ -74,6 +90,9 @@ export class ButtonComponent
     }
   }
 
+  /**
+   * @internal
+   */
   onClick() {
     if (!this.animate) {
       this.animate = true;

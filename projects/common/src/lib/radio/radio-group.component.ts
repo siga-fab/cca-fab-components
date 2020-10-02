@@ -114,8 +114,8 @@ export class RadioGroupComponent
 
   ngOnInit(): void {}
 
-  /* istanbul ignore next */
   ngAfterContentInit(): void {
+    /* istanbul ignore next */
     this.radios.changes.subscribe(() => {
       this.updateRadios();
       this.updateRadioChangeHandlers();
@@ -128,20 +128,26 @@ export class RadioGroupComponent
     this.updateRadios();
   }
 
-  checkSelectedRadio() {
-    if (this.selected && !this._selected.checked) {
-      this.selected.checked = true;
-    }
-  }
-
   /**
    * Synchronizes radio properties.
    */
-  /* istanbul ignore next */
   updateRadios() {
     if (this.radios) {
       setTimeout(() => {
         this.radios.forEach((radio) => (radio.name = this.name));
+      });
+    }
+  }
+
+  updateRadioChangeHandlers(): void {
+    if (this.radios) {
+      this.radios.forEach((radio) => {
+        /* istanbul ignore next */
+        radio.registerRadioChangeHandler((value: string) => {
+          this.changed.emit(value);
+          this.propagateChange(value);
+          this.onTouched();
+        });
       });
     }
   }
@@ -159,16 +165,9 @@ export class RadioGroupComponent
     }
   }
 
-  /* istanbul ignore next */
-  updateRadioChangeHandlers(): void {
-    if (this.radios) {
-      this.radios.forEach((radio) => {
-        radio.registerRadioChangeHandler((value: string) => {
-          this.changed.emit(value);
-          this.propagateChange(value);
-          this.onTouched();
-        });
-      });
+  checkSelectedRadio() {
+    if (this.selected && !this._selected.checked) {
+      this.selected.checked = true;
     }
   }
 
@@ -204,10 +203,12 @@ export class RadioGroupComponent
   /**
    * Method set in registerOnChange to propagate changes back to the form.
    */
+  /* istanbul ignore next */
   propagateChange = (_: any) => {};
 
   /**
    * Needed to properly implement ControlValueAccessor.
    */
+  /* istanbul ignore next */
   onTouched: () => any = () => {};
 }

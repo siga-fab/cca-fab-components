@@ -1,10 +1,14 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
-import { IconModule } from '../../../projects/common/src/public-api';
+import {
+  IconComponent,
+  IconModule,
+} from '../../../projects/common/src/public-api';
 
 export default {
-  title: 'Common | Icon',
+  title: 'Common / Icon',
+  component: IconComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, IconModule],

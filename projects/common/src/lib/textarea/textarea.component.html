@@ -1,0 +1,41 @@
+<div class="textarea">
+  <textarea
+    #textarea
+    tabindex="0"
+    [value]="value"
+    [maxLength]="maxlength || DEFAULT_MAX_LENGTH"
+    [disabled]="disabled"
+    (input)="onChange($event.target.value); exibeQntChar($event.target.value)"
+    (change)="updateValue($event)"
+    (focus)="isFocused(true)"
+    (blur)="isFocused(false); onTouched()"
+  >
+  </textarea>
+</div>
+
+<div class="wrapper">
+  <div class="corner-left"></div>
+
+  <div
+    class="label"
+    [ngClass]="{
+      filled: label && value,
+      unlabeled: !label
+    }"
+  >
+    <label
+      *ngIf="label"
+      [ngClass]="{
+        focused: (focus && !value) || value,
+        colored: !focus
+      }"
+    >
+      {{ label }}
+    </label>
+  </div>
+  <div class="count">
+    {{ qntChar || 0 }} / {{ maxlength || DEFAULT_MAX_LENGTH }}
+  </div>
+  <div class="corner-right"></div>
+  <div *ngIf="helper" class="helper">{{ helper }}</div>
+</div>

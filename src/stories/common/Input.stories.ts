@@ -1,4 +1,3 @@
-import { action } from '@storybook/addon-actions';
 import {
   InputModule,
   IconModule,
@@ -7,7 +6,8 @@ import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
 export default {
-  title: 'Common | Input',
+  title: 'Common / Input',
+  component: InputComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, InputModule, IconModule],
@@ -25,9 +25,6 @@ export default {
 };
 
 export const Default = () => ({
-  props: {
-    console: console,
-  },
   template: `
   <div style="background: #fafafa">
     <com-input placeholder="Digite seu nome" label="Campo de Texto"></com-input>

@@ -17,7 +17,7 @@ import {
 } from '../../../projects/common/src/public-api';
 
 export default {
-  title: 'Common | Form',
+  title: 'Common / Form',
   decorators: [
     moduleMetadata({
       imports: [
@@ -32,6 +32,7 @@ export default {
     }),
   ],
   parameters: {
+    docs: { iframeHeight: 550 },
     backgrounds: {
       default: 'default',
       values: [

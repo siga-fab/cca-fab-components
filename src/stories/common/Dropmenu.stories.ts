@@ -1,11 +1,16 @@
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 
-import { DropmenuModule } from '../../../projects/common/src/public-api';
+import {
+  DropmenuComponent,
+  DropmenuModule,
+} from '../../../projects/common/src/public-api';
+
 import { RouterTestingModule } from '@angular/router/testing';
 
 export default {
-  title: 'Common | Dropmenu',
+  title: 'Common / Dropmenu',
+  component: DropmenuComponent,
   decorators: [
     moduleMetadata({
       imports: [
@@ -16,6 +21,7 @@ export default {
     }),
   ],
   parameters: {
+    docs: { iframeHeight: 250 },
     backgrounds: {
       default: 'light',
       values: [
