@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { SelectOption } from '../../types/select';
 import { EventEmitter, Attribute } from '@angular/core';
-import { NgFormsFn } from '../../types/ngForms';
+import { NgFormsChangedFn, NgFormsTouchedFn } from '../../types/ngForms';
 import { NgControl } from '@angular/forms';
 
 @Component({
@@ -58,8 +58,8 @@ export class AutocompleteComponent implements AfterViewChecked {
   @Output() changed = new EventEmitter();
   @Output() confirmed = new EventEmitter();
 
-  onChange: NgFormsFn = (value: any): void => {};
-  onTouched: NgFormsFn = (value: any): void => {};
+  onChange: NgFormsChangedFn = (value: any): void => {};
+  onTouched: NgFormsTouchedFn = (): void => {};
 
   constructor(
     @Optional() @Attribute('highlightFirst') public highlightFirst,
@@ -90,11 +90,11 @@ export class AutocompleteComponent implements AfterViewChecked {
     this.value = value;
   }
   /* istanbul ignore next */
-  registerOnChange(fn: NgFormsFn): void {
+  registerOnChange(fn: NgFormsChangedFn): void {
     this.onChange = fn;
   }
   /* istanbul ignore next */
-  registerOnTouched(fn: NgFormsFn): void {
+  registerOnTouched(fn: NgFormsTouchedFn): void {
     this.onTouched = fn;
   }
   /* istanbul ignore next */

@@ -11,7 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { NgFormsFn } from '../../types/ngForms';
+import { NgFormsChangedFn, NgFormsTouchedFn } from '../../types/ngForms';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
@@ -74,8 +74,8 @@ export class InputComponent
   numberInterval: any;
   numberIntervalCounter = 1;
 
-  onChange: NgFormsFn = (value: any): void => {};
-  onTouched: NgFormsFn = (value: any): void => {};
+  onChange: NgFormsChangedFn = (value: any): void => {};
+  onTouched: NgFormsTouchedFn = (): void => {};
 
   constructor(
     @Optional() @Attribute('textCenter') public textCenter: any,
@@ -101,11 +101,11 @@ export class InputComponent
     this.value = value;
   }
   /* istanbul ignore next */
-  registerOnChange(fn: NgFormsFn): void {
+  registerOnChange(fn: NgFormsChangedFn): void {
     this.onChange = fn;
   }
   /* istanbul ignore next */
-  registerOnTouched(fn: NgFormsFn): void {
+  registerOnTouched(fn: NgFormsTouchedFn): void {
     this.onTouched = fn;
   }
   /* istanbul ignore next */
