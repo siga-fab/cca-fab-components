@@ -1,11 +1,12 @@
 {
   "name": "cca-fab-components",
   "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "npm run storybook",
     "build": "ng build",
-    "postbuild": "node-sass projects/common/src/assets/scss/public-api.scss dist/common/styles.min.css --output-style compressed",
+    "build:assets": "node-sass projects/common/src/assets/scss/public-api.scss dist/common/styles.min.css --output-style compressed",
     "clean": "rimraf ./dist",
     "test": "ng test",
     "test:watch": "ng test --watch",
@@ -18,7 +19,7 @@
     "storybook": "npm run docs:json && start-storybook -p 6006 -s public",
     "build:storybook": "build-storybook",
     "build:prod": "ng build --prod",
-    "build:ci": "npm run build:prod",
+    "build:ci": "npm run build:prod && npm run build:assets",
     "release:ci": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "build-storybook": "npm run docs:json && build-storybook -s public",
