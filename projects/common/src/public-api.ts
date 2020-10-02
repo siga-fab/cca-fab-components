@@ -22,6 +22,10 @@ export * from './lib/table/table.module';
 export * from './lib/input/input.component';
 export * from './lib/input/input.module';
 
+// TextArea
+export * from './lib/textarea/textarea.component';
+export * from './lib/textarea/textarea.module';
+
 // Tooltip
 export * from './lib/tooltip/tooltip.directive';
 export * from './lib/tooltip/tooltip.module';

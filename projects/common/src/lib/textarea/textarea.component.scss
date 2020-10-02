@@ -1,0 +1,169 @@
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+
+:host {
+  position: relative;
+  display: inline-block;
+  margin-bottom: calc(
+    #{$margin-bottom-default} + #{$margin-bottom-default} + 0.2rem
+  );
+  width: 20rem;
+
+  &:not(:last-child) {
+    margin-bottom: $margin-bottom-default;
+  }
+
+  .textarea:focus-within + .wrapper {
+    .corner-left,
+    .corner-right {
+      border-color: $tertiary;
+    }
+
+    .label {
+      border-color: transparent;
+
+      &.unlabeled {
+        border-color: $tertiary;
+      }
+    }
+
+    .count {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .wrapper {
+    display: flex;
+    user-select: none;
+    pointer-events: none;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 100%;
+    width: 100%;
+
+    .corner-left,
+    .corner-right {
+      transition: border 0.15s ease-in-out;
+    }
+
+    .corner-left {
+      border-top: 1px solid $light-grey;
+      border-left: 1px solid $light-grey;
+      border-bottom: 1px solid $light-grey;
+      border-top-left-radius: 0.5rem;
+      border-bottom-left-radius: 0.5rem;
+
+      flex-grow: 1;
+      max-width: 0.7rem;
+    }
+
+    .corner-right {
+      border-top: 1px solid $light-grey;
+      border-right: 1px solid $light-grey;
+      border-bottom: 1px solid $light-grey;
+      border-top-right-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+
+      flex-grow: 1;
+    }
+
+    .label {
+      display: flex;
+      justify-content: center;
+      color: $grey;
+      border-top: 1px solid $light-grey;
+      padding: 1.9rem 0.6rem;
+      transition: border 0.15s ease-in-out;
+
+      &.filled {
+        border-color: transparent;
+      }
+
+      label {
+        display: block;
+
+        transition: transform 0.15s ease-in-out, font-size 0.15s ease-in-out,
+          color 0.15s ease-in-out;
+
+        &.focused {
+          transform: translate(0, -2.7rem);
+          font-size: 1.2rem;
+          color: $tertiary;
+        }
+
+        &.colored {
+          color: $grey;
+          &.focused {
+            color: $grey;
+          }
+        }
+      }
+    }
+
+    .count {
+      position: absolute;
+      right: 0.8rem;
+      top: 0.8rem;
+
+      visibility: hidden;
+      opacity: 0;
+
+      color: $grey;
+      font-size: 1rem;
+
+      transition: 0.15s ease-in-out;
+    }
+    .helper {
+      position: absolute;
+      bottom: -1.7rem;
+      color: $grey;
+      font-size: 1.2rem;
+      left: 0.3rem;
+    }
+  }
+
+  .textarea {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+
+    width: 100%;
+
+    textarea {
+      background: transparent;
+      color: $black;
+      font-family: Cabin;
+      font-size: 1.4rem;
+      border: 0;
+      margin: 0;
+      padding: 0 1.3rem 1rem;
+      width: 100%;
+      resize: none;
+
+      &:focus {
+        outline: none;
+      }
+
+      &.center {
+        text-align: center;
+      }
+    }
+
+    border-radius: 0.5rem;
+    border: 1px solid $light-grey;
+    border-top: 0;
+
+    transition: border 0.15s ease-in-out;
+
+    &:focus-within {
+      border: 1px solid $tertiary;
+      border-top: 0;
+      outline: 0;
+      caret-color: $tertiary;
+    }
+  }
+}

@@ -1,5 +1,4 @@
 import {
-  InputComponent,
   InputModule,
   IconModule,
 } from '../../../projects/common/src/public-api';
@@ -26,9 +25,6 @@ export default {
 };
 
 export const Default = () => ({
-  props: {
-    console: console,
-  },
   template: `
   <div style="background: #fafafa">
     <com-input placeholder="Digite seu nome" label="Campo de Texto"></com-input>
