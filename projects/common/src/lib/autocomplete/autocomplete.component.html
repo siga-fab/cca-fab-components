@@ -1,0 +1,34 @@
+<div class="wrapper" [ngClass]="{ disabled: disabled }">
+  <com-input
+    type="autocomplete"
+    class="input-style"
+    immediate
+    (ref)="getInputRef($event)"
+    (focused)="open()"
+    (blurred)="close()"
+    (immediate)="onImmediateChange($event)"
+    [value]="value"
+    [placeholder]="placeholder"
+    [label]="label"
+    [invalid]="invalid"
+    [disabled]="disabled"
+  ></com-input>
+</div>
+
+<div
+  (focusout)="close()"
+  [@inOutAnimation]
+  *ngIf="isOpen && options.length"
+  class="card"
+>
+  <ul>
+    <li
+      [ngClass]="{ focus: index === selectedIndex }"
+      *ngFor="let option of options; let index = index"
+      (mousedown)="$event.preventDefault()"
+      (click)="selectedItem(index)"
+    >
+      {{ $any(option).value ? $any(option).name : option }}
+    </li>
+  </ul>
+</div>

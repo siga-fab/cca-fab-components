@@ -88,6 +88,14 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
+  updateAcessibilityState(
+    state: 'firstPage' | 'lastPage' | 'next' | 'previous',
+    value: boolean
+  ) {
+    this.acessibleStateMap[state] = value;
+    return true;
+  }
+
   toggleButtons() {
     if (this.pageIndex > this.totalPages) {
       this.pageIndex = this.totalPages;

@@ -81,8 +81,9 @@
         (click)="!disableMap['previous'] ? onPreviousPage($event) : null"
         (keydown)="
           !disableMap['previous']
-            ? onPreviousPage($event) && (acessibleStateMap['previous'] = true)
-            : null
+            ? onPreviousPage($event) &&
+              updateAcessibilityState('previous', true)
+            : true
         "
         (keyup)="acessibleStateMap['previous'] = false"
         (mousedown)="acessibleStateMap['previous'] = true"

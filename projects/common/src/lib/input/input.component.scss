@@ -9,18 +9,27 @@
     margin-bottom: $margin-bottom-default;
   }
 
-  .input:focus-within + .wrapper {
+  .input:focus-within + .wrapper,
+  .wrapper.forced-focus {
     .corner-left,
     .corner-right {
       border-color: $tertiary;
     }
 
     .label {
-      border-color: transparent;
+      border-color: transparent !important;
 
       &.unlabeled {
         border-color: $tertiary;
       }
+    }
+  }
+
+  .input:focus-within,
+  .input.forced-focus {
+    input::placeholder {
+      color: $grey;
+      transition: color 0.15s ease-in-out;
     }
   }
 
@@ -35,6 +44,17 @@
 
     height: 100%;
     width: 100%;
+
+    &.invalid {
+      .corner-left,
+      .corner-right {
+        border-color: $error !important;
+      }
+
+      .label {
+        border-color: $error;
+      }
+    }
 
     .corner-left,
     .corner-right {
@@ -85,6 +105,10 @@
           transform: translate(0, -2.1rem);
           font-size: 1.2rem;
           color: $tertiary;
+
+          &.invalid {
+            color: $error !important;
+          }
         }
 
         &.colored {
@@ -103,6 +127,21 @@
 
     width: 100%;
 
+    border-radius: 0.5rem;
+    border: 1px solid $light-grey;
+    border-top: 0;
+    height: 3.6rem;
+
+    transition: border 0.15s ease-in-out;
+
+    ::-webkit-input-placeholder,
+    :-moz-placeholder,
+    ::-moz-placeholder,
+    :-ms-input-placeholder {
+      color: transparent;
+      transition: color 0.15s ease-in-out;
+    }
+
     input {
       background: transparent;
       color: $black;
@@ -120,6 +159,21 @@
       &.center {
         text-align: center;
       }
+
+      &.select {
+        padding-right: 4rem;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      &.unlabeled::placeholder {
+        color: $grey;
+      }
+
+      &::placeholder {
+        color: transparent;
+        transition: color 0.15s ease-in-out;
+      }
     }
 
     border-radius: 0.5rem;
@@ -131,9 +185,12 @@
       height: 2.6rem;
     }
 
-    transition: border 0.15s ease-in-out;
+    &.invalid {
+      border-color: $error !important;
+    }
 
-    &:focus-within {
+    &:focus-within,
+    &.forced-focus {
       border: 1px solid $tertiary;
       border-top: 0;
       outline: 0;
