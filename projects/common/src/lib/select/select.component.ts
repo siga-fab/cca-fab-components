@@ -6,7 +6,11 @@ import {
   AfterViewChecked,
   Output,
   EventEmitter,
+  Self,
+  Optional,
 } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { NgFormsFn } from '../../types/ngForms';
 import { SelectOption } from '../../types/select';
 
 @Component({
@@ -49,12 +53,20 @@ export class SelectComponent implements AfterViewChecked {
   @Input() options: Array<string | SelectOption> = [];
   @Input() label: string;
   @Input() placeholder = '';
+  @Input() invalid = false;
+  @Input() disabled = false;
 
   @Output() changed = new EventEmitter();
   @Output() opened = new EventEmitter();
   @Output() closed = new EventEmitter();
 
-  constructor(public el: ElementRef) {
+  onChange: NgFormsFn = (value: any): void => {};
+  onTouched: NgFormsFn = (value: any): void => {};
+
+  constructor(
+    @Self() @Optional() private ngControl: NgControl,
+    public el: ElementRef
+  ) {
     this.selectElement = this.el.nativeElement;
 
     this.selectElement.tabIndex = 0;
@@ -62,6 +74,28 @@ export class SelectComponent implements AfterViewChecked {
     this.selectElement.addEventListener('focus', this.open.bind(this));
     this.selectElement.addEventListener('blur', this.close.bind(this));
     this.selectElement.addEventListener('keydown', this.onKeyDown.bind(this));
+
+    /* istanbul ignore next */
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  /* istanbul ignore next */
+  writeValue(value: any) {
+    this.value = value;
+  }
+  /* istanbul ignore next */
+  registerOnChange(fn: NgFormsFn): void {
+    this.onChange = fn;
+  }
+  /* istanbul ignore next */
+  registerOnTouched(fn: NgFormsFn): void {
+    this.onTouched = fn;
+  }
+  /* istanbul ignore next */
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
   /* istanbul ignore next */
@@ -74,6 +108,11 @@ export class SelectComponent implements AfterViewChecked {
   }
 
   open() {
+    if (this.disabled) {
+      this.selectElement.blur();
+      return;
+    }
+
     this.isOpen = true;
     this.forcedFocus = true;
     this.opened.emit();

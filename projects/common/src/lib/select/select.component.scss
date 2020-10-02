@@ -16,6 +16,10 @@
     width: 100%;
     display: inline-block;
     position: relative;
+
+    &.disabled {
+      opacity: 0.75;
+    }
   }
 
   .input-style {
@@ -43,16 +47,16 @@
         position: absolute;
         width: 2px;
         height: 1.5rem;
-        background-color: $secondary;
-        transform: translate(11px, 5px) rotate(-45deg);
+        background-color: $tertiary;
+        transform: translate(9.75px, 5px) rotate(-45deg);
       }
 
       .right {
         position: absolute;
         width: 2px;
         height: 1.5rem;
-        background-color: $secondary;
-        transform: translate(11px, 5px) rotate(45deg);
+        background-color: $tertiary;
+        transform: translate(10.25px, 5px) rotate(45deg);
       }
     }
 

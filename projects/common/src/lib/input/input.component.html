@@ -9,7 +9,10 @@
   <com-icon color="#3399ff">expand_less</com-icon>
 </div>
 
-<div class="input" [ngClass]="{ slim: slim, 'forced-focus': forcedFocus }">
+<div
+  class="input"
+  [ngClass]="{ slim: slim, 'forced-focus': forcedFocus, invalid: invalid }"
+>
   <input
     #input
     tabindex="0"
@@ -37,7 +40,10 @@
   />
 </div>
 
-<div class="wrapper" [ngClass]="{ 'forced-focus': forcedFocus }">
+<div
+  class="wrapper"
+  [ngClass]="{ 'forced-focus': forcedFocus, invalid: invalid }"
+>
   <div class="corner-left"></div>
 
   <div
@@ -51,7 +57,8 @@
       *ngIf="label"
       [ngClass]="{
         focused: (focus && !value) || value || type === 'date' || forcedFocus,
-        colored: !focus && !forcedFocus
+        colored: !focus && !forcedFocus,
+        invalid: invalid
       }"
     >
       {{ label }}

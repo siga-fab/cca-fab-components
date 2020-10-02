@@ -120,7 +120,7 @@
     margin-top: -0.2rem;
 
     border-radius: 50%;
-    background: $warning;
+    background: $error;
   }
 
   // Themes
@@ -150,15 +150,15 @@
   }
 
   &.warning-btn {
-    color: $warning;
+    color: $error;
   }
 
   &.warning-btn:not(.transparent-btn) {
-    border-color: $warning;
+    border-color: $error;
   }
 
   &.warning-btn.fill-btn {
-    background: $warning;
+    background: $error;
   }
 
   &.negative-btn {

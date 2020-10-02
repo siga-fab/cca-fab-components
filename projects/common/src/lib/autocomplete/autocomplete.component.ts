@@ -6,9 +6,12 @@ import {
   AfterViewChecked,
   Output,
   Optional,
+  Self,
 } from '@angular/core';
 import { SelectOption } from '../../types/select';
 import { EventEmitter, Attribute } from '@angular/core';
+import { NgFormsFn } from '../../types/ngForms';
+import { NgControl } from '@angular/forms';
 
 @Component({
   selector: 'com-autocomplete',
@@ -49,12 +52,18 @@ export class AutocompleteComponent implements AfterViewChecked {
   @Input() options: Array<string | SelectOption> = [];
   @Input() label: string;
   @Input() placeholder = '';
+  @Input() invalid = false;
+  @Input() disabled = false;
 
   @Output() changed = new EventEmitter();
   @Output() confirmed = new EventEmitter();
 
+  onChange: NgFormsFn = (value: any): void => {};
+  onTouched: NgFormsFn = (value: any): void => {};
+
   constructor(
     @Optional() @Attribute('highlightFirst') public highlightFirst,
+    @Self() @Optional() private ngControl: NgControl,
     public el: ElementRef
   ) {
     this.autocompleteElement = this.el.nativeElement;
@@ -69,6 +78,28 @@ export class AutocompleteComponent implements AfterViewChecked {
     );
 
     this.highlightFirst = highlightFirst !== null;
+
+    /* istanbul ignore next */
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  /* istanbul ignore next */
+  writeValue(value: any) {
+    this.value = value;
+  }
+  /* istanbul ignore next */
+  registerOnChange(fn: NgFormsFn): void {
+    this.onChange = fn;
+  }
+  /* istanbul ignore next */
+  registerOnTouched(fn: NgFormsFn): void {
+    this.onTouched = fn;
+  }
+  /* istanbul ignore next */
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
   /* istanbul ignore next */
@@ -81,6 +112,11 @@ export class AutocompleteComponent implements AfterViewChecked {
   }
 
   open() {
+    if (this.disabled) {
+      this.autocompleteElement.blur();
+      return;
+    }
+
     this.isOpen = true;
     this.inputElement.focus();
 

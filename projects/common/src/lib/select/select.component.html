@@ -1,5 +1,6 @@
 <div
   class="wrapper"
+  [ngClass]="{ disabled: disabled }"
   (mousedown)="$event.preventDefault()"
   (click)="isOpen ? selectElement.blur() : selectElement.focus()"
 >
@@ -11,6 +12,7 @@
     [placeholder]="placeholder"
     class="input-style"
     [label]="label"
+    [invalid]="invalid"
   ></com-input>
 
   <div class="status-icon" [ngClass]="{ open: isOpen }">

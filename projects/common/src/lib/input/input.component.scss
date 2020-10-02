@@ -17,7 +17,7 @@
     }
 
     .label {
-      border-color: transparent;
+      border-color: transparent !important;
 
       &.unlabeled {
         border-color: $tertiary;
@@ -44,6 +44,17 @@
 
     height: 100%;
     width: 100%;
+
+    &.invalid {
+      .corner-left,
+      .corner-right {
+        border-color: $error !important;
+      }
+
+      .label {
+        border-color: $error;
+      }
+    }
 
     .corner-left,
     .corner-right {
@@ -94,6 +105,10 @@
           transform: translate(0, -1.9rem);
           font-size: 1.2rem;
           color: $tertiary;
+
+          &.invalid {
+            color: $error !important;
+          }
         }
 
         &.colored {
@@ -111,6 +126,13 @@
     justify-content: center;
 
     width: 100%;
+
+    border-radius: 0.5rem;
+    border: 1px solid $light-grey;
+    border-top: 0;
+    height: 3.6rem;
+
+    transition: border 0.15s ease-in-out;
 
     ::-webkit-input-placeholder,
     :-moz-placeholder,
@@ -154,16 +176,13 @@
       }
     }
 
-    border-radius: 0.5rem;
-    border: 1px solid $light-grey;
-    border-top: 0;
-    height: 3.6rem;
-
     &.slim {
       height: 2.4rem;
     }
 
-    transition: border 0.15s ease-in-out;
+    &.invalid {
+      border-color: $error !important;
+    }
 
     &:focus-within,
     &.forced-focus {

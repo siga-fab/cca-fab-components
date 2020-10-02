@@ -1,15 +1,17 @@
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{ disabled: disabled }">
   <com-input
+    type="autocomplete"
+    class="input-style"
+    immediate
     (ref)="getInputRef($event)"
     (focused)="open($event)"
     (blurred)="close($event)"
     (immediate)="onImmediateChange($event)"
     [value]="value"
-    type="autocomplete"
     [placeholder]="placeholder"
-    class="input-style"
     [label]="label"
-    immediate
+    [invalid]="invalid"
+    [disabled]="disabled"
   ></com-input>
 </div>
 

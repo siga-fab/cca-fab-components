@@ -59,6 +59,8 @@ export class InputComponent
   @Input() label = '';
   @Input() maxlength;
   @Input() forcedFocus = false;
+  @Input() invalid = false;
+  @Input() disabled = false;
 
   @Output() confirm = new EventEmitter();
   @Output() immediate = new EventEmitter();
@@ -80,7 +82,6 @@ export class InputComponent
     @Optional() @Attribute('slim') public slim: any,
     @Optional() @Attribute('integerOnly') public integerOnly: any,
     @Optional() @Attribute('arrowed') public arrowed: any,
-    @Optional() @Attribute('disabled') public disabled: any,
     @Optional() @Attribute('immediate') public immediateEnabled: any,
     @Self() @Optional() private ngControl: NgControl
   ) {
@@ -88,7 +89,6 @@ export class InputComponent
     this.slim = slim !== null;
     this.integerOnly = integerOnly !== null;
     this.arrowed = arrowed !== null;
-    this.disabled = disabled !== null;
     this.immediateEnabled = immediateEnabled !== null;
 
     /* istanbul ignore next */
