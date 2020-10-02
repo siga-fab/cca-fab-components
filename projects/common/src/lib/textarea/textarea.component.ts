@@ -52,14 +52,13 @@ export class TextareaComponent
   @Input() focus = false;
   @Input() placeholder = '';
   @Input() label;
-  @Input() cols = '';
   @Input() helper = '';
   @Input() maxlength;
 
   @Output() confirm = new EventEmitter();
   @Output() ref = new EventEmitter();
 
-  @ViewChild('textarea') textarea;
+  @ViewChild('textarea') textarea: ElementRef;
 
   qntChar: number;
 
@@ -99,6 +98,9 @@ export class TextareaComponent
 
   exibeQntChar(value: string) {
     this.qntChar = value.length;
+
+    this.textarea.nativeElement.style.height = 'auto';
+    this.textarea.nativeElement.style.height = `${this.textarea.nativeElement.scrollHeight}px`;
   }
 
   isFocused(value: boolean) {
