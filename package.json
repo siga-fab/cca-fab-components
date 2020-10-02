@@ -15,7 +15,7 @@
     "lint:test": "prettier \"projects/**/*.{html,md,scss,json,ts}\" \"src/**/*.{html,md,scss,json,ts}\" --list-different",
     "lint:prettier": "prettier \"projects/**/*.{html,md,scss,json,ts}\" \"src/**/*.{html,md,scss,json,ts}\" --write",
     "e2e": "ng e2e",
-    "storybook": "npm run docs:json && start-storybook -p 6006",
+    "storybook": "npm run docs:json && start-storybook -p 6006 -s public",
     "build:storybook": "build-storybook",
     "build:prod": "ng build --prod",
     "build:ci": "npm run build:prod",
