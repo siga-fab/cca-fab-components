@@ -1,0 +1,61 @@
+@import './reset.scss';
+@import './colors.scss';
+@import './variables.scss';
+@import './fonts.scss';
+
+$default-background-color: #fafafa !default;
+$default-font-size: 1.4rem !default;
+
+@mixin setup-styles(
+  $background: $default-background-color,
+  $font-size: $default-font-size
+) {
+  html {
+    // Colors
+    --primary: #{$primary};
+    --secondary: #{$secondary};
+    --tertiary: #{$tertiary};
+    --white: #{$white};
+    --black: #{$black};
+    --grey: #{$grey};
+    --light-grey: #{$light-grey};
+    --lighter-grey: #{$lighter-grey};
+    --border-grey: #{$border-grey};
+    --error: #{$error};
+    --success: #{$success};
+    --alert: #{$alert};
+    --info: #{$info};
+
+    // Style
+    --focus-shadow: #{$focus-shadow};
+    --box-shadow: #{$box-shadow};
+    --transition-defs: #{$transition-defs};
+    --padding: #{$padding};
+
+    // In most web browsers, 16px is the default font-size value
+    // So, 'font-size: 62.5%' is eq to 'font-size: 10px', but respecting the user navigator font-size scale
+    // Now, '1rem' is eq to '10px', so is easy to define sizes and it's also responsive to the user web browser font.
+    // Just use rem :) 300px -> 30rem, etc.
+    font-size: 62.5%;
+
+    &,
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cabin';
+      font-size: $font-size; // Let's define the default font-size to 14px
+      color: $black;
+
+      background-color: $background;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}
+
+@include setup-styles();
