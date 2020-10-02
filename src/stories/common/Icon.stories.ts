@@ -24,13 +24,13 @@ export const Default = () => ({
         <com-icon>face</com-icon>
       </section>
       <section style="padding: 1rem;">
-        <com-icon size="32" color="red">face</com-icon>
+        <com-icon size="3.2" color="red">face</com-icon>
       </section>
       <section style="padding: 1rem;">
-        <com-icon size="48" color="rgb(120, 0, 0)">face</com-icon>
+        <com-icon size="4.8" color="rgb(120, 0, 0)">face</com-icon>
       </section>
       <section style="padding: 1rem;">
-        <com-icon size="64" color="#567700">face</com-icon>
+        <com-icon size="6.4" color="#567700">face</com-icon>
       </section>
     </div>
   `,

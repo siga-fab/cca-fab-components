@@ -1,6 +1,8 @@
 # CCA FAB components
 
 [![build status](https://github.com/coryrylan/angular-github-actions/workflows/Build/badge.svg)](https://github.com/coryrylan/angular-github-actions/actions)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/siga-fab/cca-fab-components)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This libs's monorepo was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12. This project make use of storybook for development and jest for tests.
 

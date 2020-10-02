@@ -10,6 +10,8 @@ import {
   EventEmitter,
   ViewChild,
 } from '@angular/core';
+
+import { NgFormsChangedFn, NgFormsTouchedFn } from '../../types/ngForms';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
@@ -49,7 +51,6 @@ export class InputComponent
   DEFAULT_MAX_LENGTH = 524288;
   @Input() value = '';
   @Input() type = 'text';
-  @Input() disabled = false;
   @Input() step = 1;
   @Input() min: number;
   @Input() max: number;
@@ -57,26 +58,38 @@ export class InputComponent
   @Input() placeholder = '';
   @Input() label = '';
   @Input() maxlength;
+  @Input() forcedFocus = false;
+  @Input() invalid = false;
+  @Input() disabled = false;
 
   @Output() confirm = new EventEmitter();
+  @Output() immediate = new EventEmitter();
   @Output() ref = new EventEmitter();
+
+  @Output() focused = new EventEmitter();
+  @Output() blurred = new EventEmitter();
 
   @ViewChild('input') input;
 
   numberInterval: any;
   numberIntervalCounter = 1;
 
+  onChange: NgFormsChangedFn = (value: any): void => {};
+  onTouched: NgFormsTouchedFn = (): void => {};
+
   constructor(
     @Optional() @Attribute('textCenter') public textCenter: any,
     @Optional() @Attribute('slim') public slim: any,
     @Optional() @Attribute('integerOnly') public integerOnly: any,
     @Optional() @Attribute('arrowed') public arrowed: any,
+    @Optional() @Attribute('immediate') public immediateEnabled: any,
     @Self() @Optional() private ngControl: NgControl
   ) {
     this.textCenter = textCenter !== null;
     this.slim = slim !== null;
     this.integerOnly = integerOnly !== null;
     this.arrowed = arrowed !== null;
+    this.immediateEnabled = immediateEnabled !== null;
 
     /* istanbul ignore next */
     if (this.ngControl) {
@@ -88,17 +101,13 @@ export class InputComponent
     this.value = value;
   }
   /* istanbul ignore next */
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: NgFormsChangedFn): void {
     this.onChange = fn;
   }
   /* istanbul ignore next */
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: NgFormsTouchedFn): void {
     this.onTouched = fn;
   }
-  /* istanbul ignore next */
-  onChange(value: any) {}
-  /* istanbul ignore next */
-  onTouched() {}
   /* istanbul ignore next */
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
@@ -110,22 +119,22 @@ export class InputComponent
     this.ref.emit(this.input.nativeElement);
   }
 
-  isFocused(value: boolean) {
+  isFocused(value: boolean, event: FocusEvent) {
     this.focus = value;
 
     if (!value) {
       if (this.type === 'number') {
         this.rangedValue(this.input.nativeElement);
       }
-      this.input.nativeElement.placeholder = '';
+
       this.confirm.emit(this.value);
       if (this.numberInterval) {
         this.clearNumberInterval();
       }
+
+      this.blurred.emit(event);
     } else {
-      if (this.placeholder) {
-        this.input.nativeElement.placeholder = this.placeholder;
-      }
+      this.focused.emit(event);
     }
   }
 
@@ -150,6 +159,17 @@ export class InputComponent
       }
       this.confirm.emit(this.value);
     }
+
+    if (
+      this.type === 'autocomplete' &&
+      (event.key === 'ArrowUp' || event.key === 'ArrowDown')
+    ) {
+      event.preventDefault();
+    }
+  }
+
+  onImmediateChange(value: string): void {
+    this.immediate.emit(value);
   }
 
   rangedValue(el: HTMLInputElement) {

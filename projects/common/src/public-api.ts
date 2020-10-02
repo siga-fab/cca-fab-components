@@ -22,6 +22,18 @@ export * from './lib/table/table.module';
 export * from './lib/input/input.component';
 export * from './lib/input/input.module';
 
+// Select
+export * from './lib/select/select.component';
+export * from './lib/select/select.module';
+
+// Autocomplete
+export * from './lib/autocomplete/autocomplete.component';
+export * from './lib/autocomplete/autocomplete.module';
+
+// TextArea
+export * from './lib/textarea/textarea.component';
+export * from './lib/textarea/textarea.module';
+
 // Tooltip
 export * from './lib/tooltip/tooltip.directive';
 export * from './lib/tooltip/tooltip.module';
@@ -53,7 +65,6 @@ export * from './lib/radio/radio-group.component';
 export * from './lib/radio/radio.component';
 export * from './lib/radio/radio.module';
 
-
 // Toast
 export * from './lib/toast/toast.component';
 export * from './lib/toast/toast.module';
@@ -63,4 +74,3 @@ export * from './lib/form/form-section.component';
 export * from './lib/form/fieldset.component';
 export * from './lib/form/form.component';
 export * from './lib/form/form.module';
-

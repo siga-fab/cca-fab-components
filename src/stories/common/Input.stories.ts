@@ -1,7 +1,7 @@
 import {
-  InputComponent,
   InputModule,
   IconModule,
+  InputComponent,
 } from '../../../projects/common/src/public-api';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
@@ -26,9 +26,6 @@ export default {
 };
 
 export const Default = () => ({
-  props: {
-    console: console,
-  },
   template: `
   <div style="background: #fafafa">
     <com-input placeholder="Digite seu nome" label="Campo de Texto"></com-input>

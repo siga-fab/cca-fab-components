@@ -1,0 +1,83 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Getting Started / Instalação" />
+
+# Instalação
+
+Instale utilizando Yarn ou NPM
+
+##### Yarn
+
+```sh
+$ yarn add @cca-fab/cca-fab-components-common
+```
+
+##### Npm
+
+```sh
+$ npm i @cca-fab/cca-fab-components-common
+```
+
+# Uso
+
+Importe globalmente o bundle de estilos em `node_modules/@cca-fab/cca-fab-components/styles.min.css`. Isso inclui variáveis, cores e fontes ( usamos a [Cabin](https://fonts.google.com/specimen/Cabin?query=cabin) como base dos nossos sistemas ).
+
+```scss
+@import '~@cca-fab/cca-fab-components/styles.min.css';
+```
+
+**Importante:** por ser uma lib que atende, primariamente, as necessidades dos nossos sistemas, os bundles de estilos importam algumas definiçoes, seguem abaixo as principais mudanças. É possível sobreescrever os estilos mas **não recomendamos a mudança da base da unidade `rem`** (A lib foi construída para escalar em cima desse parâmetro)
+
+```scss
+html {
+  // Os navegadores, em grande maioria, adotam 16px como o valor default
+  // 'font-size: 62.5%' equivale a 'font-size: 10px'.
+  font-size: 62.5%;
+
+  &,
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Cabin';
+    font-size: 1.4rem;
+
+    background-color: $background;
+  }
+}
+```
+
+Para usar um componente basta importar seu respectivo módulo
+
+`app.module.ts`
+
+```ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { ButtonModule, IconModule } from '@cca-fab/cca-fab-components-common'
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+    ButtonModule,
+    IconModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+`app.component.html`
+
+```html
+<com-button (click)="click($event)">
+  <com-icon slot="icon">add</com-icon>
+  <ng-container slot="text">primary</ng-container>
+</com-button>
+```

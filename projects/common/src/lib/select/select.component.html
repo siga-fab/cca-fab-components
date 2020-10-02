@@ -1,0 +1,37 @@
+<div
+  class="wrapper"
+  [ngClass]="{ disabled: disabled }"
+  (mousedown)="$event.preventDefault()"
+  (click)="isOpen ? selectElement.blur() : selectElement.focus()"
+>
+  <com-input
+    [forcedFocus]="forcedFocus"
+    [value]="value"
+    disabled="true"
+    type="select"
+    [placeholder]="placeholder"
+    class="input-style"
+    [label]="label"
+    [invalid]="invalid"
+  ></com-input>
+
+  <div class="status-icon" [ngClass]="{ open: isOpen }">
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+</div>
+
+<div [@inOutAnimation] *ngIf="isOpen && options.length" class="card">
+  <ul>
+    <li (click)="selectedItem(0)" [ngClass]="{ focus: !selectedIndex }">
+      Nenhum
+    </li>
+    <li
+      [ngClass]="{ focus: index === selectedIndex - 1 }"
+      *ngFor="let option of options; let index = index"
+      (click)="selectedItem(index + 1)"
+    >
+      {{ $any(option).value ? $any(option).name : option }}
+    </li>
+  </ul>
+</div>

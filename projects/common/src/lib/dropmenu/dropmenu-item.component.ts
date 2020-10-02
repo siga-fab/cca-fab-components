@@ -7,6 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DropmenuItemComponent implements OnInit {
   @Input() href: string;
+  @Input() routerLink: string | Array<any> = [];
+  @Input() target: string;
+  @Input() rel: string;
 
   constructor() {}
 

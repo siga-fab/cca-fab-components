@@ -1,0 +1,79 @@
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/reset.scss';
+
+:host {
+  display: inline-block;
+  position: relative;
+  width: 25rem;
+
+  > .wrapper {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+
+    &.disabled {
+      opacity: 0.75;
+    }
+  }
+
+  .input-style {
+    width: 100%;
+    margin-bottom: 0.2rem;
+  }
+
+  .card {
+    display: block;
+    background: $white;
+    border: 0.1rem solid $border-grey;
+    box-shadow: $box-shadow;
+    border-radius: 0.5rem;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+    overflow-y: overlay;
+
+    max-height: 15rem;
+
+    ul {
+      background: $white;
+
+      li {
+        display: block;
+        cursor: pointer;
+        padding: 0.8rem;
+        white-space: nowrap;
+        word-break: break-word;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &:hover,
+        &.focus {
+          background: $lighter-grey;
+          color: $secondary;
+        }
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      margin: 0.2rem;
+      background: transparent;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: $grey;
+      border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #{$grey}a0;
+    }
+  }
+}

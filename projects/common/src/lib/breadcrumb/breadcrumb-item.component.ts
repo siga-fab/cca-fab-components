@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional, Attribute, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'com-breadcrumb-item',
@@ -6,9 +6,13 @@ import { Component, OnInit, Optional, Attribute, Input } from '@angular/core';
   styleUrls: ['./breadcrumb-item.component.scss'],
 })
 export class BreadcrumbItemComponent implements OnInit {
+  @Input() routerLink: string | any[] = [];
+  @Input() active = false;
   @Input() href: string;
+  @Input() rel: string;
+  @Input() target: string;
 
-  constructor(@Optional() @Attribute('selected') public selected) {}
+  constructor() {}
 
   ngOnInit(): void {}
 }
