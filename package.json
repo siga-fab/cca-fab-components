@@ -21,7 +21,7 @@
     "build:ci": "npm run build:prod",
     "release:ci": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-    "build-storybook": "npm run docs:json && build-storybook",
+    "build-storybook": "npm run docs:json && build-storybook && cp -f public/* storybook-static/",
     "deploy-storybook": "storybook-to-ghpages"
   },
   "private": false,
