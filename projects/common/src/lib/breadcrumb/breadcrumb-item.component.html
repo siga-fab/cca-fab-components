@@ -3,10 +3,16 @@
   class="breadcrumb-item col-xs"
   [ngClass]="{
     'last-bc': ref.parentElement.nextElementSibling === null,
-    'selected-bc': selected === ''
+    'selected-bc': active
   }"
 >
-  <a class="bc-link box" [href]="href ? href : '/'">
+  <a
+    class="bc-link box"
+    [routerLink]="routerLink"
+    [href]="href"
+    [target]="target"
+    [rel]="rel"
+  >
     <ng-content></ng-content>
   </a>
 </li>

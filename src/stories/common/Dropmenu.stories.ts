@@ -6,12 +6,18 @@ import {
   DropmenuModule,
 } from '../../../projects/common/src/public-api';
 
+import { RouterTestingModule } from '@angular/router/testing';
+
 export default {
   title: 'Common / Dropmenu',
   component: DropmenuComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, DropmenuModule],
+      imports: [
+        CommonModule,
+        DropmenuModule,
+        RouterTestingModule.withRoutes([]),
+      ],
     }),
   ],
   parameters: {
