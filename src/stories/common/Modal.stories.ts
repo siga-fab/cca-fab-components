@@ -30,13 +30,16 @@ export default {
 export const Default = () => {
   let isOpen = { value: false },
     data = { testing: 1 };
-  const toggleOpen = () => (isOpen.value = !isOpen.value);
+  const toggleOpen = () => {
+    isOpen.value = !isOpen.value;
+  };
 
   return {
     props: {
       data,
       isOpen,
       toggleOpen,
+      closed: action('closed'),
       confirm: action('confirm'),
       changeData: () => ++data.testing,
     },
@@ -46,7 +49,7 @@ export const Default = () => {
         title="Modal Title"
         actionText="Modal Action"
         (confirm)="confirm()"
-        (closed)="toggleOpen()"
+        (closed)="toggleOpen(); closed()"
         *ngIf="isOpen.value">
           <button (click)="changeData()">
             {{data.testing}}
