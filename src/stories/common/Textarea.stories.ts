@@ -25,8 +25,8 @@ export default {
 
 export const Default = () => ({
   template: `
-  <div style="background: #fafafa;">
-    <com-textarea maxlength="100" placeholder="Digite o Texto" label="Campo de Texto" helper="Optional helper text" cols="100" rows="1"></com-textarea>
+  <div>
+    <com-textarea maxlength="100" placeholder="Digite o Texto" label="Campo de Texto" helper="Helper text" cols="100" rows="1"></com-textarea>
   </div>
   `,
 });

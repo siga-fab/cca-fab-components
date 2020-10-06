@@ -65,6 +65,14 @@
     </label>
   </div>
   <div class="corner-right"></div>
+  <div
+    [@fadeInOut]
+    *ngIf="helper"
+    class="helper"
+    [ngClass]="{ invalid: invalid }"
+  >
+    {{ helper }}
+  </div>
 </div>
 
 <div

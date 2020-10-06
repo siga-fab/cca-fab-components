@@ -1,5 +1,5 @@
 import { trigger, transition, animate, style } from '@angular/animations';
-import { AfterViewInit, Self, ElementRef } from '@angular/core';
+import { AfterViewInit, Self, ElementRef, HostBinding } from '@angular/core';
 import {
   Component,
   Input,
@@ -52,8 +52,9 @@ export class TextareaComponent
   @Input() focus = false;
   @Input() placeholder = '';
   @Input() label;
-  @Input() helper = '';
+  @HostBinding('class.hasOptionalText') @Input() helper = '';
   @Input() maxlength;
+  @Input() invalid = false;
 
   @Output() confirm = new EventEmitter();
   @Output() ref = new EventEmitter();
