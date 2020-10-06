@@ -1,0 +1,51 @@
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+@import '../../assets/scss/reset.scss';
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 999;
+
+  background: #{$black}99;
+
+  .wrapper {
+    position: relative;
+    display: block;
+    min-width: 40%;
+    max-width: 80%;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+
+      > *:not(:last-child) {
+        margin-bottom: $margin-bottom-default;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+        font-weight: bold;
+      }
+
+      footer {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+}
