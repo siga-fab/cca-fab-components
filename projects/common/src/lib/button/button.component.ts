@@ -54,6 +54,7 @@ export class ButtonComponent
     @Optional() @Attribute('secondary') public secondary,
     @Optional() @Attribute('flat') public flat,
     @Optional() @Attribute('warning') public warning,
+    @Optional() @Attribute('confirm') public confirm,
     @Optional() @Attribute('negative') public negative,
     @Optional() @Attribute('disabled') public disabled,
     @Optional() @Attribute('outline') public outline,
@@ -64,6 +65,7 @@ export class ButtonComponent
     this.parseAttributes(
       'secondary',
       'flat',
+      'confirm',
       'warning',
       'negative',
       'disabled',

@@ -59,6 +59,13 @@ export const Default = () => ({
         </com-button>
       </li>
 
+      <li style="padding: .5rem">
+        <com-button confirm (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
+          <ng-container slot="text">confirm</ng-container>
+        </com-button>
+      </li>
+
       <!--Warning-->
       <li style="padding: .5rem">
         <com-button warning (click)="click($event)">
@@ -110,6 +117,13 @@ export const Fill = () => ({
         </com-button>
       </li>
 
+      <li style="padding: .5rem">
+        <com-button confirm fill (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
+          <ng-container slot="text">confirm</ng-container>
+        </com-button>
+      </li>
+
       <!--Warning-->
       <li style="padding: .5rem">
         <com-button warning fill (click)="click($event)">
@@ -158,6 +172,13 @@ export const Transparent = () => ({
         <com-button flat transparent (click)="click($event)">
           <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">flat</ng-container>
+        </com-button>
+      </li>
+
+      <li style="padding: .5rem">
+        <com-button confirm transparent (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
+          <ng-container slot="text">confirm</ng-container>
         </com-button>
       </li>
 

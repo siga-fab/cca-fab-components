@@ -137,6 +137,17 @@
     background: $black;
   }
 
+  &.confirm-btn {
+    color: $success;
+
+    &.fill-btn {
+      background: $success;
+    }
+    &:not(.transparent-btn) {
+      border-color: $success;
+    }
+  }
+
   &.flat-btn {
     color: $grey;
   }
