@@ -1,5 +1,5 @@
 import { trigger, transition, animate, style } from '@angular/animations';
-import { AfterViewInit, Self, ElementRef } from '@angular/core';
+import { AfterViewInit, Self, ElementRef, HostBinding } from '@angular/core';
 import {
   Attribute,
   Component,
@@ -61,6 +61,7 @@ export class InputComponent
   @Input() forcedFocus = false;
   @Input() invalid = false;
   @Input() disabled = false;
+  @HostBinding('class.hasOptionalText') @Input() helper = '';
 
   @Output() confirm = new EventEmitter();
   @Output() immediate = new EventEmitter();

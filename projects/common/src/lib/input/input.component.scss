@@ -9,6 +9,12 @@
     margin-bottom: $margin-bottom-default;
   }
 
+  &.hasOptionalText {
+    margin-bottom: calc(
+      #{$margin-bottom-default} + #{$margin-bottom-default} + 0.2rem
+    );
+  }
+
   .input:focus-within + .wrapper,
   .wrapper.forced-focus {
     .corner-left,
@@ -17,7 +23,7 @@
     }
 
     .label {
-      border-color: transparent !important;
+      border-color: transparent;
 
       &.unlabeled {
         border-color: $tertiary;
@@ -58,7 +64,7 @@
 
     .corner-left,
     .corner-right {
-      transition: border 0.15s ease-in-out;
+      transition: border-color 0.15s ease-in-out;
     }
 
     .corner-left {
@@ -119,6 +125,19 @@
         }
       }
     }
+
+    .helper {
+      position: absolute;
+      left: 0.3rem;
+      bottom: -1.7rem;
+
+      color: $grey;
+      font-size: 1.2rem;
+
+      &.invalid {
+        color: $error;
+      }
+    }
   }
 
   .input {
@@ -130,9 +149,9 @@
     border-radius: 0.5rem;
     border: 1px solid $light-grey;
     border-top: 0;
-    height: 3.6rem;
+    height: 4rem;
 
-    transition: border 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out;
 
     ::-webkit-input-placeholder,
     :-moz-placeholder,
@@ -176,11 +195,6 @@
       }
     }
 
-    border-radius: 0.5rem;
-    border: 1px solid $light-grey;
-    border-top: 0;
-    height: 4rem;
-
     &.slim {
       height: 2.6rem;
     }
@@ -191,8 +205,7 @@
 
     &:focus-within,
     &.forced-focus {
-      border: 1px solid $tertiary;
-      border-top: 0;
+      border-bottom: 1px solid $tertiary;
       outline: 0;
       caret-color: $tertiary;
     }
