@@ -13,6 +13,8 @@
   overflow-x: hidden;
   overflow-y: scroll;
 
+  transition: all 0.15s ease-in-out;
+
   &::-webkit-scrollbar {
     width: 5px;
   }

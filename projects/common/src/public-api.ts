@@ -74,3 +74,7 @@ export * from './lib/form/form-section.component';
 export * from './lib/form/fieldset.component';
 export * from './lib/form/form.component';
 export * from './lib/form/form.module';
+
+// Modal
+export * from './lib/modal/modal.component';
+export * from './lib/modal/modal.module';

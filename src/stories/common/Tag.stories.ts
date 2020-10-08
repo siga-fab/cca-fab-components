@@ -5,13 +5,14 @@ import {
   TagComponent,
   TagModule,
 } from '../../../projects/common/src/public-api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Tag',
   component: TagComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, TagModule],
+      imports: [CommonModule, TagModule, BrowserAnimationsModule],
     }),
   ],
 };

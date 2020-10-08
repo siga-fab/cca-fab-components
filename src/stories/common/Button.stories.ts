@@ -6,13 +6,19 @@ import {
   ButtonComponent,
   IconModule,
 } from '../../../projects/common/src/public-api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Button',
   component: ButtonComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, ButtonModule, IconModule],
+      imports: [
+        CommonModule,
+        ButtonModule,
+        IconModule,
+        BrowserAnimationsModule,
+      ],
     }),
   ],
   parameters: {
@@ -56,6 +62,13 @@ export const Default = () => ({
         <com-button flat (click)="click($event)">
           <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">flat</ng-container>
+        </com-button>
+      </li>
+
+      <li style="padding: .5rem">
+        <com-button confirm (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
+          <ng-container slot="text">confirm</ng-container>
         </com-button>
       </li>
 
@@ -110,6 +123,13 @@ export const Fill = () => ({
         </com-button>
       </li>
 
+      <li style="padding: .5rem">
+        <com-button confirm fill (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
+          <ng-container slot="text">confirm</ng-container>
+        </com-button>
+      </li>
+
       <!--Warning-->
       <li style="padding: .5rem">
         <com-button warning fill (click)="click($event)">
@@ -158,6 +178,13 @@ export const Transparent = () => ({
         <com-button flat transparent (click)="click($event)">
           <com-icon slot="icon">add</com-icon>
           <ng-container slot="text">flat</ng-container>
+        </com-button>
+      </li>
+
+      <li style="padding: .5rem">
+        <com-button confirm transparent (click)="click($event)">
+          <com-icon slot="icon">add</com-icon>
+          <ng-container slot="text">confirm</ng-container>
         </com-button>
       </li>
 

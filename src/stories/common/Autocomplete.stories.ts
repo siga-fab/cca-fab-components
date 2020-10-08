@@ -2,12 +2,13 @@ import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { AutocompleteModule } from '../../../projects/common/src/lib/autocomplete/autocomplete.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Autocomplete',
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, AutocompleteModule],
+      imports: [CommonModule, AutocompleteModule, BrowserAnimationsModule],
     }),
   ],
 };

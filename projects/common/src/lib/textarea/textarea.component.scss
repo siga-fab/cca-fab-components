@@ -4,13 +4,17 @@
 :host {
   position: relative;
   display: inline-block;
-  margin-bottom: calc(
-    #{$margin-bottom-default} + #{$margin-bottom-default} + 0.2rem
-  );
   width: 20rem;
+  min-height: 8rem;
 
   &:not(:last-child) {
     margin-bottom: $margin-bottom-default;
+  }
+
+  &.hasOptionalText {
+    margin-bottom: calc(
+      #{$margin-bottom-default} + #{$margin-bottom-default} + 0.2rem
+    );
   }
 
   .textarea:focus-within + .wrapper {
@@ -44,6 +48,17 @@
 
     height: 100%;
     width: 100%;
+
+    &.invalid {
+      .corner-left,
+      .corner-right {
+        border-color: $error !important;
+      }
+
+      .label {
+        border-color: $error;
+      }
+    }
 
     .corner-left,
     .corner-right {
@@ -93,6 +108,10 @@
           transform: translate(0, -2.7rem);
           font-size: 1.2rem;
           color: $tertiary;
+
+          &.invalid {
+            color: $error !important;
+          }
         }
 
         &.colored {
@@ -119,10 +138,15 @@
     }
     .helper {
       position: absolute;
+      left: 0.3rem;
       bottom: -1.7rem;
+
       color: $grey;
       font-size: 1.2rem;
-      left: 0.3rem;
+
+      &.invalid {
+        color: $error;
+      }
     }
   }
 
@@ -132,6 +156,13 @@
     padding-top: 2rem;
 
     width: 100%;
+    min-height: 8rem;
+
+    border-radius: 0.5rem;
+    border: 1px solid $light-grey;
+    border-top: 0;
+
+    transition: border 0.15s ease-in-out;
 
     textarea {
       background: transparent;
@@ -153,11 +184,9 @@
       }
     }
 
-    border-radius: 0.5rem;
-    border: 1px solid $light-grey;
-    border-top: 0;
-
-    transition: border 0.15s ease-in-out;
+    &.invalid {
+      border-color: $error !important;
+    }
 
     &:focus-within {
       border: 1px solid $tertiary;

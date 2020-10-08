@@ -1,4 +1,4 @@
-<div class="textarea">
+<div class="textarea" [ngClass]="{ invalid: invalid }">
   <textarea
     #textarea
     tabindex="0"
@@ -13,7 +13,7 @@
   </textarea>
 </div>
 
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{ invalid: invalid }">
   <div class="corner-left"></div>
 
   <div
@@ -27,7 +27,8 @@
       *ngIf="label"
       [ngClass]="{
         focused: (focus && !value) || value,
-        colored: !focus
+        colored: !focus,
+        invalid: invalid
       }"
     >
       {{ label }}
@@ -37,5 +38,12 @@
     {{ qntChar || 0 }} / {{ maxlength || DEFAULT_MAX_LENGTH }}
   </div>
   <div class="corner-right"></div>
-  <div *ngIf="helper" class="helper">{{ helper }}</div>
+  <div
+    [@fadeInOut]
+    *ngIf="helper"
+    class="helper"
+    [ngClass]="{ invalid: invalid }"
+  >
+    {{ helper }}
+  </div>
 </div>

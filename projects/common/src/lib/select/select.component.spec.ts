@@ -86,6 +86,7 @@ describe('SelectComponent', () => {
     const onKeyDownSpy = jest.spyOn(component, 'onKeyDown');
     const initialIndex = 2;
 
+    component.options = ['a', 'b', 'c', 'd'];
     component.isOpen = true;
     component.selectedIndex = initialIndex;
     component.optionsParentElement = MOCK_ELEMENT;
@@ -114,6 +115,7 @@ describe('SelectComponent', () => {
     const onKeyDownSpy = jest.spyOn(component, 'onKeyDown');
     const initialIndex = 2;
 
+    component.options = ['a', 'b', 'c', 'd'];
     component.isOpen = true;
     component.selectedIndex = initialIndex;
     component.optionsParentElement = MOCK_ELEMENT;
@@ -139,7 +141,7 @@ describe('SelectComponent', () => {
     expect(onKeyDownSpy).toHaveBeenCalled();
   });
 
-  it('should trigger click on Enter or Space after calling onKeyDown', () => {
+  it('should trigger click on Enter or Escape after calling onKeyDown', () => {
     const onKeyDownSpy = jest.spyOn(component, 'onKeyDown');
     const initialIndex = 2;
 
@@ -154,7 +156,7 @@ describe('SelectComponent', () => {
 
     component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('Enter'));
 
-    component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT(' '));
+    component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('Escape'));
 
     expect(component.selectedIndex).toBe(initialIndex);
     expect(onKeyDownSpy).toHaveBeenCalledTimes(2);
@@ -163,17 +165,16 @@ describe('SelectComponent', () => {
 
   it('should close dropdown after calling onKeyDown with Escape', () => {
     const onKeyDownSpy = jest.spyOn(component, 'onKeyDown');
-    const blurSpy = jest.spyOn(component.selectElement, 'blur');
     const initialIndex = 2;
 
     component.isOpen = true;
     component.selectedIndex = initialIndex;
+    component.optionsParentElement = MOCK_ELEMENT;
 
     component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('Escape'));
 
     expect(component.selectedIndex).toBe(initialIndex);
     expect(onKeyDownSpy).toHaveBeenCalled();
-    expect(blurSpy).toHaveBeenCalled();
   });
 
   it('should do nothing after calling onKeyDown if key is not mapped', () => {

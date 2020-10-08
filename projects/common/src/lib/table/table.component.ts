@@ -33,6 +33,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() pageIndex = 1;
   @Input() totalEntries: number;
   @Input() dataSource = [{ default: 'default' }];
+  @Input() hidden = [];
 
   @ViewChild('actionWrapper') actionWrapper: ElementRef;
   @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<
@@ -65,7 +66,9 @@ export class TableComponent implements OnInit, AfterViewInit {
 
     for (const data of this.dataSource) {
       for (const key of Object.keys(data)) {
-        headers.add(key);
+        if (!this.hidden.includes(key)) {
+          headers.add(key);
+        }
       }
     }
 

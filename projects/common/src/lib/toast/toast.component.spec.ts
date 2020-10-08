@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToastModule } from './toast.module';
 import { ToastComponent } from './toast.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ToastComponent', () => {
   let component: ToastComponent;
@@ -9,7 +10,7 @@ describe('ToastComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ToastModule],
+      imports: [ToastModule, BrowserAnimationsModule],
     }).compileComponents();
   }));
 
