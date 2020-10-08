@@ -18,8 +18,6 @@ export class FormComponent implements OnInit {
   @Input() id?: string;
   @Input() formGroup: FormGroup;
 
-  @Output() ngSubmit = new EventEmitter<any>();
-
   constructor(@Optional() @Attribute('transparent') public transparent) {}
 
   ngOnInit(): void {}
