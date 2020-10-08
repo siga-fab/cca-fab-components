@@ -4,13 +4,13 @@ import { ModalComponent } from './modal.component';
 import { CardModule } from '../card/card.module';
 import { IconModule } from '../icon/icon.module';
 import { ButtonModule } from '../button/button.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [ModalComponent],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
+    NoopAnimationsModule,
     CardModule,
     IconModule,
     ButtonModule,
