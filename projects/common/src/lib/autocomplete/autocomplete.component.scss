@@ -7,6 +7,10 @@
   position: relative;
   width: 25rem;
 
+  &:not(:last-child) {
+    margin-bottom: $margin-bottom-default;
+  }
+
   > .wrapper {
     width: 100%;
     display: inline-block;

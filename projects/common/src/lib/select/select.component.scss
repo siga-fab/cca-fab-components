@@ -8,6 +8,10 @@
   width: 25rem;
   cursor: pointer !important;
 
+  &:not(:last-child) {
+    margin-bottom: $margin-bottom-default;
+  }
+
   &:focus {
     outline: 0;
   }
