@@ -1,27 +1,34 @@
-<div
-  class="wrapper"
-  [ngClass]="{ disabled: disabled }"
-  (mousedown)="$event.preventDefault()"
-  (click)="isOpen ? selectElement.blur() : selectElement.focus()"
->
+<div class="wrapper" [ngClass]="{ disabled: disabled }">
   <com-input
+    immediate
     [forcedFocus]="forcedFocus"
     [value]="value"
-    disabled="true"
     type="select"
     [placeholder]="placeholder"
     class="input-style"
     [label]="label"
     [invalid]="invalid"
+    (ref)="getInputElement($event)"
+    (immediate)="onImmediateChange($event)"
   ></com-input>
 
-  <div class="status-icon" [ngClass]="{ open: isOpen }">
+  <div
+    class="status-icon"
+    (mousedown)="$event.preventDefault()"
+    (click)="isOpen ? inputElement.blur() : inputElement.focus()"
+    [ngClass]="{ open: isOpen }"
+  >
     <div class="left"></div>
     <div class="right"></div>
   </div>
 </div>
 
-<div [@inOutAnimation] *ngIf="isOpen && options.length" class="card">
+<div
+  [@inOutAnimation]
+  (mousedown)="$event.preventDefault()"
+  *ngIf="isOpen && options.length"
+  class="card"
+>
   <ul>
     <li (click)="selectedItem(0)" [ngClass]="{ focus: !selectedIndex }">
       Nenhum

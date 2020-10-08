@@ -42,8 +42,10 @@ export class SelectComponent implements AfterViewChecked {
   forcedFocus = false;
   selectElement: HTMLElement;
   optionsParentElement: HTMLUListElement;
+  inputElement: HTMLInputElement;
 
   value = '';
+  selectedValue: any;
   selectedIndex = 0;
 
   private scrollBehavior: ScrollIntoViewOptions = {
@@ -71,8 +73,8 @@ export class SelectComponent implements AfterViewChecked {
 
     this.selectElement.tabIndex = 0;
 
-    this.selectElement.addEventListener('focus', this.open.bind(this));
-    this.selectElement.addEventListener('blur', this.close.bind(this));
+    // this.selectElement.addEventListener('focus', this.open.bind(this));
+    // this.selectElement.addEventListener('blur', this.close.bind(this));
     this.selectElement.addEventListener('keydown', this.onKeyDown.bind(this));
 
     /* istanbul ignore next */
@@ -107,9 +109,43 @@ export class SelectComponent implements AfterViewChecked {
     }
   }
 
+  getInputElement(el: HTMLInputElement) {
+    this.inputElement = el;
+
+    this.inputElement.addEventListener('focus', this.open.bind(this));
+    this.inputElement.addEventListener('blur', this.close.bind(this));
+  }
+
+  onImmediateChange(value: string) {
+    const childElement: (index: number) => HTMLLIElement = (index) =>
+      this.optionsParentElement.children[index] as HTMLLIElement;
+
+    if (!value.length) {
+      this.selectedIndex = 0;
+      return;
+    }
+
+    const selection = this.options.find((option) => {
+      const optionValue = typeof option === 'string' ? option : option.name;
+
+      if (optionValue.toLowerCase().includes(value.toLowerCase())) {
+        return optionValue;
+      }
+
+      return false;
+    });
+
+    if (!selection) {
+      return;
+    }
+    this.value = value;
+    this.selectedIndex = this.options.indexOf(selection) + 1;
+    childElement(this.selectedIndex).scrollIntoView(this.scrollBehavior);
+  }
+
   open() {
     if (this.disabled) {
-      this.selectElement.blur();
+      this.inputElement.blur();
       return;
     }
 
@@ -133,6 +169,7 @@ export class SelectComponent implements AfterViewChecked {
     this.isOpen = false;
     this.forcedFocus = false;
     this.closed.emit();
+    this.selectedItem(this.selectedIndex);
   }
 
   onKeyDown(event: KeyboardEvent) {
@@ -145,31 +182,52 @@ export class SelectComponent implements AfterViewChecked {
       return;
     }
 
+    event.stopPropagation();
+
     if (key === 'ArrowUp') {
+      event.preventDefault();
       if (!this.selectedIndex) {
         return;
       }
 
       childElement(--this.selectedIndex).scrollIntoView(this.scrollBehavior);
+
+      if (this.selectedIndex > 0) {
+        this.value =
+          typeof this.options[this.selectedIndex - 1] === 'string'
+            ? (this.options[this.selectedIndex - 1] as string)
+            : ((this.options[this.selectedIndex - 1] as SelectOption)
+                .name as string);
+      } else {
+        this.value = '';
+      }
+
       return;
     }
 
     if (key === 'ArrowDown') {
+      event.preventDefault();
       if (this.selectedIndex === this.options.length) {
         return;
       }
 
       childElement(++this.selectedIndex).scrollIntoView(this.scrollBehavior);
+
+      if (this.selectedIndex > 0) {
+        this.value =
+          typeof this.options[this.selectedIndex - 1] === 'string'
+            ? (this.options[this.selectedIndex - 1] as string)
+            : ((this.options[this.selectedIndex - 1] as SelectOption)
+                .name as string);
+      } else {
+        this.value = '';
+      }
+
       return;
     }
 
-    if (key === 'Enter' || key === ' ') {
+    if (key === 'Enter' || key === 'Escape') {
       childElement(this.selectedIndex).click();
-      return;
-    }
-
-    if (key === 'Escape') {
-      this.selectElement.blur();
       return;
     }
   }
@@ -181,12 +239,15 @@ export class SelectComponent implements AfterViewChecked {
 
     if (typeof selection === 'string') {
       this.value = selection;
+      this.selectedValue = selection;
       this.changed.emit(selection);
     } else {
       this.value = selection ? String(selection.name) : '';
+      this.selectedValue = selection ? selection.value : null;
       this.changed.emit(selection ? selection.value : null);
     }
 
-    this.selectElement.blur();
+    console.log(this.value, this.selectedValue, this.selectedIndex);
+    this.inputElement.blur();
   }
 }
