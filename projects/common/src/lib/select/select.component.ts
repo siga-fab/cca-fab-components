@@ -247,7 +247,6 @@ export class SelectComponent implements AfterViewChecked {
       this.changed.emit(selection ? selection.value : null);
     }
 
-    console.log(this.value, this.selectedValue, this.selectedIndex);
     this.inputElement.blur();
   }
 }

@@ -7,13 +7,20 @@ import {
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Modal',
   component: ModalComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, ModalModule, IconModule, CardModule],
+      imports: [
+        CommonModule,
+        ModalModule,
+        IconModule,
+        CardModule,
+        BrowserAnimationsModule,
+      ],
     }),
   ],
   parameters: {

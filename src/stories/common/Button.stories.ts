@@ -6,13 +6,19 @@ import {
   ButtonComponent,
   IconModule,
 } from '../../../projects/common/src/public-api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Button',
   component: ButtonComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, ButtonModule, IconModule],
+      imports: [
+        CommonModule,
+        ButtonModule,
+        IconModule,
+        BrowserAnimationsModule,
+      ],
     }),
   ],
   parameters: {

@@ -5,13 +5,14 @@ import {
 } from '../../../projects/common/src/public-api';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Input',
   component: InputComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, InputModule, IconModule],
+      imports: [CommonModule, InputModule, IconModule, BrowserAnimationsModule],
     }),
   ],
   parameters: {

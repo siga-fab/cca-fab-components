@@ -9,6 +9,7 @@ import {
   TooltipModule,
   TooltipDirective,
 } from '../../../projects/common/src/public-api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Tooltip',
@@ -21,6 +22,7 @@ export default {
         IconModule,
         TooltipModule,
         InputModule,
+        BrowserAnimationsModule,
       ],
       entryComponents: [IconComponent],
     }),

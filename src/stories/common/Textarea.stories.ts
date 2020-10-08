@@ -4,12 +4,18 @@ import {
 } from '../../../projects/common/src/public-api';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Textarea',
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, TextareaModule, IconModule],
+      imports: [
+        CommonModule,
+        TextareaModule,
+        IconModule,
+        BrowserAnimationsModule,
+      ],
     }),
   ],
   parameters: {

@@ -6,13 +6,14 @@ import {
   ToastComponent,
   ToastModule,
 } from '../../../projects/common/src/public-api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Toast',
   component: ToastComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, ToastModule],
+      imports: [CommonModule, ToastModule, BrowserAnimationsModule],
     }),
   ],
 };

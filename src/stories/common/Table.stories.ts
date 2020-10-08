@@ -8,6 +8,7 @@ import {
 } from '../../../projects/common/src/public-api';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Table',
@@ -20,6 +21,7 @@ export default {
         InputModule,
         IconModule,
         TooltipModule,
+        BrowserAnimationsModule,
       ],
     }),
   ],
