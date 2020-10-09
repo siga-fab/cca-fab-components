@@ -6,6 +6,7 @@ import {
   TagModule,
 } from '../../../projects/common/src/public-api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Common / Tag',
@@ -28,6 +29,15 @@ export const Default = () => ({
     <div>
       <com-tag secondary>This is a Tag!</com-tag>
     </div>
+  `,
+});
+
+export const Closable = () => ({
+  props: {
+    close: action('close'),
+  },
+  template: `
+    <com-tag closable (closed)="close()">This is a closable Tag!</com-tag>
   `,
 });
 
