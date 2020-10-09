@@ -1,13 +1,21 @@
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
 
+:host {
+  display: inline-block;
+}
+
 .tag {
   padding: 0 2.2rem;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   color: $grey;
   font-size: 1.4rem;
   line-height: 2.2rem;
+
+  position: relative;
 
   border: 0.1rem solid $light-grey;
   border-radius: 2.4rem;
@@ -15,6 +23,10 @@
   outline: none;
   transition: background-color $transition-defs, color $transition-defs,
     box-shadow $transition-defs;
+
+  &.closable {
+    padding-right: 2.7rem;
+  }
 
   &.clickable-tg:hover,
   &.selected-tg {
@@ -36,4 +48,10 @@
   &:focus {
     box-shadow: $focus-shadow;
   }
+}
+
+.close-btn {
+  cursor: pointer;
+  position: absolute;
+  right: 0.5rem;
 }

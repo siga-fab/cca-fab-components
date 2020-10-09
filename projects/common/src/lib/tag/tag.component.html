@@ -5,8 +5,18 @@
     'clickable-tg': clickable !== null,
     'selected-tg': selected,
     'primary-tg': primary !== null,
-    'secondary-tg': secondary !== null
+    'secondary-tg': secondary !== null,
+    closable: closable !== null
   }"
 >
   <ng-content></ng-content>
+  <com-icon
+    *ngIf="closable !== null"
+    class="close-btn"
+    slot="icon"
+    size="1.6"
+    (click)="onClose()"
+    [color]="primary !== null || secondary !== null ? '#fff' : '#80868d'"
+    >close</com-icon
+  >
 </span>
