@@ -23,6 +23,16 @@
     color: $white;
   }
 
+  &.primary-tg {
+    background: $primary;
+    color: $white;
+  }
+
+  &.secondary-tg {
+    background: $secondary;
+    color: $white;
+  }
+
   &:focus {
     box-shadow: $focus-shadow;
   }

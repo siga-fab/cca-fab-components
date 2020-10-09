@@ -2,8 +2,10 @@
   class="tag"
   [tabindex]="clickable === '' ? 0 : -1"
   [ngClass]="{
-    'clickable-tg': clickable === '',
-    'selected-tg': selected
+    'clickable-tg': clickable !== null,
+    'selected-tg': selected,
+    'primary-tg': primary !== null,
+    'secondary-tg': secondary !== null
   }"
 >
   <ng-content></ng-content>

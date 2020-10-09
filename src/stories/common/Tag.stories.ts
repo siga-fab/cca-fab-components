@@ -19,7 +19,15 @@ export default {
 
 export const Default = () => ({
   template: `
-    <com-tag>This is a Tag!</com-tag>
+    <div style="margin-bottom: 1.5rem">
+      <com-tag>This is a Tag!</com-tag>
+    </div>
+    <div style="margin-bottom: 1.5rem">
+      <com-tag primary>This is a Tag!</com-tag>
+    </div>
+    <div>
+      <com-tag secondary>This is a Tag!</com-tag>
+    </div>
   `,
 });
 
