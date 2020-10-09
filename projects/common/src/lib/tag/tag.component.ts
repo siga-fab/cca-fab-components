@@ -8,7 +8,11 @@ import { Component, OnInit, Optional, Attribute, Input } from '@angular/core';
 export class TagComponent implements OnInit {
   @Input() selected?: boolean;
 
-  constructor(@Optional() @Attribute('clickable') public clickable) {}
+  constructor(
+    @Optional() @Attribute('clickable') public clickable,
+    @Optional() @Attribute('primary') public primary,
+    @Optional() @Attribute('secondary') public secondary
+  ) {}
 
   ngOnInit(): void {}
 }
