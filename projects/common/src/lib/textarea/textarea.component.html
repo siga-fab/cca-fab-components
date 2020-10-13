@@ -1,7 +1,7 @@
 <div class="textarea" [ngClass]="{ invalid: invalid }">
   <textarea
     #textarea
-    tabindex="0"
+    [tabindex]="disabled ? -1 : 0"
     [value]="value"
     [maxLength]="maxlength || DEFAULT_MAX_LENGTH"
     [disabled]="disabled"
