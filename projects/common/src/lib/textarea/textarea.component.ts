@@ -48,7 +48,7 @@ export class TextareaComponent
   DEFAULT_MAX_LENGTH = 524288;
 
   @Input() value = '';
-  @Input() disabled = false;
+  @HostBinding('class.disabled') @Input() disabled = false;
   @Input() focus = false;
   @Input() placeholder = '';
   @Input() label;
