@@ -28,9 +28,14 @@
 
   .card {
     display: block;
+
+    position: absolute;
+    width: 100%;
+
     background: $white;
-    border: 0.1rem solid $border-grey;
     box-shadow: $box-shadow;
+
+    border: 0.1rem solid $border-grey;
     border-radius: 0.5rem;
 
     overflow-x: hidden;
