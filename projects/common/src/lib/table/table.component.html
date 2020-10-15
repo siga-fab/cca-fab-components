@@ -5,22 +5,28 @@
     </div>
     <div class="col-xs end-xs" [hidden]="!showActions"></div>
   </div>
-  <div class="body">
-    <div class="row" *ngFor="let data of dataSource; let i = index">
-      <div class="col-xs" *ngFor="let header of headers">
-        {{ data[header] }}
+  <div class="body" [ngClass]="{ empty: !dataSource.length }">
+    <ng-template [ngIf]="dataSource.length" [ngIfElse]="EmptyTable">
+      <div class="row" *ngFor="let data of dataSource; let i = index">
+        <div class="col-xs" *ngFor="let header of headers">
+          {{ data[header] }}
+        </div>
+        <div class="col-xs end-xs" [hidden]="!showActions" #actionWrapper>
+          <ng-container
+            *ngIf="actionTemplateRef"
+            [ngTemplateOutlet]="actionTemplateRef"
+            [ngTemplateOutletContext]="{
+              $implicit: { data: data, index: i, dataSource: dataSource }
+            }"
+          >
+          </ng-container>
+        </div>
       </div>
-      <div class="col-xs end-xs" [hidden]="!showActions" #actionWrapper>
-        <ng-container
-          *ngIf="actionTemplateRef"
-          [ngTemplateOutlet]="actionTemplateRef"
-          [ngTemplateOutletContext]="{
-            $implicit: { data: data, index: i, dataSource: dataSource }
-          }"
-        >
-        </ng-container>
-      </div>
-    </div>
+    </ng-template>
+
+    <ng-template #EmptyTable>
+      <h1>Nenhum dado para exibir</h1>
+    </ng-template>
   </div>
   <div class="footer row between-xs">
     <div class="row left middle-xs">
@@ -37,7 +43,7 @@
       >
         <com-icon>loop</com-icon>
       </div>
-      <div>
+      <div class="flex center middle centralize">
         Itens por página:
         <span class="input">
           <com-input
@@ -94,7 +100,7 @@
         <com-icon>chevron_left</com-icon>
       </div>
 
-      <div class="label">
+      <div class="label flex center">
         Página:
         <span class="input">
           <com-input

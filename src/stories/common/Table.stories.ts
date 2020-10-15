@@ -47,9 +47,9 @@ export const Default = () => ({
     pageSizeChange: action('pageSizeChange'),
     pageIndexChange: action('pageIndexChange'),
     pageSize: 20,
-    maxPageSize: 200,
-    pageIndex: 20,
-    totalEntries: 200,
+    maxPageSize: 50,
+    pageIndex: 1,
+    totalPages: 20,
     hiddenFields: ['id'],
     dataSource: [
       {
@@ -95,12 +95,12 @@ export const Default = () => ({
     ],
   },
   template: `<com-table
-    [dataSource]="dataSource"
     [pageSize]="pageSize"
     [maxPageSize]="maxPageSize"
     [pageIndex]="pageIndex"
-    [totalEntries]="totalEntries"
+    [totalPages]="totalPages"
     [hidden]="hiddenFields"
+    [dataSource]="dataSource"
     (lastPage)="lastPage($event)"
     (firstPage)="firstPage($event)"
     (nextPage)="nextPage($event)"

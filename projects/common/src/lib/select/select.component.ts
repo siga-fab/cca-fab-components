@@ -241,10 +241,14 @@ export class SelectComponent implements AfterViewChecked {
       this.value = selection;
       this.selectedValue = selection;
       this.changed.emit(selection);
+      this.onChange(selection);
+      this.onTouched();
     } else {
       this.value = selection ? String(selection.name) : '';
       this.selectedValue = selection ? selection.value : null;
       this.changed.emit(selection ? selection.value : null);
+      this.onChange(selection ? selection.value : null);
+      this.onTouched();
     }
 
     this.inputElement.blur();
