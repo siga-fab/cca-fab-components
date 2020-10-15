@@ -1,6 +1,5 @@
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
-@import '../../assets/scss/reset.scss';
 
 @keyframes wave {
   from {
@@ -24,12 +23,12 @@
   }
 }
 
-.button {
+button {
   // Container styles
   position: relative;
 
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row;
   align-items: center;
   height: 3.6rem;
 
@@ -40,6 +39,7 @@
   outline: none;
   cursor: pointer;
   user-select: none;
+  border: none;
 
   white-space: nowrap;
 
@@ -211,7 +211,7 @@
     border: 0.2rem solid transparent;
 
     &:hover:not(:disabled):not(.negative-btn) {
-      background: $light-grey;
+      background: #{$light-grey}99;
     }
   }
 }

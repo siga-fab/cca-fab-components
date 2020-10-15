@@ -1,7 +1,10 @@
 @import '../../assets/scss/flexboxgrid-deprecated.scss';
-@import '../../assets/scss/reset.scss';
 
 ol {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+
   &::ng-deep li:last-child() {
     opacity: 0.5;
   }

@@ -1,6 +1,5 @@
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
-@import '../../assets/scss/reset.scss';
 
 :host {
   display: inline-block;
@@ -48,10 +47,14 @@
 
     ul {
       background: $white;
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
 
       li {
         display: block;
         cursor: pointer;
+        margin: 0;
         padding: 0.8rem;
         white-space: nowrap;
         word-break: break-word;

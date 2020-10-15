@@ -1,7 +1,6 @@
 @import '../../assets/scss/flexboxgrid-deprecated.scss';
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
-@import '../../assets/scss/reset.scss';
 
 .checkbox {
   &.hasSwitch {
@@ -88,6 +87,11 @@
     font-size: 1.4rem;
     white-space: pre-line;
     cursor: pointer;
+  }
+
+  .cb-label::after,
+  .cb-label::before {
+    box-sizing: border-box;
   }
 
   .cb-label-text {
