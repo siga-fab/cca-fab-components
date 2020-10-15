@@ -32,6 +32,7 @@ export class ButtonComponent
   // Native attributes
   @Input() form: string;
   @Input() type = 'button';
+  @Input() disabled = false;
 
   /**
    * @internal
@@ -56,7 +57,6 @@ export class ButtonComponent
     @Optional() @Attribute('warning') public warning,
     @Optional() @Attribute('confirm') public confirm,
     @Optional() @Attribute('negative') public negative,
-    @Optional() @Attribute('disabled') public disabled,
     @Optional() @Attribute('outline') public outline,
     @Optional() @Attribute('fill') public fill,
     @Optional() @Attribute('transparent') public transparent,
@@ -68,7 +68,6 @@ export class ButtonComponent
       'confirm',
       'warning',
       'negative',
-      'disabled',
       'outline',
       'fill',
       'transparent'
