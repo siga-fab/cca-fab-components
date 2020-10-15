@@ -10,7 +10,7 @@ describe('TableComponent', () => {
   const PAGE_SIZE = 10;
   const MAX_PAGE_SIZE = 50;
   const PAGE_START_INDEX = 1;
-  const TOTAL_ENTRIES = 200;
+  const TOTAL_PAGES = 20;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -26,8 +26,7 @@ describe('TableComponent', () => {
     component.pageSize = PAGE_SIZE;
     component.maxPageSize = MAX_PAGE_SIZE;
     component.pageIndex = PAGE_START_INDEX;
-    component.totalEntries = TOTAL_ENTRIES;
-    component.totalPages = Math.ceil(TOTAL_ENTRIES / PAGE_SIZE);
+    component.totalPages = TOTAL_PAGES;
   });
 
   it('should create', () => {
@@ -286,11 +285,10 @@ describe('TableComponent', () => {
 
   it('should set page index equals to last page index when page index is bigger', () => {
     const CURRENT_INDEX = 5;
-    const TOTAL_PAGES = 3;
     const toggleButtonsSpy = jest.spyOn(component, 'toggleButtons');
 
     component.pageIndex = CURRENT_INDEX;
-    component.totalPages = TOTAL_PAGES;
+    component.totalPages = 3;
 
     component.toggleButtons();
 

@@ -9,8 +9,8 @@ import {
   ContentChild,
   TemplateRef,
   ElementRef,
+  AfterViewInit,
 } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'com-table',
@@ -31,16 +31,19 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() pageSize: number;
   @Input() maxPageSize: number;
   @Input() pageIndex = 1;
-  @Input() totalEntries: number;
-  @Input() dataSource = [{ default: 'default' }];
+
+  @Input()
+  @Input()
+  dataSource: Array<object> = [];
   @Input() hidden = [];
+
+  @Input() totalPages: number;
 
   @ViewChild('actionWrapper') actionWrapper: ElementRef;
   @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<
     any
   >;
 
-  totalPages: number;
   headers: string[] = [];
   showActions = false;
 
@@ -72,7 +75,6 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.totalPages = Math.ceil(this.totalEntries / this.pageSize);
     this.headers = [...headers] as string[];
 
     this.toggleButtons();
@@ -80,7 +82,9 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.showActions = !!this.actionWrapper.nativeElement.children.length;
+      if (this.actionWrapper) {
+        this.showActions = !!this.actionWrapper.nativeElement.children.length;
+      }
     });
   }
 
@@ -198,7 +202,6 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   onPageSizeChange(pageSize: string) {
     this.pageSize = parseInt(pageSize, 10);
-    this.totalPages = Math.ceil(this.totalEntries / parseInt(pageSize, 10));
     this.toggleButtons();
     this.pageSizeChange.emit(this.pageSize);
   }
