@@ -36,7 +36,7 @@ import {
           transform: 'scale(1)',
         }),
         animate(
-          '.1s ease-in-out',
+          '.12s ease-out',
           style({
             opacity: 0,
             transform: 'scale(.5)',
@@ -50,7 +50,7 @@ import {
           opacity: 0,
         }),
         animate(
-          '.1s ease-in',
+          '.18s ease-out',
           style({
             opacity: 1,
           })
@@ -62,7 +62,7 @@ import {
           opacity: 1,
         }),
         animate(
-          '.1s ease-in',
+          '.18s ease-out',
           style({
             opacity: 0,
           })

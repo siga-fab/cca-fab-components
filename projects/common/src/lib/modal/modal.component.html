@@ -1,21 +1,21 @@
-<com-card
+<div
   [@modalInOut]
   (@modalInOut.done)="modalAnimationDone($event)"
   *ngIf="isModalOpen"
   class="wrapper"
 >
-  <com-button (click)="onClose()" class="close-btn" flat transparent>
-    <com-icon slot="icon">clear</com-icon>
-  </com-button>
-  <div class="content">
+  <div class="header">
     <h1>{{ title }}</h1>
-    <div class="body">
-      <ng-content></ng-content>
-    </div>
-    <footer>
-      <com-button (click)="onAction()" flat transparent>
-        <ng-container slot="text">{{ actionText }}</ng-container>
-      </com-button>
-    </footer>
+    <com-button (click)="onClose()" class="close-btn" flat transparent>
+      <com-icon slot="icon">clear</com-icon>
+    </com-button>
   </div>
-</com-card>
+  <div class="body">
+    <ng-content></ng-content>
+  </div>
+  <footer>
+    <com-button (click)="onAction()">
+      <ng-container slot="text">{{ actionText }}</ng-container>
+    </com-button>
+  </footer>
+</div>
