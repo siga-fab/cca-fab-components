@@ -79,7 +79,9 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.showActions = !!this.actionWrapper.nativeElement.children.length;
+    setTimeout(() => {
+      this.showActions = !!this.actionWrapper.nativeElement.children.length;
+    });
   }
 
   updateButtonsState(

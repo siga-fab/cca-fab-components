@@ -216,11 +216,11 @@
       margin: 0;
     }
 
-    &[type='number'] {
+    input[type='number'] {
       -moz-appearance: textfield;
     }
 
-    &[type='date'] {
+    input[type='date'] {
       cursor: text;
     }
   }
