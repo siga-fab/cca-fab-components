@@ -1,15 +1,13 @@
 @import '../../assets/scss/flexboxgrid-deprecated.scss';
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
-@import '../../assets/scss/reset.scss';
 
 .breadcrumb-item {
   font-size: 1.6rem;
 
-  cursor: pointer;
-
   &:not(.last-bc)::after {
     content: '/';
+    cursor: default;
     padding-left: 1rem;
   }
 
@@ -20,6 +18,8 @@
   }
 
   .bc-link {
+    cursor: pointer;
+
     text-transform: uppercase;
     text-decoration: underline;
 
@@ -29,6 +29,9 @@
   &.selected-bc .bc-link {
     text-decoration: none;
     cursor: default;
+
+    // Only works on IE11+
+    pointer-events: none;
   }
 
   &.selected-bc .bc-link,

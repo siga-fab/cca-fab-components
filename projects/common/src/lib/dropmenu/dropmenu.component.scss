@@ -1,6 +1,5 @@
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
-@import '../../assets/scss/reset.scss';
 
 .dropmenu {
   position: relative;
@@ -47,6 +46,12 @@
     min-width: 25rem;
 
     border-radius: 0 0.5rem 0.5rem 0.5rem;
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+    }
   }
 
   &:focus-within .drop-content,

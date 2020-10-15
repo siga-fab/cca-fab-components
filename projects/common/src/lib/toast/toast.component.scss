@@ -1,6 +1,5 @@
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
-@import '../../assets/scss/reset.scss';
 
 .toast {
   position: relative;
@@ -44,6 +43,7 @@
   .ts-text {
     margin-left: 1rem;
     margin-right: 3rem;
+    margin: 0;
 
     color: $grey;
   }
