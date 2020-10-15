@@ -3,7 +3,7 @@
 
 :host {
   position: relative;
-  display: inline-block;
+  display: block;
 
   &:not(:last-child) {
     margin-bottom: $margin-bottom-default;
@@ -48,8 +48,12 @@
     top: 0;
     left: 0;
 
-    height: 100%;
+    height: 4rem;
     width: 100%;
+
+    &.slim {
+      height: 2.6rem;
+    }
 
     &.invalid {
       .corner-left,
