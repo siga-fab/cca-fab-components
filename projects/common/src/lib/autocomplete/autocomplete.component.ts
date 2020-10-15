@@ -236,6 +236,8 @@ export class AutocompleteComponent implements AfterViewChecked {
       this.value = selection;
       this.changed.emit(this.value);
       this.confirmed.emit(this.value);
+      this.onChange(selection);
+      this.onTouched();
       this.inputElement.blur();
       return;
     }
@@ -243,6 +245,8 @@ export class AutocompleteComponent implements AfterViewChecked {
     this.value = String(selection.name);
     this.changed.emit(this.value);
     this.confirmed.emit(selection.value);
+    this.onChange(String(selection.value));
+    this.onTouched();
     this.inputElement.blur();
   }
 }
