@@ -1,7 +1,6 @@
 @import '../../assets/scss/flexboxgrid-deprecated.scss';
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
-@import '../../assets/scss/reset.scss';
 
 .radio {
   .rd-selector {
@@ -63,6 +62,11 @@
     width: 1rem;
     background-color: $primary;
     border-radius: 0.5rem;
+  }
+
+  .rd-label::after,
+  .rd-label::before {
+    box-sizing: border-box;
   }
 
   .rd-selector:focus ~ .rd-label::before {
