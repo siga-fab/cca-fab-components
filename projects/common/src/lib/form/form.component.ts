@@ -1,13 +1,5 @@
+import { Component, OnInit, Input, Optional, Attribute } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  Optional,
-  Attribute,
-} from '@angular/core';
 
 @Component({
   selector: 'com-form',
@@ -16,7 +8,7 @@ import {
 })
 export class FormComponent implements OnInit {
   @Input() id?: string;
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: FormGroup = new FormGroup({});
 
   constructor(@Optional() @Attribute('transparent') public transparent) {}
 
