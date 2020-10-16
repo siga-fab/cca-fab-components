@@ -1,0 +1,41 @@
+<div
+  class="box"
+  (click)="selectFiles()"
+  #dragBox
+  [ngClass]="{ dragging: isDragging, disabled: disabled }"
+>
+  <com-icon outlined size="3.6">cloud_upload</com-icon>
+  <h1>{{ header }}</h1>
+  <input
+    type="file"
+    name="files[]"
+    [disabled]="disabled"
+    (change)="upload($event)"
+    multiple
+    #fileInput
+  />
+</div>
+
+<div
+  class="file"
+  [ngClass]="{ disabled: disabled }"
+  *ngIf="!fileList.length"
+  (click)="selectFiles()"
+>
+  <com-icon size="1.4" class="margin-right">attach_file</com-icon>
+  {{ placeholder }}
+</div>
+
+<div *ngFor="let file of fileList; let index = index" class="file uploaded">
+  <span>
+    <com-icon size="1.4">attach_file</com-icon>
+    {{ file.name }}
+  </span>
+  <com-icon
+    [ngClass]="{ disabled: disabled }"
+    slot="icon"
+    size="1.4"
+    (click)="deleteFile(index)"
+    >close</com-icon
+  >
+</div>

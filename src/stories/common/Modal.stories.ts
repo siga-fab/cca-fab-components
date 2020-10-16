@@ -53,7 +53,7 @@ export const Default = () => {
     template: `
       <button (click)="toggleOpen()">Open Modal</button>
       <com-modal
-        title="Modal Title"
+        header="Modal Title"
         actionText="Modal Action"
         (confirm)="confirm()"
         (closed)="toggleOpen(); closed()"
@@ -61,7 +61,7 @@ export const Default = () => {
           <button (click)="changeData()">
             {{data.testing}}
           </button>
-        </com-modal>
+      </com-modal>
     `,
   };
 };

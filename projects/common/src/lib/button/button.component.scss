@@ -43,6 +43,10 @@ button {
 
   white-space: nowrap;
 
+  appearance: unset;
+  -moz-appearance: unset;
+  -webkit-appearance: unset;
+
   &::after {
     content: '';
 
@@ -72,6 +76,7 @@ button {
 
   &:disabled {
     opacity: 0.5;
+    cursor: default;
   }
 
   &:hover:not(.transparent-btn):not(:disabled),

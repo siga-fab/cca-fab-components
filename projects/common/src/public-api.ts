@@ -78,3 +78,7 @@ export * from './lib/form/form.module';
 // Modal
 export * from './lib/modal/modal.component';
 export * from './lib/modal/modal.module';
+
+// File Uploader
+export * from './lib/file-uploader/file-uploader.component';
+export * from './lib/file-uploader/file-uploader.module';
