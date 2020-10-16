@@ -32,9 +32,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() maxPageSize: number;
   @Input() pageIndex = 1;
 
-  @Input()
-  @Input()
-  dataSource: Array<object> = [];
+  @Input() dataSource: Array<object> = [];
   @Input() hidden = [];
 
   @Input() totalPages: number;
