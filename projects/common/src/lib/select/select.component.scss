@@ -52,6 +52,10 @@
         height: 1.5rem;
         background-color: $tertiary;
         transform: translate(9.75px, 5px) rotate(-45deg);
+
+        &.invalid {
+          background-color: $error;
+        }
       }
 
       .right {
@@ -60,6 +64,10 @@
         height: 1.5rem;
         background-color: $tertiary;
         transform: translate(10.25px, 5px) rotate(45deg);
+
+        &.invalid {
+          background-color: $error;
+        }
       }
     }
 
