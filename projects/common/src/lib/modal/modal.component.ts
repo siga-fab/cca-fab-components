@@ -6,7 +6,6 @@ import {
   HostBinding,
   HostListener,
   Input,
-  OnInit,
   Output,
 } from '@angular/core';
 
@@ -77,7 +76,7 @@ export class ModalComponent {
 
   isModalOpen = false;
 
-  @Input() title = '';
+  @Input() header = '';
   @Input() actionText = 'OK';
 
   /* istanbul ignore next */
