@@ -14,7 +14,7 @@
     <ng-content></ng-content>
   </div>
   <footer>
-    <com-button (click)="onAction()">
+    <com-button (click)="onAction()" [disabled]="disabled">
       <ng-container slot="text">{{ actionText }}</ng-container>
     </com-button>
   </footer>

@@ -251,10 +251,14 @@ export class SelectComponent implements AfterViewChecked {
       this.value = selection;
       this.selectedValue = selection;
       this.changed.emit(this.selectedValue);
+      this.onChange(this.selectedValue);
+      this.onTouched();
     } else {
       this.value = selection ? String(selection.name) : '';
       this.selectedValue = selection ? selection.value : null;
       this.changed.emit(this.selectedValue);
+      this.onChange(this.selectedValue);
+      this.onTouched();
     }
 
     this.isSelectionCloseCall = true;

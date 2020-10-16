@@ -78,6 +78,7 @@ export class ModalComponent {
 
   @Input() header = '';
   @Input() actionText = 'OK';
+  @Input() disabled = false;
 
   /* istanbul ignore next */
   @HostBinding('@fadeInOut') private always = true;
