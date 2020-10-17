@@ -202,7 +202,6 @@ export class InputComponent
     const el = event.target as HTMLInputElement;
     this.value = el.value;
 
-    console.log(this.onChange);
     this.onChange(this.value);
     this.onTouched();
   }

@@ -23,9 +23,9 @@ export const Default = () => ({
     click: action('Closed'),
   },
   template: `
-    <com-toast (closed)="click($event)">This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</com-toast>
-    <com-toast (closed)="click($event)" success>This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk adsdfsadf sdafs daf sdf asd fas df asdf asd fas f asdf fghfdhfdhfhfg!</com-toast>
-    <com-toast (closed)="click($event)" alert>This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</com-toast>
-    <com-toast (closed)="click($event)" error>This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</com-toast>
+    <com-toast (closed)="click($event)" style="margin: 1rem;">This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</com-toast>
+    <com-toast (closed)="click($event)" toastStyle="success" style="margin: 1rem;">This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk adsdfsadf!</com-toast>
+    <com-toast (closed)="click($event)" toastStyle="alert" style="margin: 1rem;">This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</com-toast>
+    <com-toast (closed)="click($event)" toastStyle="error" style="margin: 1rem;">This is a toast kjsdfgjkan dnhfk jaskdjfn kjasdfjk!</com-toast>
   `,
 });
