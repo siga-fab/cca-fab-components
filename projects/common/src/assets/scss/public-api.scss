@@ -38,11 +38,6 @@ $default-font-size: 1.4rem !default;
     // Just use rem :) 300px -> 30rem, etc.
     font-size: 62.5%;
 
-    &,
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'Cabin';
       font-size: $font-size; // Let's define the default font-size to 14px
@@ -54,6 +49,11 @@ $default-font-size: 1.4rem !default;
     a {
       text-decoration: none;
       color: inherit;
+    }
+
+    &,
+    * {
+      box-sizing: border-box;
     }
   }
 }
