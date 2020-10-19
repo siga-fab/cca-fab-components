@@ -7,11 +7,7 @@
       "name": "Jest All",
       "program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
       "cwd": "${workspaceFolder}",
-      "args": [
-        "test",
-        "--testMatch=\"**/+(*.)+(spec|test).+(ts|js)?(x)\"",
-        "--runInBand"
-      ],
+      "args": ["test", "--runInBand"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "disableOptimisticBPs": true
@@ -24,7 +20,6 @@
       "cwd": "${workspaceFolder}",
       "args": [
         "test",
-        "--testMatch=\"**/+(*.)+(spec|test).+(ts|js)?(x)\"",
         "--testPathPattern=${fileBasenameNoExtension}",
         "--runInBand"
       ],

@@ -1,74 +1,83 @@
 @import '../../assets/scss/colors.scss';
 @import '../../assets/scss/variables.scss';
 
-.toast {
-  position: relative;
-  display: inline-flex;
+:host {
+  display: block;
 
-  max-width: 40vw;
-  min-height: 6.5rem;
+  .toast {
+    position: relative;
+    display: inline-flex;
 
-  box-shadow: $box-shadow;
+    background: $white;
 
-  &::before {
-    content: '';
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-
-    height: 100%;
-    width: 14px;
-
-    border-radius: 0.5rem 0rem 0rem 0.5rem;
-    background: $info;
-  }
-
-  .ts-wrapper {
-    display: inherit;
-    flex-direction: row;
-    align-items: center;
-    padding: $padding;
-    padding-left: calc(1.4rem + #{$padding});
-
-    border: 0.1rem solid $light-grey;
+    max-width: 40vw;
+    min-height: 6.5rem;
     border-radius: 0.5rem;
-  }
 
-  .ts-icon-left {
-    color: $info;
-  }
+    &.info::before,
+    &::before {
+      content: '';
 
-  .ts-text {
-    margin-left: 1rem;
-    margin-right: 3rem;
-    margin: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
 
-    color: $grey;
-  }
+      height: 100%;
+      width: 14px;
 
-  &.alert::before {
-    background-color: $alert;
-  }
+      border-radius: 0.5rem 0rem 0rem 0.5rem;
+      background: $info;
+    }
 
-  &.success::before {
-    background-color: $success;
-  }
+    .ts-wrapper {
+      display: inherit;
+      flex-direction: row;
+      align-items: center;
+      padding: calc(#{$padding} / 2) $padding;
+      padding-left: calc(1.4rem + #{$padding});
 
-  &.error::before {
-    background-color: $error;
-  }
+      box-shadow: $box-shadow;
 
-  &.success .ts-icon-left {
-    color: $success;
-  }
+      border: 0.1rem solid $light-grey;
+      border-radius: 0.5rem;
+    }
 
-  &.error .ts-icon-left {
-    color: $error;
-  }
+    &.info .ts-icon-left,
+    & .ts-icon-left {
+      color: $info;
+    }
 
-  &.alert .ts-icon-left {
-    color: $alert;
+    .ts-text {
+      margin: 0;
+      margin-left: 1rem;
+      margin-right: 3rem;
+
+      color: $grey;
+    }
+
+    &.alert::before {
+      background-color: $alert;
+    }
+
+    &.success::before {
+      background-color: $success;
+    }
+
+    &.error::before {
+      background-color: $error;
+    }
+
+    &.success .ts-icon-left {
+      color: $success;
+    }
+
+    &.error .ts-icon-left {
+      color: $error;
+    }
+
+    &.alert .ts-icon-left {
+      color: $alert;
+    }
   }
 }

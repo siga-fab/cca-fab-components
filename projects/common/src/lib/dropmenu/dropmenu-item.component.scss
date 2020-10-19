@@ -10,6 +10,7 @@
   transition: background $transition-defs;
 
   a {
+    outline: none;
     display: block;
     color: $black;
     font-weight: 600;
@@ -19,11 +20,11 @@
     text-decoration: none;
   }
 
-  &:focus,
   &:hover {
     background: #c4c4c444;
   }
 
+  &:focus,
   &:focus-within {
     box-shadow: $focus-shadow;
   }
