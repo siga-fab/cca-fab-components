@@ -23,6 +23,12 @@
   }
 }
 
+:host {
+  appearance: unset;
+  -moz-appearance: unset;
+  -webkit-appearance: unset;
+}
+
 button {
   // Container styles
   position: relative;
