@@ -62,7 +62,12 @@ export class AutocompleteComponent implements AfterViewChecked {
   onTouched: NgFormsTouchedFn = (): void => {};
 
   constructor(
-    @Optional() @Attribute('highlightFirst') public highlightFirst,
+    @Optional()
+    @Attribute('autoActiveFirstOption')
+    public autoActiveFirstOption,
+    @Optional()
+    @Attribute('enableConfirmOnInexistentValue')
+    public enableConfirmOnInexistentValue,
     @Self() @Optional() private ngControl: NgControl,
     public el: ElementRef
   ) {
@@ -70,6 +75,7 @@ export class AutocompleteComponent implements AfterViewChecked {
 
     this.autocompleteElement.tabIndex = 0;
 
+    /* todo: Transformar isso em host binds */
     this.autocompleteElement.addEventListener('focus', this.open.bind(this));
     this.autocompleteElement.addEventListener('blur', this.close.bind(this));
     this.autocompleteElement.addEventListener(
@@ -77,7 +83,9 @@ export class AutocompleteComponent implements AfterViewChecked {
       this.onKeyDown.bind(this)
     );
 
-    this.highlightFirst = highlightFirst !== null;
+    this.autoActiveFirstOption = autoActiveFirstOption !== null;
+    this.enableConfirmOnInexistentValue =
+      enableConfirmOnInexistentValue !== null;
 
     /* istanbul ignore next */
     if (this.ngControl) {
@@ -120,7 +128,7 @@ export class AutocompleteComponent implements AfterViewChecked {
     this.isOpen = true;
     this.inputElement.focus();
 
-    if (this.highlightFirst) {
+    if (this.autoActiveFirstOption) {
       this.selectedIndex = 0;
     }
     /* istanbul ignore next */
@@ -148,7 +156,7 @@ export class AutocompleteComponent implements AfterViewChecked {
   }
 
   onImmediateChange(value: string) {
-    if (this.highlightFirst) {
+    if (this.autoActiveFirstOption) {
       this.selectedIndex = 0;
     } else {
       this.selectedIndex = null;
@@ -178,7 +186,7 @@ export class AutocompleteComponent implements AfterViewChecked {
         this.optionsParentElement.children[index] as HTMLLIElement;
     }
 
-    if (!this.isOpen) {
+    if (!this.enableConfirmOnInexistentValue && !this.isOpen) {
       return;
     }
 
@@ -212,11 +220,26 @@ export class AutocompleteComponent implements AfterViewChecked {
     }
 
     if (key === 'Enter') {
-      if (!this.optionsParentElement) {
-      } else {
-        childElement(this.selectedIndex).click();
+      if (!this.optionsParentElement && !this.enableConfirmOnInexistentValue) {
+        return;
       }
-      return;
+
+      if (
+        this.selectedIndex === null ||
+        (!this.selectedIndex && !this.optionsParentElement)
+      ) {
+        if (
+          this.enableConfirmOnInexistentValue &&
+          this.value &&
+          this.value.trim()
+        ) {
+          this.confirmed.emit(this.value);
+        }
+
+        return;
+      }
+
+      childElement(this.selectedIndex).click();
     }
 
     if (key === 'Escape') {
@@ -228,7 +251,7 @@ export class AutocompleteComponent implements AfterViewChecked {
   selectedItem(index: number) {
     const selection = this.options[index];
 
-    if (this.highlightFirst) {
+    if (this.autoActiveFirstOption) {
       this.selectedIndex = 0;
     }
 

@@ -44,9 +44,9 @@ describe('SelectComponent', () => {
     expect(openSpy).toHaveBeenCalled();
   });
 
-  it('should open the dropdown and set selectedIndex to 0 if highlightFirst is true', () => {
+  it('should open the dropdown and set selectedIndex to 0 if autoActiveFirstOption is true', () => {
     const openSpy = jest.spyOn(component, 'open');
-    component.highlightFirst = true;
+    component.autoActiveFirstOption = true;
 
     component.open();
 
@@ -69,7 +69,7 @@ describe('SelectComponent', () => {
     const onImmediateChangeSpy = jest.spyOn(component, 'onImmediateChange');
     const changeValue = 'a';
 
-    component.highlightFirst = false;
+    component.autoActiveFirstOption = false;
 
     component.changed.subscribe((res) => {
       expect(res).toBe(changeValue);
@@ -88,7 +88,7 @@ describe('SelectComponent', () => {
 
     const changeValue = 'a';
 
-    component.highlightFirst = true;
+    component.autoActiveFirstOption = true;
     component.optionsParentElement = MOCK_ELEMENT;
     component.options = MOCK_OPTIONS;
 

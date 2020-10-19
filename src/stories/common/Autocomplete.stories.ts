@@ -50,7 +50,9 @@ export const Default = () => {
       placeholder: 'Digite algo',
     },
     template: `
-      <com-autocomplete highlightFirst
+      <com-autocomplete
+        enableConfirmOnInexistentValue
+        autoActiveFirstOption
         (changed)="filter($event)"
         (confirmed)="confirmed($event)"
         [label]="label"
