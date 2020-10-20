@@ -267,7 +267,7 @@ export class AutocompleteComponent implements AfterViewChecked {
 
     this.value = String(selection.name);
     this.changed.emit(this.value);
-    this.confirmed.emit(selection.value);
+    this.confirmed.emit(selection);
     this.onChange(String(selection.value));
     this.onTouched();
     this.inputElement.blur();
