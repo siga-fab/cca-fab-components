@@ -11,6 +11,8 @@
     [invalid]="invalid"
     (ref)="getInputElement($event)"
     (immediate)="onImmediateChange($event)"
+    (blurred)="blurred.emit($event)"
+    (focused)="focused.emit($event)"
   ></com-input>
 
   <div

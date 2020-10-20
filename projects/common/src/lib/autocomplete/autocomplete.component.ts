@@ -58,17 +58,20 @@ export class AutocompleteComponent implements AfterViewChecked {
   @Output() changed = new EventEmitter();
   @Output() confirmed = new EventEmitter();
 
+  @Output() blurred = new EventEmitter();
+  @Output() focused = new EventEmitter();
+
+  @Input() autoActiveFirstOption: boolean;
+  @Input() enableConfirmOnInexistentValue: boolean;
+
   onChange: NgFormsChangedFn = (value: any): void => {};
   onTouched: NgFormsTouchedFn = (): void => {};
 
   constructor(
     @Optional()
-    @Attribute('autoActiveFirstOption')
-    public autoActiveFirstOption,
+    @Self()
     @Optional()
-    @Attribute('enableConfirmOnInexistentValue')
-    public enableConfirmOnInexistentValue,
-    @Self() @Optional() private ngControl: NgControl,
+    private ngControl: NgControl,
     public el: ElementRef
   ) {
     this.autocompleteElement = this.el.nativeElement;
@@ -83,9 +86,9 @@ export class AutocompleteComponent implements AfterViewChecked {
       this.onKeyDown.bind(this)
     );
 
-    this.autoActiveFirstOption = autoActiveFirstOption !== null;
+    this.autoActiveFirstOption = this.autoActiveFirstOption !== null;
     this.enableConfirmOnInexistentValue =
-      enableConfirmOnInexistentValue !== null;
+      this.enableConfirmOnInexistentValue !== null;
 
     /* istanbul ignore next */
     if (this.ngControl) {

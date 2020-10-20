@@ -4,8 +4,8 @@
     class="input-style"
     immediate
     (ref)="getInputRef($event)"
-    (focused)="open()"
-    (blurred)="close()"
+    (focused)="open(); focused.emit($event)"
+    (blurred)="close(); blurred.emit($event)"
     (immediate)="onImmediateChange($event)"
     [value]="value"
     [placeholder]="placeholder"
