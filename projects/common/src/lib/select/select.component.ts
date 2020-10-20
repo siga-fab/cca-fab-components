@@ -62,6 +62,9 @@ export class SelectComponent implements AfterViewChecked {
   @Output() opened = new EventEmitter();
   @Output() closed = new EventEmitter();
 
+  @Output() blurred = new EventEmitter();
+  @Output() focused = new EventEmitter();
+
   onChange: NgFormsChangedFn = (value: any): void => {};
   onTouched: NgFormsTouchedFn = (): void => {};
 

@@ -58,6 +58,9 @@ export class AutocompleteComponent implements AfterViewChecked {
   @Output() changed = new EventEmitter();
   @Output() confirmed = new EventEmitter();
 
+  @Output() blurred = new EventEmitter();
+  @Output() focused = new EventEmitter();
+
   onChange: NgFormsChangedFn = (value: any): void => {};
   onTouched: NgFormsTouchedFn = (): void => {};
 
