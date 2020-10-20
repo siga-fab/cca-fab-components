@@ -5,6 +5,10 @@
   position: relative;
   display: block;
 
+  &.disabled {
+    opacity: 0.45;
+  }
+
   &:not(:last-child) {
     margin-bottom: $margin-bottom-default;
   }
