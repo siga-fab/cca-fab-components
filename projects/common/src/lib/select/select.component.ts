@@ -48,6 +48,9 @@ export class SelectComponent implements AfterViewChecked {
   selectedValue: any;
   selectedIndex = 0;
 
+  isSelectionCloseCall = false;
+  isCloseSelectioncall = false;
+
   private scrollBehavior: ScrollIntoViewOptions = {
     block: 'center',
   };
@@ -172,7 +175,13 @@ export class SelectComponent implements AfterViewChecked {
     this.isOpen = false;
     this.forcedFocus = false;
     this.closed.emit();
-    this.selectedItem(this.selectedIndex);
+
+    if (!this.isSelectionCloseCall) {
+      this.isCloseSelectioncall = true;
+      this.selectedItem(this.selectedIndex);
+    } else {
+      this.isSelectionCloseCall = false;
+    }
   }
 
   onKeyDown(event: KeyboardEvent) {
@@ -230,6 +239,7 @@ export class SelectComponent implements AfterViewChecked {
     }
 
     if (key === 'Enter' || key === 'Escape') {
+      this.isCloseSelectioncall = false;
       childElement(this.selectedIndex).click();
       return;
     }
@@ -243,17 +253,24 @@ export class SelectComponent implements AfterViewChecked {
     if (typeof selection === 'string') {
       this.value = selection;
       this.selectedValue = selection;
-      this.changed.emit(selection);
-      this.onChange(selection);
+      this.changed.emit(this.selectedValue);
+      this.onChange(this.selectedValue);
       this.onTouched();
     } else {
       this.value = selection ? String(selection.name) : '';
       this.selectedValue = selection ? selection.value : null;
-      this.changed.emit(selection ? selection.value : null);
-      this.onChange(selection ? selection.value : null);
+      this.changed.emit(this.selectedValue);
+      this.onChange(this.selectedValue);
       this.onTouched();
     }
 
-    this.inputElement.blur();
+    this.isSelectionCloseCall = true;
+
+    if (!this.isCloseSelectioncall) {
+      this.isCloseSelectioncall = false;
+      this.inputElement.blur();
+    } else {
+      this.isCloseSelectioncall = false;
+    }
   }
 }

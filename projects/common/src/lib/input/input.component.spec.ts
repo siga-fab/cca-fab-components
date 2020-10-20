@@ -164,7 +164,10 @@ describe('InputComponent', () => {
     const MOCK_INPUT = document.createElement('input');
 
     MOCK_INPUT.type = 'text';
-    MOCK_INPUT.addEventListener('change', component.updateValue);
+    MOCK_INPUT.addEventListener(
+      'change',
+      component.updateValue.bind(component)
+    );
 
     MOCK_INPUT.dispatchEvent(MOCK_EVENT);
 

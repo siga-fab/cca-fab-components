@@ -192,12 +192,18 @@ export class InputComponent
       }
 
       this.value = el.value = String(value);
+
+      this.onChange(this.value);
+      this.onTouched();
     }
   }
 
   updateValue(event: Event) {
     const el = event.target as HTMLInputElement;
     this.value = el.value;
+
+    this.onChange(this.value);
+    this.onTouched();
   }
 
   updateNumberValue(event: Event, operation: 'add' | 'sub') {
@@ -222,6 +228,8 @@ export class InputComponent
       }
 
       this.value = String(value);
+      this.onChange(this.value);
+      this.onTouched();
     };
 
     numberUpdate();

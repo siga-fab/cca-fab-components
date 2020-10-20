@@ -1,11 +1,6 @@
 module.exports = {
   bail: true,
-  collectCoverageFrom: [
-    '<rootDir>/src/**/*.ts',
-    '!<rootDir>/src/**/index.ts',
-    '!<rootDir>/src/**/*.module.ts',
-    '!<rootDir>/src/public-api.ts',
-  ],
+  collectCoverageFrom: ['**/src/**/*.(component|service).ts'],
   coverageDirectory: 'coverage',
   coverageReporters: ['lcov', 'text-summary'],
   testPathIgnorePatterns: [
@@ -13,7 +8,8 @@ module.exports = {
     '<rootDir>/dist/',
     '<rootDir>/e2e/',
     '<rootDir>/node_modules/',
-    '<rootDir>/src/app/*.(js|scss)',
+    '<rootDir>/src/*.(js|scss)',
+    '<rootDir>/*.(js|scss)',
   ],
   coverageThreshold: {
     global: {
@@ -23,7 +19,6 @@ module.exports = {
       statements: 60,
     },
   },
-  testMatch: ['<rootDir>/src/**/*.spec.ts'],
-  projects: ['<rootDir>/projects/*'],
+  testMatch: ['**/*.spec.ts'],
   verbose: true,
 };
