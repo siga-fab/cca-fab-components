@@ -1,5 +1,5 @@
 import { trigger, transition, animate, style } from '@angular/animations';
-import { AfterViewInit, Self, ElementRef, HostBinding } from '@angular/core';
+import { AfterViewInit, Self, HostBinding } from '@angular/core';
 import {
   Attribute,
   Component,
@@ -48,8 +48,18 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 })
 export class InputComponent
   implements OnInit, AfterViewInit, ControlValueAccessor {
+  private _value = '';
+
   DEFAULT_MAX_LENGTH = 524288;
-  @Input() value = '';
+
+  @Input()
+  set value(value: string) {
+    this._value = value;
+  }
+  get value(): string {
+    return this._value;
+  }
+
   @Input() type = 'text';
   @Input() step = 1;
   @Input() min: number;
@@ -66,6 +76,8 @@ export class InputComponent
   @Output() confirm = new EventEmitter();
   @Output() immediate = new EventEmitter();
   @Output() ref = new EventEmitter();
+
+  @Output() changed = new EventEmitter();
 
   @Output() focused = new EventEmitter();
   @Output() blurred = new EventEmitter();
@@ -179,23 +191,26 @@ export class InputComponent
       : parseFloat(el.value);
 
     if (Number.isNaN(value)) {
-      value = this.min || 0;
+      value = this.min;
+
+      if (!value) {
+        this.value = '';
+        return;
+      }
     }
 
-    if (this.type === 'number') {
-      if (this.max) {
-        value = Math.min(this.max, value);
-      }
-
-      if (this.min) {
-        value = Math.max(this.min, value);
-      }
-
-      this.value = el.value = String(value);
-
-      this.onChange(this.value);
-      this.onTouched();
+    if (this.max) {
+      value = Math.min(this.max, value);
     }
+
+    if (this.min) {
+      value = Math.max(this.min, value);
+    }
+
+    this.value = el.value = String(value);
+
+    this.onChange(this.value);
+    this.onTouched();
   }
 
   updateValue(event: Event) {
@@ -204,6 +219,7 @@ export class InputComponent
 
     this.onChange(this.value);
     this.onTouched();
+    this.changed.emit(this.value);
   }
 
   updateNumberValue(event: Event, operation: 'add' | 'sub') {

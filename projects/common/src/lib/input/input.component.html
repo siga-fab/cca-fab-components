@@ -33,7 +33,9 @@
       onChange($event.target.value);
       immediateEnabled ? onImmediateChange($event.target.value) : null
     "
-    (change)="['text', 'select'].includes(type) ? updateValue($event) : null"
+    (change)="
+      ['text', 'select', 'number'].includes(type) ? updateValue($event) : null
+    "
     (focus)="isFocused(true, $event)"
     (blur)="isFocused(false, $event); onTouched()"
     (keydown)="onKeyDown($event)"
