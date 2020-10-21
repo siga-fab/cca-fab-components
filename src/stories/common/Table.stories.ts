@@ -44,72 +44,104 @@ export const Default = () => ({
     nextPage: action('nextPage'),
     previousPage: action('previousPage'),
     refresh: action('refresh'),
-    pageSizeChange: action('pageSizeChange'),
-    pageIndexChange: action('pageIndexChange'),
+    onPageSizeChange: action('pageSizeChange'),
+    onPageIndexChange: action('pageIndexChange'),
     pageSize: 20,
+    minPageSize: 0,
     maxPageSize: 50,
     pageIndex: 1,
     totalPages: 20,
-    hiddenFields: ['id'],
-    dataSource: [
+    columns: [
+      {
+        field: 'field1',
+        title: 'Coluna 1',
+        width: '10%',
+      },
+      {
+        field: 'field2',
+        title: 'Coluna 2',
+        width: '10%',
+      },
+      {
+        field: 'field3',
+        title: 'Coluna 3',
+        width: '50%',
+      },
+      {
+        field: 'field4',
+        title: 'Coluna 4',
+      },
+      {
+        field: 'field5',
+        title: 'Coluna 5',
+      },
+    ],
+    data: [
       {
         id: 1,
-        'Cabeçalho 1': 'Coluna 1',
-        'Cabeçalho 2': 'Coluna 2',
-        'Cabeçalho 3': 'Coluna 3',
-        'Cabeçalho 4': 'Coluna 4',
-        'Cabeçalho 5': 'Coluna 5',
+        field1: '2020',
+        field2: '00000000',
+        field3:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium. Donec id lorem eget magna dictum tincidunt vitae et dui. Fusce volutpat luctus tellus et tempor. Vestibulum ut felis venenatis, posuere massa sit amet, vehicula arcu. ',
+        field4: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        field5: 'Lorem ipsum dolor sit amet',
       },
       {
         id: 2,
-        'Cabeçalho 1': 'Coluna 1',
-        'Cabeçalho 2': 'Coluna 2',
-        'Cabeçalho 3': 'Coluna 3',
-        'Cabeçalho 4': 'Coluna 4',
-        'Cabeçalho 5': 'Coluna 5',
+        field1: '2020',
+        field2: '00000000',
+        field3:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium. Donec id lorem eget magna dictum tincidunt vitae et dui. Fusce volutpat luctus tellus et tempor. Vestibulum ut felis venenatis, posuere massa sit amet, vehicula arcu',
+        field4: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        field5: 'Lorem ipsum dolor sit amet',
       },
       {
         id: 3,
-        'Cabeçalho 1': 'Coluna 1',
-        'Cabeçalho 2': 'Coluna 2',
-        'Cabeçalho 3': 'Coluna 3',
-        'Cabeçalho 4': 'Coluna 4',
-        'Cabeçalho 5': 'Coluna 5',
+        field1: '2020',
+        field2: '00000000',
+        field3:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium. Donec id lorem eget magna dictum tincidunt vitae et dui. Fusce volutpat luctus tellus et tempor. Vestibulum ut felis venenatis, posuere massa sit amet, vehicula arcu',
+        field4: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        field5: 'Lorem ipsum dolor sit amet',
       },
       {
         id: 4,
-        'Cabeçalho 1': 'Coluna 1',
-        'Cabeçalho 2': 'Coluna 2',
-        'Cabeçalho 3': 'Coluna 3',
-        'Cabeçalho 4': 'Coluna 4',
-        'Cabeçalho 5': 'Coluna 5',
+        field1: '2020',
+        field2: '00000000',
+        field3:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium. Donec id lorem eget magna dictum tincidunt vitae et dui. Fusce volutpat luctus tellus et tempor. Vestibulum ut felis venenatis, posuere massa sit amet, vehicula arcu',
+        field4: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        field5: 'Lorem ipsum dolor sit amet',
       },
       {
         id: 5,
-        'Cabeçalho 1': 'Coluna 1',
-        'Cabeçalho 2': 'Coluna 2',
-        'Cabeçalho 3': 'Coluna 3',
-        'Cabeçalho 4': 'Coluna 4',
-        'Cabeçalho 5': 'Coluna 5',
+        field1: '2020',
+        field2: '00000000',
+        field3:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium. Donec id lorem eget magna dictum tincidunt vitae et dui. Fusce volutpat luctus tellus et tempor. Vestibulum ut felis venenatis, posuere massa sit amet, vehicula arcu',
+        field4: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        field5: 'Lorem ipsum dolor sit amet',
       },
     ],
   },
   template: `<com-table
     [pageSize]="pageSize"
     [maxPageSize]="maxPageSize"
+    [minPageSize]="minPageSize"
     [pageIndex]="pageIndex"
     [totalPages]="totalPages"
     [hidden]="hiddenFields"
-    [dataSource]="dataSource"
+    [data]="data"
+    [columns]="columns"
     (lastPage)="lastPage($event)"
     (firstPage)="firstPage($event)"
     (nextPage)="nextPage($event)"
     (previousPage)="previousPage($event)"
     (refresh)="refresh($event)"
-    (pageSizeChange)="pageSizeChange($event)"
-    (pageIndexChange)="pageIndexChange($event)"
+    (pageSizeChanged)="onPageSizeChange($event)"
+    (pageIndexChanged)="onPageIndexChange($event)"
   >
-    <ng-template let-content #action>
+    <ng-template let-content name="action">
       <div style="display: flex; justify-content: flex-end;">
         <div>
           <com-icon >edit</com-icon>
@@ -118,6 +150,9 @@ export const Default = () => ({
           <com-icon [ccaCommonTooltip]="'ID: ' + content.data.id" tooltipPosition="bottom-left">delete</com-icon>
         </div>
       </div>
+    </ng-template>
+    <ng-template let-content name="field3">
+      <strong>{{ content.index }} - {{ content.field }}</strong>
     </ng-template>
   </com-table>
   `,

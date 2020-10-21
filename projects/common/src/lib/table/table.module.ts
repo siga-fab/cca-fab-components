@@ -4,9 +4,11 @@ import { TableComponent } from './table.component';
 import { InputModule } from '../input/input.module';
 import { IconModule } from '../icon/icon.module';
 
+import { NgTemplateNameDirective } from './ng-template-name.directive';
+
 @NgModule({
-  declarations: [TableComponent],
+  declarations: [TableComponent, NgTemplateNameDirective],
   imports: [CommonModule, IconModule, InputModule],
-  exports: [TableComponent],
+  exports: [TableComponent, NgTemplateNameDirective],
 })
 export class TableModule {}

@@ -6,43 +6,39 @@ import {
   Input,
   ViewChild,
   ComponentFactoryResolver,
-  ContentChild,
   TemplateRef,
-  ElementRef,
-  AfterViewInit,
+  ContentChildren,
+  QueryList,
+  AfterContentInit,
 } from '@angular/core';
+import { NgTemplateNameDirective } from './ng-template-name.directive';
+
+export interface TableColumn {
+  title: string;
+  field: string;
+  width?: string;
+}
 
 @Component({
   selector: 'com-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit, AfterViewInit {
-  @Output() lastPage = new EventEmitter();
-  @Output() firstPage = new EventEmitter();
-  @Output() nextPage = new EventEmitter();
-  @Output() previousPage = new EventEmitter();
+export class TableComponent implements OnInit, AfterContentInit {
+  // Table data
+  private _data: Array<object> = [];
+  private _columns: TableColumn[];
 
-  @Output() refresh = new EventEmitter();
+  // Paginating
+  private _pageSize: number;
+  private _minPageSize: number;
+  private _maxPageSize: number;
+  private _pageStep: number;
 
-  @Output() pageSizeChange = new EventEmitter();
-  @Output() pageIndexChange = new EventEmitter();
+  private _pageIndex: number;
+  private _totalPages: number;
 
-  @Input() pageSize: number;
-  @Input() maxPageSize: number;
-  @Input() pageIndex = 1;
-
-  @Input() dataSource: Array<object> = [];
-  @Input() hidden = [];
-
-  @Input() totalPages: number;
-
-  @ViewChild('actionWrapper') actionWrapper: ElementRef;
-  @ContentChild('action', { static: false }) actionTemplateRef: TemplateRef<
-    any
-  >;
-
-  headers: string[] = [];
+  actionTemplateRef: TemplateRef<any>;
   showActions = false;
 
   disableMap = {
@@ -60,30 +56,109 @@ export class TableComponent implements OnInit, AfterViewInit {
     lastPage: false,
   };
 
-  constructor(public resolver: ComponentFactoryResolver) {}
-
-  ngOnInit(): void {
-    const headers = new Set();
-
-    for (const data of this.dataSource) {
-      for (const key of Object.keys(data)) {
-        if (!this.hidden.includes(key)) {
-          headers.add(key);
-        }
-      }
-    }
-
-    this.headers = [...headers] as string[];
-
-    this.toggleButtons();
+  @Input()
+  set data(data: Array<object>) {
+    this._data = data;
+  }
+  get data(): Array<object> {
+    return this._data;
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.actionWrapper) {
-        this.showActions = !!this.actionWrapper.nativeElement.children.length;
-      }
-    });
+  @Input()
+  set columns(columns: TableColumn[]) {
+    this._columns = columns;
+  }
+  get columns(): TableColumn[] {
+    return this._columns;
+  }
+
+  @Input()
+  set pageSize(size: number) {
+    this._pageSize = size;
+  }
+  get pageSize(): number {
+    return this._pageSize;
+  }
+
+  @Input()
+  set minPageSize(size: number) {
+    this._minPageSize = size;
+  }
+  get minPageSize(): number {
+    return this._minPageSize;
+  }
+
+  @Input()
+  set maxPageSize(size: number) {
+    this._maxPageSize = size;
+  }
+  get maxPageSize(): number {
+    return this._maxPageSize;
+  }
+
+  @Input()
+  set pageStep(size: number) {
+    this._pageStep = size;
+  }
+  get pageStep(): number {
+    return this._pageStep;
+  }
+
+  @Input()
+  set pageIndex(i: number) {
+    this._pageIndex = i;
+    this.toggleButtons();
+  }
+  get pageIndex(): number {
+    return this._pageIndex;
+  }
+
+  @Input()
+  set totalPages(total: number) {
+    this._totalPages = total;
+    this.toggleButtons();
+  }
+  get totalPages(): number {
+    return this._totalPages;
+  }
+
+  @Output() lastPage = new EventEmitter();
+  @Output() firstPage = new EventEmitter();
+  @Output() nextPage = new EventEmitter();
+  @Output() previousPage = new EventEmitter();
+
+  @Output() refresh = new EventEmitter();
+
+  @Output() pageSizeChanged = new EventEmitter();
+  @Output() pageIndexChanged = new EventEmitter();
+
+  @ViewChild('defaultColumn') defaultColumnRef: TemplateRef<any>;
+
+  @ContentChildren(NgTemplateNameDirective) _templates: QueryList<
+    NgTemplateNameDirective
+  >;
+
+  constructor(public resolver: ComponentFactoryResolver) {}
+
+  ngOnInit(): void {}
+
+  ngAfterContentInit(): void {
+    this.actionTemplateRef = this.getTemplate('action');
+
+    if (this.actionTemplateRef) {
+      this.showActions = true;
+    }
+  }
+
+  getTemplate(name: string): TemplateRef<any> {
+    const dir = this._templates.find((d) => d.name === name);
+    return dir ? dir.template : null;
+  }
+
+  handleFieldTemplateRef(field: string): TemplateRef<any> {
+    const fieldRef = this.getTemplate(field);
+
+    return fieldRef ? fieldRef : this.defaultColumnRef;
   }
 
   updateButtonsState(
@@ -104,17 +179,13 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   toggleButtons() {
-    if (this.pageIndex > this.totalPages) {
-      this.pageIndex = this.totalPages;
-    }
-
-    if (this.pageIndex === 1) {
+    if (this.pageIndex <= 1) {
       this.updateButtonsState(['previous', 'firstPage'], true);
     } else {
       this.updateButtonsState(['previous', 'firstPage'], false);
     }
 
-    if (this.pageIndex === this.totalPages) {
+    if (this.pageIndex >= this.totalPages) {
       this.updateButtonsState(['next', 'lastPage'], true);
     } else {
       this.updateButtonsState(['next', 'lastPage'], false);
@@ -128,8 +199,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.pageIndex = this.totalPages;
-    this.lastPage.emit(this.totalPages);
+    this.lastPage.emit(event);
 
     this.toggleButtons();
     return true;
@@ -142,9 +212,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.pageIndex = 1;
-    this.firstPage.emit(1);
-    this.disableMap.firstPage = true;
+    this.firstPage.emit(event);
 
     this.toggleButtons();
     return true;
@@ -156,10 +224,7 @@ export class TableComponent implements OnInit, AfterViewInit {
         return false;
       }
     }
-    this.nextPage.emit(
-      this.pageIndex < this.totalPages ? ++this.pageIndex : this.pageIndex
-    );
-
+    this.nextPage.emit(event);
     this.toggleButtons();
 
     return true;
@@ -172,9 +237,7 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.previousPage.emit(
-      this.pageIndex > 1 ? --this.pageIndex : this.pageIndex
-    );
+    this.previousPage.emit(event);
 
     this.toggleButtons();
     return true;
@@ -187,20 +250,17 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.refresh.emit(this.pageIndex);
+    this.refresh.emit(event);
 
     return true;
   }
 
   onPageIndexChange(pageIndex: string) {
-    this.pageIndex = parseInt(pageIndex, 10);
-    this.toggleButtons();
-    this.pageIndexChange.emit(this.pageIndex);
+    this.pageIndexChanged.emit(pageIndex);
   }
 
   onPageSizeChange(pageSize: string) {
-    this.pageSize = parseInt(pageSize, 10);
     this.toggleButtons();
-    this.pageSizeChange.emit(this.pageSize);
+    this.pageSizeChanged.emit(pageSize);
   }
 }

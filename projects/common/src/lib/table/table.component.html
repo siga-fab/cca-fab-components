@@ -1,32 +1,56 @@
 <div class="table col-xs">
+  <!-- Header -->
   <div class="header row">
-    <div class="col-xs" *ngFor="let header of headers">
-      {{ header }}
+    <div
+      class="col-xs"
+      *ngFor="let column of columns"
+      [ngStyle]="{
+        'flex-grow': column.width ? '0' : '1',
+        'flex-shrink': '0',
+        'flex-basis': column.width ? '' + column.width : '0'
+      }"
+    >
+      {{ column.title }}
     </div>
     <div class="col-xs end-xs" [hidden]="!showActions"></div>
   </div>
-  <div class="body" [ngClass]="{ empty: !(dataSource && dataSource.length) }">
-    <ng-template
-      [ngIf]="dataSource && dataSource.length"
-      [ngIfElse]="EmptyTable"
-    >
-      <div class="row" *ngFor="let data of dataSource; let i = index">
-        <div class="col-xs" *ngFor="let header of headers">
-          {{ data[header] }}
+  <!-- Content -->
+  <div class="body" [ngClass]="{ empty: !(data && data.length) }">
+    <ng-template [ngIf]="data && data.length" [ngIfElse]="EmptyTable">
+      <div class="row middle" *ngFor="let data of data; let i = index">
+        <div
+          class="col-xs"
+          [attr.id]="column.field"
+          [ngStyle]="{
+            'flex-grow': column.width ? '0' : '1',
+            'flex-shrink': '0',
+            'flex-basis': column.width ? '' + column.width : '0'
+          }"
+          *ngFor="let column of columns"
+        >
+          <ng-container
+            [ngTemplateOutlet]="handleFieldTemplateRef(column.field)"
+            [ngTemplateOutletContext]="{
+              $implicit: { field: data[column.field], index: i, data: data }
+            }"
+          >
+          </ng-container>
         </div>
-        <div class="col-xs end-xs" [hidden]="!showActions" #actionWrapper>
+        <div class="col-xs end-xs actions" [hidden]="!showActions">
           <ng-container
             *ngIf="actionTemplateRef"
             [ngTemplateOutlet]="actionTemplateRef"
             [ngTemplateOutletContext]="{
-              $implicit: { data: data, index: i, dataSource: dataSource }
+              $implicit: { data: data, index: i }
             }"
           >
           </ng-container>
         </div>
       </div>
     </ng-template>
-
+    <ng-template let-content #defaultColumn>
+      {{ content.field }}
+    </ng-template>
     <ng-template #EmptyTable>
       <h1>
         <com-icon class="center" size="12">folder_open</com-icon>
@@ -34,6 +58,7 @@
       </h1>
     </ng-template>
   </div>
+  <!-- Footer -->
   <div class="footer row between-xs">
     <div class="row left middle-xs">
       <div
@@ -54,11 +79,13 @@
         <span class="input">
           <com-input
             type="number"
-            [value]="pageSize"
+            [value]="pageSize || 0"
+            (changed)="onPageSizeChange($event)"
             (confirm)="onPageSizeChange($event)"
-            min="20"
-            [max]="maxPageSize"
-            step="10"
+            [min]="minPageSize || '0'"
+            [max]="maxPageSize || '20'"
+            [step]="pageStep || '5'"
+            [disabled]="!data || data.length === 0"
             textCenter
             integerOnly
             arrowed
@@ -111,16 +138,20 @@
         <span class="input">
           <com-input
             type="number"
-            [value]="pageIndex"
+            [value]="pageIndex || 1"
             min="1"
             [max]="totalPages"
+            (changed)="onPageIndexChange($event)"
             (confirm)="onPageIndexChange($event)"
+            [disabled]="!data || data.length === 0"
             textCenter
             integerOnly
             arrowed
           ></com-input>
         </span>
-        &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;{{ totalPages }}
+        &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;{{
+          totalPages < 1 ? 1 : totalPages
+        }}
       </div>
 
       <div
