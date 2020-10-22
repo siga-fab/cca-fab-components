@@ -8,6 +8,7 @@ import {
   EventEmitter,
   Self,
   Optional,
+  OnInit,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { NgFormsChangedFn, NgFormsTouchedFn } from '../../types/ngForms';
@@ -36,7 +37,7 @@ import { SelectOption } from '../../types/select';
     ]),
   ],
 })
-export class SelectComponent implements AfterViewChecked {
+export class SelectComponent implements AfterViewChecked, OnInit {
   isOpen = false;
 
   forcedFocus = false;
@@ -60,6 +61,7 @@ export class SelectComponent implements AfterViewChecked {
   @Input() placeholder = '';
   @Input() invalid = false;
   @Input() disabled = false;
+  @Input() initialValue: any;
 
   @Output() changed = new EventEmitter();
   @Output() opened = new EventEmitter();
@@ -89,9 +91,22 @@ export class SelectComponent implements AfterViewChecked {
     }
   }
 
+  ngOnInit(): void {
+    this.handleInitialValue(this.initialValue);
+  }
+
+  /* istanbul ignore next */
+  ngAfterViewChecked(): void {
+    if (this.isOpen) {
+      this.optionsParentElement = this.selectElement.querySelector('ul');
+    } else {
+      this.optionsParentElement = null;
+    }
+  }
+
   /* istanbul ignore next */
   writeValue(value: any) {
-    this.value = value;
+    this.handleInitialValue(value);
   }
   /* istanbul ignore next */
   registerOnChange(fn: NgFormsChangedFn): void {
@@ -106,12 +121,15 @@ export class SelectComponent implements AfterViewChecked {
     this.disabled = isDisabled;
   }
 
-  /* istanbul ignore next */
-  ngAfterViewChecked(): void {
-    if (this.isOpen) {
-      this.optionsParentElement = this.selectElement.querySelector('ul');
+  handleInitialValue(value: any) {
+    this.selectedIndex = this.options.indexOf(value);
+
+    if (typeof value === 'string') {
+      this.value = value;
+      this.selectedValue = value;
     } else {
-      this.optionsParentElement = null;
+      this.value = value ? String(value.name) : '';
+      this.selectedValue = value ? value.value : null;
     }
   }
 

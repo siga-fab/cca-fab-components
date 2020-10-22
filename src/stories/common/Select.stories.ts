@@ -1,3 +1,4 @@
+import { SelectComponent } from './../../../projects/common/src/lib/select/select.component';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
@@ -6,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Select',
+  component: SelectComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, SelectModule, BrowserAnimationsModule],

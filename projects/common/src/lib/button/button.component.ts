@@ -33,6 +33,7 @@ export class ButtonComponent
   @Input() form: string;
   @Input() type = 'button';
   @Input() disabled = false;
+  @Input() ariaLabel: string;
 
   /**
    * @internal

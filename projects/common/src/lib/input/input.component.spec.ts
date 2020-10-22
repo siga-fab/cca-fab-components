@@ -124,7 +124,7 @@ describe('InputComponent', () => {
     component.rangedValue(ELEMENT);
 
     expect(rangedValueSpy).toHaveBeenCalled();
-    expect(component.value).toBe(INITIAL_VALUE);
+    expect(component.value).toBe('');
   });
 
   it('should call onKeyDown and do nothing', () => {

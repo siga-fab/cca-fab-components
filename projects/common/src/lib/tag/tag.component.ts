@@ -21,7 +21,7 @@ export class TagComponent {
     @Optional() @Attribute('clickable') public clickable,
     @Optional() @Attribute('primary') public primary,
     @Optional() @Attribute('secondary') public secondary,
-    @Optional() @Attribute('closable') public closable
+    @Optional() @Attribute('closable') public closeable
   ) {}
 
   onClose() {

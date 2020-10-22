@@ -1,6 +1,7 @@
 import {
   TextareaModule,
   IconModule,
+  TextareaComponent,
 } from '../../../projects/common/src/public-api';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
@@ -8,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Common / Textarea',
+  component: TextareaComponent,
   decorators: [
     moduleMetadata({
       imports: [

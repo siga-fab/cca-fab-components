@@ -1,10 +1,14 @@
-import { FileUploaderModule } from '../../../projects/common/src/public-api';
+import {
+  FileUploaderModule,
+  FileUploaderComponent,
+} from '../../../projects/common/src/public-api';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Common / File Uploader',
+  component: FileUploaderComponent,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, FileUploaderModule],
