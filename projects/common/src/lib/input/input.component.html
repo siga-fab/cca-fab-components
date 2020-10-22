@@ -11,7 +11,12 @@
 
 <div
   class="input"
-  [ngClass]="{ slim: slim, 'forced-focus': forcedFocus, invalid: invalid }"
+  [ngClass]="{
+    slim: slim,
+    'forced-focus': forcedFocus,
+    invalid: invalid,
+    disabled: disabled
+  }"
 >
   <input
     #input
@@ -19,8 +24,7 @@
     [ngClass]="{
       center: textCenter,
       select: type === 'select',
-      unlabeled: !label,
-      disabled: disabled
+      unlabeled: !label
     }"
     [min]="min"
     [max]="max"
