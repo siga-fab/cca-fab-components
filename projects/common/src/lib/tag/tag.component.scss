@@ -50,6 +50,11 @@
     color: $white;
   }
 
+  &.invalid {
+    background: $error;
+    color: $white;
+  }
+
   &:focus {
     box-shadow: $focus-shadow;
   }
