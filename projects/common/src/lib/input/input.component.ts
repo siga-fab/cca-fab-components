@@ -70,7 +70,8 @@ export class InputComponent
   @Input() maxlength;
   @Input() forcedFocus = false;
   @Input() invalid = false;
-  @Input() disabled = false;
+
+  @HostBinding('class.disabled') @Input() disabled = false;
   @HostBinding('class.hasOptionalText') @Input() helper = '';
 
   @Output() confirm = new EventEmitter();

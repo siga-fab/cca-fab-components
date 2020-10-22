@@ -122,6 +122,10 @@ export class SelectComponent implements AfterViewChecked, OnInit {
   }
 
   handleInitialValue(value: any) {
+    if (!this.initialValue) {
+      return;
+    }
+
     this.selectedIndex = this.options.indexOf(value);
 
     if (typeof value === 'string') {
@@ -183,7 +187,7 @@ export class SelectComponent implements AfterViewChecked, OnInit {
         const child = this.optionsParentElement.children[
           this.selectedIndex
         ] as HTMLLIElement;
-
+        console.log(this.selectedIndex);
         child.scrollIntoView(this.scrollBehavior);
       }
     });
