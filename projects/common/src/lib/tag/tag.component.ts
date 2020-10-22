@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Optional,
   Attribute,
   Input,
@@ -21,7 +20,7 @@ export class TagComponent {
     @Optional() @Attribute('clickable') public clickable,
     @Optional() @Attribute('primary') public primary,
     @Optional() @Attribute('secondary') public secondary,
-    @Optional() @Attribute('closable') public closeable
+    @Optional() @Attribute('closeable') public closeable
   ) {}
 
   onClose() {

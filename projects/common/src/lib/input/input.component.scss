@@ -5,10 +5,6 @@
   position: relative;
   display: block;
 
-  input:disabled {
-    opacity: 0.45;
-  }
-
   &:not(:last-child) {
     margin-bottom: $margin-bottom-default;
   }
@@ -17,6 +13,10 @@
     margin-bottom: calc(
       #{$margin-bottom-default} + #{$margin-bottom-default} + 0.2rem
     );
+  }
+
+  &.disabled {
+    opacity: 0.45;
   }
 
   .input:focus-within + .wrapper,

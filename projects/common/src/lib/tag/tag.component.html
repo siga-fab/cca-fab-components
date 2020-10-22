@@ -6,12 +6,12 @@
     'selected-tg': selected,
     'primary-tg': primary !== null,
     'secondary-tg': secondary !== null,
-    closable: closable !== null
+    closable: closeable !== null
   }"
 >
   <ng-content></ng-content>
   <com-icon
-    *ngIf="closable !== null"
+    *ngIf="closeable !== null"
     class="close-btn"
     slot="icon"
     size="1.6"
