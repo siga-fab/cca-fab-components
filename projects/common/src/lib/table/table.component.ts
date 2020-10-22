@@ -37,7 +37,7 @@ export class TableComponent implements OnInit, AfterContentInit {
   private _pageStep: number;
 
   private _pageIndex: number;
-  private _totalPages: number;
+  private _totalPages: number = 1;
 
   /**
    * @internal
