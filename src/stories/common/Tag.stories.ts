@@ -26,8 +26,12 @@ export const Default = () => ({
     <div style="margin-bottom: 1.5rem">
       <com-tag primary>This is a Tag!</com-tag>
     </div>
-    <div>
+    <div style="margin-bottom: 1.5rem">
       <com-tag secondary>This is a Tag!</com-tag>
+    </div>
+
+    <div>
+      <com-tag invalid="true">This is a Tag!</com-tag>
     </div>
   `,
 });

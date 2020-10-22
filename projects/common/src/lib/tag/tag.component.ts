@@ -14,6 +14,8 @@ import {
 })
 export class TagComponent {
   @Input() selected?: boolean;
+  @Input() invalid: boolean;
+
   @Output() closed = new EventEmitter();
 
   constructor(
