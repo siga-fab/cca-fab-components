@@ -1,0 +1,37 @@
+import { Meta, CollorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+
+<Meta title="Theming / Paleta" />
+
+# Cores
+
+<ColorPalette>
+  <ColorItem
+    title="Principais"
+    subtitle="Azul e suas variações"
+    colors={{
+      '--primary': '#234b90',
+      '--secondary': '#1659bf',
+      '--tertiary': '#3399FF',
+    }}
+  />
+  <ColorItem
+    title="Apoio"
+    subtitle="Escala de cinza"
+    colors={{
+      '--black': '#202124',
+      '--grey': '#80868d',
+      '--light-grey': '#dadce0',
+      '--lighter-grey': '#f1f4f8',
+    }}
+  />
+  <ColorItem
+    title="Feedback"
+    subtitle="Notificações, status, etc..."
+    colors={{
+      '--error': '#b24536',
+      '--success': '#36b252',
+      '--alert': '#b28836',
+      '--info': '#1659bf',
+    }}
+  />
+</ColorPalette>
