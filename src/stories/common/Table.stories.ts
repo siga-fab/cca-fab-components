@@ -4,7 +4,7 @@ import {
   TableModule,
   InputModule,
   IconModule,
-  TooltipModule,
+  ButtonModule,
 } from '../../../projects/common/src/public-api';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
@@ -20,12 +20,13 @@ export default {
         TableModule,
         InputModule,
         IconModule,
-        TooltipModule,
+        ButtonModule,
         BrowserAnimationsModule,
       ],
     }),
   ],
   parameters: {
+    docs: { iframeHeight: 650 },
     backgrounds: {
       default: 'default',
       values: [
@@ -49,31 +50,27 @@ export const Default = () => ({
     pageSize: 20,
     minPageSize: 0,
     maxPageSize: 50,
-    pageIndex: 1,
+    pageIndex: 2,
     totalPages: 20,
     columns: [
       {
         field: 'field1',
         title: 'Coluna 1',
-        width: '10%',
+        width: '15%',
       },
       {
         field: 'field2',
         title: 'Coluna 2',
-        width: '10%',
+        width: '15%',
       },
       {
         field: 'field3',
         title: 'Coluna 3',
-        width: '50%',
+        width: '40%',
       },
       {
         field: 'field4',
         title: 'Coluna 4',
-      },
-      {
-        field: 'field5',
-        title: 'Coluna 5',
       },
     ],
     data: [
@@ -82,45 +79,40 @@ export const Default = () => ({
         field1: '2020',
         field2: '00000000',
         field3:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium. Donec id lorem eget magna dictum tincidunt vitae et dui. Fusce volutpat luctus tellus et tempor. Vestibulum ut felis venenatis, posuere massa sit amet, vehicula arcu. ',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium',
         field4: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        field5: 'Lorem ipsum dolor sit amet',
       },
       {
         id: 2,
         field1: '2020',
         field2: '00000000',
         field3:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium. Donec id lorem eget magna dictum tincidunt vitae et dui. Fusce volutpat luctus tellus et tempor. Vestibulum ut felis venenatis, posuere massa sit amet, vehicula arcu',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium',
         field4: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        field5: 'Lorem ipsum dolor sit amet',
       },
       {
         id: 3,
         field1: '2020',
         field2: '00000000',
         field3:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium. Donec id lorem eget magna dictum tincidunt vitae et dui. Fusce volutpat luctus tellus et tempor. Vestibulum ut felis venenatis, posuere massa sit amet, vehicula arcu',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium',
         field4: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        field5: 'Lorem ipsum dolor sit amet',
       },
       {
         id: 4,
         field1: '2020',
         field2: '00000000',
         field3:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium. Donec id lorem eget magna dictum tincidunt vitae et dui. Fusce volutpat luctus tellus et tempor. Vestibulum ut felis venenatis, posuere massa sit amet, vehicula arcu',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium',
         field4: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        field5: 'Lorem ipsum dolor sit amet',
       },
       {
         id: 5,
         field1: '2020',
         field2: '00000000',
         field3:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium. Donec id lorem eget magna dictum tincidunt vitae et dui. Fusce volutpat luctus tellus et tempor. Vestibulum ut felis venenatis, posuere massa sit amet, vehicula arcu',
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vestibulum tincidunt malesuada. Donec lacinia gravida turpis sollicitudin laoreet. Duis eleifend dui eget risus blandit pretium',
         field4: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        field5: 'Lorem ipsum dolor sit amet',
       },
     ],
   },
@@ -142,13 +134,15 @@ export const Default = () => ({
     (pageIndexChanged)="onPageIndexChange($event)"
   >
     <ng-template let-content name="action">
-      <div style="display: flex; justify-content: flex-end;">
-        <div>
-          <com-icon >edit</com-icon>
-        </div>
-        <div>
-          <com-icon [ccaCommonTooltip]="'ID: ' + content.data.id" tooltipPosition="bottom-left">delete</com-icon>
-        </div>
+      <div style="margin: .25rem">
+        <com-button flat transparent>
+          <com-icon slot="icon">edit</com-icon>
+        </com-button>
+      </div>
+      <div style="margin: .25rem">
+        <com-button warning transparent>
+          <com-icon outlined slot="icon">delete</com-icon>
+        </com-button>
       </div>
     </ng-template>
     <ng-template let-content name="field3">

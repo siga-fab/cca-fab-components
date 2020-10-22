@@ -60,7 +60,7 @@
   </div>
   <!-- Footer -->
   <div class="footer row between-xs">
-    <div class="row left middle-xs">
+    <div class="row left middle-xs" *ngIf="paginated">
       <div
         tabindex="0"
         class="button"
@@ -85,7 +85,6 @@
             [min]="minPageSize || '0'"
             [max]="maxPageSize || '20'"
             [step]="pageStep || '5'"
-            [disabled]="!data || data.length === 0"
             textCenter
             integerOnly
             arrowed
@@ -93,7 +92,7 @@
         </span>
       </div>
     </div>
-    <div class="row right middle-xs">
+    <div class="row right middle-xs" *ngIf="paginated">
       <div
         [tabindex]="!disableMap['firstPage'] ? '0' : '-1'"
         class="button"
@@ -143,7 +142,6 @@
             [max]="totalPages"
             (changed)="onPageIndexChange($event)"
             (confirm)="onPageIndexChange($event)"
-            [disabled]="!data || data.length === 0"
             textCenter
             integerOnly
             arrowed
@@ -155,7 +153,7 @@
       </div>
 
       <div
-        [tabindex]="!disableMap['next'] ? '0' : '-1'"
+        [tabindex]="!disableMap['next'] ? 0 : '-1'"
         class="button"
         [ngClass]="{ disabled: disableMap['next'] }"
         (click)="!disableMap['next'] ? onNextPage($event) : null"
@@ -174,7 +172,7 @@
       </div>
 
       <div
-        [tabindex]="!disableMap['lastPage'] ? '0' : '-1'"
+        [tabindex]="!disableMap['lastPage'] ? 0 : '-1'"
         class="button"
         [ngClass]="{ disabled: disableMap['lastPage'] }"
         (click)="!disableMap['lastPage'] ? onLastPage($event) : null"

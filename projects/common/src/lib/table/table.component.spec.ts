@@ -9,7 +9,7 @@ describe('TableComponent', () => {
   let fixture: ComponentFixture<TableComponent>;
   const PAGE_SIZE = 10;
   const MAX_PAGE_SIZE = 50;
-  const PAGE_START_INDEX = 1;
+  const PAGE_START_INDEX = 10;
   const TOTAL_PAGES = 20;
 
   beforeEach(async(() => {
@@ -21,278 +21,181 @@ describe('TableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TableComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
 
     component.pageSize = PAGE_SIZE;
     component.maxPageSize = MAX_PAGE_SIZE;
     component.pageIndex = PAGE_START_INDEX;
     component.totalPages = TOTAL_PAGES;
+
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should emit nextPage and return next page', () => {
-  //   const onNextPageSpy = jest.spyOn(component, 'onNextPage');
+  it('should emit nextPage', () => {
+    const onNextPageSpy = jest.spyOn(component, 'onNextPage');
 
-  //   component.nextPage.subscribe((res) => {
-  //     expect(res).toBe(PAGE_START_INDEX + 1);
-  //   });
+    component.onNextPage(new Event(null));
+    expect(onNextPageSpy).toHaveBeenCalled();
+  });
 
-  //   component.onNextPage(new Event(null));
-  //   expect(onNextPageSpy).toHaveBeenCalled();
-  // });
+  it('should emit nextPage on keyboard event on Enter/Space', () => {
+    const onNextPageSpy = jest.spyOn(component, 'onNextPage');
+    const MOCK_EVENT_ENTER = new KeyboardEvent('keydown', { key: 'Enter' });
+    const MOCK_EVENT_SPACE = new KeyboardEvent('keydown', { key: ' ' });
 
-  // it('should emit nextPage and return max page possible', () => {
-  //   const onNextPageSpy = jest.spyOn(component, 'onNextPage');
-  //   const NEW_INDEX = component.totalPages;
-  //   component.pageIndex = NEW_INDEX;
+    component.onNextPage(MOCK_EVENT_ENTER);
+    component.onNextPage(MOCK_EVENT_SPACE);
 
-  //   component.nextPage.subscribe((res) => {
-  //     expect(res).toBe(NEW_INDEX);
-  //   });
+    expect(onNextPageSpy).toHaveBeenCalledTimes(2);
+  });
 
-  //   component.onNextPage(new Event(null));
-  //   expect(onNextPageSpy).toHaveBeenCalled();
-  // });
+  it('should not emit nextPage on keyboard event other than Enter/Space', () => {
+    const onNextPageSpy = jest.spyOn(component, 'onNextPage');
+    const MOCK_EVENT = new KeyboardEvent('keydown', { key: 'Escape' });
+    let hasEmitted = false;
 
-  // it('should emit nextPage on keyboard event on Enter/Space', () => {
-  //   const onNextPageSpy = jest.spyOn(component, 'onNextPage');
-  //   const MOCK_EVENT_ENTER = new KeyboardEvent('keydown', { key: 'Enter' });
-  //   const MOCK_EVENT_SPACE = new KeyboardEvent('keydown', { key: ' ' });
-  //   const INITIAL_VALUE = 6;
+    component.firstPage.subscribe(() => (hasEmitted = true));
 
-  //   component.pageIndex = INITIAL_VALUE;
+    component.onNextPage(MOCK_EVENT);
 
-  //   component.firstPage.subscribe((res) => expect(res).toBe(INITIAL_VALUE - 1));
+    expect(onNextPageSpy).toHaveBeenCalled();
+    expect(hasEmitted).toBe(false);
+  });
 
-  //   component.onNextPage(MOCK_EVENT_ENTER);
-  //   component.pageIndex = INITIAL_VALUE;
-  //   component.onNextPage(MOCK_EVENT_SPACE);
+  it('shoudl emit lastPage', () => {
+    const onLastPageSpy = jest.spyOn(component, 'onLastPage');
 
-  //   expect(onNextPageSpy).toHaveBeenCalledTimes(2);
-  // });
+    component.onLastPage(new Event(null));
+    expect(onLastPageSpy).toHaveBeenCalled();
+  });
 
-  // it('should not emit nextPage on keyboard event other than Enter/Space', () => {
-  //   const onNextPageSpy = jest.spyOn(component, 'onNextPage');
-  //   const MOCK_EVENT = new KeyboardEvent('keydown', { key: 'Escape' });
-  //   let hasEmitted = false;
+  it('should emit lastPage on keyboard event on Enter/Space', () => {
+    const onLastPageSpy = jest.spyOn(component, 'onLastPage');
 
-  //   component.firstPage.subscribe((res) => (hasEmitted = true));
+    const MOCK_EVENT_ENTER = new KeyboardEvent('keydown', { key: 'Enter' });
+    const MOCK_EVENT_SPACE = new KeyboardEvent('keydown', { key: ' ' });
 
-  //   component.onNextPage(MOCK_EVENT);
+    component.onLastPage(MOCK_EVENT_ENTER);
+    component.onLastPage(MOCK_EVENT_SPACE);
 
-  //   expect(onNextPageSpy).toHaveBeenCalled();
-  //   expect(hasEmitted).toBe(false);
-  // });
+    expect(onLastPageSpy).toHaveBeenCalledTimes(2);
+  });
 
-  // it('shoudl emit lastPage', () => {
-  //   const onLastPageSpy = jest.spyOn(component, 'onLastPage');
+  it('should not emit lastPage on keyboard event other than Enter/Space', () => {
+    const onLastPageSpy = jest.spyOn(component, 'onLastPage');
+    const MOCK_EVENT = new KeyboardEvent('keydown', { key: 'Escape' });
+    const hasEmitted = false;
 
-  //   component.lastPage.subscribe((res) => {
-  //     expect(res).toBe(component.totalPages);
-  //   });
+    component.onLastPage(MOCK_EVENT);
 
-  //   component.onLastPage(new Event(null));
-  //   expect(onLastPageSpy).toHaveBeenCalled();
-  // });
+    expect(onLastPageSpy).toHaveBeenCalled();
+    expect(hasEmitted).toBe(false);
+  });
 
-  // it('should emit lastPage on keyboard event on Enter/Space', () => {
-  //   const onLastPageSpy = jest.spyOn(component, 'onLastPage');
+  it('should emit previousPage and return previous page', () => {
+    const onPreviousPageSpy = jest.spyOn(component, 'onPreviousPage');
 
-  //   const MOCK_EVENT_ENTER = new KeyboardEvent('keydown', { key: 'Enter' });
-  //   const MOCK_EVENT_SPACE = new KeyboardEvent('keydown', { key: ' ' });
+    component.onPreviousPage(new Event(null));
+    expect(onPreviousPageSpy).toHaveBeenCalled();
+  });
 
-  //   component.lastPage.subscribe((res) =>
-  //     expect(res).toBe(component.totalPages)
-  //   );
+  it('should emit previousPage on keyboard event on Enter/Space', () => {
+    const onPreviousPageSpy = jest.spyOn(component, 'onPreviousPage');
+    const MOCK_EVENT_ENTER = new KeyboardEvent('keydown', { key: 'Enter' });
+    const MOCK_EVENT_SPACE = new KeyboardEvent('keydown', { key: ' ' });
 
-  //   component.onLastPage(MOCK_EVENT_ENTER);
-  //   component.onLastPage(MOCK_EVENT_SPACE);
+    component.onPreviousPage(MOCK_EVENT_ENTER);
+    component.onPreviousPage(MOCK_EVENT_SPACE);
 
-  //   expect(onLastPageSpy).toHaveBeenCalledTimes(2);
-  // });
+    expect(onPreviousPageSpy).toHaveBeenCalledTimes(2);
+  });
 
-  // it('should not emit lastPage on keyboard event other than Enter/Space', () => {
-  //   const onLastPageSpy = jest.spyOn(component, 'onLastPage');
-  //   const MOCK_EVENT = new KeyboardEvent('keydown', { key: 'Escape' });
-  //   let hasEmitted = false;
+  it('should not emit previousPage on keyboard event other than Enter/Space', () => {
+    const onPreviousPageSpy = jest.spyOn(component, 'onPreviousPage');
+    const MOCK_EVENT = new KeyboardEvent('keydown', { key: 'Escape' });
+    let hasEmitted = false;
 
-  //   component.lastPage.subscribe((res) => (hasEmitted = true));
+    component.previousPage.subscribe((res) => (hasEmitted = true));
 
-  //   component.onLastPage(MOCK_EVENT);
+    component.onPreviousPage(MOCK_EVENT);
 
-  //   expect(onLastPageSpy).toHaveBeenCalled();
-  //   expect(hasEmitted).toBe(false);
-  // });
+    expect(onPreviousPageSpy).toHaveBeenCalled();
+    expect(hasEmitted).toBe(false);
+  });
 
-  // it('should emit previousPage and return min page possible', () => {
-  //   const onPreviousPageSpy = jest.spyOn(component, 'onPreviousPage');
-  //   const MIN_PAGE = 1;
+  it('should emit firstPage', () => {
+    const onFirstPageSpy = jest.spyOn(component, 'onFirstPage');
 
-  //   component.previousPage.subscribe((res) => {
-  //     expect(res).toBe(MIN_PAGE);
-  //   });
+    component.onFirstPage(new Event(null));
+    expect(onFirstPageSpy).toHaveBeenCalled();
+  });
 
-  //   component.onPreviousPage(new Event(null));
-  //   expect(onPreviousPageSpy).toHaveBeenCalled();
-  // });
+  it('should emit firstPage on keyboard event on Enter/Space', () => {
+    const onFirstPageSpy = jest.spyOn(component, 'onFirstPage');
+    const MOCK_EVENT_ENTER = new KeyboardEvent('keydown', { key: 'Enter' });
+    const MOCK_EVENT_SPACE = new KeyboardEvent('keydown', { key: ' ' });
 
-  // it('should emit previousPage and return previous page', () => {
-  //   const onPreviousPageSpy = jest.spyOn(component, 'onPreviousPage');
-  //   const NEW_INDEX = 5;
-  //   component.pageIndex = NEW_INDEX;
+    component.onFirstPage(MOCK_EVENT_ENTER);
+    component.onFirstPage(MOCK_EVENT_SPACE);
 
-  //   component.previousPage.subscribe((res) => {
-  //     expect(res).toBe(NEW_INDEX - 1);
-  //   });
+    expect(onFirstPageSpy).toHaveBeenCalledTimes(2);
+  });
 
-  //   component.onPreviousPage(new Event(null));
-  //   expect(onPreviousPageSpy).toHaveBeenCalled();
-  // });
+  it('should not emit firstPage on keyboard event other than Enter/Space', () => {
+    const onFirstPageSpy = jest.spyOn(component, 'onFirstPage');
+    const MOCK_EVENT = new KeyboardEvent('keydown', { key: 'Escape' });
+    let hasEmitted = false;
 
-  // it('should emit previousPage on keyboard event on Enter/Space', () => {
-  //   const onPreviousPageSpy = jest.spyOn(component, 'onPreviousPage');
-  //   const MOCK_EVENT_ENTER = new KeyboardEvent('keydown', { key: 'Enter' });
-  //   const MOCK_EVENT_SPACE = new KeyboardEvent('keydown', { key: ' ' });
-  //   const INITIAL_VALUE = 5;
+    component.firstPage.subscribe((res) => (hasEmitted = true));
 
-  //   component.pageIndex = INITIAL_VALUE;
+    component.onFirstPage(MOCK_EVENT);
 
-  //   component.previousPage.subscribe((res) =>
-  //     expect(res).toBe(INITIAL_VALUE - 1)
-  //   );
+    expect(onFirstPageSpy).toHaveBeenCalled();
+    expect(hasEmitted).toBe(false);
+  });
 
-  //   component.onPreviousPage(MOCK_EVENT_ENTER);
-  //   component.pageIndex = INITIAL_VALUE;
-  //   component.onPreviousPage(MOCK_EVENT_SPACE);
+  it('should emit refresh', () => {
+    const MOCK_EVENT = new Event(null);
+    const onRefreshSpy = jest.spyOn(component, 'onRefresh');
 
-  //   expect(onPreviousPageSpy).toHaveBeenCalledTimes(2);
-  // });
+    component.onRefresh(MOCK_EVENT);
+    expect(onRefreshSpy).toHaveBeenCalled();
+  });
 
-  // it('should not emit previousPage on keyboard event other than Enter/Space', () => {
-  //   const onPreviousPageSpy = jest.spyOn(component, 'onPreviousPage');
-  //   const MOCK_EVENT = new KeyboardEvent('keydown', { key: 'Escape' });
-  //   let hasEmitted = false;
+  it('should emit refresh with a keyboard event', () => {
+    const MOCK_EVENT_ENTER = new KeyboardEvent(null, { key: 'Enter' });
+    const MOCK_EVENT_SPACE = new KeyboardEvent(null, { key: ' ' });
+    const onRefreshSpy = jest.spyOn(component, 'onRefresh');
 
-  //   component.previousPage.subscribe((res) => (hasEmitted = true));
+    component.onRefresh(MOCK_EVENT_ENTER);
+    component.onRefresh(MOCK_EVENT_SPACE);
+    expect(onRefreshSpy).toHaveBeenCalledTimes(2);
+  });
 
-  //   component.onPreviousPage(MOCK_EVENT);
+  it('should not emit refresh with a keyboard event', () => {
+    const MOCK_EVENT = new KeyboardEvent(null, { key: 'Escape' });
+    const onRefreshSpy = jest.spyOn(component, 'onRefresh');
 
-  //   expect(onPreviousPageSpy).toHaveBeenCalled();
-  //   expect(hasEmitted).toBe(false);
-  // });
+    component.onRefresh(MOCK_EVENT);
+    expect(onRefreshSpy).toHaveBeenCalled();
+  });
 
-  // it('should emit firstPage', () => {
-  //   const onFirstPageSpy = jest.spyOn(component, 'onFirstPage');
+  it('should emit pageIndexChange', () => {
+    const onPageIndexChangeSpy = jest.spyOn(component, 'onPageIndexChange');
+    const NEW_INDEX = component.totalPages - 2;
 
-  //   component.firstPage.subscribe((res) => {
-  //     expect(res).toBe(PAGE_START_INDEX);
-  //   });
+    component.onPageIndexChange(String(NEW_INDEX));
+    expect(onPageIndexChangeSpy).toHaveBeenCalled();
+  });
 
-  //   component.onFirstPage(new Event(null));
-  //   expect(onFirstPageSpy).toHaveBeenCalled();
-  // });
+  it('should emit pageSizeChange', () => {
+    const onPageSizeChangeSpy = jest.spyOn(component, 'onPageSizeChange');
+    const NEW_PAGE_SIZE = component.maxPageSize - 2;
 
-  // it('should emit firstPage on keyboard event on Enter/Space', () => {
-  //   const onFirstPageSpy = jest.spyOn(component, 'onFirstPage');
-  //   const MOCK_EVENT_ENTER = new KeyboardEvent('keydown', { key: 'Enter' });
-  //   const MOCK_EVENT_SPACE = new KeyboardEvent('keydown', { key: ' ' });
-
-  //   component.firstPage.subscribe((res) => expect(res).toBe(1));
-
-  //   component.onFirstPage(MOCK_EVENT_ENTER);
-  //   component.onFirstPage(MOCK_EVENT_SPACE);
-
-  //   expect(onFirstPageSpy).toHaveBeenCalledTimes(2);
-  // });
-
-  // it('should not emit firstPage on keyboard event other than Enter/Space', () => {
-  //   const onFirstPageSpy = jest.spyOn(component, 'onFirstPage');
-  //   const MOCK_EVENT = new KeyboardEvent('keydown', { key: 'Escape' });
-  //   let hasEmitted = false;
-
-  //   component.firstPage.subscribe((res) => (hasEmitted = true));
-
-  //   component.onFirstPage(MOCK_EVENT);
-
-  //   expect(onFirstPageSpy).toHaveBeenCalled();
-  //   expect(hasEmitted).toBe(false);
-  // });
-
-  // it('should emit refresh', () => {
-  //   const MOCK_EVENT = new Event(null);
-  //   const onRefreshSpy = jest.spyOn(component, 'onRefresh');
-
-  //   component.refresh.subscribe((res) => {
-  //     expect(res).toBe(component.pageIndex);
-  //   });
-
-  //   component.onRefresh(MOCK_EVENT);
-  //   expect(onRefreshSpy).toHaveBeenCalled();
-  // });
-
-  // it('should emit refresh with a keyboard event', () => {
-  //   const MOCK_EVENT_ENTER = new KeyboardEvent(null, { key: 'Enter' });
-  //   const MOCK_EVENT_SPACE = new KeyboardEvent(null, { key: ' ' });
-  //   const onRefreshSpy = jest.spyOn(component, 'onRefresh');
-
-  //   component.refresh.subscribe((res) => {
-  //     expect(res).toBe(component.pageIndex);
-  //   });
-
-  //   component.onRefresh(MOCK_EVENT_ENTER);
-  //   component.onRefresh(MOCK_EVENT_SPACE);
-  //   expect(onRefreshSpy).toHaveBeenCalledTimes(2);
-  // });
-
-  // it('should not emit refresh with a keyboard event', () => {
-  //   const MOCK_EVENT = new KeyboardEvent(null, { key: 'Escape' });
-  //   const onRefreshSpy = jest.spyOn(component, 'onRefresh');
-
-  //   component.refresh.subscribe((res) => {
-  //     expect(res).toBe(component.pageIndex);
-  //   });
-
-  //   component.onRefresh(MOCK_EVENT);
-  //   expect(onRefreshSpy).toHaveBeenCalled();
-  // });
-
-  // it('should emit pageIndexChange', () => {
-  //   const onPageIndexChangeSpy = jest.spyOn(component, 'onPageIndexChange');
-  //   const NEW_INDEX = component.totalPages / 2;
-
-  //   component.pageIndexChange.subscribe((res) => {
-  //     expect(res).toBe(NEW_INDEX);
-  //   });
-
-  //   component.onPageIndexChange(String(NEW_INDEX));
-  //   expect(onPageIndexChangeSpy).toHaveBeenCalled();
-  // });
-
-  // it('should emit pageSizeChange', () => {
-  //   const onPageSizeChangeSpy = jest.spyOn(component, 'onPageSizeChange');
-  //   const NEW_PAGE_SIZE = component.maxPageSize / 2;
-
-  //   component.pageSizeChange.subscribe((res) => {
-  //     expect(res).toBe(NEW_PAGE_SIZE);
-  //   });
-
-  //   component.onPageSizeChange(String(NEW_PAGE_SIZE));
-  //   expect(onPageSizeChangeSpy).toHaveBeenCalled();
-  // });
-
-  // it('should set page index equals to last page index when page index is bigger', () => {
-  //   const CURRENT_INDEX = 5;
-  //   const toggleButtonsSpy = jest.spyOn(component, 'toggleButtons');
-
-  //   component.pageIndex = CURRENT_INDEX;
-  //   component.totalPages = 3;
-
-  //   component.toggleButtons();
-
-  //   expect(toggleButtonsSpy).toHaveBeenCalled();
-  //   expect(component.pageIndex).toBe(component.totalPages);
-  // });
+    component.onPageSizeChange(String(NEW_PAGE_SIZE));
+    expect(onPageSizeChangeSpy).toHaveBeenCalled();
+  });
 });
