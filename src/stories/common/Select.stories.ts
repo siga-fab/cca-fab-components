@@ -4,13 +4,19 @@ import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { SelectModule } from 'projects/common/src/lib/select/select.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 export default {
   title: 'Common / Select',
   component: SelectComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, SelectModule, BrowserAnimationsModule],
+      imports: [
+        CommonModule,
+        SelectModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+      ],
     }),
   ],
 };
