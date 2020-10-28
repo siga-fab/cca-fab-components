@@ -285,7 +285,7 @@ export class SelectComponent implements AfterViewChecked, OnInit {
 
     this.isSelectionCloseCall = true;
 
-    if (!this.isCloseSelectioncall) {
+    if (!this.isCloseSelectioncall && this.inputElement) {
       this.isCloseSelectioncall = false;
       this.inputElement.blur();
     } else {
