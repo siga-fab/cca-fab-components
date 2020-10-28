@@ -122,6 +122,10 @@ export class SelectComponent implements AfterViewChecked, OnInit {
   }
 
   handleInitialValue(value: any) {
+    if (!this.options) {
+      return;
+    }
+
     const optionIndex = this.options.findIndex(
       (option) => value === (typeof option === 'object' ? option.value : option)
     );
