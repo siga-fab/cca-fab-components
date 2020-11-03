@@ -61,6 +61,8 @@ export class AutocompleteComponent implements AfterViewChecked {
   @Output() blurred = new EventEmitter();
   @Output() focused = new EventEmitter();
 
+  @Output() ref = new EventEmitter();
+
   @Input() autoActiveFirstOption: boolean;
   @Input() enableConfirmOnInexistentValue: boolean;
 
@@ -156,6 +158,7 @@ export class AutocompleteComponent implements AfterViewChecked {
 
   getInputRef(el: HTMLInputElement) {
     this.inputElement = el;
+    this.ref.emit(el);
   }
 
   onImmediateChange(value: string) {
