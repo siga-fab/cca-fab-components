@@ -45,10 +45,6 @@ export class AutocompleteComponent implements AfterViewChecked {
   selectedIndex: number = null;
   optionsParentElement: HTMLUListElement;
 
-  private scrollBehavior: ScrollIntoViewOptions = {
-    block: 'center',
-  };
-
   @Input() options: Array<string | SelectOption> = [];
   @Input() label: string;
   @Input() placeholder = '';
@@ -143,7 +139,9 @@ export class AutocompleteComponent implements AfterViewChecked {
           this.selectedIndex
         ] as HTMLLIElement;
 
-        child.scrollIntoView();
+        child.parentElement.parentElement.scroll({
+          top: child.offsetTop - child.parentElement.parentElement.offsetTop,
+        });
       }
     });
   }
@@ -175,7 +173,12 @@ export class AutocompleteComponent implements AfterViewChecked {
     ) {
       const childElement: (index: number) => HTMLLIElement = (index) =>
         this.optionsParentElement.children[index] as HTMLLIElement;
-      childElement(this.selectedIndex).scrollIntoView(this.scrollBehavior);
+
+      const child = childElement(this.selectedIndex);
+
+      child.parentElement.parentElement.scroll({
+        top: child.offsetTop - child.parentElement.parentElement.offsetTop,
+      });
     }
 
     this.value = value;
@@ -205,7 +208,12 @@ export class AutocompleteComponent implements AfterViewChecked {
         return;
       }
 
-      childElement(--this.selectedIndex).scrollIntoView(this.scrollBehavior);
+      const child = childElement(--this.selectedIndex);
+
+      child.parentElement.parentElement.scroll({
+        top: child.offsetTop - child.parentElement.parentElement.offsetTop,
+      });
+
       return;
     }
 
@@ -221,7 +229,12 @@ export class AutocompleteComponent implements AfterViewChecked {
         this.selectedIndex = -1;
       }
 
-      childElement(++this.selectedIndex).scrollIntoView(this.scrollBehavior);
+      const child = childElement(++this.selectedIndex);
+
+      child.parentElement.parentElement.scroll({
+        top: child.offsetTop - child.parentElement.parentElement.offsetTop,
+      });
+
       return;
     }
 

@@ -6,13 +6,13 @@ import { AutocompleteModule } from './autocomplete.module';
 describe('SelectComponent', () => {
   let component: AutocompleteComponent;
   let fixture: ComponentFixture<AutocompleteComponent>;
-  const MOCK_ELEMENT = document.createElement('ul');
+  const MOCK_ELEMENT = document.createElement('div');
   const MOCK_OPTIONS = ['a', 'b', 'c', 'd'];
   const CREATE_KEYBOARD_MOCK_EVENT = (key) =>
     new KeyboardEvent('keydown', { key });
 
   // JSDOM não implementa essa função
-  window.HTMLLIElement.prototype.scrollIntoView = () => {};
+  window.HTMLElement.prototype.scroll = () => {};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,8 +25,10 @@ describe('SelectComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    MOCK_ELEMENT.appendChild(document.createElement('ul'));
+
     for (let i = 0; i < 10; ++i) {
-      MOCK_ELEMENT.appendChild(document.createElement('li'));
+      MOCK_ELEMENT.children[0].appendChild(document.createElement('li'));
     }
   });
 
@@ -84,12 +86,13 @@ describe('SelectComponent', () => {
 
   it('should emit changed event after immediate change and focus first element', () => {
     const onImmediateChangeSpy = jest.spyOn(component, 'onImmediateChange');
-    const scrollSpy = jest.spyOn(MOCK_ELEMENT.children[0], 'scrollIntoView');
+    const scrollSpy = jest.spyOn(MOCK_ELEMENT, 'scroll');
 
     const changeValue = 'a';
 
     component.autoActiveFirstOption = true;
-    component.optionsParentElement = MOCK_ELEMENT;
+    component.optionsParentElement = MOCK_ELEMENT
+      .children[0] as HTMLUListElement;
     component.options = MOCK_OPTIONS;
 
     component.changed.subscribe((res) => {

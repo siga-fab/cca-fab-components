@@ -52,10 +52,6 @@ export class SelectComponent implements AfterViewChecked, OnInit {
   isSelectionCloseCall = false;
   isCloseSelectioncall = false;
 
-  private scrollBehavior: ScrollIntoViewOptions = {
-    block: 'center',
-  };
-
   @Input() options: Array<string | SelectOption> = [];
   @Input() label: string;
   @Input() placeholder = '';
@@ -176,7 +172,12 @@ export class SelectComponent implements AfterViewChecked, OnInit {
     }
     this.value = value;
     this.selectedIndex = this.options.indexOf(selection) + 1;
-    childElement(this.selectedIndex).scrollIntoView(this.scrollBehavior);
+
+    const child = childElement(this.selectedIndex);
+
+    child.parentElement.parentElement.scroll({
+      top: child.offsetTop - child.parentElement.parentElement.offsetTop,
+    });
   }
 
   open() {
@@ -195,8 +196,10 @@ export class SelectComponent implements AfterViewChecked, OnInit {
         const child = this.optionsParentElement.children[
           this.selectedIndex
         ] as HTMLLIElement;
-        console.log(this.selectedIndex);
-        child.scrollIntoView(this.scrollBehavior);
+
+        child.parentElement.parentElement.scroll({
+          top: child.offsetTop - child.parentElement.parentElement.offsetTop,
+        });
       }
     });
   }
@@ -232,7 +235,11 @@ export class SelectComponent implements AfterViewChecked, OnInit {
         return;
       }
 
-      childElement(--this.selectedIndex).scrollIntoView(this.scrollBehavior);
+      const child = childElement(--this.selectedIndex);
+
+      child.parentElement.parentElement.scroll({
+        top: child.offsetTop - child.parentElement.parentElement.offsetTop,
+      });
 
       if (this.selectedIndex > 0) {
         this.value =
@@ -253,7 +260,11 @@ export class SelectComponent implements AfterViewChecked, OnInit {
         return;
       }
 
-      childElement(++this.selectedIndex).scrollIntoView(this.scrollBehavior);
+      const child = childElement(++this.selectedIndex);
+
+      child.parentElement.parentElement.scroll({
+        top: child.offsetTop - child.parentElement.parentElement.offsetTop,
+      });
 
       if (this.selectedIndex > 0) {
         this.value =
