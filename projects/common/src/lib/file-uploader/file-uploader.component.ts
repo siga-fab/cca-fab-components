@@ -2,7 +2,6 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   ViewChild,
   AfterViewInit,
   Self,
@@ -39,6 +38,8 @@ export class FileUploaderComponent implements AfterViewInit {
   constructor(@Self() @Optional() private ngControl: NgControl) {}
 
   @Input() value: FormData = new FormData();
+  @Input() limit = 1;
+  @Input() maxLimitSize = 2 * 1024 * 1024;
 
   @Input() header = '';
   @Input() placeholder = '';
@@ -46,6 +47,7 @@ export class FileUploaderComponent implements AfterViewInit {
   @HostBinding('class.disabled') @Input() disabled = false;
 
   @Output() changed = new EventEmitter();
+  @Output() fileError = new EventEmitter();
 
   onChange: NgFormsChangedFn = (value: any): void => {};
   onTouched: NgFormsTouchedFn = (): void => {};
@@ -115,17 +117,53 @@ export class FileUploaderComponent implements AfterViewInit {
     const files =
       event instanceof Event ? (event.target as HTMLInputElement).files : event;
 
-    for (const file of files) {
-      if (
-        !this.fileList.find(
-          (currentFile) =>
-            file.name === currentFile.name && file.size === currentFile.size
-        )
-      ) {
-        this.value.append('files[]', file);
-        this.fileList.push(file);
+    console.log(event, this.fileList.length);
+    if (this.limit === 1 && !this.fileList.length) {
+      console.log(
+        files[0].size < this.maxLimitSize,
+        this.maxLimitSize,
+        files[0].size
+      );
+      if (files[0].size < this.maxLimitSize) {
+        this.value.set('file', files[0]);
+        this.fileList.push(files[0]);
+      } else {
+        this.fileError.emit(files[0]);
+        this.fileInput.nativeElement.value = '';
+        return;
+      }
+    } else if (this.fileList.length < this.limit) {
+      let errors = 0;
+
+      for (const file of files) {
+        if (
+          !this.fileList.find(
+            (currentFile) =>
+              file.name === currentFile.name && file.size === currentFile.size
+          )
+        ) {
+          console.log(
+            file.size < this.maxLimitSize,
+            this.maxLimitSize,
+            file.size
+          );
+          if (file.size < this.maxLimitSize) {
+            this.value.append('files[]', file);
+            this.fileList.push(file);
+          } else {
+            ++errors;
+            this.fileError.emit(file);
+          }
+        }
+      }
+
+      if (errors === files.length) {
+        this.fileInput.nativeElement.value = '';
+        return;
       }
     }
+
+    this.fileInput.nativeElement.value = '';
 
     this.changed.emit();
     this.onChange(this.value);
@@ -136,12 +174,19 @@ export class FileUploaderComponent implements AfterViewInit {
   }
 
   deleteFile(index: number) {
-    this.fileList.splice(index, 1);
-    this.value.delete('files[]');
+    if (this.limit === 1) {
+      this.fileList.pop();
+      this.value.delete('file');
+    } else {
+      this.fileList.splice(index, 1);
+      this.value.delete('files[]');
 
-    for (const file of this.fileList) {
-      this.value.append('files[]', file);
+      for (const file of this.fileList) {
+        this.value.append('files[]', file);
+      }
     }
+
+    this.fileInput.nativeElement.value = '';
 
     this.changed.emit();
     this.onChange(this.value);

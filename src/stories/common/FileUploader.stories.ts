@@ -32,6 +32,7 @@ export const Default = () => {
     props: {
       form: form,
       change: action('change'),
+      error: action('error'),
     },
     template: `
     <div>
@@ -39,6 +40,8 @@ export const Default = () => {
         header="Anexar documentos de FIN"
         placeholder="Você pode adicionar arquivos aqui!"
         (changed)="change(form.getAll('files[]'))"
+        (error)="error($event)"
+        [limit]="3"
         [value]="form"
         >
       </com-file-uploader>
