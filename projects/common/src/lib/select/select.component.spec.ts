@@ -7,12 +7,12 @@ import { SelectOption } from '../../types/select';
 describe('SelectComponent', () => {
   let component: SelectComponent;
   let fixture: ComponentFixture<SelectComponent>;
-  const MOCK_ELEMENT = document.createElement('ul');
+  const MOCK_ELEMENT = document.createElement('div');
   const CREATE_KEYBOARD_MOCK_EVENT = (key) =>
     new KeyboardEvent('keydown', { key });
 
   // JSDOM não implementa essa função
-  window.HTMLLIElement.prototype.scrollIntoView = () => {};
+  window.HTMLElement.prototype.scroll = () => {};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,8 +25,10 @@ describe('SelectComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+    MOCK_ELEMENT.appendChild(document.createElement('ul'));
+
     for (let i = 0; i < 10; ++i) {
-      MOCK_ELEMENT.appendChild(document.createElement('li'));
+      MOCK_ELEMENT.children[0].appendChild(document.createElement('li'));
     }
   });
 
@@ -74,7 +76,8 @@ describe('SelectComponent', () => {
 
     component.isOpen = false;
     component.selectedIndex = initialIndex;
-    component.optionsParentElement = MOCK_ELEMENT;
+    component.optionsParentElement = MOCK_ELEMENT
+      .children[0] as HTMLUListElement;
 
     component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('ArrowUp'));
 
@@ -89,7 +92,8 @@ describe('SelectComponent', () => {
     component.options = ['a', 'b', 'c', 'd'];
     component.isOpen = true;
     component.selectedIndex = initialIndex;
-    component.optionsParentElement = MOCK_ELEMENT;
+    component.optionsParentElement = MOCK_ELEMENT
+      .children[0] as HTMLUListElement;
 
     component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('ArrowUp'));
 
@@ -103,7 +107,8 @@ describe('SelectComponent', () => {
 
     component.isOpen = true;
     component.selectedIndex = initialIndex;
-    component.optionsParentElement = MOCK_ELEMENT;
+    component.optionsParentElement = MOCK_ELEMENT
+      .children[0] as HTMLUListElement;
 
     component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('ArrowUp'));
 
@@ -118,7 +123,8 @@ describe('SelectComponent', () => {
     component.options = ['a', 'b', 'c', 'd'];
     component.isOpen = true;
     component.selectedIndex = initialIndex;
-    component.optionsParentElement = MOCK_ELEMENT;
+    component.optionsParentElement = MOCK_ELEMENT
+      .children[0] as HTMLUListElement;
 
     component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('ArrowDown'));
 
@@ -128,12 +134,13 @@ describe('SelectComponent', () => {
 
   it('should not change selectedIndex on arrowDown after calling onKeyDown if selectedIndex is equals to options length', () => {
     const onKeyDownSpy = jest.spyOn(component, 'onKeyDown');
-    const initialIndex = MOCK_ELEMENT.children.length;
+    const initialIndex = MOCK_ELEMENT.children[0].children.length;
 
     component.isOpen = true;
-    component.options = Array(MOCK_ELEMENT.children.length).fill(0);
+    component.options = Array(MOCK_ELEMENT.children[0].children.length).fill(0);
     component.selectedIndex = initialIndex;
-    component.optionsParentElement = MOCK_ELEMENT;
+    component.optionsParentElement = MOCK_ELEMENT
+      .children[0] as HTMLUListElement;
 
     component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('ArrowDown'));
 
@@ -147,7 +154,8 @@ describe('SelectComponent', () => {
 
     component.isOpen = true;
     component.selectedIndex = initialIndex;
-    component.optionsParentElement = MOCK_ELEMENT;
+    component.optionsParentElement = MOCK_ELEMENT
+      .children[0] as HTMLUListElement;
 
     const childElement = component.optionsParentElement.children[
       component.selectedIndex
@@ -169,7 +177,8 @@ describe('SelectComponent', () => {
 
     component.isOpen = true;
     component.selectedIndex = initialIndex;
-    component.optionsParentElement = MOCK_ELEMENT;
+    component.optionsParentElement = MOCK_ELEMENT
+      .children[0] as HTMLUListElement;
 
     component.onKeyDown(CREATE_KEYBOARD_MOCK_EVENT('Escape'));
 
