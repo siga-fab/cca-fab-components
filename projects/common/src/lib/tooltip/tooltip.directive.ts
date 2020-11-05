@@ -10,17 +10,18 @@ import {
 } from '@angular/core';
 import { IconComponent } from '../icon/icon.component';
 
+// tslint:disable:directive-selector
 @Directive({
-  selector: '[ccaCommonTooltip]',
+  selector: '[comTooltip]',
 })
 export class TooltipDirective implements OnInit {
-  @Input('ccaCommonTooltip') public text: string;
+  @Input('comTooltip') public text: string;
 
   /* tslint:disable-next-line:no-input-rename */
-  @Input('tooltipPosition') public tooltipPosition: string;
+  @Input('comTooltipPosition') public tooltipPosition: string;
 
   /* tslint:disable-next-line:no-input-rename */
-  @Input('tooltipSize') public tooltipSize: number;
+  @Input('comTooltipSize') public tooltipSize: number;
 
   targetElement: HTMLElement;
 
