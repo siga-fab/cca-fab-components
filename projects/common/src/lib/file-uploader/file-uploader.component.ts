@@ -21,7 +21,6 @@ import { NgFormsChangedFn, NgFormsTouchedFn } from '../../types/ngForms';
 export class FileUploaderComponent implements AfterViewInit {
   fileList = [];
   isDragging = false;
-  droppedFiles: FileList;
 
   isAdvancedUpload = (() => {
     const div = document.createElement('div');
@@ -37,7 +36,20 @@ export class FileUploaderComponent implements AfterViewInit {
 
   constructor(@Self() @Optional() private ngControl: NgControl) {}
 
-  @Input() value: FormData = new FormData();
+  @Input() set value(form: FormData) {
+    this._value = form;
+
+    this.fileList = [];
+
+    for (const file of form.values()) {
+      this.fileList.push(file);
+    }
+  }
+
+  get value(): FormData {
+    return this._value;
+  }
+
   @Input() limit = 1;
   @Input() maxLimitSize = 2 * 1024 * 1024;
 
@@ -48,6 +60,8 @@ export class FileUploaderComponent implements AfterViewInit {
 
   @Output() changed = new EventEmitter();
   @Output() fileError = new EventEmitter();
+
+  _value: FormData;
 
   onChange: NgFormsChangedFn = (value: any): void => {};
   onTouched: NgFormsTouchedFn = (): void => {};
@@ -117,13 +131,7 @@ export class FileUploaderComponent implements AfterViewInit {
     const files =
       event instanceof Event ? (event.target as HTMLInputElement).files : event;
 
-    console.log(event, this.fileList.length);
     if (this.limit === 1 && !this.fileList.length) {
-      console.log(
-        files[0].size < this.maxLimitSize,
-        this.maxLimitSize,
-        files[0].size
-      );
       if (files[0].size < this.maxLimitSize) {
         this.value.set('file', files[0]);
         this.fileList.push(files[0]);
@@ -136,17 +144,16 @@ export class FileUploaderComponent implements AfterViewInit {
       let errors = 0;
 
       for (const file of files) {
+        if (this.fileList.length >= this.limit) {
+          continue;
+        }
+
         if (
           !this.fileList.find(
             (currentFile) =>
               file.name === currentFile.name && file.size === currentFile.size
           )
         ) {
-          console.log(
-            file.size < this.maxLimitSize,
-            this.maxLimitSize,
-            file.size
-          );
           if (file.size < this.maxLimitSize) {
             this.value.append('files[]', file);
             this.fileList.push(file);

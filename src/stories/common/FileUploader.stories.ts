@@ -26,25 +26,28 @@ export default {
 };
 
 export const Default = () => {
-  const form = new FormData();
+  const form = { value: new FormData() };
+  const clickFn = () => (form.value = new FormData());
 
   return {
     props: {
       form: form,
       change: action('change'),
       error: action('error'),
+      clickFn: clickFn,
     },
     template: `
     <div>
       <com-file-uploader
         header="Anexar documentos de FIN"
         placeholder="Você pode adicionar arquivos aqui!"
-        (changed)="change(form.getAll('files[]'))"
+        (changed)="change(form.value.getAll('files[]'))"
         (error)="error($event)"
         [limit]="3"
-        [value]="form"
+        [value]="form.value"
         >
       </com-file-uploader>
+      <button (click)="clickFn()">Clear</button>
     </div>
     `,
   };
