@@ -7,8 +7,8 @@ import { TooltipModule } from './tooltip.module';
     <div>
       <p
         id="test"
-        ccaCommonTooltip="This is a tooltip"
-        tooltipPosition="bottom-right"
+        comTooltip="This is a tooltip"
+        comTooltipPosition="bottom-right"
       >
         Testing Directives is awesome!
       </p>
@@ -53,9 +53,9 @@ describe('TooltipDirective', () => {
 
   it('should have properly innerText', () => {
     const TOOLTIP_INFO_ELEMENT = PARENT_ELEMENT.querySelector('label');
-    const TARGET_ELEMENT = PARENT_ELEMENT.querySelector('[ccaCommonTooltip]');
+    const TARGET_ELEMENT = PARENT_ELEMENT.querySelector('[comTooltip]');
 
-    expect(TARGET_ELEMENT.getAttribute('ccaCommonTooltip')).toBe(
+    expect(TARGET_ELEMENT.getAttribute('comTooltip')).toBe(
       TOOLTIP_INFO_ELEMENT.innerText
     );
   });
@@ -83,7 +83,7 @@ describe('TooltipDirective', () => {
   it('should be positioned accordin to position prop and mouse (x,y)', () => {
     const TOOLTIP_INFO_ELEMENT = PARENT_ELEMENT.querySelector('label');
     const TOOLTIP_BUTTON_ELEMENT = PARENT_ELEMENT.querySelector('com-icon');
-    const TARGET_ELEMENT = PARENT_ELEMENT.querySelector('[ccaCommonTooltip]');
+    const TARGET_ELEMENT = PARENT_ELEMENT.querySelector('[comTooltip]');
     const MOCK_MOUSE_ENTER_EVENT = new MouseEvent('mouseenter');
     const MOCK_MOUSE_MOVE_EVENT = new MouseEvent('mousemove', {
       clientX: 100,
@@ -93,7 +93,9 @@ describe('TooltipDirective', () => {
     TOOLTIP_BUTTON_ELEMENT.dispatchEvent(MOCK_MOUSE_ENTER_EVENT);
     TOOLTIP_BUTTON_ELEMENT.dispatchEvent(MOCK_MOUSE_MOVE_EVENT);
 
-    expect(TARGET_ELEMENT.getAttribute('tooltipPosition')).toBe('bottom-right');
+    expect(TARGET_ELEMENT.getAttribute('comTooltipPosition')).toBe(
+      'bottom-right'
+    );
     expect(TOOLTIP_INFO_ELEMENT.style.transform).toBe(
       `translate(${MOCK_MOUSE_MOVE_EVENT.clientX + 16}px, ${
         MOCK_MOUSE_MOVE_EVENT.clientY + 16
