@@ -1,1 +1,18 @@
-<div class="card"><ng-content></ng-content></div>
+<div
+  class="card"
+  [ngClass]="{
+    'with-header': hasHeader,
+    'with-footer': hasFooter
+  }"
+>
+  <div #headerRef class="card-header">
+    <span class="card-header-title" *ngIf="headerTitle">{{ headerTitle }}</span>
+    <ng-content select="[slot='header']"></ng-content>
+  </div>
+  <div class="card-body">
+    <ng-content></ng-content>
+  </div>
+  <div #footerRef class="card-footer">
+    <ng-content select="[slot='footer']"></ng-content>
+  </div>
+</div>

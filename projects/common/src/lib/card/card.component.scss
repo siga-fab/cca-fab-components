@@ -2,16 +2,10 @@
 @import '../../assets/scss/colors.scss';
 
 .card {
-  width: 100%;
-  padding: $padding;
-
   background: $white;
   border: 0.1rem solid $border-grey;
   box-shadow: $box-shadow;
   border-radius: 0.5rem;
-
-  overflow-x: hidden;
-  overflow-y: auto;
 
   transition: all 0.15s ease-in-out;
 
@@ -34,5 +28,45 @@
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
     background: #{$grey}a0;
+  }
+
+  .card-footer,
+  .card-header {
+    width: 100%;
+    padding: calc(#{$padding} / 1.2) $padding;
+  }
+
+  .card-body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: $padding;
+  }
+
+  .card-header-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .card-header {
+    border-bottom: 2px solid $light-grey;
+  }
+
+  .card-footer {
+    border-top: 2px solid $light-grey;
+  }
+
+  .card-footer,
+  .card-header {
+    display: none;
+  }
+
+  &.with-header .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &.with-footer .card-footer {
+    display: block;
   }
 }
