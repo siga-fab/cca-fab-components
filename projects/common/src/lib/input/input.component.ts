@@ -163,7 +163,19 @@ export class InputComponent
   }
 
   onKeyDown(event: KeyboardEvent) {
-    if (this.type === 'number' && (event.key === '+' || event.key === 'e')) {
+    if (
+      this.type === 'number' &&
+      (event.key.charCodeAt(0) < 48 || event.key.charCodeAt(0) > 57) &&
+      event.key !== '.' &&
+      event.key !== 'Enter' &&
+      event.key !== 'Backspace' &&
+      event.key !== 'ArrowLeft' &&
+      event.key !== 'ArrowRight' &&
+      event.key !== 'ArrowUp' &&
+      event.key !== 'ArrowDown' &&
+      event.key !== 'Tab' &&
+      !event.ctrlKey
+    ) {
       return false;
     }
 
