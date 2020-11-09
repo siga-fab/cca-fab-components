@@ -1,7 +1,4 @@
-<section
-  class="form-section"
-  [ngClass]="{ 'partly-fs': partly === '', 'block-fs': block === '' }"
->
+<section class="form-section" [ngClass]="{ 'block-fs': block }">
   <h3 class="fs-header" *ngIf="formTitle">
     <span *ngIf="step" class="fs-step">{{ step }}</span>
     <span class="fs-title">{{ formTitle }}</span>
