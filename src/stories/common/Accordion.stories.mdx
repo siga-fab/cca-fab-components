@@ -1,0 +1,55 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {
+  AccordionModule,
+  AccordionComponent,
+} from '../../../projects/common/src/public-api';
+
+<Meta
+  title="Common / Accordion"
+  component={AccordionComponent}
+  decorators={[
+    moduleMetadata({
+      imports: [AccordionModule, CommonModule],
+    }),
+  ]}
+  parameters={{
+    docs: { iframeHeight: 450 },
+    backgrounds: {
+      default: 'default',
+      values: [
+        { name: 'default', value: '#fafafa' },
+        { name: 'dark', value: '#202124' },
+      ],
+    },
+  }}
+/>
+
+# Accordion
+
+<Canvas>
+  <Story name="Default">
+    {{
+      component: AccordionComponent,
+      template: `
+        <com-accordion>
+          <com-accordion-item headerTitle="Accordion 1">
+            fasdfasdfsdaf
+          </com-accordion-item>
+          <com-accordion-item headerTitle="Accordion 2">
+            fasdfasdfsdaf
+          </com-accordion-item>
+          <com-accordion-item headerTitle="Accordion 3">
+            fasdfasdfsdaf
+          </com-accordion-item>
+        </com-accordion>
+      `,
+    }}
+  </Story>
+</Canvas>
+
+<ArgsTable of={AccordionComponent} />

@@ -1,0 +1,12 @@
+<li
+  class="c-accordion__item"
+  [ngClass]="{ 'c-accordion-item--active': _isOpen }"
+>
+  <button class="c-accordion__head" (click)="toggle()">
+    <span class="c-accordion__title"> {{ headerTitle }} </span>
+    <com-icon class="c-accordion__arrow">keyboard_arrow_down</com-icon>
+  </button>
+  <div class="c-accordion__content">
+    <ng-content></ng-content>
+  </div>
+</li>

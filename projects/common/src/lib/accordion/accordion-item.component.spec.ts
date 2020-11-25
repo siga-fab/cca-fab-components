@@ -1,0 +1,25 @@
+import { IconComponent } from './../icon/icon.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AccordionItemComponent } from './accordion-item.component';
+
+describe('AccordionItemComponent', () => {
+  let component: AccordionItemComponent;
+  let fixture: ComponentFixture<AccordionItemComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [AccordionItemComponent, IconComponent],
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AccordionItemComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
