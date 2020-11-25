@@ -1,0 +1,67 @@
+@import '../../assets/scss/colors.scss';
+@import '../../assets/scss/variables.scss';
+
+:host {
+  display: block;
+  width: 100%;
+
+  .c-accordion__item {
+    .c-accordion__head {
+      width: 100%;
+      height: 4.2rem;
+      padding: $padding;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+
+      white-space: nowrap;
+      color: $grey;
+
+      appearance: none;
+      border-radius: none;
+      outline: none;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+      background: transparent;
+
+      appearance: unset;
+      -moz-appearance: unset;
+      -webkit-appearance: unset;
+
+      border-top: 0.2rem solid $light-grey;
+
+      transition: background $transition-defs;
+
+      &:focus,
+      &:hover {
+        background: $lighter-grey;
+      }
+
+      .c-accordion__arrow {
+        transition: transform $transition-defs;
+      }
+    }
+
+    .c-accordion__content {
+      height: 0;
+      padding: 0 $padding;
+      overflow: hidden;
+    }
+
+    &.c-accordion-item--active {
+      .c-accordion__head {
+        .c-accordion__arrow {
+          transform: rotate(-180deg);
+        }
+      }
+
+      .c-accordion__content {
+        height: auto;
+        padding-top: calc(#{$padding} / 2);
+        padding-bottom: $padding;
+      }
+    }
+  }
+}
