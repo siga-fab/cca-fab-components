@@ -82,3 +82,7 @@ export * from './lib/modal/modal.module';
 // File Uploader
 export * from './lib/file-uploader/file-uploader.component';
 export * from './lib/file-uploader/file-uploader.module';
+
+// Accordion
+export * from './lib/accordion/accordion.component';
+export * from './lib/accordion/accordion.module';
