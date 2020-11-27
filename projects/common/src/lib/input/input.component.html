@@ -29,7 +29,7 @@
     [min]="min"
     [max]="max"
     [step]="step"
-    [type]="type !== 'select' ? type : 'text'"
+    [type]="type !== 'select' && type !== 'currency' ? type : 'text'"
     [value]="value"
     [disabled]="disabled"
     [maxLength]="maxlength ? maxlength : DEFAULT_MAX_LENGTH"
@@ -38,7 +38,9 @@
       immediateEnabled ? onImmediateChange($event.target.value) : null
     "
     (change)="
-      ['text', 'select', 'number'].includes(type) ? updateValue($event) : null
+      ['text', 'select', 'number', 'currency'].includes(type)
+        ? updateValue($event)
+        : null
     "
     (focus)="isFocused(true, $event)"
     (blur)="isFocused(false, $event); onTouched()"

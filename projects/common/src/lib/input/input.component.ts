@@ -1,5 +1,5 @@
 import { trigger, transition, animate, style } from '@angular/animations';
-import { AfterViewInit, Self, HostBinding } from '@angular/core';
+import { AfterViewInit, Self, HostBinding, ElementRef } from '@angular/core';
 import {
   Attribute,
   Component,
@@ -60,7 +60,9 @@ export class InputComponent
     return this._value;
   }
 
-  @Input() type = 'text';
+  @Input() type: 'text' | 'number' | 'select' | 'autocomplete' | 'currency' =
+    'text';
+  @Input() currency: string = 'BRL';
   @Input() step = 1;
   @Input() min: number;
   @Input() max: number;
@@ -163,10 +165,21 @@ export class InputComponent
   }
 
   onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      if (this.type === 'number') {
+        this.rangedValue(this.input.nativeElement);
+      }
+      this.confirm.emit(
+        this.type !== 'currency'
+          ? this.value
+          : parseInt(/\d+/g.exec(this.value)?.join(), 10)
+      );
+    }
+
     if (
-      this.type === 'number' &&
+      (this.type === 'number' || this.type === 'currency') &&
       (event.key.charCodeAt(0) < 48 || event.key.charCodeAt(0) > 57) &&
-      event.key !== '.' &&
+      (event.key !== '.' || this.type === 'currency') &&
       event.key !== 'Enter' &&
       event.key !== 'Backspace' &&
       event.key !== 'ArrowLeft' &&
@@ -179,23 +192,64 @@ export class InputComponent
       return false;
     }
 
-    if (event.key === 'Enter') {
-      if (this.type === 'number') {
-        this.rangedValue(this.input.nativeElement);
-      }
-      this.confirm.emit(this.value);
-    }
-
     if (
       this.type === 'autocomplete' &&
       (event.key === 'ArrowUp' || event.key === 'ArrowDown')
     ) {
       event.preventDefault();
     }
+
+    if (this.type === 'currency') {
+      setTimeout(() => {
+        const value = this.value.concat(event.key).replace(/[^\d]/g, '');
+
+        console.log();
+
+        // tslint:disable:no-string-literal
+        const getNavigatorLanguage = () =>
+          navigator.languages && navigator.languages.length
+            ? navigator.languages[0]
+            : navigator['userLanguage'] ||
+              navigator.language ||
+              navigator['browserLanguage'] ||
+              'pt-BR';
+
+        if (value.length > 15) {
+          return false;
+        }
+
+        this.value = parseFloat(
+          (parseInt(value.replace(/[^\d]/g, ''), 10) / 100).toFixed(2)
+        ).toLocaleString(getNavigatorLanguage(), {
+          style: 'currency',
+          currency: this.currency ? this.currency : 'BRL',
+        });
+      });
+
+      return false;
+    }
   }
 
   onImmediateChange(value: string): void {
     this.immediate.emit(value);
+  }
+
+  handleValueChange(value: string) {
+    this.value = value;
+
+    if (this.type === 'currency') {
+      const normalizedValue = parseInt(value.replace(/[^\d]/g, ''), 10) + '';
+
+      this.onChange(normalizedValue);
+      this.onTouched();
+      this.changed.emit(normalizedValue);
+
+      return;
+    }
+
+    this.onChange(value);
+    this.onTouched();
+    this.changed.emit(value);
   }
 
   rangedValue(el: HTMLInputElement) {
@@ -220,19 +274,14 @@ export class InputComponent
       value = Math.max(this.min, value);
     }
 
-    this.value = el.value = String(value);
+    el.value = String(value);
 
-    this.onChange(this.value);
-    this.onTouched();
+    this.handleValueChange(el.value);
   }
 
   updateValue(event: Event) {
     const el = event.target as HTMLInputElement;
-    this.value = el.value;
-
-    this.onChange(this.value);
-    this.onTouched();
-    this.changed.emit(this.value);
+    this.handleValueChange(el.value);
   }
 
   updateNumberValue(event: Event, operation: 'add' | 'sub') {
@@ -256,9 +305,7 @@ export class InputComponent
         value = Math.max(this.min, value);
       }
 
-      this.value = String(value);
-      this.onChange(this.value);
-      this.onTouched();
+      this.handleValueChange(String(value));
     };
 
     numberUpdate();
