@@ -54,7 +54,15 @@ export const Number = () => ({
 export const Date = () => ({
   template: `
   <div>
-    <com-input label="Data" type="date" min="2020-05-20"></com-input>
+    <com-input label="Date Input" type="date" min="2020-05-20"></com-input>
+  </div>
+  `,
+});
+
+export const Currency = () => ({
+  template: `
+  <div>
+    <com-input label="Currency Input" type="currency"></com-input>
   </div>
   `,
 });
