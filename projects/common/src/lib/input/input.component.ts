@@ -149,7 +149,6 @@ export class InputComponent
       .replace(/\s+/g, '');
 
     const currency = /[\D]+|\d+/g.exec(localizedStr)[0];
-    console.log(currency);
 
     return currency + ' ' + localizedStr.slice(currency.length);
   }
@@ -266,7 +265,6 @@ export class InputComponent
   handleValueInput(value: any) {
     this.value = value;
 
-    console.log('input', value);
     this.onChange(value);
   }
 
@@ -289,7 +287,6 @@ export class InputComponent
         ? this.maskCurrencyValue(value)
         : this.maskCurrencyValue('0');
 
-      console.log('change', cents);
       this.onChange(cents);
       this.onTouched();
       this.changed.emit(cents);

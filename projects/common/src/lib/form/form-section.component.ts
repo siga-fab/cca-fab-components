@@ -44,9 +44,6 @@ export class FormSectionComponent implements OnInit, OnDestroy {
         }
 
         if (mutation.attributeName === 'block') {
-          console.log(
-            this.elRef.nativeElement.attributes.getNamedItem('block')
-          );
           this.block =
             this.elRef.nativeElement.attributes.getNamedItem('block') !== null;
           continue;
