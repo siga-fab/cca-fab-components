@@ -15,6 +15,7 @@ export * from './lib/icon/icon.component';
 export * from './lib/icon/icon.module';
 
 // Table
+export * from './lib/table/ng-template-name.directive';
 export * from './lib/table/table.component';
 export * from './lib/table/table.module';
 
@@ -84,5 +85,6 @@ export * from './lib/file-uploader/file-uploader.component';
 export * from './lib/file-uploader/file-uploader.module';
 
 // Accordion
+export * from './lib/accordion/accordion-item.component';
 export * from './lib/accordion/accordion.component';
 export * from './lib/accordion/accordion.module';

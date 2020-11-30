@@ -60,8 +60,14 @@ export class InputComponent
     return this._value;
   }
 
-  @Input() type: 'text' | 'number' | 'select' | 'autocomplete' | 'currency' =
-    'text';
+  @Input() type:
+    | 'text'
+    | 'number'
+    | 'select'
+    | 'autocomplete'
+    | 'currency'
+    | 'date' = 'text';
+
   @Input() currency: string = 'BRL';
   @Input() step = 1;
   @Input() min: number;
