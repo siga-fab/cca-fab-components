@@ -129,7 +129,36 @@ export class InputComponent
     this.disabled = isDisabled;
   }
 
-  ngOnInit(): void {}
+  private maskCurrencyValue(v: string): string {
+    // tslint:disable:no-string-literal
+    const getNavigatorLanguage = () =>
+      navigator.languages && navigator.languages.length
+        ? navigator.languages[0]
+        : navigator['userLanguage'] ||
+          navigator.language ||
+          navigator['browserLanguage'] ||
+          'pt-BR';
+
+    const localizedStr = parseFloat(
+      (parseInt(v.replace(/[^\d]/g, ''), 10) / 100).toFixed(2)
+    )
+      .toLocaleString(getNavigatorLanguage(), {
+        style: 'currency',
+        currency: this.currency ? this.currency.trim() : 'BRL',
+      })
+      .replace(/\s+/g, '');
+
+    const currency = /[\D]+|\d+/g.exec(localizedStr)[0];
+    console.log(currency);
+
+    return currency + ' ' + localizedStr.slice(currency.length);
+  }
+
+  ngOnInit(): void {
+    if (this.type === 'currency' && this.placeholder === '') {
+      this.placeholder = this.maskCurrencyValue('0');
+    }
+  }
 
   ngAfterViewInit(): void {
     this.ref.emit(this.input.nativeElement);
@@ -200,33 +229,33 @@ export class InputComponent
     }
 
     if (this.type === 'currency') {
+      switch (event.key) {
+        case 'ArrowLeft':
+          return true;
+        case 'ArrowRight':
+          return true;
+        case 'Backspace':
+          const cents = parseInt(
+            this.input.nativeElement.value.replace(/[^\d]/g, ''),
+            10
+          );
+
+          if (!cents) {
+            this.handleValueChange('');
+            return;
+          }
+      }
+
+      if (
+        this.value.replace(/[^\d]/g, '').length + 1 > 15 &&
+        event.key !== 'Backspace'
+      ) {
+        return false;
+      }
+
       setTimeout(() => {
-        const value = this.value.concat(event.key).replace(/[^\d]/g, '');
-
-        console.log();
-
-        // tslint:disable:no-string-literal
-        const getNavigatorLanguage = () =>
-          navigator.languages && navigator.languages.length
-            ? navigator.languages[0]
-            : navigator['userLanguage'] ||
-              navigator.language ||
-              navigator['browserLanguage'] ||
-              'pt-BR';
-
-        if (value.length > 15) {
-          return false;
-        }
-
-        this.value = parseFloat(
-          (parseInt(value.replace(/[^\d]/g, ''), 10) / 100).toFixed(2)
-        ).toLocaleString(getNavigatorLanguage(), {
-          style: 'currency',
-          currency: this.currency ? this.currency : 'BRL',
-        });
+        this.handleValueChange(this.input.nativeElement.value);
       });
-
-      return false;
     }
   }
 
@@ -234,18 +263,41 @@ export class InputComponent
     this.immediate.emit(value);
   }
 
-  handleValueChange(value: string) {
+  handleValueInput(value: any) {
     this.value = value;
 
-    if (this.type === 'currency') {
-      const normalizedValue = parseInt(value.replace(/[^\d]/g, ''), 10) + '';
+    console.log('input', value);
+    this.onChange(value);
+  }
 
-      this.onChange(normalizedValue);
+  handleValueChange(value: string) {
+    if (this.type === 'currency') {
+      value = value.replace(/[^\d]/g, '');
+      const cents = parseInt(value, 10);
+
+      if (isNaN(cents)) {
+        this.value = '';
+
+        this.onChange(null);
+        this.onTouched();
+        this.changed.emit(null);
+
+        return;
+      }
+
+      this.value = cents
+        ? this.maskCurrencyValue(value)
+        : this.maskCurrencyValue('0');
+
+      console.log('change', cents);
+      this.onChange(cents);
       this.onTouched();
-      this.changed.emit(normalizedValue);
+      this.changed.emit(cents);
 
       return;
     }
+
+    this.value = value;
 
     this.onChange(value);
     this.onTouched();
