@@ -60,13 +60,13 @@
     display: none;
   }
 
-  &.with-header .card-header {
+  &.with-header > .card-header {
     display: flex;
     align-items: center;
     justify-content: flex-start;
   }
 
-  &.with-footer .card-footer {
+  &.with-footer > .card-footer {
     display: block;
   }
 }
