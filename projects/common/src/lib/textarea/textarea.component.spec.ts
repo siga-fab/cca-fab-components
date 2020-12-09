@@ -16,15 +16,27 @@ describe('TextareaComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TextareaComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    fixture.detectChanges();
+
     expect(component).toBeTruthy();
+  });
+
+  it('should set qntChar on init', () => {
+    const INITIAL_VALUE = 'testing';
+
+    component.value = INITIAL_VALUE;
+    fixture.detectChanges();
+
+    expect(component.qntChar).toBe(INITIAL_VALUE.length);
   });
 
   // exibe qntChar
   it('should change qntChar value after calling exibeQntChar', () => {
+    fixture.detectChanges();
+
     const exibeQntCharSpy = jest.spyOn(component, 'exibeQntChar');
     const NEW_VALUE = 'testing';
 
@@ -36,6 +48,8 @@ describe('TextareaComponent', () => {
 
   // Valor Máximo de caracteres
   it('should respect max property limit on isFocused', () => {
+    fixture.detectChanges();
+
     const isFocusedSpy = jest.spyOn(component, 'isFocused');
     const INPUT_ELEMENT = component.textarea.nativeElement;
     const MAX_VALUE = 5;
@@ -53,6 +67,8 @@ describe('TextareaComponent', () => {
 
   // LABEL com foco
   it('should style label when focused', () => {
+    fixture.detectChanges();
+
     const isFocusedSpy = jest.spyOn(component, 'isFocused');
 
     component.label = 'Test';
@@ -71,6 +87,8 @@ describe('TextareaComponent', () => {
 
   // Atribui placeholder
   it('should assign placeholder', () => {
+    fixture.detectChanges();
+
     const isFocusedSpy = jest.spyOn(component, 'isFocused');
 
     component.placeholder = 'testing';
@@ -85,6 +103,8 @@ describe('TextareaComponent', () => {
 
   // LABEL sem foco
   it('should style label when not focused', () => {
+    fixture.detectChanges();
+
     const isFocusedSpy = jest.spyOn(component, 'isFocused');
 
     component.label = 'Test';
@@ -103,6 +123,8 @@ describe('TextareaComponent', () => {
 
   // Chama updateValue e atribui o valor recebido a value
   it('should call updateValue and assign to value', () => {
+    fixture.detectChanges();
+
     const updateValueSpy = jest.spyOn(component, 'updateValue');
     const MOCK_EVENT = new Event('change');
     const MOCK_TEXTAREA = document.createElement('textarea');
