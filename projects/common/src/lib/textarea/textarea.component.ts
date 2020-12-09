@@ -91,7 +91,9 @@ export class TextareaComponent
     this.disabled = isDisabled;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.qntChar = this.value.length;
+  }
 
   ngAfterViewInit(): void {
     this.ref.emit(this.textarea.nativeElement);
