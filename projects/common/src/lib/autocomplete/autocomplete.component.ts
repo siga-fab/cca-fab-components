@@ -7,6 +7,7 @@ import {
   Output,
   Optional,
   Self,
+  HostListener,
 } from '@angular/core';
 import { SelectOption } from '../../types/select';
 import { EventEmitter, Attribute } from '@angular/core';
@@ -65,6 +66,21 @@ export class AutocompleteComponent implements AfterViewChecked {
   onChange: NgFormsChangedFn = (value: any): void => {};
   onTouched: NgFormsTouchedFn = (): void => {};
 
+  @HostListener('keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    this.onKeyDown(event);
+  }
+
+  @HostListener('focus', ['$event'])
+  onFocus(event) {
+    this.open();
+  }
+
+  @HostListener('blur', ['$event'])
+  onBlur(event) {
+    this.close();
+  }
+
   constructor(
     @Optional()
     @Self()
@@ -75,14 +91,6 @@ export class AutocompleteComponent implements AfterViewChecked {
     this.autocompleteElement = this.el.nativeElement;
 
     this.autocompleteElement.tabIndex = 0;
-
-    /* todo: Transformar isso em host binds */
-    this.autocompleteElement.addEventListener('focus', this.open.bind(this));
-    this.autocompleteElement.addEventListener('blur', this.close.bind(this));
-    this.autocompleteElement.addEventListener(
-      'keydown',
-      this.onKeyDown.bind(this)
-    );
 
     this.autoActiveFirstOption = this.autoActiveFirstOption !== null;
     this.enableConfirmOnInexistentValue =

@@ -9,6 +9,7 @@ import {
   Self,
   Optional,
   OnInit,
+  HostListener,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { NgFormsChangedFn, NgFormsTouchedFn } from '../../types/ngForms';
@@ -69,6 +70,21 @@ export class SelectComponent implements AfterViewChecked, OnInit {
   onChange: NgFormsChangedFn = (value: any): void => {};
   onTouched: NgFormsTouchedFn = (): void => {};
 
+  @HostListener('keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    this.onKeyDown(event);
+  }
+
+  @HostListener('focus', ['$event'])
+  onFocus(event) {
+    this.open();
+  }
+
+  @HostListener('blur', ['$event'])
+  onBlur(event) {
+    this.close();
+  }
+
   constructor(
     @Self() @Optional() private ngControl: NgControl,
     public el: ElementRef
@@ -76,10 +92,6 @@ export class SelectComponent implements AfterViewChecked, OnInit {
     this.selectElement = this.el.nativeElement;
 
     this.selectElement.tabIndex = 0;
-
-    // this.selectElement.addEventListener('focus', this.open.bind(this));
-    // this.selectElement.addEventListener('blur', this.close.bind(this));
-    this.selectElement.addEventListener('keydown', this.onKeyDown.bind(this));
 
     /* istanbul ignore next */
     if (this.ngControl) {
